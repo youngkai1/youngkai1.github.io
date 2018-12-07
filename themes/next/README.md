@@ -74,7 +74,6 @@ More NexT examples [here](https://github.com/iissnan/hexo-theme-next/issues/119)
    ```sh
    $ git clone https://github.com/iissnan/hexo-theme-next themes/next
    ```
-
    Clone command will give you the **whole repository**. And in any time you can switch to any tagged release.\
    Get tags list:
 
