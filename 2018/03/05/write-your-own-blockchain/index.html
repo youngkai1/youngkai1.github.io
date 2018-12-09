@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java,Blockchain,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Preface 区块链（英语：blockchain 或 block chain）是用分布式数据库识别、传播和记载信息的智能化对等网络, 也称为价值互联网。中本聪在2008年，于《比特币白皮书》中提出“区块链”概念，并在2009年创立了比特币社会网络，开发出第一个区块，即“创世区块”。 区块链共享价值体系首先被众多的加密货币效仿，并在工作量证明上和算法上进行了改进，如采用权益证明和SCrypt算法">
+<meta name="keywords" content="Java,Blockchain">
+<meta property="og:type" content="article">
+<meta property="og:title" content="转载—自己动手写区块链">
+<meta property="og:url" content="http://yoursite.com/2018/03/05/write-your-own-blockchain/index.html">
+<meta property="og:site_name" content="如风过境">
+<meta property="og:description" content="Preface 区块链（英语：blockchain 或 block chain）是用分布式数据库识别、传播和记载信息的智能化对等网络, 也称为价值互联网。中本聪在2008年，于《比特币白皮书》中提出“区块链”概念，并在2009年创立了比特币社会网络，开发出第一个区块，即“创世区块”。 区块链共享价值体系首先被众多的加密货币效仿，并在工作量证明上和算法上进行了改进，如采用权益证明和SCrypt算法">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/blockchain/blockchain.jpg">
+<meta property="og:image" content="https://camo.githubusercontent.com/dc61609affa838e8aca79b30ce4313b852457743/687474703a2f2f6f7338776a76796b772e626b742e636c6f7564646e2e636f6d2f323031382d30312d32362d3131323832322e6a7067">
+<meta property="og:image" content="https://camo.githubusercontent.com/cfdfe28f28fe95857fa08d75e41692386fc7b26f/687474703a2f2f6f7338776a76796b772e626b742e636c6f7564646e2e636f6d2f323031382d30312d32362d3131323831392e6a7067">
+<meta property="og:image" content="https://camo.githubusercontent.com/4f314bd52ecbc90b59054cadb5b96de7dc99d237/687474703a2f2f6f7338776a76796b772e626b742e636c6f7564646e2e636f6d2f323031382d30312d32362d3131323832312e6a7067">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/blockchain/blockchain01.webp">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/blockchain/blockchain02.webp">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/blockchain/blockchain03.webp">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/blockchain/blockchain04.webp">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/blockchain/blockchain5.webp">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/blockchain/blockchain06.webp">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/blockchain/blockchain07.webp">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/blockchain/blockchain08.webp">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/blockchain/blockchain09.webp">
+<meta property="og:updated_time" content="2018-12-09T10:09:00.072Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="转载—自己动手写区块链">
+<meta name="twitter:description" content="Preface 区块链（英语：blockchain 或 block chain）是用分布式数据库识别、传播和记载信息的智能化对等网络, 也称为价值互联网。中本聪在2008年，于《比特币白皮书》中提出“区块链”概念，并在2009年创立了比特币社会网络，开发出第一个区块，即“创世区块”。 区块链共享价值体系首先被众多的加密货币效仿，并在工作量证明上和算法上进行了改进，如采用权益证明和SCrypt算法">
+<meta name="twitter:image" content="https://cdn.yangbingdong.com/img/blockchain/blockchain.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/03/05/write-your-own-blockchain/">
+
+
+
+
+
+  <title>转载—自己动手写区块链 | 如风过境</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">如风过境</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/05/write-your-own-blockchain/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="杨凯">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="如风过境">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">转载—自己动手写区块链</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-05T17:38:08+08:00">
+                2018-03-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Programming/" itemprop="url" rel="index">
+                    <span itemprop="name">Programming</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Programming/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="https://cdn.yangbingdong.com/img/blockchain/blockchain.jpg" alt=""></p>
+<h1 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h1><blockquote>
+<p><strong>区块链</strong>（英语：blockchain 或 block chain）是用<a href="https://zh.wikipedia.org/wiki/%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E5%BA%93" target="_blank" rel="noopener">分布式数据库</a>识别、传播和记载信息的智能化<a href="https://zh.wikipedia.org/wiki/%E5%AF%B9%E7%AD%89%E7%BD%91%E7%BB%9C" target="_blank" rel="noopener">对等网络</a>, 也称为价值互联网。<a href="https://zh.wikipedia.org/wiki/%E4%B8%AD%E6%9C%AC%E8%81%AA" target="_blank" rel="noopener">中本聪</a>在2008年，于《<a href="https://zh.wikipedia.org/wiki/%E6%AF%94%E7%89%B9%E5%B8%81" target="_blank" rel="noopener">比特币</a>白皮书》中提出“区块链”概念，并在2009年创立了<a href="https://zh.wikipedia.org/w/index.php?title=%E6%AF%94%E7%89%B9%E5%B8%81%E7%A4%BE%E4%BC%9A%E7%BD%91%E7%BB%9C&amp;action=edit&amp;redlink=1" target="_blank" rel="noopener">比特币社会网络</a>，开发出第一个区块，即“创世区块”。</p>
+<p>区块链共享价值体系首先被众多的<a href="https://zh.wikipedia.org/wiki/%E5%8A%A0%E5%AF%86%E8%B2%A8%E5%B9%A3" target="_blank" rel="noopener">加密货币</a>效仿，并在<a href="https://zh.wikipedia.org/wiki/%E5%B7%A5%E4%BD%9C%E9%87%8F%E8%AD%89%E6%98%8E" target="_blank" rel="noopener">工作量证明</a>上和算法上进行了改进，如采用<a href="https://zh.wikipedia.org/wiki/%E6%9D%83%E7%9B%8A%E8%AF%81%E6%98%8E" target="_blank" rel="noopener">权益证明</a>和<a href="https://zh.wikipedia.org/w/index.php?title=SCrypt%E7%AE%97%E6%B3%95&amp;action=edit&amp;redlink=1" target="_blank" rel="noopener">SCrypt算法</a>。随后，区块链生态系统在全球不断进化，出现了<a href="https://zh.wikipedia.org/wiki/%E9%A6%96%E6%AC%A1%E4%BB%A3%E5%B8%81%E5%8F%91%E5%94%AE" target="_blank" rel="noopener">首次代币发售</a>ICO；智能合约区块链<a href="https://zh.wikipedia.org/wiki/%E4%BB%A5%E5%A4%AA%E5%9D%8A" target="_blank" rel="noopener">以太坊</a>；“轻所有权、重使用权”的资产代币化<a href="https://zh.wikipedia.org/wiki/%E5%85%B1%E4%BA%AB%E7%B6%93%E6%BF%9F" target="_blank" rel="noopener">共享经济</a>； 和<a href="https://zh.wikipedia.org/w/index.php?title=%E5%8C%BA%E5%9D%97%E9%93%BE%E5%9B%BD%E5%AE%B6&amp;action=edit&amp;redlink=1" target="_blank" rel="noopener">区块链国家</a>。目前，人们正在利用这一共享价值体系，在各行各业开发去中心化电脑程序(Decentralized applications, Dapp)，在全球各地构建<a href="https://zh.wikipedia.org/w/index.php?title=%E5%8E%BB%E4%B8%AD%E5%BF%83%E5%8C%96%E8%87%AA%E4%B8%BB%E7%BB%84%E7%BB%87&amp;action=edit&amp;redlink=1" target="_blank" rel="noopener">去中心化自主组织</a>和去中心化自主社区(Decentralized autonomous society, DAS)。</p>
+<p>——来自维基百科</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="比特币UTXO和去中心化系统的设计"><a href="#比特币UTXO和去中心化系统的设计" class="headerlink" title="比特币UTXO和去中心化系统的设计"></a>比特币UTXO和去中心化系统的设计</h1><blockquote>
+<p>引用来自<strong><em><a href="https://github.com/JoeCao" target="_blank" rel="noopener">JoeCao</a></em></strong>大神的一段<em><a href="https://github.com/JoeCao/JoeCao.github.io/issues/12" target="_blank" rel="noopener">文章</a></em></p>
+</blockquote>
+<h2 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h2><p>刚进2018年，区块链突然大火，程序员们可能莫名其妙，不就是一个分布式系统么，怎么突然就要改变互联网了？趁着这个东风，我们了解一些区块链基础知识。看看是否可以改变世界。</p>
+<h2 id="UTXO是什么"><a href="#UTXO是什么" class="headerlink" title="UTXO是什么"></a>UTXO是什么</h2><p>是Unspent Transaction Output（未消费交易输出）简写。这绝对是比特币的非常特殊的地方，理解UTXO也就理解了比特币去中心化的含义。</p>
+<p>说起UTXO必须先要介绍交易模型。以我们平时对交易的理解，我给张三转账了一笔100块钱，那就是我的账上的钱少了100，张三账上的钱多了100。我们再把问题稍微复杂一些，我和张三合起来买一个李四的一个商品390块钱。我的账户支付100，张三账户支付300，李四的帐户获得390，支付宝账户获得了10块钱的转账手续费。那么对这比交易的记录应该是这样的：</p>
+<p><a href="https://camo.githubusercontent.com/dc61609affa838e8aca79b30ce4313b852457743/687474703a2f2f6f7338776a76796b772e626b742e636c6f7564646e2e636f6d2f323031382d30312d32362d3131323832322e6a7067" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/dc61609affa838e8aca79b30ce4313b852457743/687474703a2f2f6f7338776a76796b772e626b742e636c6f7564646e2e636f6d2f323031382d30312d32362d3131323832322e6a7067" alt="帐户模型"></a></p>
+<p>这种记账方式常用在财务记账上。不过作为一个去中心化的系统，是没有一个中心化银行管理你的开户、销户、余额的。没有余额，怎么判断你的账上有100块钱？</p>
+<p><a href="https://camo.githubusercontent.com/cfdfe28f28fe95857fa08d75e41692386fc7b26f/687474703a2f2f6f7338776a76796b772e626b742e636c6f7564646e2e636f6d2f323031382d30312d32362d3131323831392e6a7067" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/cfdfe28f28fe95857fa08d75e41692386fc7b26f/687474703a2f2f6f7338776a76796b772e626b742e636c6f7564646e2e636f6d2f323031382d30312d32362d3131323831392e6a7067" alt="如何确认"></a></p>
+<p>此时用户C必须将前面几次交易的比特币输出作为下一个关联交易的输入，具体见下图的no 321笔交易，用户C将前面获得的两次输出，作为输入放在了交易中，然后给自己输出1个比特币的找零（如果不给自己输出找零，那么这个差额就被矿工当成小费了，切记切记）。比特币的程序会判定，如果两个UTXO加在一起不够支付，则交易不成功。</p>
+<p><a href="https://camo.githubusercontent.com/4f314bd52ecbc90b59054cadb5b96de7dc99d237/687474703a2f2f6f7338776a76796b772e626b742e636c6f7564646e2e636f6d2f323031382d30312d32362d3131323832312e6a7067" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/4f314bd52ecbc90b59054cadb5b96de7dc99d237/687474703a2f2f6f7338776a76796b772e626b742e636c6f7564646e2e636f6d2f323031382d30312d32362d3131323832312e6a7067" alt="区块链基础.001"></a></p>
+<p>比特币UTXO使用有点像古代的银锭</p>
+<ul>
+<li>五两的银锭付给别人二两，需要通过夹剪将一整块银锭剪成两块，二两的给别人，三两的留给自己。对比：比特币在输出中重新创建一个新的UTXO作为给自己的找零</li>
+<li>要付给别人五两，手上有几块碎银子单都不足五两，则需要将碎银子一起付给对方。对比：比特币在输入中同时引用多个输出UTXO。</li>
+</ul>
+<p>这样的做法很繁琐，所以银两在古代并不是一个很普遍的支付方式（别被武侠片给骗了，大部分还是用铜钱）。<br>比特币采用UTXO并不能很直观的去理解，但是为什么要用呢？</p>
+<h2 id="使用UTXO的动机"><a href="#使用UTXO的动机" class="headerlink" title="使用UTXO的动机"></a>使用UTXO的动机</h2><p>那么我们站在系统设计的角度猜测一下为什么中本聪会考虑使用UTXO。</p>
+<ul>
+<li>比特币是没有开户的过程的，一个本地计算生成公私钥就能构成一个合法的帐户，甚至有些用户为了一些“靓号”帐户，通过暴力运算生成天量的再也不会使用的帐户。去中心化系统无法跟踪每个账户的生成和销毁，这样的系统里面的帐户数量远大于未消费的输出数量，所以以UTXO来替代跟踪帐户交易的方式，消耗的系统资源会比较少 ；</li>
+<li>比特币有个比较好的特性是匿名性，很多人每次交易就换一对公私钥，交易输出的给自己的找零往往输出到一个另外的帐户下去，UTXO迎合了这种需求。而使用帐户就没那么灵活了。</li>
+<li>如果我使用余额系统，那么在生成一笔交易的时候，我首先要考虑的就是“幂等”问题，因为发出去的交易是给某个帐户加减钱，如果交易因为网络等原因重新发送，变成两笔交易重复扣钱，我就要哭了，这是在区块链里面著名的“重放攻击”。所以交易必须设计一个唯一的标识id让服务器知道这是同一笔交易。但是在去中心化系统中没有一个超级服务器统一分配交易ID，只能本地生成，而且跟踪这些交易ID的状态，也是一个很大的负担，因为我需要将区块链从创世块到现在所有的交易都遍历一遍，才能确定是是否是重复交易。如果用UTXO就可以避免这个问题，UTXO相比交易数少了不止一个数量级，而且UTXO只有两个状态—未消费、被消费，比特币只能有一个操作— 将为消费的UTXO变为已消费状态。不管我发送多少次交易，都会得到一个结果。</li>
+<li>在中本聪倡导每个cpu都是一票的去中心化社区，让每个节点都有能力去做计算是需要特别重视的，否则单个节点的计算能力要求过高，整个系统将向着“中心化”趋势滑下去。</li>
+</ul>
+<p>在比特币的实现中，是把所有的UTXO保存在一个单独的UTXOSet缓存中，截止2017年9月，这个缓存大概2.7Gb，与之对应，整个区块链的交易数据达到140Gb，UTXO缓存像是一个只保存了最终一个状态的git，整体的消耗负担小了很多很多。</p>
+<p>但是中本聪没想到，很多人现在把交易输出的脚本玩出花来了，导致很多UTXO创建出来就是不为消费用的，永远不会被消费掉，节点的负担越来越重。这才有了后续的<strong>BIP改进</strong>以及<strong>以太坊的账户模型</strong>。那又是一个很长的故事了…</p>
+<h1 id="基础篇"><a href="#基础篇" class="headerlink" title="基础篇"></a>基础篇</h1><blockquote>
+<p>也可以看一下这一篇：<strong><em><a href="https://yemengying.com/2018/02/11/hash-blockchain/" target="_blank" rel="noopener">https://yemengying.com/2018/02/11/hash-blockchain/</a></em></strong></p>
+</blockquote>
+<p>2018年开始区块链真是火啊。一夜暴富的例子一直在传说。今天我们就自己动手写一个基本的区块链。</p>
+<p>先简单的说一下区块链是个什么（相信你早就知道了）。</p>
+<p>区块链就是一个链表。把一堆区块串起来就是区块链。每个<code>block</code>有自己的数字签名（就是一串不规则看起来叼叼的字符串），同时包含有上一个<code>block</code>的数字签名，然后包含一些其他的<code>data</code>。</p>
+<p>大体就长这样：</p>
+<p><img src="https://cdn.yangbingdong.com/img/blockchain/blockchain01.webp" alt="img"></p>
+<p>是不是很熟悉，链表。</p>
+<p>好，继续。</p>
+<p>数字签名是什么？就是<code>hash</code>。</p>
+<p>而且每个<code>block</code>含有前一个<code>block</code>的<code>hash</code>值，而且每个<code>block</code>自己的<code>hash</code>也是由前一个的<code>hash</code>计算得来的。如果前一个<code>block</code>（数据块）的数据发生改变，那么前一个的<code>hash</code>值也改变了，由此就会影响到之后的数据块的所有<code>hash</code>值。</p>
+<p>所以，通过计算和对比<code>hash</code>值这种方式我们就可以知道区块链是不是合法的，是不是已经被篡改。</p>
+<p>什么意思呢？意味着只要你修改了区块链中的任何一个块中的数据，都将会改变<code>hash</code>，从而破坏了整个链。</p>
+<p>好，不多说。上代码：</p>
+<h2 id="block块定义"><a href="#block块定义" class="headerlink" title="block块定义"></a><strong>block块定义</strong></h2><p>先新建个block块：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public class Block &#123;</span><br><span class="line"></span><br><span class="line">   public String hash;</span><br><span class="line">   public String previousHash; </span><br><span class="line">   private String data; //our data will be a simple message.</span><br><span class="line">   private long timeStamp; //as number of milliseconds since 1/1/1970.</span><br><span class="line"></span><br><span class="line">   //Block Constructor.  </span><br><span class="line">   public Block(String data,String previousHash ) &#123;</span><br><span class="line">      this.data = data;</span><br><span class="line">      this.previousHash = previousHash;</span><br><span class="line">      this.timeStamp = new Date().getTime();</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>你也看到了我们的<code>Block</code>里有四个字段，<code>hash</code>就是这个块自己的<code>hash</code>值，<code>previousHash</code>就是上一个块的<code>hash</code>值，<code>data</code>就是这个块所持有的数据，<code>timeStamp</code>就是一个时间记录。</p>
+<h2 id="数字签名生成"><a href="#数字签名生成" class="headerlink" title="数字签名生成"></a><strong>数字签名生成</strong></h2><p>接下来我们就需要生成数字签名。</p>
+<p>有很多种的加密算法来生成数字签名。这里我们就选择<code>SHA256</code>。这里先新建一个工具类用来搞定这个件事情：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">import java.security.MessageDigest;//通过导入MessageDigest来使用SHA256</span><br><span class="line"></span><br><span class="line">public class StringUtil &#123;</span><br><span class="line"></span><br><span class="line">   //Applies Sha256 to a string and returns the result. </span><br><span class="line">   public static String applySha256(String input)&#123;</span><br><span class="line"></span><br><span class="line">      try &#123;</span><br><span class="line">         MessageDigest digest = MessageDigest.getInstance(&quot;SHA-256&quot;);</span><br><span class="line"></span><br><span class="line">         //Applies sha256 to our input, </span><br><span class="line">         byte[] hash = digest.digest(input.getBytes(&quot;UTF-8&quot;));</span><br><span class="line"></span><br><span class="line">         StringBuffer hexString = new StringBuffer(); // This will contain hash as hexidecimal</span><br><span class="line">         for (int i = 0; i &lt; hash.length; i++) &#123;</span><br><span class="line">            String hex = Integer.toHexString(0xff &amp; hash[i]);</span><br><span class="line">            if(hex.length() == 1) hexString.append(&apos;0&apos;);</span><br><span class="line">            hexString.append(hex);</span><br><span class="line">         &#125;</span><br><span class="line">         return hexString.toString();</span><br><span class="line">      &#125;</span><br><span class="line">      catch(Exception e) &#123;</span><br><span class="line">         throw new RuntimeException(e);</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   //Short hand helper to turn Object into a json string</span><br><span class="line">   public static String getJson(Object o) &#123;</span><br><span class="line">      return new GsonBuilder().setPrettyPrinting().create().toJson(o);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   //Returns difficulty string target, to compare to hash. eg difficulty of 5 will return &quot;00000&quot;  </span><br><span class="line">   public static String getDificultyString(int difficulty) &#123;</span><br><span class="line">      return new String(new char[difficulty]).replace(&apos;\0&apos;, &apos;0&apos;);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>好，现在我们在<code>Block</code>里添加生成<code>hash</code>的方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//Calculate new hash based on blocks contents</span><br><span class="line">public String calculateHash() &#123;</span><br><span class="line">   String calculatedhash = StringUtil.applySha256( </span><br><span class="line">         previousHash +</span><br><span class="line">         Long.toString(timeStamp) +</span><br><span class="line">         Integer.toString(nonce) + </span><br><span class="line">         data </span><br><span class="line">         );</span><br><span class="line">   return calculatedhash;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后我们在构造函数里添加<code>hash</code>值的计算：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//Block Constructor.  </span><br><span class="line">public Block(String data,String previousHash ) &#123;</span><br><span class="line">   this.data = data;</span><br><span class="line">   this.previousHash = previousHash;</span><br><span class="line">   this.timeStamp = new Date().getTime();</span><br><span class="line"></span><br><span class="line">   this.hash = calculateHash(); //Making sure we do this after we set the other values.</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="一试身手"><a href="#一试身手" class="headerlink" title="一试身手"></a><strong>一试身手</strong></h2><p>现在是时候一试身手了。我们新建一个<code>main</code>类来玩耍一次：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">   Block genesisBlock = new Block(&quot;Hi im the first block&quot;, &quot;0&quot;);</span><br><span class="line">   System.out.println(&quot;block 1的hash值 : &quot; + genesisBlock.hash);</span><br><span class="line"></span><br><span class="line">   Block secondBlock = new Block(&quot;Yo im the second block&quot;,genesisBlock.hash);</span><br><span class="line">   System.out.println(&quot;block 2的hash值: &quot; + secondBlock.hash);</span><br><span class="line"></span><br><span class="line">   Block thirdBlock = new Block(&quot;Hey im the third block&quot;,secondBlock.hash);</span><br><span class="line">   System.out.println(&quot;block 3的hash值: &quot; + thirdBlock.hash);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果如下：</p>
+<p><img src="https://cdn.yangbingdong.com/img/blockchain/blockchain02.webp" alt="img"></p>
+<p><em><code>hash</code>值是不一样的，因为每个<code>block</code>的时间戳不同。</em></p>
+<p>现在每个块都有了自己的数字签名，并且这些数字签名都是基于每个块自身的信息以及前一个块的数字签名联合起来生成的数字签名。</p>
+<p>但，现在还不能叫区块链。只是一个个区块。接下来就让我们把这些块装入一个<code>ArrayList</code>中：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public static ArrayList&lt;Block&gt; blockchain = new ArrayList&lt;Block&gt;();</span><br><span class="line"></span><br><span class="line">public static void main(String[] args) &#123;</span><br><span class="line">    //add our blocks to the blockchain ArrayList:</span><br><span class="line">    blockchain.add(new Block(&quot;Hi im the first block&quot;, &quot;0&quot;));</span><br><span class="line">    blockchain.add(new Block(&quot;Yo im the second block&quot;,blockchain.get(blockchain.size()-1).hash));</span><br><span class="line">    blockchain.add(new Block(&quot;Hey im the third block&quot;,blockchain.get(blockchain.size()-1).hash));</span><br><span class="line"></span><br><span class="line">    String blockchainJson = new GsonBuilder().setPrettyPrinting().create().toJson(blockchain);</span><br><span class="line">    System.out.println(blockchainJson);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>现在看起来就比较紧凑了，也像个区块链的样子了：</p>
+<p><img src="https://cdn.yangbingdong.com/img/blockchain/blockchain03.webp" alt="img"></p>
+<h2 id="检查区块链的完整性"><a href="#检查区块链的完整性" class="headerlink" title="检查区块链的完整性"></a><strong>检查区块链的完整性</strong></h2><p>现在就让我们在<code>ImportChain</code>中创建一个<code>isChainValid()</code>方法，它会遍历链中每个块，然后对比<code>hash</code>值。这个方法做的事情就是检查<code>hash</code>变量的值是否等于计算出来的<code>hash</code>值以及上一个块的<code>hash</code>是否等于<code>previousHash</code>变量的值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">public static Boolean isChainValid() &#123;</span><br><span class="line">   Block currentBlock; </span><br><span class="line">   Block previousBlock;</span><br><span class="line">   String hashTarget = new String(new char[difficulty]).replace(&apos;\0&apos;, &apos;0&apos;);</span><br><span class="line"></span><br><span class="line">   //循环遍历每个块检查hash</span><br><span class="line">   for(int i=1; i &lt; blockchain.size(); i++) &#123;</span><br><span class="line">      currentBlock = blockchain.get(i);</span><br><span class="line">      previousBlock = blockchain.get(i-1);</span><br><span class="line">      //比较注册的hash和计算的hash:</span><br><span class="line">      if(!currentBlock.hash.equals(currentBlock.calculateHash()) )&#123;</span><br><span class="line">         System.out.println(&quot;Current Hashes not equal&quot;);          </span><br><span class="line">         return false;</span><br><span class="line">      &#125;</span><br><span class="line">      //比较上一个块的hash和注册的上一个hash（也就是previousHash）</span><br><span class="line">      if(!previousBlock.hash.equals(currentBlock.previousHash) ) &#123;</span><br><span class="line">         System.out.println(&quot;Previous Hashes not equal&quot;);</span><br><span class="line">         return false;</span><br><span class="line">      &#125;</span><br><span class="line">      //检查hash是否被处理</span><br><span class="line">      if(!currentBlock.hash.substring( 0, difficulty).equals(hashTarget)) &#123;</span><br><span class="line">         System.out.println(&quot;This block hasn&apos;t been mined&quot;);</span><br><span class="line">         return false;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">   &#125;</span><br><span class="line">   return true;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对区块链中的块的任何更改都将导致此方法返回false。</p>
+<p>On the bitcoin network nodes share their blockchains and the <strong>longest valid chain is accepted</strong> by the network. What’s to stop someone tampering with data in an old block then creating a whole new longer blockchain and presenting that to the network ? <strong>Proof of work</strong>. The hashcash proof of work system means it takes considerable time and computational power to create new blocks. Hence the attacker would need more computational power than the rest of the peers combined.</p>
+<p>上面说的就是POW 。之后会介绍。</p>
+<p>好，上面基本上把区块链搞完了。</p>
+<p>现在我们开始新的征程吧！</p>
+<h2 id="挖矿"><a href="#挖矿" class="headerlink" title="挖矿"></a><strong>挖矿</strong></h2><p>我们将要求矿工们来做POW，具体就是通过尝试不同的变量直到块的<code>hash</code>以几个0开头。</p>
+<p>然后我们添加一个<code>nonce</code>（Number once）到<code>calculateHash()</code> 方法以及<code>mineBlock()</code>方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">public class ImportChain &#123;</span><br><span class="line"></span><br><span class="line">   public static ArrayList&lt;Block&gt; blockchain = new ArrayList&lt;Block&gt;();</span><br><span class="line">   public static int difficulty = 5;</span><br><span class="line"></span><br><span class="line">   public static void main(String[] args) &#123;</span><br><span class="line">      //add our blocks to the blockchain ArrayList:</span><br><span class="line"></span><br><span class="line">      System.out.println(&quot;正在尝试挖掘block 1... &quot;);</span><br><span class="line">      addBlock(new Block(&quot;Hi im the first block&quot;, &quot;0&quot;));</span><br><span class="line"></span><br><span class="line">      System.out.println(&quot;正在尝试挖掘block 2... &quot;);</span><br><span class="line">      addBlock(new Block(&quot;Yo im the second block&quot;,blockchain.get(blockchain.size()-1).hash));</span><br><span class="line"></span><br><span class="line">      System.out.println(&quot;正在尝试挖掘block 3... &quot;);</span><br><span class="line">      addBlock(new Block(&quot;Hey im the third block&quot;,blockchain.get(blockchain.size()-1).hash));</span><br><span class="line"></span><br><span class="line">      System.out.println(&quot;\nBlockchain is Valid: &quot; + isChainValid());</span><br><span class="line"></span><br><span class="line">      String blockchainJson = StringUtil.getJson(blockchain);</span><br><span class="line">      System.out.println(&quot;\nThe block chain: &quot;);</span><br><span class="line">      System.out.println(blockchainJson);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   public static Boolean isChainValid() &#123;</span><br><span class="line">      Block currentBlock; </span><br><span class="line">      Block previousBlock;</span><br><span class="line">      String hashTarget = new String(new char[difficulty]).replace(&apos;\0&apos;, &apos;0&apos;);</span><br><span class="line"></span><br><span class="line">      //loop through blockchain to check hashes:</span><br><span class="line">      for(int i=1; i &lt; blockchain.size(); i++) &#123;</span><br><span class="line">         currentBlock = blockchain.get(i);</span><br><span class="line">         previousBlock = blockchain.get(i-1);</span><br><span class="line">         //compare registered hash and calculated hash:</span><br><span class="line">         if(!currentBlock.hash.equals(currentBlock.calculateHash()) )&#123;</span><br><span class="line">            System.out.println(&quot;Current Hashes not equal&quot;);          </span><br><span class="line">            return false;</span><br><span class="line">         &#125;</span><br><span class="line">         //compare previous hash and registered previous hash</span><br><span class="line">         if(!previousBlock.hash.equals(currentBlock.previousHash) ) &#123;</span><br><span class="line">            System.out.println(&quot;Previous Hashes not equal&quot;);</span><br><span class="line">            return false;</span><br><span class="line">         &#125;</span><br><span class="line">         //check if hash is solved</span><br><span class="line">         if(!currentBlock.hash.substring( 0, difficulty).equals(hashTarget)) &#123;</span><br><span class="line">            System.out.println(&quot;This block hasn&apos;t been mined&quot;);</span><br><span class="line">            return false;</span><br><span class="line">         &#125;</span><br><span class="line"></span><br><span class="line">      &#125;</span><br><span class="line">      return true;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   public static void addBlock(Block newBlock) &#123;</span><br><span class="line">      newBlock.mineBlock(difficulty);</span><br><span class="line">      blockchain.add(newBlock);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">import java.util.Date;</span><br><span class="line"></span><br><span class="line">public class Block &#123;</span><br><span class="line"></span><br><span class="line">   public String hash;</span><br><span class="line">   public String previousHash; </span><br><span class="line">   private String data; //our data will be a simple message.</span><br><span class="line">   private long timeStamp; //as number of milliseconds since 1/1/1970.</span><br><span class="line">   private int nonce;</span><br><span class="line"></span><br><span class="line">   //Block Constructor.  </span><br><span class="line">   public Block(String data,String previousHash ) &#123;</span><br><span class="line">      this.data = data;</span><br><span class="line">      this.previousHash = previousHash;</span><br><span class="line">      this.timeStamp = new Date().getTime();</span><br><span class="line"></span><br><span class="line">      this.hash = calculateHash(); //Making sure we do this after we set the other values.</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   //Calculate new hash based on blocks contents</span><br><span class="line">   public String calculateHash() &#123;</span><br><span class="line">      String calculatedhash = StringUtil.applySha256( </span><br><span class="line">            previousHash +</span><br><span class="line">            Long.toString(timeStamp) +</span><br><span class="line">            Integer.toString(nonce) + </span><br><span class="line">            data </span><br><span class="line">            );</span><br><span class="line">      return calculatedhash;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   //Increases nonce value until hash target is reached.</span><br><span class="line">   public void mineBlock(int difficulty) &#123;</span><br><span class="line">      String target = StringUtil.getDificultyString(difficulty); //Create a string with difficulty * &quot;0&quot; </span><br><span class="line">      while(!hash.substring( 0, difficulty).equals(target)) &#123;</span><br><span class="line">         nonce ++;</span><br><span class="line">         hash = calculateHash();</span><br><span class="line">      &#125;</span><br><span class="line">      System.out.println(&quot;Block已挖到!!! : &quot; + hash);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行main，输出如下：</p>
+<p><img src="https://cdn.yangbingdong.com/img/blockchain/blockchain04.webp" alt="img"></p>
+<p>挖掘每一个块都需要一些时间，大概3秒钟。你可以调整难度，看看是如何影响挖矿时间的。</p>
+<p>如果有人要窜改区块链中的数据，那么他们的区块链将是无效的，invalid。</p>
+<p>他们将无法创建更长的区块链。</p>
+<p>在你的网络中诚实的区块链有更大的时间优势来创建一个最长的链。</p>
+<p>被篡改的区块链将无法追上更长、更有效的链。</p>
+<p>除非它们比网络中的所有其他节点具有更快的计算速度。比如未来的量子计算机之类的东西。</p>
+<p>好，我们已经完成了一个基本的区块链！</p>
+<p>总结一下我们的这个区块链：</p>
+<ul>
+<li>每个区块上携带数据。</li>
+<li>有数字签名。</li>
+<li>必须通过POW来挖掘来验证新的区块。</li>
+<li>可以验证数据是否合法和是否被修改。</li>
+</ul>
+<blockquote>
+<p><strong><em><a href="https://mp.weixin.qq.com/s?__biz=MzA5MzQ2NTY0OA==&amp;mid=2650797410&amp;idx=1&amp;sn=c16d1b0064768479a05dc65cf2b542d3&amp;chksm=8856283dbf21a12be25300c012dc344199320f54a13b54d595c4db899d74ede95cb06d7e784c&amp;mpshare=1&amp;scene=1&amp;srcid=0305VPK6hQFN8yg7iE3wz917#rd" target="_blank" rel="noopener">原文链接</a></em></strong></p>
+</blockquote>
+<h1 id="发起一笔交易"><a href="#发起一笔交易" class="headerlink" title="发起一笔交易"></a>发起一笔交易</h1><p>上一文我们已经学会了写一个基本的区块链：<a href="http://mp.weixin.qq.com/s?__biz=MzA5MzQ2NTY0OA==&amp;mid=2650797410&amp;idx=1&amp;sn=c16d1b0064768479a05dc65cf2b542d3&amp;chksm=8856283dbf21a12be25300c012dc344199320f54a13b54d595c4db899d74ede95cb06d7e784c&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">自己动手写区块链（Java版）</a>。</p>
+<p>本文我们接着前文，继续深入。</p>
+<p>本文我们将会做以下事情：</p>
+<p>1、创建一个钱包（wallet）。</p>
+<p>2、使用我们的前面创建的区块链发送一笔签名的交易出去。</p>
+<p>3、还有其他更叼的事情等等。</p>
+<p>听起来是不是就让人心动。</p>
+<p>最后的结果就是我们有了自己的<strong>加密货币</strong>，是的，<code>crypto coin</code>。</p>
+<p>前面我们已经构建了一个基本的区块链。但目前这个区块链的区块中的<code>message</code>是一些没有什么实际用途和意义的数据。本文我们就尝试让区块中能够存储一些交易数据（一个区块中可以存储多笔交易数据），这样我们就可以创建自己的加密货币（当然还是一个简单的），这里给我们的货币起个名字叫：“NoobCoin”。</p>
+<h2 id="1、创建钱包"><a href="#1、创建钱包" class="headerlink" title="1、创建钱包"></a><strong>1、创建钱包</strong></h2><p>在加密货币（crypto-currencies）中，货币所有权被作为交易（transaction）在区块链上进行转移，参与者有一个收发资金的地址。</p>
+<p><img src="https://cdn.yangbingdong.com/img/blockchain/blockchain5.webp" alt="img"></p>
+<p>好，现在让我们创建一个钱包（Wallet）来持有<code>pubkey</code>和<code>private key</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import java.security.*;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public class Wallet &#123;</span><br><span class="line"></span><br><span class="line">   public PrivateKey privateKey;</span><br><span class="line">   public PublicKey publicKey;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>公钥和私钥的用途是什么？</strong></p>
+<p>对于我们的“<code>noobcoin</code>”，公钥（<code>public key</code>）就是我们的一个地址，<code>address</code>。</p>
+<p>可以与其他人共享这个公钥，来接受支付。我们的私钥是用来签署（<code>sign</code>）我们的交易（<code>transaction</code>），所以除了私钥（<code>private key</code>）的所有者，没有人可以花我们的钱。用户将不得不对自己的私钥保密！我们还将公钥与交易（<code>transaction</code>）一起发送，它可以用来验证我们的签名是否有效，并且数据没有被篡改。</p>
+<p><img src="https://cdn.yangbingdong.com/img/blockchain/blockchain06.webp" alt="img"></p>
+<p><em>私钥用于对我们不希望被篡改的数据进行签名。公钥用于验证签名。</em></p>
+<p>我们在一个<code>KeyPair</code>中生成我们的私钥和公钥。这里使用<code>Elliptic-curve</code>加密来生成<code>KeyPair</code>。现在我们就去<code>Wallet</code>类中添加一个方法<code>generateKeyPair()</code>，然后在构造函数中调用它：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">public class Wallet &#123;</span><br><span class="line"></span><br><span class="line">   public PrivateKey privateKey;</span><br><span class="line">   public PublicKey publicKey;</span><br><span class="line"></span><br><span class="line">   public Wallet() &#123;</span><br><span class="line">      generateKeyPair();</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   public void generateKeyPair() &#123;</span><br><span class="line">      try &#123;</span><br><span class="line">         KeyPairGenerator keyGen = KeyPairGenerator.getInstance(&quot;ECDSA&quot;,&quot;BC&quot;);</span><br><span class="line">         SecureRandom random = SecureRandom.getInstance(&quot;SHA1PRNG&quot;);</span><br><span class="line">         ECGenParameterSpec ecSpec = new ECGenParameterSpec(&quot;prime192v1&quot;);</span><br><span class="line">         // Initialize the key generator and generate a KeyPair</span><br><span class="line">         keyGen.initialize(ecSpec, random); //256 </span><br><span class="line">           KeyPair keyPair = keyGen.generateKeyPair();</span><br><span class="line">           // Set the public and private keys from the keyPair</span><br><span class="line">           privateKey = keyPair.getPrivate();</span><br><span class="line">           publicKey = keyPair.getPublic();</span><br><span class="line"></span><br><span class="line">      &#125;catch(Exception e) &#123;</span><br><span class="line">         throw new RuntimeException(e);</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个方法就是负责生成公钥和私钥。具体就是通过<code>Java.security.KeyPairGenerator</code>来生成<code>Elliptic Curve key</code>对。然后把这个方法加入到<code>Wallet</code>的<strong>构造函</strong>数中。</p>
+<p>现在我们已经有了一个大体的钱包类。接下来我们看看交易（<code>transaction</code>）类。</p>
+<h2 id="2-交易和签名（Transactions-amp-Signatures）"><a href="#2-交易和签名（Transactions-amp-Signatures）" class="headerlink" title="2. 交易和签名（Transactions &amp; Signatures）"></a><strong>2. 交易和签名（Transactions &amp; Signatures）</strong></h2><p>每笔交易将会携带如下数据：</p>
+<p>1、资金发送方的公钥（地址）。</p>
+<p>2、资金接收方的公钥（地址）。</p>
+<p>3、要转移的资金金额。</p>
+<p>4、输入（<code>Inputs</code>）。这个输入是对以前交易的引用，这些交易证明发件人拥有要发送的资金。</p>
+<p>5、输出（<code>Outputs</code>），显示交易中收到的相关地址量。（这些输出作为新交易中的输入引用）</p>
+<p>6、一个加密签名。证明地址的所有者是发起该交易的人，并且数据没有被更改。（例如：防止第三方更改发送的金额）</p>
+<p>让我们创建交易类吧：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">import java.security.*;</span><br><span class="line">import java.util.ArrayList;</span><br><span class="line"></span><br><span class="line">public class Transaction &#123;</span><br><span class="line"></span><br><span class="line">   public String transactionId; //Contains a hash of transaction*</span><br><span class="line">   public PublicKey sender; //Senders address/public key.</span><br><span class="line">   public PublicKey reciepient; //Recipients address/public key.</span><br><span class="line">   public float value; //Contains the amount we wish to send to the recipient.</span><br><span class="line">   public byte[] signature; //This is to prevent anybody else from spending funds in our wallet.</span><br><span class="line"></span><br><span class="line">   public ArrayList&lt;TransactionInput&gt; inputs = new ArrayList&lt;TransactionInput&gt;();</span><br><span class="line">   public ArrayList&lt;TransactionOutput&gt; outputs = new ArrayList&lt;TransactionOutput&gt;();</span><br><span class="line"></span><br><span class="line">   private static int sequence = 0; //A rough count of how many transactions have been generated </span><br><span class="line"></span><br><span class="line">   // Constructor: </span><br><span class="line">   public Transaction(PublicKey from, PublicKey to, float value,  ArrayList&lt;TransactionInput&gt; inputs) &#123;</span><br><span class="line">      this.sender = from;</span><br><span class="line">      this.reciepient = to;</span><br><span class="line">      this.value = value;</span><br><span class="line">      this.inputs = inputs;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   private String calulateHash() &#123;</span><br><span class="line">      sequence++; //increase the sequence to avoid 2 identical transactions having the same hash</span><br><span class="line">      return StringUtil.applySha256(</span><br><span class="line">            StringUtil.getStringFromKey(sender) +</span><br><span class="line">            StringUtil.getStringFromKey(reciepient) +</span><br><span class="line">            Float.toString(value) + sequence</span><br><span class="line">            );</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的<code>TransactionInput</code>和<code>TransactionOutput</code>类一会再新建。</p>
+<p>我们的交易（<code>Transaction</code>）类还应该包含生成/验证签名和验证交易的相关方法。</p>
+<p>注意这里，既有验证签名的方法，也有验证交易的方法。</p>
+<p>但是，稍等…</p>
+<p>先来说说签名的目的是什么？它们是如何工作的？</p>
+<p><strong>签名在我们的区块链上执行两个非常重要的任务：首先，它能只允许所有者使用其货币；其次，在新区块被挖掘之前，它能防止其他人篡改其提交的交易（在入口点）</strong>。</p>
+<p><strong>私钥用于对数据进行签名，公钥可用于验证其完整性</strong>。</p>
+<p>例如：Bob想给Sally发送2个NoobCoin，然后他们的钱包软件生成了这个交易并将其提交给矿工，以便将其包含在下一个块中。一名矿工试图将2枚货币的接收人改为Josh。不过，幸运的是，Bob已经用他的私钥签署了交易数据，允许任何人使用Bob的公钥去验证交易数据是否被更改（因为没有其他任何人的公钥能够验证交易）。</p>
+<p>可以（从前面的代码块中）看到我们的签名就是一堆字节，所以现在创建一个方法来生成签名。我们首先需要的是<code>StringUtil</code>类中的几个<code>helper</code>方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">//Applies ECDSA Signature and returns the result ( as bytes ).</span><br><span class="line">public static byte[] applyECDSASig(PrivateKey privateKey, String input) &#123;</span><br><span class="line">   Signature dsa;</span><br><span class="line">   byte[] output = new byte[0];</span><br><span class="line">   try &#123;</span><br><span class="line">      dsa = Signature.getInstance(&quot;ECDSA&quot;, &quot;BC&quot;);</span><br><span class="line">      dsa.initSign(privateKey);</span><br><span class="line">      byte[] strByte = input.getBytes();</span><br><span class="line">      dsa.update(strByte);</span><br><span class="line">      byte[] realSig = dsa.sign();</span><br><span class="line">      output = realSig;</span><br><span class="line">   &#125; catch (Exception e) &#123;</span><br><span class="line">      throw new RuntimeException(e);</span><br><span class="line">   &#125;</span><br><span class="line">   return output;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//Verifies a String signature</span><br><span class="line">public static boolean verifyECDSASig(PublicKey publicKey, String data, byte[] signature) &#123;</span><br><span class="line">   try &#123;</span><br><span class="line">      Signature ecdsaVerify = Signature.getInstance(&quot;ECDSA&quot;, &quot;BC&quot;);</span><br><span class="line">      ecdsaVerify.initVerify(publicKey);</span><br><span class="line">      ecdsaVerify.update(data.getBytes());</span><br><span class="line">      return ecdsaVerify.verify(signature);</span><br><span class="line">   &#125;catch(Exception e) &#123;</span><br><span class="line">      throw new RuntimeException(e);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public static String getStringFromKey(Key key) &#123;</span><br><span class="line">   return Base64.getEncoder().encodeToString(key.getEncoded());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>不要过分担心这些方法具体的逻辑。你只需要知道的是：<code>applyECDSASig</code>方法接收发送方的私钥和字符串输入，对其进行签名并返回字节数组。<code>verifyECDSASig</code>接受签名、公钥和字符串数据，如果签名是有效的，则返回<code>true</code>，否则<code>false</code>。<code>getStringFromKey</code>从任意<code>key</code>返回编码的字符串。</em></p>
+<p>现在让我们在<code>Transaction</code>类中使用这些签名方法，分别创建<code>generateSignature()</code>和<code>verifiySignature()</code>方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public void generateSignature(PrivateKey privateKey) &#123;</span><br><span class="line">   String data = StringUtil.getStringFromKey(sender) + StringUtil.getStringFromKey(reciepient) + Float.toString(value)    ;</span><br><span class="line">   signature = StringUtil.applyECDSASig(privateKey,data);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public boolean verifySignature() &#123;</span><br><span class="line">   String data = StringUtil.getStringFromKey(sender) + StringUtil.getStringFromKey(reciepient) + Float.toString(value)    ;</span><br><span class="line">   return StringUtil.verifyECDSASig(sender, data, signature);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在现实中，你可能希望签署更多的信息，比如使用的输出（outputs）/输入（inputs）和/或时间戳（time-stamp）（现在我们只签署了最基本的）。</p>
+<p>在将新的交易添加到块中时，矿工将对签名进行验证。</p>
+<p>当我们检查区块链的合法性的时候，其实也可以检查签名。</p>
+<h2 id="3-测试钱包（Wallets）和签名（Signatures）"><a href="#3-测试钱包（Wallets）和签名（Signatures）" class="headerlink" title="3.测试钱包（Wallets）和签名（Signatures）"></a><strong>3.测试钱包（Wallets）和签名（Signatures）</strong></h2><p>现在我们差不多完成了一半了，先来测试下已经完成的是不是可以正常工作。在<code>NoobChain</code>类中，让我们添加一些新变量并替换main方法的内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">import java.security.Security;</span><br><span class="line">import java.util.ArrayList;</span><br><span class="line"></span><br><span class="line">public class NoobChain &#123;</span><br><span class="line"></span><br><span class="line">    public static ArrayList&lt;Block&gt; blockchain = new ArrayList&lt;Block&gt;();</span><br><span class="line">    public static int difficulty = 5;</span><br><span class="line">    public static Wallet walletA;</span><br><span class="line">    public static Wallet walletB;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        //Setup Bouncey castle as a Security Provider</span><br><span class="line">        Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());</span><br><span class="line">        //Create the new wallets</span><br><span class="line">        walletA = new Wallet();</span><br><span class="line">        walletB = new Wallet();</span><br><span class="line">        //Test public and private keys</span><br><span class="line">        System.out.println(&quot;Private and public keys:&quot;);</span><br><span class="line">        System.out.println(StringUtil.getStringFromKey(walletA.privateKey));</span><br><span class="line">        System.out.println(StringUtil.getStringFromKey(walletA.publicKey));</span><br><span class="line">        //Create a test transaction from WalletA to walletB</span><br><span class="line">        Transaction transaction = new Transaction(walletA.publicKey, walletB.publicKey, 5, null);</span><br><span class="line">        transaction.generateSignature(walletA.privateKey);</span><br><span class="line">        //Verify the signature works and verify it from the public key</span><br><span class="line">        System.out.println(&quot;Is signature verified&quot;);</span><br><span class="line">        System.out.println(transaction.verifySignature());</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以发现我们使用了<code>boncey castle</code>来作为安全实现的提供者。</p>
+<p>还创建了两个钱包，钱包A和钱包B，然后打印了钱包A的私钥和公钥。还新建一笔交易。然后使用钱包A的公钥对这笔交易进行了签名。</p>
+<p>输出:</p>
+<p><img src="https://cdn.yangbingdong.com/img/blockchain/blockchain07.webp" alt="img"></p>
+<p>嗯，签名验证是<code>true</code>，符合期望。</p>
+<p>现在是时候小开心一下了。现在我们只需要创建和校验输出（<code>outputs</code>）和输入（<code>inputs</code>）然后把交易存储到区块链中。</p>
+<h2 id="4-输入（Inputs）与输出（Outputs）1：加密货币是如何拥有的…"><a href="#4-输入（Inputs）与输出（Outputs）1：加密货币是如何拥有的…" class="headerlink" title="4. 输入（Inputs）与输出（Outputs）1：加密货币是如何拥有的…"></a><strong>4. 输入（Inputs）与输出（Outputs）1：加密货币是如何拥有的…</strong></h2><p>如果你想拥有1个比特币，你必须收到1个比特币。总账不会真的给你添加一个比特币，从发送者那里减去一个比特币，发送者提到他/她以前收到一个比特币，然后创建一个交易输出，显示1比特币被发送到你的地址。（交易输入是对以前交易输出的引用。）</p>
+<p><strong>你的钱包余额是所有发送给你的未使用的交易输出的总和。</strong></p>
+<p>ps：这里略微有点绕，总之你就记住<strong>进账</strong>和<strong>出账</strong>这回事情。</p>
+<p>从现在开始，我们将遵循比特币惯例并调用未使用的交易输出：<code>UTXO</code>。</p>
+<p>好，让我们创建一个<code>TransactionInput</code>类：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public class TransactionInput &#123;</span><br><span class="line">   public String transactionOutputId; //Reference to TransactionOutputs -transactionId</span><br><span class="line">   public TransactionOutput UTXO; //Contains the Unspent transaction output</span><br><span class="line"></span><br><span class="line">   public TransactionInput(String transactionOutputId) &#123;</span><br><span class="line">      this.transactionOutputId = transactionOutputId;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个类将用于引用尚未使用的<code>TransactionOutputs</code>的值。<code>transactionOutputId</code>将用于查找相关的<code>TransactionOutput</code>，从而允许矿工检查你的所有权。</p>
+<p>下面是<code>TransactionOutput</code>类：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">import java.security.PublicKey;</span><br><span class="line"></span><br><span class="line">public class TransactionOutput &#123;</span><br><span class="line">   public String id;</span><br><span class="line">   public PublicKey reciepient; //also known as the new owner of these coins.</span><br><span class="line">   public float value; //the amount of coins they own</span><br><span class="line">   public String parentTransactionId; //the id of the transaction this output was created in</span><br><span class="line"></span><br><span class="line">   //Constructor</span><br><span class="line">   public TransactionOutput(PublicKey reciepient, float value, String parentTransactionId) &#123;</span><br><span class="line">      this.reciepient = reciepient;</span><br><span class="line">      this.value = value;</span><br><span class="line">      this.parentTransactionId = parentTransactionId;</span><br><span class="line">      this.id = StringUtil.applySha256(StringUtil.getStringFromKey(reciepient)+Float.toString(value)+parentTransactionId);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   //Check if coin belongs to you</span><br><span class="line">   public boolean isMine(PublicKey publicKey) &#123;</span><br><span class="line">      return (publicKey == reciepient);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>交易输出将显示从交易发送到每一方的最终金额。当在新的交易中作为输入引用时，它们将作为你要发送的货币的证明，能够证明你有钱可发送。</p>
+<h2 id="5-输入（Inputs）与输出（Outputs）2：处理交易……"><a href="#5-输入（Inputs）与输出（Outputs）2：处理交易……" class="headerlink" title="5. 输入（Inputs）与输出（Outputs）2：处理交易……"></a><strong>5. 输入（Inputs）与输出（Outputs）2：处理交易……</strong></h2><p>链中的块可能接收到许多交易，而区块链可能非常非常长，处理新交易可能需要数亿年的时间，因为我们必须查找并检查它的输入。要解决这个问题，我们就需要存在一个额外的集合（<code>collection</code>）来保存所有未使用的可被作为输入（<code>inputs</code>）的交易。在下面的<code>ImportChain</code>类中，添加一个所有UTXO的集合：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public class ImportChain &#123;</span><br><span class="line"></span><br><span class="line">   public static ArrayList&lt;Block&gt; blockchain = new ArrayList&lt;Block&gt;();</span><br><span class="line">   public static HashMap&lt;String,TransactionOutput&gt; UTXOs = new HashMap&lt;String,TransactionOutput&gt;();</span><br><span class="line"></span><br><span class="line">   public static int difficulty = 3;</span><br><span class="line">   public static float minimumTransaction = 0.1f;</span><br><span class="line">   public static Wallet walletA;</span><br><span class="line">   public static Wallet walletB;</span><br><span class="line">   public static Transaction genesisTransaction;</span><br><span class="line"></span><br><span class="line">   public static void main(String[] args) &#123;</span><br></pre></td></tr></table></figure>
+<p>现在我们把之前的那些实现放在一起来处理一笔交易吧。先在<code>Transaction</code>类中的添加一个方法<code>processTransaction</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">public boolean processTransaction() &#123;</span><br><span class="line"></span><br><span class="line">   if(verifySignature() == false) &#123;</span><br><span class="line">      System.out.println(&quot;#Transaction Signature failed to verify&quot;);</span><br><span class="line">      return false;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   //Gathers transaction inputs (Making sure they are unspent):</span><br><span class="line">   for(TransactionInput i : inputs) &#123;</span><br><span class="line">      i.UTXO = ImportChain.UTXOs.get(i.transactionOutputId);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   //Checks if transaction is valid:</span><br><span class="line">   if(getInputsValue() &lt; ImportChain.minimumTransaction) &#123;</span><br><span class="line">      System.out.println(&quot;Transaction Inputs to small: &quot; + getInputsValue());</span><br><span class="line">      return false;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   //Generate transaction outputs:</span><br><span class="line">   float leftOver = getInputsValue() - value; //get value of inputs then the left over change:</span><br><span class="line">   transactionId = calulateHash();</span><br><span class="line">   outputs.add(new TransactionOutput( this.reciepient, value,transactionId)); //send value to recipient</span><br><span class="line">   outputs.add(new TransactionOutput( this.sender, leftOver,transactionId)); //send the left over &apos;change&apos; back to sender</span><br><span class="line"></span><br><span class="line">   //Add outputs to Unspent list</span><br><span class="line">   for(TransactionOutput o : outputs) &#123;</span><br><span class="line">      ImportChain.UTXOs.put(o.id , o);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   //Remove transaction inputs from UTXO lists as spent:</span><br><span class="line">   for(TransactionInput i : inputs) &#123;</span><br><span class="line">      if(i.UTXO == null) continue; //if Transaction can&apos;t be found skip it</span><br><span class="line">      ImportChain.UTXOs.remove(i.UTXO.id);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   return true;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>还添加了<code>getInputsValue</code>方法。使用此方法，我们执行一些检查以确保交易是有效的，然后收集输入并生成输出。（要了解更多信息，请参阅代码中的注释行）。</p>
+<p>重要的是，在最后，我们从UTXO的列表中删除<code>input</code>，这意味着交易输出只能作为一个输入使用一次…而且必须使用完整的输入值，因为发送方要将“更改”返回给自己。</p>
+<p><img src="https://cdn.yangbingdong.com/img/blockchain/blockchain08.webp" alt="img"></p>
+<p>红色箭头是输出。请注意，绿色输入是对以前输出的引用。</p>
+<p>最后，让我们将钱包类更新为：</p>
+<p>可以汇总得到的余额（通过<strong>循环遍历UTXO列表</strong>并检查事务输出是否为<code>Mine()</code>）</p>
+<p>并可以生成交易。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line">import java.security.*;</span><br><span class="line">import java.security.spec.ECGenParameterSpec;</span><br><span class="line">import java.util.ArrayList;</span><br><span class="line">import java.util.HashMap;</span><br><span class="line">import java.util.Map;</span><br><span class="line"></span><br><span class="line">public class Wallet &#123;</span><br><span class="line"></span><br><span class="line">   public PrivateKey privateKey;</span><br><span class="line">   public PublicKey publicKey;</span><br><span class="line"></span><br><span class="line">   public HashMap&lt;String,TransactionOutput&gt; UTXOs = new HashMap&lt;String,TransactionOutput&gt;();</span><br><span class="line"></span><br><span class="line">   public Wallet() &#123;</span><br><span class="line">      generateKeyPair();</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   public void generateKeyPair() &#123;</span><br><span class="line">      try &#123;</span><br><span class="line">         KeyPairGenerator keyGen = KeyPairGenerator.getInstance(&quot;ECDSA&quot;,&quot;BC&quot;);</span><br><span class="line">         SecureRandom random = SecureRandom.getInstance(&quot;SHA1PRNG&quot;);</span><br><span class="line">         ECGenParameterSpec ecSpec = new ECGenParameterSpec(&quot;prime192v1&quot;);</span><br><span class="line">         // Initialize the key generator and generate a KeyPair</span><br><span class="line">         keyGen.initialize(ecSpec, random); //256 </span><br><span class="line">           KeyPair keyPair = keyGen.generateKeyPair();</span><br><span class="line">           // Set the public and private keys from the keyPair</span><br><span class="line">           privateKey = keyPair.getPrivate();</span><br><span class="line">           publicKey = keyPair.getPublic();</span><br><span class="line"></span><br><span class="line">      &#125;catch(Exception e) &#123;</span><br><span class="line">         throw new RuntimeException(e);</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   public float getBalance() &#123;</span><br><span class="line">      float total = 0;   </span><br><span class="line">        for (Map.Entry&lt;String, TransactionOutput&gt; item: ImportChain.UTXOs.entrySet())&#123;</span><br><span class="line">           TransactionOutput UTXO = item.getValue();</span><br><span class="line">            if(UTXO.isMine(publicKey)) &#123; //if output belongs to me ( if coins belong to me )</span><br><span class="line">               UTXOs.put(UTXO.id,UTXO); //add it to our list of unspent transactions.</span><br><span class="line">               total += UTXO.value ; </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;  </span><br><span class="line">      return total;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   public Transaction sendFunds(PublicKey _recipient,float value ) &#123;</span><br><span class="line">      if(getBalance() &lt; value) &#123;</span><br><span class="line">         System.out.println(&quot;#Not Enough funds to send transaction. Transaction Discarded.&quot;);</span><br><span class="line">         return null;</span><br><span class="line">      &#125;</span><br><span class="line">      ArrayList&lt;TransactionInput&gt; inputs = new ArrayList&lt;TransactionInput&gt;();</span><br><span class="line"></span><br><span class="line">      float total = 0;</span><br><span class="line">      for (Map.Entry&lt;String, TransactionOutput&gt; item: UTXOs.entrySet())&#123;</span><br><span class="line">         TransactionOutput UTXO = item.getValue();</span><br><span class="line">         total += UTXO.value;</span><br><span class="line">         inputs.add(new TransactionInput(UTXO.id));</span><br><span class="line">         if(total value) break;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      Transaction newTransaction = new Transaction(publicKey, _recipient , value, inputs);</span><br><span class="line">      newTransaction.generateSignature(privateKey);</span><br><span class="line"></span><br><span class="line">      for(TransactionInput input: inputs)&#123;</span><br><span class="line">         UTXOs.remove(input.transactionOutputId);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      return newTransaction;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>你还可以添加一些其他功能到你的钱包类，比如保留记录你的交易历史记录等等。</p>
+<h2 id="6-向块中添加交易"><a href="#6-向块中添加交易" class="headerlink" title="6. 向块中添加交易"></a><strong>6. 向块中添加交易</strong></h2><p>现在已有了一个可以正常工作的交易处理系统，我们需要将它实现到我们的区块链中。我们把上一集中块里的无用的数据替换成一个交易列表，<code>arraylist</code>。</p>
+<p>然而，在一个块中可能有1000个交易，太多的交易不能包括在散列计算中……</p>
+<p>没事，别担心，我们可以使用交易的<strong>merkle根</strong>，就是下面的那个<code>getMerkleRoot()</code>方法。</p>
+<p>现在在<code>StringUtils</code>中添加一个<code>helper</code>方法<code>getMerkleRoot()</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">public static String getMerkleRoot(ArrayList&lt;Transaction&gt; transactions) &#123;</span><br><span class="line">   int count = transactions.size();</span><br><span class="line"></span><br><span class="line">   List&lt;String&gt; previousTreeLayer = new ArrayList&lt;String&gt;();</span><br><span class="line">   for(Transaction transaction : transactions) &#123;</span><br><span class="line">      previousTreeLayer.add(transaction.transactionId);</span><br><span class="line">   &#125;</span><br><span class="line">   List&lt;String&gt; treeLayer = previousTreeLayer;</span><br><span class="line"></span><br><span class="line">   while(count 1) &#123;</span><br><span class="line">      treeLayer = new ArrayList&lt;String&gt;();</span><br><span class="line">      for(int i=1; i &lt; previousTreeLayer.size(); i+=2) &#123;</span><br><span class="line">         treeLayer.add(applySha256(previousTreeLayer.get(i-1) + previousTreeLayer.get(i)));</span><br><span class="line">      &#125;</span><br><span class="line">      count = treeLayer.size();</span><br><span class="line">      previousTreeLayer = treeLayer;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   String merkleRoot = (treeLayer.size() == 1) ? treeLayer.get(0) : &quot;&quot;;</span><br><span class="line">   return merkleRoot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>现在，我们把<code>Block</code>类加强一下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">import java.util.ArrayList;</span><br><span class="line">import java.util.Date;</span><br><span class="line"></span><br><span class="line">public class Block &#123;</span><br><span class="line"></span><br><span class="line">   public String hash;</span><br><span class="line">   public String previousHash;</span><br><span class="line">   public String merkleRoot;</span><br><span class="line">   public ArrayList&lt;Transaction&gt; transactions = new ArrayList&lt;Transaction&gt;(); //our data will be a simple message.</span><br><span class="line">   public long timeStamp; //as number of milliseconds since 1/1/1970.</span><br><span class="line">   public int nonce;</span><br><span class="line"></span><br><span class="line">   //Block Constructor.</span><br><span class="line">   public Block(String previousHash ) &#123;</span><br><span class="line">      this.previousHash = previousHash;</span><br><span class="line">      this.timeStamp = new Date().getTime();</span><br><span class="line"></span><br><span class="line">      this.hash = calculateHash(); //Making sure we do this after we set the other values.</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   //Calculate new hash based on blocks contents</span><br><span class="line">   public String calculateHash() &#123;</span><br><span class="line">      String calculatedhash = StringUtil.applySha256(</span><br><span class="line">            previousHash +</span><br><span class="line">                  Long.toString(timeStamp) +</span><br><span class="line">                  Integer.toString(nonce) +</span><br><span class="line">                  merkleRoot</span><br><span class="line">      );</span><br><span class="line">      return calculatedhash;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   //Increases nonce value until hash target is reached.</span><br><span class="line">   public void mineBlock(int difficulty) &#123;</span><br><span class="line">      merkleRoot = StringUtil.getMerkleRoot(transactions);</span><br><span class="line">      String target = StringUtil.getDificultyString(difficulty); //Create a string with difficulty * &quot;0&quot;</span><br><span class="line">      while(!hash.substring( 0, difficulty).equals(target)) &#123;</span><br><span class="line">         nonce ++;</span><br><span class="line">         hash = calculateHash();</span><br><span class="line">      &#125;</span><br><span class="line">      System.out.println(&quot;Block Mined!!! : &quot; + hash);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   //Add transactions to this block</span><br><span class="line">   public boolean addTransaction(Transaction transaction) &#123;</span><br><span class="line">      //process transaction and check if valid, unless block is genesis block then ignore.</span><br><span class="line">      if(transaction == null) return false;</span><br><span class="line">      if((previousHash != &quot;0&quot;)) &#123;</span><br><span class="line">         if((transaction.processTransaction() != true)) &#123;</span><br><span class="line">            System.out.println(&quot;Transaction failed to process. Discarded.&quot;);</span><br><span class="line">            return false;</span><br><span class="line">         &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      transactions.add(transaction);</span><br><span class="line">      System.out.println(&quot;Transaction Successfully added to Block&quot;);</span><br><span class="line">      return true;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面我们更新了<code>Block</code>构造函数，因为不再需要传入字符串数据（还记得<a href="http://mp.weixin.qq.com/s?__biz=MzA5MzQ2NTY0OA==&amp;mid=2650797410&amp;idx=1&amp;sn=c16d1b0064768479a05dc65cf2b542d3&amp;chksm=8856283dbf21a12be25300c012dc344199320f54a13b54d595c4db899d74ede95cb06d7e784c&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">上集</a>中我们的<code>Block</code>构造函数传入了一个<code>data</code>的字符串，这里我们往块里添加的是交易，也就是<code>transaction</code>），并且在计算哈希方法中包含了<strong>merkle根</strong>。</p>
+<p>并且新增了<code>addTransaction</code>方法来添加一笔交易，并且只有在交易被成功添加时才返回<code>true</code>。</p>
+<p>ok，我们的区块链上交易所需的每个零部件都实现了。是时候运转一下了。</p>
+<h2 id="7-大结局"><a href="#7-大结局" class="headerlink" title="7. 大结局"></a><strong>7. 大结局</strong></h2><p>现在我们开始测试吧。发送货币进出钱包，并更新我们的区块链有效性检查。</p>
+<p>但首先我们需要一个方法来引入新的币。有许多方法可以创建新的币，比如，在<strong>比特币区块链</strong>上：矿工可以将交易持有在自己手里，作为对每个块被开采的奖励。</p>
+<p>这里，我们将只发行（release）我们希望拥有的所有货币，在第一个块（起源块）。就像比特币一样，我们将对起源块进行硬编码。</p>
+<p>现在把<code></code>类更新，包含如下内容：</p>
+<ul>
+<li>一个“创世纪”的块，它向钱包A发行100个新币。</li>
+<li>帐户交易中的“更新的链”的有效性检查。</li>
+<li>一些测试信息，让我们看到内部运行的细节信息。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br></pre></td><td class="code"><pre><span class="line">import java.security.Security;</span><br><span class="line">import java.util.ArrayList;</span><br><span class="line">import java.util.HashMap;</span><br><span class="line"></span><br><span class="line">//import java.util.Base64;</span><br><span class="line">//import com.google.gson.GsonBuilder;</span><br><span class="line"></span><br><span class="line">public class ImportChain &#123;</span><br><span class="line"></span><br><span class="line">   public static ArrayList&lt;Block&gt; blockchain = new ArrayList&lt;Block&gt;();</span><br><span class="line">   public static HashMap&lt;String,TransactionOutput&gt; UTXOs = new HashMap&lt;String,TransactionOutput&gt;();</span><br><span class="line"></span><br><span class="line">   public static int difficulty = 3;</span><br><span class="line">   public static float minimumTransaction = 0.1f;</span><br><span class="line">   public static Wallet walletA;</span><br><span class="line">   public static Wallet walletB;</span><br><span class="line">   public static Transaction genesisTransaction;</span><br><span class="line"></span><br><span class="line">   public static void main(String[] args) &#123;</span><br><span class="line">      //add our blocks to the blockchain ArrayList:</span><br><span class="line">      Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider()); //Setup Bouncey castle as a Security Provider</span><br><span class="line"></span><br><span class="line">      //Create wallets:</span><br><span class="line">      walletA = new Wallet();</span><br><span class="line">      walletB = new Wallet();</span><br><span class="line">      Wallet coinbase = new Wallet();</span><br><span class="line"></span><br><span class="line">      //create genesis transaction, which sends 100 NoobCoin to walletA:</span><br><span class="line">      genesisTransaction = new Transaction(coinbase.publicKey, walletA.publicKey, 100f, null);</span><br><span class="line">      genesisTransaction.generateSignature(coinbase.privateKey);  //manually sign the genesis transaction</span><br><span class="line">      genesisTransaction.transactionId = &quot;0&quot;; //manually set the transaction id</span><br><span class="line">      genesisTransaction.outputs.add(new TransactionOutput(genesisTransaction.reciepient, genesisTransaction.value, genesisTransaction.transactionId)); //manually add the Transactions Output</span><br><span class="line">      UTXOs.put(genesisTransaction.outputs.get(0).id, genesisTransaction.outputs.get(0)); //its important to store our first transaction in the UTXOs list.</span><br><span class="line"></span><br><span class="line">      System.out.println(&quot;Creating and Mining Genesis block... &quot;);</span><br><span class="line">      Block genesis = new Block(&quot;0&quot;);</span><br><span class="line">      genesis.addTransaction(genesisTransaction);</span><br><span class="line">      addBlock(genesis);</span><br><span class="line"></span><br><span class="line">      //testing</span><br><span class="line">      Block block1 = new Block(genesis.hash);</span><br><span class="line">      System.out.println(&quot;\nWalletA&apos;s balance is: &quot; + walletA.getBalance());</span><br><span class="line">      System.out.println(&quot;\nWalletA is Attempting to send funds (40) to WalletB...&quot;);</span><br><span class="line">      block1.addTransaction(walletA.sendFunds(walletB.publicKey, 40f));</span><br><span class="line">      addBlock(block1);</span><br><span class="line">      System.out.println(&quot;\nWalletA&apos;s balance is: &quot; + walletA.getBalance());</span><br><span class="line">      System.out.println(&quot;WalletB&apos;s balance is: &quot; + walletB.getBalance());</span><br><span class="line"></span><br><span class="line">      Block block2 = new Block(block1.hash);</span><br><span class="line">      System.out.println(&quot;\nWalletA Attempting to send more funds (1000) than it has...&quot;);</span><br><span class="line">      block2.addTransaction(walletA.sendFunds(walletB.publicKey, 1000f));</span><br><span class="line">      addBlock(block2);</span><br><span class="line">      System.out.println(&quot;\nWalletA&apos;s balance is: &quot; + walletA.getBalance());</span><br><span class="line">      System.out.println(&quot;WalletB&apos;s balance is: &quot; + walletB.getBalance());</span><br><span class="line"></span><br><span class="line">      Block block3 = new Block(block2.hash);</span><br><span class="line">      System.out.println(&quot;\nWalletB is Attempting to send funds (20) to WalletA...&quot;);</span><br><span class="line">      block3.addTransaction(walletB.sendFunds( walletA.publicKey, 20));</span><br><span class="line">      System.out.println(&quot;\nWalletA&apos;s balance is: &quot; + walletA.getBalance());</span><br><span class="line">      System.out.println(&quot;WalletB&apos;s balance is: &quot; + walletB.getBalance());</span><br><span class="line"></span><br><span class="line">      isChainValid();</span><br><span class="line"></span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   public static Boolean isChainValid() &#123;</span><br><span class="line">      Block currentBlock;</span><br><span class="line">      Block previousBlock;</span><br><span class="line">      String hashTarget = new String(new char[difficulty]).replace(&apos;\0&apos;, &apos;0&apos;);</span><br><span class="line">      HashMap&lt;String,TransactionOutput&gt; tempUTXOs = new HashMap&lt;String,TransactionOutput&gt;(); //a temporary working list of unspent transactions at a given block state.</span><br><span class="line">      tempUTXOs.put(genesisTransaction.outputs.get(0).id, genesisTransaction.outputs.get(0));</span><br><span class="line"></span><br><span class="line">      //loop through blockchain to check hashes:</span><br><span class="line">      for(int i=1; i &lt; blockchain.size(); i++) &#123;</span><br><span class="line"></span><br><span class="line">         currentBlock = blockchain.get(i);</span><br><span class="line">         previousBlock = blockchain.get(i-1);</span><br><span class="line">         //compare registered hash and calculated hash:</span><br><span class="line">         if(!currentBlock.hash.equals(currentBlock.calculateHash()) )&#123;</span><br><span class="line">            System.out.println(&quot;#Current Hashes not equal&quot;);</span><br><span class="line">            return false;</span><br><span class="line">         &#125;</span><br><span class="line">         //compare previous hash and registered previous hash</span><br><span class="line">         if(!previousBlock.hash.equals(currentBlock.previousHash) ) &#123;</span><br><span class="line">            System.out.println(&quot;#Previous Hashes not equal&quot;);</span><br><span class="line">            return false;</span><br><span class="line">         &#125;</span><br><span class="line">         //check if hash is solved</span><br><span class="line">         if(!currentBlock.hash.substring( 0, difficulty).equals(hashTarget)) &#123;</span><br><span class="line">            System.out.println(&quot;#This block hasn&apos;t been mined&quot;);</span><br><span class="line">            return false;</span><br><span class="line">         &#125;</span><br><span class="line"></span><br><span class="line">         //loop thru blockchains transactions:</span><br><span class="line">         TransactionOutput tempOutput;</span><br><span class="line">         for(int t=0; t &lt;currentBlock.transactions.size(); t++) &#123;</span><br><span class="line">            Transaction currentTransaction = currentBlock.transactions.get(t);</span><br><span class="line"></span><br><span class="line">            if(!currentTransaction.verifySignature()) &#123;</span><br><span class="line">               System.out.println(&quot;#Signature on Transaction(&quot; + t + &quot;) is Invalid&quot;);</span><br><span class="line">               return false;</span><br><span class="line">            &#125;</span><br><span class="line">            if(currentTransaction.getInputsValue() != currentTransaction.getOutputsValue()) &#123;</span><br><span class="line">               System.out.println(&quot;#Inputs are note equal to outputs on Transaction(&quot; + t + &quot;)&quot;);</span><br><span class="line">               return false;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            for(TransactionInput input: currentTransaction.inputs) &#123;</span><br><span class="line">               tempOutput = tempUTXOs.get(input.transactionOutputId);</span><br><span class="line"></span><br><span class="line">               if(tempOutput == null) &#123;</span><br><span class="line">                  System.out.println(&quot;#Referenced input on Transaction(&quot; + t + &quot;) is Missing&quot;);</span><br><span class="line">                  return false;</span><br><span class="line">               &#125;</span><br><span class="line"></span><br><span class="line">               if(input.UTXO.value != tempOutput.value) &#123;</span><br><span class="line">                  System.out.println(&quot;#Referenced input Transaction(&quot; + t + &quot;) value is Invalid&quot;);</span><br><span class="line">                  return false;</span><br><span class="line">               &#125;</span><br><span class="line"></span><br><span class="line">               tempUTXOs.remove(input.transactionOutputId);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            for(TransactionOutput output: currentTransaction.outputs) &#123;</span><br><span class="line">               tempUTXOs.put(output.id, output);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            if( currentTransaction.outputs.get(0).reciepient != currentTransaction.reciepient) &#123;</span><br><span class="line">               System.out.println(&quot;#Transaction(&quot; + t + &quot;) output reciepient is not who it should be&quot;);</span><br><span class="line">               return false;</span><br><span class="line">            &#125;</span><br><span class="line">            if( currentTransaction.outputs.get(1).reciepient != currentTransaction.sender) &#123;</span><br><span class="line">               System.out.println(&quot;#Transaction(&quot; + t + &quot;) output &apos;change&apos; is not sender.&quot;);</span><br><span class="line">               return false;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">         &#125;</span><br><span class="line"></span><br><span class="line">      &#125;</span><br><span class="line">      System.out.println(&quot;Blockchain is valid&quot;);</span><br><span class="line">      return true;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   public static void addBlock(Block newBlock) &#123;</span><br><span class="line">      newBlock.mineBlock(difficulty);</span><br><span class="line">      blockchain.add(newBlock);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<p><img src="https://cdn.yangbingdong.com/img/blockchain/blockchain09.webp" alt="img"></p>
+<blockquote>
+<p>代码链接：<strong><em><a href="https://github.com/importsource/blockchain-samples-transaction/tree/master" target="_blank" rel="noopener">https://github.com/importsource/blockchain-samples-transaction/tree/master</a></em></strong></p>
+<p><strong><em><a href="https://mp.weixin.qq.com/s?__biz=MzA5MzQ2NTY0OA==&amp;mid=2650797427&amp;idx=1&amp;sn=ba11e0bbe90b4776b73412264856e98c&amp;chksm=8856282cbf21a13ab4e3031d4ce1eb2ea6ce66fa6ea182f509a104f5d9258c3144f4be149886&amp;mpshare=1&amp;scene=1&amp;srcid=0305A7seElVJKytsJ4qseFzp#rd" target="_blank" rel="noopener">原文链接</a></em></strong></p>
+</blockquote>
+<h1 id="最热门的3个基于Java的Blockchain库"><a href="#最热门的3个基于Java的Blockchain库" class="headerlink" title="最热门的3个基于Java的Blockchain库"></a>最热门的3个基于Java的Blockchain库</h1><p>大家应该都听说过比特币、以太币或其他加密货币，这些名字在新闻中经常出现，但是作为Java开发人员，你们知道如何轻松地与Blockchain技术进行交互吗?下面是可以利用Blockchain的三大Java项目。这个列表是基于GitHub存储库的星序排列的。非常感谢你的评论和意见。</p>
+<h2 id="BitcoinJ"><a href="#BitcoinJ" class="headerlink" title="BitcoinJ"></a>BitcoinJ</h2><p>你有没有觉得这个名字很有描述性呢?如果你想知道如何创建一个比特币钱包，并且管理节点之间的事务，那么你应该<a href="https://github.com/bitcoinj/bitcoinj" target="_blank" rel="noopener">尝试一下BitcoinJ</a>。这个项目有一个不断扩大的社区，里面包含非常好的文档资料，这对每个开发人员都是非常有利的。当然，作为一个试图获得声望的开源项目，它也存在一定的局限性。现在已经有几个已知的开放漏洞的安全问题，以及可扩展性问题。不过，如果你想了解比特币协议是如何运作的，这个项目将是非常有帮助的。个人意见:这并不适用于生产应用。</p>
+<h2 id="Web3j"><a href="#Web3j" class="headerlink" title="Web3j"></a>Web3j</h2><p>一个词——Ethereum（以太币），这是基于尖端技术的第二大加密货币。<a href="https://github.com/web3j/web3j" target="_blank" rel="noopener">Web3j项目</a>允许你使用Ethereum区块链，同时不必为平台编写集成代码。同样，核心功能是创建钱包，管理事务，以及智能合约包装器。Ethereum项目的一部分是一种称为<a href="https://solidity.readthedocs.io/" target="_blank" rel="noopener">Solidity</a>的特殊语言，它是创建智能合约的实际标准。如果你想避免使用智能合约的底层实现细节，那就使用Web3j的智能合约包装器。如果这对一名开发人员来说还不够，那我需要告诉你，它包含很多好的文档和大量的例子，这也是使web3j成为我个人最爱的原因。</p>
+<h2 id="HyperLedger-Fabric"><a href="#HyperLedger-Fabric" class="headerlink" title="HyperLedger Fabric"></a>HyperLedger Fabric</h2><p><a href="https://github.com/hyperledger/fabric-sdk-java" target="_blank" rel="noopener">HyperLedger Fabric</a>是企业会用到的。Linux基金会的框架是区块链解决方案的主干。所以无论你想创建一个简单的PoC，还是一个生产应用程序，它都是一个强大的工具。该项目正在由Linux基金会成员积极组织开发。它的重点是创建和管理智能合约。主要特点是:</p>
+<blockquote>
+<p>管理共享机密信息的渠道<br>支持政策事务<br>一致地向网络中的对等节点交付事务</p>
+</blockquote>
+<p>如果你在软件区块链堆栈中包括了HyperLedger Fabric，那么我的建议是熟悉其他的HyperLedger项目。根据你的需要，可以选择各种不同的HyperLedger项目，这些项目将保证一个连贯的、可扩展的、易于维护的区块链基础设施。对于许多人来说，区块链将改变整个互联网，难道你不想成为其中的一部分吗?</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/Blockchain/" rel="tag"># Blockchain</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/02/26/spring-boot-mvc-validation/" rel="next" title="Spring Boot学习之MVC与Validation">
+                <i class="fa fa-chevron-left"></i> Spring Boot学习之MVC与Validation
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/02/spring-boot-docker-elk/" rel="prev" title="Spring Boot应用集成Docker并结合Log4j2、Kafka、ELK管理Docker日志">
+                Spring Boot应用集成Docker并结合Log4j2、Kafka、ELK管理Docker日志 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">杨凯</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Preface"><span class="nav-number">1.</span> <span class="nav-text">Preface</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#比特币UTXO和去中心化系统的设计"><span class="nav-number">2.</span> <span class="nav-text">比特币UTXO和去中心化系统的设计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#起因"><span class="nav-number">2.1.</span> <span class="nav-text">起因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UTXO是什么"><span class="nav-number">2.2.</span> <span class="nav-text">UTXO是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用UTXO的动机"><span class="nav-number">2.3.</span> <span class="nav-text">使用UTXO的动机</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基础篇"><span class="nav-number">3.</span> <span class="nav-text">基础篇</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#block块定义"><span class="nav-number">3.1.</span> <span class="nav-text">block块定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数字签名生成"><span class="nav-number">3.2.</span> <span class="nav-text">数字签名生成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一试身手"><span class="nav-number">3.3.</span> <span class="nav-text">一试身手</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#检查区块链的完整性"><span class="nav-number">3.4.</span> <span class="nav-text">检查区块链的完整性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#挖矿"><span class="nav-number">3.5.</span> <span class="nav-text">挖矿</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#发起一笔交易"><span class="nav-number">4.</span> <span class="nav-text">发起一笔交易</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、创建钱包"><span class="nav-number">4.1.</span> <span class="nav-text">1、创建钱包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-交易和签名（Transactions-amp-Signatures）"><span class="nav-number">4.2.</span> <span class="nav-text">2. 交易和签名（Transactions &amp; Signatures）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-测试钱包（Wallets）和签名（Signatures）"><span class="nav-number">4.3.</span> <span class="nav-text">3.测试钱包（Wallets）和签名（Signatures）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-输入（Inputs）与输出（Outputs）1：加密货币是如何拥有的…"><span class="nav-number">4.4.</span> <span class="nav-text">4. 输入（Inputs）与输出（Outputs）1：加密货币是如何拥有的…</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-输入（Inputs）与输出（Outputs）2：处理交易……"><span class="nav-number">4.5.</span> <span class="nav-text">5. 输入（Inputs）与输出（Outputs）2：处理交易……</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-向块中添加交易"><span class="nav-number">4.6.</span> <span class="nav-text">6. 向块中添加交易</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-大结局"><span class="nav-number">4.7.</span> <span class="nav-text">7. 大结局</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最热门的3个基于Java的Blockchain库"><span class="nav-number">5.</span> <span class="nav-text">最热门的3个基于Java的Blockchain库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#BitcoinJ"><span class="nav-number">5.1.</span> <span class="nav-text">BitcoinJ</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Web3j"><span class="nav-number">5.2.</span> <span class="nav-text">Web3j</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HyperLedger-Fabric"><span class="nav-number">5.3.</span> <span class="nav-text">HyperLedger Fabric</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">杨凯</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

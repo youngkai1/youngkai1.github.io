@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Ubuntu,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Preface =.= 这里只记录一些个人比较常用到的Ubuntu命令">
+<meta name="keywords" content="Ubuntu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ubuntu 常用命令">
+<meta property="og:url" content="http://yoursite.com/2017/09/20/note-of-linux-command/index.html">
+<meta property="og:site_name" content="如风过境">
+<meta property="og:description" content="Preface =.= 这里只记录一些个人比较常用到的Ubuntu命令">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/node-of-ubuntu-command/ubuntu-logo.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/node-of-ubuntu-command/command-useradd.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/node-of-ubuntu-command/command-usermod.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/node-of-ubuntu-command/command-groupadd.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/node-of-ubuntu-command/command-groupmod.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/node-of-ubuntu-command/apt-get-update-fail.png">
+<meta property="og:updated_time" content="2018-12-09T10:09:00.052Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ubuntu 常用命令">
+<meta name="twitter:description" content="Preface =.= 这里只记录一些个人比较常用到的Ubuntu命令">
+<meta name="twitter:image" content="https://cdn.yangbingdong.com/img/node-of-ubuntu-command/ubuntu-logo.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/09/20/note-of-linux-command/">
+
+
+
+
+
+  <title>Ubuntu 常用命令 | 如风过境</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">如风过境</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/20/note-of-linux-command/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="杨凯">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="如风过境">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Ubuntu 常用命令</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-20T18:05:10+08:00">
+                2017-09-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/OperatingSystem/" itemprop="url" rel="index">
+                    <span itemprop="name">OperatingSystem</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/OperatingSystem/Ubuntu/" itemprop="url" rel="index">
+                    <span itemprop="name">Ubuntu</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="https://cdn.yangbingdong.com/img/node-of-ubuntu-command/ubuntu-logo.png" alt=""></p>
+<h1 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h1><blockquote>
+<p>=.= 这里只记录一些个人比较常用到的<a href="https://www.ubuntu.com" target="_blank" rel="noopener"><em>Ubuntu</em></a>命令</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="SSH相关"><a href="#SSH相关" class="headerlink" title="SSH相关"></a>SSH相关</h1><h2 id="安装SSH"><a href="#安装SSH" class="headerlink" title="安装SSH"></a>安装SSH</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install ssh</span><br><span class="line">sudo apt install openssh-server</span><br></pre></td></tr></table></figure>
+<p>查看启动成功：<code>ps -e|grep ssh</code>，如果看到<code>sshd</code>那代表成功了，如果没有，执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo/etc/init.d/ssh start</span><br></pre></td></tr></table></figure>
+<p>ssh的配置文件位于<code>/etc/ssh/sshd_config</code>，修改后需要重启ssh：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo /etc/init.d/sshresart</span><br></pre></td></tr></table></figure>
+<h2 id="保持长连接"><a href="#保持长连接" class="headerlink" title="保持长连接"></a>保持长连接</h2><p>只需要在<code>ssh</code>命令后加上发送心跳即可：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -o ServerAliveInterval=30 root@123.456.88 -p 2333</span><br></pre></td></tr></table></figure></p>
+<h2 id="生成SSH密钥和公钥"><a href="#生成SSH密钥和公钥" class="headerlink" title="生成SSH密钥和公钥"></a>生成SSH密钥和公钥</h2><p>打开终端，使用下面的<code>ssh-keygen</code>来生成<code>RSA</code>密钥和公钥。<code>-t</code>表示type，就是说要生成<code>RSA</code>加密的钥匙：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C "your_email@youremail.com"</span><br></pre></td></tr></table></figure></p>
+<p><code>RSA</code>也是默认的加密类型，所以你也可以只输入<code>ssh-keygen</code>，默认的<code>RSA</code>长度是2048位，如果你非常注重安全，那么可以指定4096位的长度：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -b 4096 -t rsa -C "your_email@youremail.com"</span><br></pre></td></tr></table></figure></p>
+<p>生成SSH Key的过程中会要求你指定一个文件来保存密钥，按<code>Enter</code>键使用默认的文件就行了，然后需要输入一个密码来加密你的SSH Key，密码至少要20位长度，SSH密钥会保存在<code>home</code>目录下的<code>.ssh/id_rsa</code>文件中，SSH公钥保存在<code>.ssh/id_rsa.pub</code>文件中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Generating public/private rsa key pair.</span><br><span class="line">Enter file in which to save the key (/home/matrix/.ssh/id_rsa): 　#按Enter键</span><br><span class="line">Enter passphrase (empty for no passphrase): 　　#输入一个密码</span><br><span class="line">Enter same passphrase again: 　　#再次输入密码</span><br><span class="line">Your identification has been saved in /home/matrix/.ssh/id_rsa.</span><br><span class="line">Your public key has been saved in /home/matrix/.ssh/id_rsa.pub.</span><br><span class="line">The key fingerprint is:</span><br><span class="line">e1:dc:ab:ae:b6:19:b0:19:74:d5:fe:57:3f:32:b4:d0 matrix@vivid</span><br><span class="line">The key&apos;s randomart image is:</span><br><span class="line">+---[RSA 4096]----+</span><br><span class="line">| .. |</span><br><span class="line">| . . |</span><br><span class="line">| . . .. . |</span><br><span class="line">| . . o o.. E .|</span><br><span class="line">| o S ..o ...|</span><br><span class="line">| = ..+...|</span><br><span class="line">| o . . .o .|</span><br><span class="line">| .o . |</span><br><span class="line">| .++o |</span><br><span class="line">+-----------------+</span><br></pre></td></tr></table></figure></p>
+<h2 id="文件传输"><a href="#文件传输" class="headerlink" title="文件传输"></a>文件传输</h2><p>姿势：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 传输单个文件</span><br><span class="line">scp -P &lt;端口&gt; &lt;源文件&gt; &lt;目标文件&gt;</span><br><span class="line"></span><br><span class="line"># 传输文件夹</span><br><span class="line">scp -P &lt;端口&gt; -r &lt;源文件夹&gt; &lt;目标文件夹&gt;</span><br></pre></td></tr></table></figure></p>
+<p><strong>注意</strong><code>-P</code>要在前面<br>例如把本地的file复制到远程服务器：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp -P 2333 /home/ybd/file root@123.456.78:/root/file</span><br></pre></td></tr></table></figure></p>
+<h2 id="免密码登录远程服务器"><a href="#免密码登录远程服务器" class="headerlink" title="免密码登录远程服务器"></a>免密码登录远程服务器</h2><h3 id="姿势一"><a href="#姿势一" class="headerlink" title="姿势一"></a>姿势一</h3><p>使用上述<code>scp</code>把公钥<strong>上传</strong>到服务器，然后：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys</span><br></pre></td></tr></table></figure></p>
+<h3 id="姿势二"><a href="#姿势二" class="headerlink" title="姿势二"></a>姿势二</h3><p>可以使用<code>ssh-copy-id</code>命令来完成：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-copy-id &lt;用户名&gt;@&lt;服务器ip&gt; -p &lt;端口&gt;</span><br></pre></td></tr></table></figure></p>
+<p>输入远程用户的密码后，SSH公钥就会自动上传了，SSH公钥保存在远程Linux服务器的<code>.ssh/authorized_keys</code>文件中。</p>
+<h1 id="别名alias简化命令"><a href="#别名alias简化命令" class="headerlink" title="别名alias简化命令"></a>别名alias简化命令</h1><p>只需要在当前用户目录加上别名命令，但博主用的是<code>zsh</code>，所有配置在<code>.zshrc</code>而不是<code>.bashrc</code><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo "alias vps='ssh -o ServerAliveInterval=30 root@172.104.65.190 -p 2333'" &gt;&gt; ~/.zshrc</span><br><span class="line">source ~/.zshrc</span><br></pre></td></tr></table></figure></p>
+<p>然后直接输入<code>vps</code>就可以登陆远程服务器了。</p>
+<h1 id="切换用户"><a href="#切换用户" class="headerlink" title="切换用户"></a>切换用户</h1><p>使用<code>su</code>命令切换用户，ex：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">su - ybd</span><br></pre></td></tr></table></figure></p>
+<p>这样就切换到了ybd用户<br><code>su -</code>就是<code>su -l</code>(l为login的意思)，<code>l</code>可以省略，所以一般写成<code>su -</code>…..(<del>坑爹</del>)<br>如果不加用户名，默认是 <code>su root</code>切换<code>root</code>用户。<br><strong>注意</strong>：<code>su</code> 和 <code>su -</code>的区别</p>
+<ul>
+<li>前者是直接切换，还<strong>保留了当前位置以及变量</strong></li>
+<li>而后者不单单切换了用户，而且还<strong>切换到了用户目录</strong>，并且之前用户的<strong>环境变量没有了</strong>！</li>
+</ul>
+<blockquote>
+<p>因为这个原因，写<code>Dockerfile</code>困扰了好一段时间…囧</p>
+</blockquote>
+<p>还有<code>su</code>也可以使用某个用户的身份执行一些命令，ex：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 执行单个命令</span><br><span class="line">su - $&#123;USER_NAME&#125; -c &quot;npm install -g hexo-cli&quot;</span><br><span class="line"># 执行shell脚本</span><br><span class="line">su - $&#123;USER_NAME&#125; -s /bin/bash shell.sh</span><br></pre></td></tr></table></figure></p>
+<p>执行完之后还是保持当前用户。<br>可以通过<code>exit</code>退出当前用户。</p>
+<h1 id="ufw防火墙"><a href="#ufw防火墙" class="headerlink" title="ufw防火墙"></a>ufw防火墙</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>Ubuntu自带ufw，没有可以直接安装：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo get install ufw</span><br></pre></td></tr></table></figure>
+<h2 id="查看端口是否开启"><a href="#查看端口是否开启" class="headerlink" title="查看端口是否开启"></a>查看端口是否开启</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">telnet 192.168.1.103 80</span><br></pre></td></tr></table></figure>
+<h2 id="设置默认规则"><a href="#设置默认规则" class="headerlink" title="设置默认规则"></a>设置默认规则</h2><p>大多数系统只需要打开少量的端口接受传入连接，并且关闭所有剩余的端口。 从一个简单的规则基础开始，<code>ufw default</code>命令可以用于设置对传入和传出连接的默认响应动作。 要拒绝所有传入并允许所有传出连接，那么运行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo ufw default allow outgoing</span><br><span class="line">sudo ufw default deny incoming</span><br></pre></td></tr></table></figure>
+<h2 id="查看本地的端口开启情况"><a href="#查看本地的端口开启情况" class="headerlink" title="查看本地的端口开启情况"></a>查看本地的端口开启情况</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ufw status</span><br></pre></td></tr></table></figure>
+<h2 id="打开80端口"><a href="#打开80端口" class="headerlink" title="打开80端口"></a>打开80端口</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ufw allow 80</span><br></pre></td></tr></table></figure>
+<h2 id="允许从一个-IP-地址连接"><a href="#允许从一个-IP-地址连接" class="headerlink" title="允许从一个 IP 地址连接"></a>允许从一个 IP 地址连接</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ufw allow from 123.45.67.89</span><br></pre></td></tr></table></figure>
+<h2 id="允许特定子网的连接"><a href="#允许特定子网的连接" class="headerlink" title="允许特定子网的连接"></a>允许特定子网的连接</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ufw allow from 123.45.67.89/24</span><br></pre></td></tr></table></figure>
+<h2 id="允许特定-IP-端口的组合"><a href="#允许特定-IP-端口的组合" class="headerlink" title="允许特定 IP/ 端口的组合"></a>允许特定 IP/ 端口的组合</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ufw allow from 123.45.67.89 to any port 22 proto tcp</span><br></pre></td></tr></table></figure>
+<h2 id="防火墙开启-禁用"><a href="#防火墙开启-禁用" class="headerlink" title="防火墙开启/禁用"></a>防火墙开启/禁用</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 开启</span><br><span class="line">sudo ufw enable</span><br><span class="line"># 禁用</span><br><span class="line">sudo ufw disable</span><br></pre></td></tr></table></figure>
+<h2 id="防火墙重启："><a href="#防火墙重启：" class="headerlink" title="防火墙重启："></a>防火墙重启：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ufw reload</span><br></pre></td></tr></table></figure>
+<h1 id="用户与用户组相关"><a href="#用户与用户组相关" class="headerlink" title="用户与用户组相关"></a>用户与用户组相关</h1><h2 id="添加用户useradd"><a href="#添加用户useradd" class="headerlink" title="添加用户useradd"></a>添加用户useradd</h2><p><img src="https://cdn.yangbingdong.com/img/node-of-ubuntu-command/command-useradd.png" alt=""></p>
+<p>ex：<br>创建<code>ybd</code>用户并且加入<code>ybd</code>用户组并且创建用户目录：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">useradd -g ybd -m ybd</span><br><span class="line"># 或者</span><br><span class="line">user add -m -U ybd</span><br></pre></td></tr></table></figure>
+<h2 id="修改密码"><a href="#修改密码" class="headerlink" title="修改密码"></a>修改密码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd ybd</span><br></pre></td></tr></table></figure>
+<h2 id="修改用户usermod"><a href="#修改用户usermod" class="headerlink" title="修改用户usermod"></a>修改用户usermod</h2><p><img src="https://cdn.yangbingdong.com/img/node-of-ubuntu-command/command-usermod.png" alt=""></p>
+<h2 id="添加用户组groupadd"><a href="#添加用户组groupadd" class="headerlink" title="添加用户组groupadd"></a>添加用户组groupadd</h2><p><img src="https://cdn.yangbingdong.com/img/node-of-ubuntu-command/command-groupadd.png" alt=""></p>
+<h2 id="修改用户组"><a href="#修改用户组" class="headerlink" title="修改用户组"></a>修改用户组</h2><p><img src="https://cdn.yangbingdong.com/img/node-of-ubuntu-command/command-groupmod.png" alt=""></p>
+<p>ex:将test组的名子改成test2<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">groupmod -n test2 test</span><br></pre></td></tr></table></figure></p>
+<p>删除组test2<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">groupdel test2</span><br></pre></td></tr></table></figure></p>
+<h2 id="查看组"><a href="#查看组" class="headerlink" title="查看组"></a>查看组</h2><p>查看当前登录用户所在的组：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">groups</span><br></pre></td></tr></table></figure></p>
+<p>查看用户test所在组：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">groups test</span><br></pre></td></tr></table></figure></p>
+<p>查看所有组：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/group</span><br></pre></td></tr></table></figure></p>
+<h2 id="修改用户名"><a href="#修改用户名" class="headerlink" title="修改用户名"></a>修改用户名</h2><blockquote>
+<p><code>usermod</code>不允许你改变正在线上的使用者帐号名称。当<code>usermod</code>用来改变<code>userID</code>，必须确认这名<code>user</code>没在电脑上执行任何程序，否则会报“<code>usermod: user xxx is currently logged in</code>”错误。<strong>因此必须<code>root</code>用户登录或者其他用户登录然后切换到<code>root</code>身份，而不能在当前用户下切换至<code>root</code>进行修改。</strong></p>
+</blockquote>
+<p>1、<strong>以root身份登录</strong></p>
+<p>2、<strong>usermod -l hadoop seed</strong><br>该命令相当于做了两件事：</p>
+<ul>
+<li>将<code>/etc/passwd</code>下的用户名栏从<code>seed</code>修改为<code>hadoop</code>，其他部分不变</li>
+<li>将<code>/etc/shadow</code>下的用户名栏从<code>seed</code>修改为<code>hadoop</code>，其他部分不变</li>
+</ul>
+<p>3、<strong>usermod -c hadoop hadoop</strong></p>
+<ul>
+<li>相当于将<code>/etc/passwd</code>下的注解栏修改为<code>hadoop</code>，其他部分不变</li>
+</ul>
+<p>4、<strong>groupmod -n hadoop seed</strong></p>
+<ul>
+<li>将原来的用户组<code>seed</code>修改为<code>hadoop</code>，只修改组名，组标识号不变，相当于修改了文件<code>/etc/group</code>和<code>/etc/gshadow</code></li>
+</ul>
+<p>5、<strong>usermod -md /home/hadoop hadoop</strong><br>相当于做了两件事：</p>
+<ul>
+<li>将~下的登入目录栏修改为<code>/home/hadoop</code>，其他部分不变</li>
+<li>将原来的用户目录<code>/home/seed</code>修改为新的用户目录<code>/home/hadoop</code></li>
+</ul>
+<h1 id="递归下载抓取整个网站内容"><a href="#递归下载抓取整个网站内容" class="headerlink" title="递归下载抓取整个网站内容"></a>递归下载抓取整个网站内容</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -r -p -k -np &lt;URL&gt;</span><br></pre></td></tr></table></figure>
+<p>参数说明：<br><code>-r</code>：  递归下载<br><code>-p</code>：  下载所有用于显示 HTML 页面的图片之类的元素<br><code>-k</code>：   在转换文件 X 前先将它备份为 <code>X.orig</code><br><code>-np</code>：   不追溯至父目录</p>
+<h1 id="跟踪日志输出"><a href="#跟踪日志输出" class="headerlink" title="跟踪日志输出"></a>跟踪日志输出</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tail -f &lt;log&gt;</span><br><span class="line"></span><br><span class="line"># 输出最后1000行</span><br><span class="line">tail -1000 &lt;log&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="统计文件夹大小"><a href="#统计文件夹大小" class="headerlink" title="统计文件夹大小"></a>统计文件夹大小</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">du -hs `ls -al |awk &apos;&#123;print $9&#125;&apos;`</span><br></pre></td></tr></table></figure>
+<p>上面命令可以统计文件夹中所有的文件夹和文件的大小，并且包括隐藏目录。缺点是连上级目录也会统计。</p>
+<p>如果不需要列出上级目录，则把ls命令的-a换成-A，就不会列出点文件了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">du -hs `ls -Al |awk &apos;&#123;print $9&#125;&apos;`</span><br></pre></td></tr></table></figure></p>
+<p>如果不需要列出文件，只需文件夹，则在ls中增加-d参数即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">du -hs `ls -Adl |awk &apos;&#123;print $9&#125;&apos;`</span><br><span class="line">或</span><br><span class="line">du -hs `ls -Al |grep ^d|awk &apos;&#123;print $9&#125;&apos;`</span><br></pre></td></tr></table></figure></p>
+<h1 id="压缩和解压缩"><a href="#压缩和解压缩" class="headerlink" title="压缩和解压缩"></a>压缩和解压缩</h1><p>打包但是不压缩(<code>tar</code>)：<code>tar -cf &lt;压缩包文件名&gt; &lt;要打包的目录&gt;</code><br>打包并压缩(<code>tar.gz</code>)：<code>tar -zcf &lt;压缩包文件名&gt; &lt;要打包的目录&gt;</code></p>
+<p>解压缩<code>tar</code>文件：<code>tar -xvf &lt;压缩包文件&gt;</code><br>解压缩<code>tar.gz</code>文件：<code>tar -zxvf &lt;压缩包文件&gt;</code></p>
+<h1 id="目录操作命令"><a href="#目录操作命令" class="headerlink" title="目录操作命令"></a>目录操作命令</h1><p>在<strong>Windows系统</strong>中，有<code>C</code>、<code>D</code>、<code>E</code>等众多的盘符，每个盘符就是一个根目录。在<code>Linux</code>、<code>Unix</code>、<code>MacOS</code>等系统的<strong>文件系统</strong>中，<strong>只有一个根目录</strong>，那就是<code>root</code>，以一个斜杠代表（<code>/</code>）。</p>
+<h2 id="切换目录：cd"><a href="#切换目录：cd" class="headerlink" title="切换目录：cd"></a>切换目录：<code>cd</code></h2><p>该命令和Windows中没有太大的区别，都表示改变当前的工作目录。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd &lt;目标目录&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="显示当前目录：pwd"><a href="#显示当前目录：pwd" class="headerlink" title="显示当前目录：pwd"></a>显示当前目录：<code>pwd</code></h2><p>显示当前目录的路径，返回字符串。在Windows使用cd不带参数的方式代替。该命令同样也没有参数。</p>
+<h2 id="遍历目录：ls"><a href="#遍历目录：ls" class="headerlink" title="遍历目录：ls"></a>遍历目录：<code>ls</code></h2><p>显示当前目录中的内容，常用的命令有：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">以列表显示当前目录所有的目录和文件</span><br><span class="line">ls -l</span><br></pre></td></tr></table></figure></p>
+<p>在<code>Linux</code>、<code>Unix</code>、<code>MacOS</code>等系统中，隐藏文件均是点（.）开头的，下面命令以列表显示当前目录所有的目录和文件，包括隐藏的目录和文件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -al</span><br></pre></td></tr></table></figure></p>
+<p>显示所有的目录，包括隐藏的目录，但是不包括文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -adl</span><br></pre></td></tr></table></figure></p>
+<h2 id="复制：cp"><a href="#复制：cp" class="headerlink" title="复制：cp"></a>复制：<code>cp</code></h2><p><code>cp</code>是<code>copy</code>的简称，用于复制文件和目录。复制的时候，源路径和目录路径可以是一个文件，也可以是一个目录。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp &lt;源路径&gt; &lt;目标路径&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="移动：mv"><a href="#移动：mv" class="headerlink" title="移动：mv"></a>移动：<code>mv</code></h2><p><code>mv</code>是移动(<code>move</code>)的简称，用于移动文件和目录。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv  &lt;源路径&gt; &lt;目标路径&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="删除：rm"><a href="#删除：rm" class="headerlink" title="删除：rm"></a>删除：<code>rm</code></h2><p><code>rm</code>命令可以用于删除目录和文件，但是通过<code>rm</code>删除目录的话，必须加上<code>rm -rf &lt;目录名称&gt;</code>。<br>删除文件直接就是<code>rm &lt;文件名&gt;</code></p>
+<p>注意：<br>在<code>Linux</code>或者<code>Unix</code>系统中，通过<code>rm</code>或者文件管理器删除文件将会从文件系统的目录结构上解除链接(<code>unlink</code>).<br>然而如果文件是被打开的（有一个进程正在使用），那么进程将仍然可以读取该文件，磁盘空间也一直被占用。<br>可以通过<code>lsof</code>命令查看文件是否被打开。详见 列出打开的文件。</p>
+<h2 id="删除目录：rmdir"><a href="#删除目录：rmdir" class="headerlink" title="删除目录：rmdir"></a>删除目录：rmdir</h2><p>删除目录的时候，必须确保目录是空的，否则无法删除。命令格式：<code>rm &lt;目录&gt;</code>。</p>
+<h2 id="管理员权限打开文件夹"><a href="#管理员权限打开文件夹" class="headerlink" title="管理员权限打开文件夹"></a>管理员权限打开文件夹</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nautilus</span><br></pre></td></tr></table></figure>
+<h1 id="查找相关"><a href="#查找相关" class="headerlink" title="查找相关"></a>查找相关</h1><blockquote>
+<p>以下转载于<strong><em><a href="http://blog.csdn.net/wzzfeitian/article/details/40985549" target="_blank" rel="noopener">http://blog.csdn.net/wzzfeitian/article/details/40985549</a></em></strong></p>
+</blockquote>
+<h2 id="find命令"><a href="#find命令" class="headerlink" title="find命令"></a><strong>find命令</strong></h2><p>find &lt; path &gt; &lt; expression &gt; &lt; cmd &gt;</p>
+<ul>
+<li>path： 所要搜索的目录及其所有子目录。默认为当前目录。</li>
+<li>expression： 所要搜索的文件的特征。</li>
+<li>cmd： 对搜索结果进行特定的处理。</li>
+</ul>
+<p>如果什么参数也不加，find默认搜索当前目录及其子目录，并且不过滤任何结果（也就是返回所有文件），将它们全都显示在屏幕上。</p>
+<h3 id="find命令常用选项及实例"><a href="#find命令常用选项及实例" class="headerlink" title="find命令常用选项及实例"></a><strong>find命令常用选项及实例</strong></h3><p><code>-name</code> 按照文件名查找文件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">find /dir -name filename  在/dir目录及其子目录下面查找名字为filename的文件</span><br><span class="line">find . -name &quot;*.c&quot; 在当前目录及其子目录（用“.”表示）中查找任何扩展名为“c”的文件</span><br></pre></td></tr></table></figure></p>
+<p><code>-perm</code> 按照文件权限来查找文件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find . -perm 755 –print 在当前目录下查找文件权限位为755的文件，即文件属主可以读、写、执行，其他用户可以读、执行的文件</span><br></pre></td></tr></table></figure></p>
+<p><code>-prune</code> 使用这一选项可以使<code>find</code>命令不在当前指定的目录中查找，如果同时使用<code>-depth</code>选项，那么<code>-prune</code>将被<code>find</code>命令忽略。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">find /apps -path &quot;/apps/bin&quot; -prune -o –print 在/apps目录下查找文件，但不希望在/apps/bin目录下查找</span><br><span class="line">find /usr/sam -path &quot;/usr/sam/dir1&quot; -prune -o –print 在/usr/sam目录下查找不在dir1子目录之内的所有文件</span><br></pre></td></tr></table></figure>
+<p><code>-depth</code>：在查找文件时，首先查找当前目录中的文件，然后再在其子目录中查找。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find / -name &quot;CON.FILE&quot; -depth –print 它将首先匹配所有的文件然后再进入子目录中查找</span><br></pre></td></tr></table></figure>
+<p><code>-user</code> 按照文件属主来查找文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find ~ -user sam –print 在$HOME目录中查找文件属主为sam的文件</span><br></pre></td></tr></table></figure>
+<p><code>-group</code> 按照文件所属的组来查找文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find /apps -group gem –print 在/apps目录下查找属于gem用户组的文件</span><br></pre></td></tr></table></figure>
+<p><code>-mtime -n +n</code> 按照文件的更改时间来查找文件， -n表示文件更改时间距现在n天以内，+n表示文件更改时间距现在n天以前。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">find / -mtime -5 –print 在系统根目录下查找更改时间在5日以内的文件</span><br><span class="line">find /var/adm -mtime +3 –print 在/var/adm目录下查找更改时间在3日以前的文件</span><br></pre></td></tr></table></figure>
+<p><code>-nogroup</code> 查找无有效所属组的文件，即该文件所属的组在<code>/etc/groups</code>中不存在。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find / –nogroup -print</span><br></pre></td></tr></table></figure>
+<p><code>-nouser</code> 查找无有效属主的文件，即该文件的属主在<code>/etc/passwd</code>中不存在。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find /home -nouser –print</span><br></pre></td></tr></table></figure>
+<p><code>-newer file1 ! file2</code> 查找更改时间比文件file1新但比文件file2旧的文件。</p>
+<p><code>-type</code> 查找某一类型的文件，</p>
+<p>诸如：</p>
+<ul>
+<li>b - 块设备文件。</li>
+<li>d - 目录。</li>
+<li>c - 字符设备文件。</li>
+<li>p - 管道文件。</li>
+<li>l - 符号链接文件。</li>
+<li>f - 普通文件。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">find /etc -type d –print 在/etc目录下查找所有的目录</span><br><span class="line">find . ! -type d –print 在当前目录下查找除目录以外的所有类型的文件</span><br><span class="line">find /etc -type l –print 在/etc目录下查找所有的符号链接文件</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><code>-size n[c]</code> 查找文件长度为n块的文件，带有c时表示文件长度以字节计。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">find . -size +1000000c –print 在当前目录下查找文件长度大于1 M字节的文件</span><br><span class="line">find /home/apache -size 100c –print 在/home/apache目录下查找文件长度恰好为100字节的文件</span><br><span class="line">find . -size +10 –print 在当前目录下查找长度超过10块的文件（一块等于512字节）</span><br></pre></td></tr></table></figure></p>
+<p><code>-mount</code> 在查找文件时不跨越文件系统mount点。<br>  <code>find . -name “*.XC” -mount –print</code> 从当前目录开始查找位于本文件系统中文件名以XC结尾的文件（不进入其他文件系统）</p>
+<p><code>-follow</code> 如果find命令遇到符号链接文件，就跟踪至链接所指向的文件</p>
+<p><code>-exec</code> find命令对匹配的文件执行该参数所给出的shell命令。相应命令的形式为<code>command {} \</code>，注意<code>{}</code>和<code>\</code>;之间的空格</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ find ./ -size 0 -exec rm &#123;&#125; \; 删除文件大小为零的文件</span><br><span class="line">$ rm -i `find ./ -size 0`  </span><br><span class="line">$ find ./ -size 0 | xargs rm -f &amp;</span><br><span class="line"></span><br><span class="line">为了用ls -l命令列出所匹配到的文件，可以把ls -l命令放在find命令的-exec选项中：</span><br><span class="line">$ find . -type f -exec ls -l &#123;&#125; \;</span><br><span class="line">在/logs目录中查找更改时间在5日以前的文件并删除它们：</span><br><span class="line">find /logs -type f -mtime +5 -exec rm &#123;&#125; \;</span><br></pre></td></tr></table></figure>
+<p><code>-ok</code>，和<code>-exec</code>的作用相同，只不过以一种更为安全的模式来执行该参数所给出的shell命令，在执行每一个命令之前，都会给出提示，让用户来确定是否执行。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find . -name &quot;*.conf&quot;  -mtime +5 -ok rm &#123;&#125; \; 在当前目录中查找所有文件名以.LOG结尾、更改时间在5日以上的文件，并删除它们，只不过在删除之前先给出提示</span><br></pre></td></tr></table></figure>
+<p><strong>说明</strong>： 如果你要寻找一个档案的话，那么使用 find 会是一个不错的主意。不过，由于 find 在寻找数据的时候相当的耗硬盘，所以没事情不要使用 find 啦！有更棒的指令可以取代呦，那就是 <code>whereis</code> 与 <code>locate</code> 咯~</p>
+<h3 id="一些常用命令"><a href="#一些常用命令" class="headerlink" title="一些常用命令"></a><strong>一些常用命令</strong></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">1. find . -type f -exec ls -l &#123;&#125; \;</span><br><span class="line">查找当前路径下的所有普通文件，并把它们列出来。</span><br><span class="line"></span><br><span class="line">2. find logs -type f -mtime +5 -exec rm &#123;&#125; \;</span><br><span class="line">删除logs目录下更新时间为5日以上的文件。</span><br><span class="line"></span><br><span class="line">3.find . -name &quot;*.log&quot; -mtime +5 -ok rm &#123;&#125; \;</span><br><span class="line">删除当前路径下以。log结尾的五日以上的文件，删除之前要确认。</span><br><span class="line"></span><br><span class="line">4. find ~ -type f -perm 4755 -print</span><br><span class="line">查找$HOME目录下suid位被设置，文件属性为755的文件打印出来。</span><br><span class="line">说明： find在有点系统中会一次性得到将匹配到的文件都传给exec，但是有的系统对exec的命令长度做限制，就会报：”参数列太长“，这就需要使用xargs。xargs是部分取传来的文件。</span><br><span class="line"></span><br><span class="line">5. find / -type f -print |xargs file</span><br><span class="line">xargs测试文件分类</span><br><span class="line"></span><br><span class="line">6. find . -name &quot;core*&quot; -print|xargs echo &quot; &quot;&gt;/tmp/core.log</span><br><span class="line">将core文件信息查询结果报存到core。log日志。</span><br><span class="line"></span><br><span class="line">7. find / -type f -print | xargs chmod o -w</span><br><span class="line"></span><br><span class="line">8. find . -name * -print |xargs grep &quot;DBO&quot;</span><br></pre></td></tr></table></figure>
+<h2 id="grep命令"><a href="#grep命令" class="headerlink" title="grep命令"></a><strong>grep命令</strong></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep [选项] pattern [文件名]</span><br></pre></td></tr></table></figure>
+<p>命令中的选项为：</p>
+<ul>
+<li>-? 同时显示匹配行上下的？行，如：<code>grep -2 pattern filename</code> 同时显示匹配行的上下2行。</li>
+<li>-b，—byte-offset 打印匹配行前面打印该行所在的块号码。</li>
+<li>-c,—count 只打印匹配的行数，不显示匹配的内容。</li>
+<li>-f File，—file=File 从文件中提取模板。空文件中包含0个模板，所以什么都不匹配。</li>
+<li>-h，—no-filename 当搜索多个文件时，不显示匹配文件名前缀。</li>
+<li>-i，—ignore-case 忽略大小写差别。</li>
+<li>-q，—quiet 取消显示，只返回退出状态。0则表示找到了匹配的行。</li>
+<li>-l，—files-with-matches 打印匹配模板的文件清单。</li>
+<li>-L，—files-without-match 打印不匹配模板的文件清单。</li>
+<li>-n，—line-number 在匹配的行前面打印行号。</li>
+<li>-s，—silent 不显示关于不存在或者无法读取文件的错误信息。</li>
+<li>-v，—revert-match 反检索，只显示不匹配的行。</li>
+<li>-w，—word-regexp 如果被\&lt;和&gt;引用，就把表达式做为一个单词搜索。</li>
+<li>-V，—version 显示软件版本信息。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">ls -l | grep &apos;^a&apos; 通过管道过滤ls -l输出的内容，只显示以a开头的行。</span><br><span class="line">grep &apos;test&apos; d* 显示所有以d开头的文件中包含test的行。</span><br><span class="line">grep &apos;test&apos; aa bb cc 显示在aa，bb，cc文件中匹配test的行。</span><br><span class="line">grep &apos;[a-z]&apos; aa 显示所有包含每个字符串至少有5个连续小写字符的字符串的行。</span><br><span class="line">grep &apos;w(es)t.*&apos; aa 如果west被匹配，则es就被存储到内存中，并标记为1，然后搜索任意个字符(.*)，这些字符后面紧跟着另外一个es()，找到就显示该行。如果用egrep或grep -E，就不用&quot;&quot;号进行转义，直接写成&apos;w(es)t.*&apos;就可以了。</span><br><span class="line">grep -i pattern files ：不区分大小写地搜索。默认情况区分大小写</span><br><span class="line">grep -l pattern files ：只列出匹配的文件名，</span><br><span class="line">grep -L pattern files ：列出不匹配的文件名，</span><br><span class="line">grep -w pattern files ：只匹配整个单词，而不是字符串的一部分(如匹配‘magic’，而不是‘magical’)，</span><br><span class="line">grep -C number pattern files ：匹配的上下文分别显示[number]行，</span><br><span class="line">grep pattern1 | pattern2 files ：显示匹配 pattern1 或 pattern2 的行，</span><br><span class="line">grep pattern1 files | grep pattern2 ：显示既匹配 pattern1 又匹配 pattern2 的行。</span><br></pre></td></tr></table></figure>
+<p>pattern为所要匹配的字符串，可使用下列模式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">. 匹配任意一个字符</span><br><span class="line">* 匹配0 个或多个*前的字符</span><br><span class="line">^ 匹配行开头</span><br><span class="line">$ 匹配行结尾</span><br><span class="line">[] 匹配[ ]中的任意一个字符，[]中可用 - 表示范围，</span><br><span class="line">例如[a-z]表示字母a 至z 中的任意一个</span><br><span class="line">\ 转意字符</span><br></pre></td></tr></table></figure></p>
+<h2 id="xargs命令"><a href="#xargs命令" class="headerlink" title="xargs命令"></a><strong>xargs命令</strong></h2><p>【xargs定位参数位置 | xargs控制参数位置 | 如何定位控制xargs参数位置】<br><strong>背景</strong>：<br>管道 + xargs用于把上游输出转换为下游参数输入。<br>例如 <code>ls *.bak | xargs rm -f</code></p>
+<p><strong>问题</strong>：<br>xargs默认把输入作为参数放到命令的最后，但是很多命令需要自己定位参数的位置，比如拷贝命令<code>cp {上游结果} destFolder</code></p>
+<p><strong>解决方法</strong>：<br>xargs 使用大写字母i 定义参数指示符 <strong>-I &lt;指示符&gt;</strong>，然后用这个参数指示符定位参数插入的位置, 例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls *.bak | xargs -I % cp % /tmp/test</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注释：这里使用%作为指示符，第一个%可以理解为声明，第二个%可以理解为调用。你也<strong>可以用其他字符</strong>，比如 <code>ls *.bak | xargs -I {} cp {} /tmp/test</code></p>
+</blockquote>
+<p><strong>简介</strong><br>之所以能用到xargs这个命令，关键是由于很多命令不支持|管道来传递参数，而日常工作中有有这个必要，所以就有了xargs命令，例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">find /sbin -perm +700 | ls -l       这个命令是错误的</span><br><span class="line">find /sbin -perm +700 | xargs ls -l   这样才是正确的</span><br></pre></td></tr></table></figure>
+<p>xargs 可以读入 stdin 的资料，并且以<strong>空白字元或断行字元</strong>作为分辨，将 stdin 的资料分隔成为 arguments 。 因为是以空白字元作为分隔，所以，如果有一些档名或者是其他意义的名词内含有空白字元的时候， xargs 可能就会误判了～<br><strong>选项解释</strong><br>-0 当sdtin含有特殊字元时候，将其当成一般字符，像/ ‘ 空格等</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">root@localhost:~/test#echo &quot;//&quot;|xargs  echo</span><br><span class="line">root@localhost:~/test#echo &quot;//&quot;|xargs -0 echo</span><br><span class="line">/</span><br></pre></td></tr></table></figure>
+<p>-a file 从文件中读入作为sdtin</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">root@localhost:~/test#cat test#!/bin/shecho &quot;hello world/n&quot;</span><br><span class="line">root@localhost:~/test#xargs -a test echo#!/bin/sh echo hello world/n</span><br><span class="line">root@localhost:~/test#</span><br></pre></td></tr></table></figure>
+<ul>
+<li>-e flag ，注意有的时候可能会是-E，flag必须是一个以空格分隔的标志，当xargs分析到含有flag这个标志的时候就停止。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">root@localhost:~/test#cat txt</span><br><span class="line">/bin tao shou kun</span><br><span class="line">root@localhost:~/test#cat txt|xargs -E &apos;shou&apos; echo</span><br><span class="line">/bin tao</span><br></pre></td></tr></table></figure>
+<ul>
+<li>-p 当每次执行一个argument的时候询问一次用户。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@localhost:~/test#cat txt|xargs -p echoecho /bin tao shou kun ff ?...y</span><br><span class="line">/bin tao shou kun ff</span><br></pre></td></tr></table></figure>
+<ul>
+<li>-n num 后面加次数，表示命令在执行的时候一次用的argument的个数，默认是用所有的</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">root@localhost:~/test#cat txt|xargs -n1 echo</span><br><span class="line">/bin</span><br><span class="line">tao</span><br><span class="line">shou</span><br><span class="line">kun</span><br><span class="line">root@localhost:~/test3#cat txt|xargs  echo</span><br><span class="line">/bin tao shou ku</span><br></pre></td></tr></table></figure>
+<ul>
+<li>-t 表示先打印命令，然后再执行。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@localhost:~/test#cat txt|xargs -t echoecho /bin tao shou kun</span><br><span class="line">/bin tao shou kun</span><br></pre></td></tr></table></figure>
+<ul>
+<li>-i 或者是-I，这得看linux支持了，将xargs的每项名称，一般是一行一行赋值给{}，可以用{}代替。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ls | xargs -t -i mv &#123;&#125; &#123;&#125;.bak</span><br></pre></td></tr></table></figure>
+<ul>
+<li>-r no-run-if-empty 当xargs的输入为空的时候则停止xargs，不用再去执行了。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@localhost:~/test#echo &quot;&quot;|xargs -t -r  mv</span><br><span class="line">root@localhost:~/test#</span><br></pre></td></tr></table></figure>
+<ul>
+<li>-s num 命令行的最大字符数，指的是xargs后面那个命令的最大命令行字符数</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">root@localhost:~/test#cat test |xargs -i -x  -s 14 echo &quot;&#123;&#125;&quot;</span><br><span class="line">exp1</span><br><span class="line">exp5</span><br><span class="line">file</span><br><span class="line">xargs: argument line too long</span><br><span class="line">linux-2</span><br><span class="line">root@localhost:~/test#</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>-L num Use at most max-lines nonblank input lines per command line.-s是含有空格的。</p>
+</li>
+<li><p>-l 同-L</p>
+</li>
+<li><p>-d delim 分隔符，<strong>默认的xargs分隔符是回车</strong>，<strong>argument的分隔符是空格</strong>，这里修改的是xargs的分隔符</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">root@localhost:~/test#cat txt |xargs -i -p echo &#123;&#125;echo /bin tao shou kun ?...y</span><br><span class="line">root@localhost:~/test#cat txt |xargs -i -p -d &quot; &quot; echo &#123;&#125;echo /bin ?...y</span><br><span class="line">echo tao ?.../bin</span><br><span class="line">y</span><br><span class="line">echo shou ?...tao</span><br><span class="line">再如：</span><br><span class="line">root@localhost:~/test#cat test |xargs -i -p -d &quot; &quot; echo &#123;&#125;echo exp1</span><br><span class="line">exp5</span><br><span class="line">file</span><br><span class="line">linux-2</span><br><span class="line">ngis_post</span><br><span class="line">tao</span><br><span class="line">test</span><br><span class="line">txt</span><br><span class="line">xen-3</span><br><span class="line">?...y</span><br><span class="line">root@localhost:~/test#cat test |xargs -i -p echo &#123;&#125;echo exp1 ?...y</span><br><span class="line">echo exp5 ?...exp1</span><br><span class="line">y</span><br><span class="line">echo file ?...exp5</span><br><span class="line">y</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>-x exit的意思，主要是配合-s使用。</p>
+</li>
+<li><p>-P 修改最大的进程数，默认是1，为0时候为as many as it can</p>
+</li>
+</ul>
+<h2 id="其他查找命令"><a href="#其他查找命令" class="headerlink" title="其他查找命令"></a><strong>其他查找命令</strong></h2><h3 id="1-locate命令"><a href="#1-locate命令" class="headerlink" title="1. locate命令"></a><strong>1. locate命令</strong></h3><p>locate命令其实是“find -name”的另一种写法，但是要比后者快得多，原因在于它不搜索具体目录，而是搜索一个数据库（/var/lib/locatedb），这个数据库中含有本地所有文件信息。Linux系统自动创建这个数据库，并且每天自动更新一次，所以使用locate命令查不到最新变动过的文件。为了避免这种情况，可以在使用locate之前，先使用updatedb命令，手动更新数据库。</p>
+<p><strong>locate命令的使用实例：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ locate /etc/sh</span><br><span class="line">搜索etc目录下所有以sh开头的文件。</span><br><span class="line">$ locate -i ~/m</span><br><span class="line">搜索用户主目录下，所有以m开头的文件，并且忽略大小写。</span><br></pre></td></tr></table></figure>
+<h3 id="2-whereis命令"><a href="#2-whereis命令" class="headerlink" title="2. whereis命令"></a><strong>2. whereis命令</strong></h3><p>whereis命令只能用于程序名的搜索，而且只搜索二进制文件（参数-b）、man说明文件（参数-m）和源代码文件（参数-s）。如果省略参数，则返回所有信息。</p>
+<p><strong>whereis命令的使用实例：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ whereis grep</span><br><span class="line">grep: /bin/grep /usr/share/man/man1p/grep.1p.gz /usr/share/man/man1/grep.1.gz</span><br></pre></td></tr></table></figure>
+<h3 id="3-which命令"><a href="#3-which命令" class="headerlink" title="3. which命令"></a><strong>3. which命令</strong></h3><p>which命令的作用是，在PATH变量指定的路径中，搜索某个系统命令的位置，并且返回第一个搜索结果。也就是说，使用which命令，就可以看到某个系统命令是否存在，以及执行的到底是哪一个位置的命令。</p>
+<p><strong>which命令的使用实例：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ which grep</span><br><span class="line">/bin/grep</span><br></pre></td></tr></table></figure>
+<h1 id="查看磁盘空间"><a href="#查看磁盘空间" class="headerlink" title="查看磁盘空间"></a>查看磁盘空间</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df -hl</span><br></pre></td></tr></table></figure>
+<p>显示格式为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">文件系统              容量 已用 可用 已用% 挂载点　</span><br><span class="line"></span><br><span class="line">Filesystem            Size Used Avail Use% Mounted on</span><br></pre></td></tr></table></figure>
+<p><code>df -hl</code> 查看磁盘剩余空间</p>
+<p><code>df -h</code> 查看每个根路径的分区大小</p>
+<p><code>du -sh</code> [目录名] 返回该目录的大小</p>
+<p><code>du -sm</code> [文件夹] 返回该文件夹总M数</p>
+<h1 id="查看内存使用情况"><a href="#查看内存使用情况" class="headerlink" title="查看内存使用情况"></a>查看内存使用情况</h1><p><code>free</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">root@localhost:~# free -h</span><br><span class="line">              total        used        free      shared  buff/cache   available</span><br><span class="line">Mem:           989M        121M         87M        7.0M        781M        662M</span><br><span class="line">Swap:          255M         14M        241M</span><br></pre></td></tr></table></figure>
+<h1 id="printf进制转换"><a href="#printf进制转换" class="headerlink" title="printf进制转换"></a>printf进制转换</h1><blockquote>
+<p>二进制:binanry number</p>
+<p>八进制:otcal number</p>
+<p>十进制:decimal number</p>
+<p>十六进制: hexadecimal number</p>
+<p>一般使用jstack查找线程时候用到</p>
+</blockquote>
+<p>十进制转16进制:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">printf &quot;%x\n&quot; 666</span><br></pre></td></tr></table></figure>
+<p>输出的是<code>29a</code>，一般16进制前面会加个<code>0x</code>表示，所以可以这样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">printf &quot;0x%x\n&quot; 666</span><br></pre></td></tr></table></figure>
+<p>16进制转十进制:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">printf &quot;%d\n&quot; 0x29a</span><br></pre></td></tr></table></figure>
+<h1 id="Extend"><a href="#Extend" class="headerlink" title="Extend"></a>Extend</h1><h2 id="使用systemd设置开机启动"><a href="#使用systemd设置开机启动" class="headerlink" title="使用systemd设置开机启动"></a>使用systemd设置开机启动</h2><blockquote>
+<p><a href="https://www.centos.bz/category/other-system/ubuntu/" target="_blank" rel="noopener">ubuntu</a>从16.04开始不再使用initd管理系统，改用<a href="https://www.centos.bz/tag/systemd/" target="_blank" rel="noopener">systemd</a></p>
+</blockquote>
+<p><strong>为了像以前一样，在<code>/etc/rc.local</code>中设置开机启动程序，需要以下几步：</strong></p>
+<p><strong>1、systemd默认读取<code>/etc/systemd/system</code>下的配置文件，该目录下的文件会链接<code>/lib/systemd/system/</code>下的文件。一般系统安装完<code>/lib/systemd/system/</code>下会有<code>rc-local.service</code>文件，即我们需要的配置文件。</strong></p>
+<p>链接过来：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -fs /lib/systemd/system/rc-local.service /etc/systemd/system/rc-local.service</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/systemd/system/</span><br><span class="line">vim rc-local.service</span><br></pre></td></tr></table></figure>
+<p><code>rc-local.service</code>内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">#  This file is part of systemd.</span><br><span class="line">#</span><br><span class="line">#  systemd is free software; you can redistribute it and/or modify it</span><br><span class="line">#  under the terms of the GNU Lesser General Public License as published by</span><br><span class="line">#  the Free Software Foundation; either version 2.1 of the License, or</span><br><span class="line">#  (at your option) any later version.</span><br><span class="line"></span><br><span class="line"># This unit gets pulled automatically into multi-user.target by</span><br><span class="line"># systemd-rc-local-generator if /etc/rc.local is executable.</span><br><span class="line">[Unit]</span><br><span class="line">Description=/etc/rc.local Compatibility</span><br><span class="line">ConditionFileIsExecutable=/etc/rc.local</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=forking</span><br><span class="line">ExecStart=/etc/rc.local start</span><br><span class="line">TimeoutSec=0</span><br><span class="line">RemainAfterExit=yes</span><br><span class="line">GuessMainPID=no</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br><span class="line">Alias=rc-local.service</span><br></pre></td></tr></table></figure>
+<p><strong>2、创建/etc/rc.local文件</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch /etc/rc.local</span><br></pre></td></tr></table></figure>
+<p><strong>3、赋可执行权限</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 755 /etc/rc.local</span><br></pre></td></tr></table></figure>
+<p><strong>4、编辑rc.local，添加需要开机启动的任务</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line">echo &quot;test test &quot; &gt; /var/test_boot_up.log</span><br></pre></td></tr></table></figure>
+<p><strong>5、执行reboot重启系统验证OK。</strong></p>
+<p>最后，说一下<code>/etc/systemd/system/</code>下的配置文件（<code>XXXX.service</code>）,<br>其中有三个配置项，<code>[Unit]</code> / <code>[Service]</code> / <code>[Install]</code></p>
+<ul>
+<li><code>[Unit]</code> 区块：启动顺序与依赖关系。</li>
+<li><code>[Service]</code> 区块：启动行为,如何启动，启动类型。</li>
+<li><code>[Install]</code> 区块，定义如何安装这个配置文件，即怎样做到开机启动。</li>
+</ul>
+<h2 id="apt-get-update无法下载"><a href="#apt-get-update无法下载" class="headerlink" title="apt-get update无法下载"></a>apt-get update无法下载</h2><p><img src="https://cdn.yangbingdong.com/img/node-of-ubuntu-command/apt-get-update-fail.png" alt=""></p>
+<p>出现类似情况，可以找到<code>/etc/apt/sources.list.d</code>目录，删除对应的<code>.list</code>文件即可</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Ubuntu/" rel="tag"># Ubuntu</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/07/docker-learning/" rel="next" title="Docker入坑笔记">
+                <i class="fa fa-chevron-left"></i> Docker入坑笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/18/design-pattern-uml-and-six-principle/" rel="prev" title="设计模式原则与UML类图">
+                设计模式原则与UML类图 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">杨凯</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Preface"><span class="nav-number">1.</span> <span class="nav-text">Preface</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SSH相关"><span class="nav-number">2.</span> <span class="nav-text">SSH相关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装SSH"><span class="nav-number">2.1.</span> <span class="nav-text">安装SSH</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#保持长连接"><span class="nav-number">2.2.</span> <span class="nav-text">保持长连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生成SSH密钥和公钥"><span class="nav-number">2.3.</span> <span class="nav-text">生成SSH密钥和公钥</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件传输"><span class="nav-number">2.4.</span> <span class="nav-text">文件传输</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#免密码登录远程服务器"><span class="nav-number">2.5.</span> <span class="nav-text">免密码登录远程服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#姿势一"><span class="nav-number">2.5.1.</span> <span class="nav-text">姿势一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#姿势二"><span class="nav-number">2.5.2.</span> <span class="nav-text">姿势二</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#别名alias简化命令"><span class="nav-number">3.</span> <span class="nav-text">别名alias简化命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#切换用户"><span class="nav-number">4.</span> <span class="nav-text">切换用户</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ufw防火墙"><span class="nav-number">5.</span> <span class="nav-text">ufw防火墙</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">5.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看端口是否开启"><span class="nav-number">5.2.</span> <span class="nav-text">查看端口是否开启</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置默认规则"><span class="nav-number">5.3.</span> <span class="nav-text">设置默认规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看本地的端口开启情况"><span class="nav-number">5.4.</span> <span class="nav-text">查看本地的端口开启情况</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#打开80端口"><span class="nav-number">5.5.</span> <span class="nav-text">打开80端口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#允许从一个-IP-地址连接"><span class="nav-number">5.6.</span> <span class="nav-text">允许从一个 IP 地址连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#允许特定子网的连接"><span class="nav-number">5.7.</span> <span class="nav-text">允许特定子网的连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#允许特定-IP-端口的组合"><span class="nav-number">5.8.</span> <span class="nav-text">允许特定 IP/ 端口的组合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#防火墙开启-禁用"><span class="nav-number">5.9.</span> <span class="nav-text">防火墙开启/禁用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#防火墙重启："><span class="nav-number">5.10.</span> <span class="nav-text">防火墙重启：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用户与用户组相关"><span class="nav-number">6.</span> <span class="nav-text">用户与用户组相关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#添加用户useradd"><span class="nav-number">6.1.</span> <span class="nav-text">添加用户useradd</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改密码"><span class="nav-number">6.2.</span> <span class="nav-text">修改密码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改用户usermod"><span class="nav-number">6.3.</span> <span class="nav-text">修改用户usermod</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加用户组groupadd"><span class="nav-number">6.4.</span> <span class="nav-text">添加用户组groupadd</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改用户组"><span class="nav-number">6.5.</span> <span class="nav-text">修改用户组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看组"><span class="nav-number">6.6.</span> <span class="nav-text">查看组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改用户名"><span class="nav-number">6.7.</span> <span class="nav-text">修改用户名</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#递归下载抓取整个网站内容"><span class="nav-number">7.</span> <span class="nav-text">递归下载抓取整个网站内容</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#跟踪日志输出"><span class="nav-number">8.</span> <span class="nav-text">跟踪日志输出</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#统计文件夹大小"><span class="nav-number">9.</span> <span class="nav-text">统计文件夹大小</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#压缩和解压缩"><span class="nav-number">10.</span> <span class="nav-text">压缩和解压缩</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#目录操作命令"><span class="nav-number">11.</span> <span class="nav-text">目录操作命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#切换目录：cd"><span class="nav-number">11.1.</span> <span class="nav-text">切换目录：cd</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#显示当前目录：pwd"><span class="nav-number">11.2.</span> <span class="nav-text">显示当前目录：pwd</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#遍历目录：ls"><span class="nav-number">11.3.</span> <span class="nav-text">遍历目录：ls</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#复制：cp"><span class="nav-number">11.4.</span> <span class="nav-text">复制：cp</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#移动：mv"><span class="nav-number">11.5.</span> <span class="nav-text">移动：mv</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除：rm"><span class="nav-number">11.6.</span> <span class="nav-text">删除：rm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除目录：rmdir"><span class="nav-number">11.7.</span> <span class="nav-text">删除目录：rmdir</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#管理员权限打开文件夹"><span class="nav-number">11.8.</span> <span class="nav-text">管理员权限打开文件夹</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#查找相关"><span class="nav-number">12.</span> <span class="nav-text">查找相关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#find命令"><span class="nav-number">12.1.</span> <span class="nav-text">find命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#find命令常用选项及实例"><span class="nav-number">12.1.1.</span> <span class="nav-text">find命令常用选项及实例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一些常用命令"><span class="nav-number">12.1.2.</span> <span class="nav-text">一些常用命令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#grep命令"><span class="nav-number">12.2.</span> <span class="nav-text">grep命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#xargs命令"><span class="nav-number">12.3.</span> <span class="nav-text">xargs命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他查找命令"><span class="nav-number">12.4.</span> <span class="nav-text">其他查找命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-locate命令"><span class="nav-number">12.4.1.</span> <span class="nav-text">1. locate命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-whereis命令"><span class="nav-number">12.4.2.</span> <span class="nav-text">2. whereis命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-which命令"><span class="nav-number">12.4.3.</span> <span class="nav-text">3. which命令</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#查看磁盘空间"><span class="nav-number">13.</span> <span class="nav-text">查看磁盘空间</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#查看内存使用情况"><span class="nav-number">14.</span> <span class="nav-text">查看内存使用情况</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#printf进制转换"><span class="nav-number">15.</span> <span class="nav-text">printf进制转换</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Extend"><span class="nav-number">16.</span> <span class="nav-text">Extend</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用systemd设置开机启动"><span class="nav-number">16.1.</span> <span class="nav-text">使用systemd设置开机启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#apt-get-update无法下载"><span class="nav-number">16.2.</span> <span class="nav-text">apt-get update无法下载</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">杨凯</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

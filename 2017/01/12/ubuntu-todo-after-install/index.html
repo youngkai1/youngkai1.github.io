@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Ubuntu,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言  Ubuntu 18.04 LTS 版本回归GNOME环境，果断升级…">
+<meta name="keywords" content="Ubuntu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ubuntu主题美化、个性化设置与常用软件">
+<meta property="og:url" content="http://yoursite.com/2017/01/12/ubuntu-todo-after-install/index.html">
+<meta property="og:site_name" content="如风过境">
+<meta property="og:description" content="前言  Ubuntu 18.04 LTS 版本回归GNOME环境，果断升级…">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/gnome/activities-overview.jpg">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/individuation/source-server.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/gnome/gnome-tweak-tool.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/gnome/desktop1.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/gnome/desktop2.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/gnome/dock02.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/gnome/dock01.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/individuation/user-themes.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/individuation/zsh02.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/individuation/screenfetch.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/gnome/stylish.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/individuation/crossover-file.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/individuation/crossover.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/individuation/Peek%202018-01-22%2015-49.gif">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/individuation/kvm-manager.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/individuation/securecrt-crack.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/individuation/aria2-ariaNg.jpg">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/individuation/h5ai.jpg">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/individuation/baiduexporter1.jpg">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/individuation/baiduexporter2.jpg">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/individuation/tickeys_v0.2.5.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/individuation/I-Nex%20-%20CPU_001.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/individuation/System%20Information_002.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/individuation/screenfetch.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/individuation/cmatrix.png">
+<meta property="og:updated_time" content="2018-12-09T10:09:00.067Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ubuntu主题美化、个性化设置与常用软件">
+<meta name="twitter:description" content="前言  Ubuntu 18.04 LTS 版本回归GNOME环境，果断升级…">
+<meta name="twitter:image" content="https://cdn.yangbingdong.com/img/gnome/activities-overview.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/01/12/ubuntu-todo-after-install/">
+
+
+
+
+
+  <title>Ubuntu主题美化、个性化设置与常用软件 | 如风过境</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">如风过境</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/12/ubuntu-todo-after-install/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="杨凯">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="如风过境">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Ubuntu主题美化、个性化设置与常用软件</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-12T23:04:36+08:00">
+                2017-01-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/OperatingSystem/" itemprop="url" rel="index">
+                    <span itemprop="name">OperatingSystem</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/OperatingSystem/Ubuntu/" itemprop="url" rel="index">
+                    <span itemprop="name">Ubuntu</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="https://cdn.yangbingdong.com/img/gnome/activities-overview.jpg" alt=""></p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
+<p> <strong><em><a href="https://www.ubuntu.com/download/desktop" target="_blank" rel="noopener">Ubuntu 18.04 LTS</a></em></strong> 版本回归GNOME环境，果断升级…</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="启动盘制作篇"><a href="#启动盘制作篇" class="headerlink" title="启动盘制作篇"></a>启动盘制作篇</h1><h2 id="Windows中利用UltraISO制作"><a href="#Windows中利用UltraISO制作" class="headerlink" title="Windows中利用UltraISO制作"></a>Windows中利用UltraISO制作</h2><p>在Windows环境下一般是通过 <strong><em><a href="https://www.ultraiso.com/" target="_blank" rel="noopener">UltraISO</a></em></strong> 制作U盘启动盘（最好是<strong>FAT32</strong>格式），步骤通常如下（安装UltraISO前提下）：</p>
+<ul>
+<li>选择并打开系统镜像（iso）</li>
+<li>选择 <code>启动</code> -&gt; <code>写入硬盘映像</code> ，会弹出一个写入硬盘映像的对话框</li>
+<li>选择对应U盘</li>
+<li>点击 <code>便捷启动</code> -&gt; <code>写入新的驱动器引导扇区</code> -&gt; <code>Syslinux</code></li>
+<li>最后再点击 <code>写入</code> 等待完成即可</li>
+</ul>
+<p>图就不贴了，搜索引擎上一大堆。</p>
+<p>接下来要介绍的是在Linux环境中制作启动盘</p>
+<h2 id="Linux中利用DD命令制作"><a href="#Linux中利用DD命令制作" class="headerlink" title="Linux中利用DD命令制作"></a>Linux中利用DD命令制作</h2><h3 id="Step-1"><a href="#Step-1" class="headerlink" title="Step 1"></a>Step 1</h3><p>U盘插入电脑后，用<code>lsblk</code>命令查看一下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ lsblk</span><br><span class="line">NAME   MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT</span><br><span class="line">sda      8:0    0 111.8G  0 disk </span><br><span class="line">├─sda1   8:1    0   512M  0 part /boot/efi</span><br><span class="line">├─sda2   8:2    0    14G  0 part /usr</span><br><span class="line">├─sda3   8:3    0    14G  0 part /opt</span><br><span class="line">├─sda4   8:4    0   4.7G  0 part /boot</span><br><span class="line">└─sda5   8:5    0  78.7G  0 part /home</span><br><span class="line">sdb      8:16   0 931.5G  0 disk </span><br><span class="line">├─sdb1   8:17   0 745.1G  0 part /</span><br><span class="line">└─sdb2   8:18   0   8.4G  0 part [SWAP]</span><br><span class="line">sdc      8:32   1  14.5G  0 disk </span><br><span class="line">└─sdc4   8:36   1  14.5G  0 part /media/ybd/SSS_X64FRE_</span><br></pre></td></tr></table></figure>
+<p>很明显，<code>/media/ybd/SSS_X64FRE_</code>这个挂载的就是U盘，U盘对应的路径是<code>/dev/sdc</code>如果不确定，可以进去看一下文件目录。</p>
+<blockquote>
+<p>找到对应的挂载目录很重要，少有不慎，可能会导致整个系统瘫痪 23333………..</p>
+</blockquote>
+<h3 id="Step-2"><a href="#Step-2" class="headerlink" title="Step 2"></a>Step 2</h3><p>需要卸载掉挂载的目录：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">umount /media/ybd/SSS_X64FRE_</span><br></pre></td></tr></table></figure>
+<p>再用<code>lsblk</code>确认一下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">NAME   MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT</span><br><span class="line">sda      8:0    0 111.8G  0 disk </span><br><span class="line">├─sda1   8:1    0   512M  0 part /boot/efi</span><br><span class="line">├─sda2   8:2    0    14G  0 part /usr</span><br><span class="line">├─sda3   8:3    0    14G  0 part /opt</span><br><span class="line">├─sda4   8:4    0   4.7G  0 part /boot</span><br><span class="line">└─sda5   8:5    0  78.7G  0 part /home</span><br><span class="line">sdb      8:16   0 931.5G  0 disk </span><br><span class="line">├─sdb1   8:17   0 745.1G  0 part /</span><br><span class="line">└─sdb2   8:18   0   8.4G  0 part [SWAP]</span><br><span class="line">sdc      8:32   1  14.5G  0 disk </span><br><span class="line">└─sdc4   8:36   1  14.5G  0 part</span><br></pre></td></tr></table></figure>
+<p>可以看到已经没有挂载了</p>
+<h3 id="Step-3"><a href="#Step-3" class="headerlink" title="Step 3"></a>Step 3</h3><p>用<code>dd</code>命令将iso映像写入U盘（一般Linux的镜像是直接将整个安装系统包括引导直接压缩进iso当中）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo dd if=ubuntu-16.04-desktop-amd64.iso of=/dev/sdc bs=1M</span><br></pre></td></tr></table></figure>
+<p>过程中不会有任何输入，并且时间可能稍久，完成后会输出这样的信息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/dev/sdc bs=1M</span><br><span class="line">1520+0 records in</span><br><span class="line">1520+0 records out</span><br><span class="line">1593835520 bytes (1.6 GB) copied, 493.732 s, 3.2 MB/s</span><br></pre></td></tr></table></figure>
+<p>到此制作完成。</p>
+<h1 id="系统篇"><a href="#系统篇" class="headerlink" title="系统篇"></a>系统篇</h1><h2 id="换源"><a href="#换源" class="headerlink" title="换源"></a>换源</h2><p>更换最佳源服务器，打开 <strong>软件和更新</strong>（这里我选择阿里的，或者点击右边的 选择最佳服务器）：</p>
+<p><img src="https://cdn.yangbingdong.com/img/individuation/source-server.png" alt=""></p>
+<h2 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h2><p>之前的16.04是会安装很多用不上的软件，好在18.04版本优化掉了，最小安装保持干净系统</p>
+<p>安装完系统之后，需要更新一些补丁。<code>Ctrl+Alt+T</code>调出终端，执行一下代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update &amp;&amp; sudo apt upgrade -y &amp;&amp; sudo apt autoremove</span><br></pre></td></tr></table></figure></p>
+<h2 id="关掉sudo的密码"><a href="#关掉sudo的密码" class="headerlink" title="关掉sudo的密码"></a>关掉sudo的密码</h2><p>先修改默认编辑器为vim（默认为nano）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo update-alternatives --config editor</span><br></pre></td></tr></table></figure>
+<p>输入vim对应的序号回车即可</p>
+<p>打开 <code>visudo</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo visudo</span><br></pre></td></tr></table></figure>
+<p>找到</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%sudo   ALL=(ALL:ALL) ALL</span><br></pre></td></tr></table></figure>
+<p>修改为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%sudo   ALL=(ALL:ALL) NOPASSWD:ALL</span><br></pre></td></tr></table></figure>
+<p>这样所有sudo组内的用户使用sudo时就不需要密码了。</p>
+<h2 id="中文输入法"><a href="#中文输入法" class="headerlink" title="中文输入法"></a>中文输入法</h2><p>如果觉得用不惯Ubuntu自带的<code>ibus</code>，可以选择装回<code>fcitx</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install fcitx fcitx-googlepinyin im-config</span><br><span class="line">im-config</span><br></pre></td></tr></table></figure>
+<p><code>im-config</code>中指定<code>fcitx</code>的配置即可。</p>
+<h1 id="科学上网篇"><a href="#科学上网篇" class="headerlink" title="科学上网篇"></a>科学上网篇</h1><h2 id="方式一：下载Lantern"><a href="#方式一：下载Lantern" class="headerlink" title="方式一：下载Lantern"></a>方式一：下载Lantern</h2><p><strong>如果为了更方便地科学上网，建议下载<code>Lantern</code></strong> （免费版限流）<br>可在github（免翻墙）找到<em><a href="https://github.com/getlantern/lantern/" target="_blank" rel="noopener">开源项目</a></em>，拉到下面<code>README</code>下载对应版本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo dpkg -i lantern.deb</span><br><span class="line">sudo chmod -R 777 /usr/bin/lantern</span><br></pre></td></tr></table></figure>
+<h2 id="方式二：自搭建-Shadowsocks"><a href="#方式二：自搭建-Shadowsocks" class="headerlink" title="方式二：自搭建 Shadowsocks"></a>方式二：自搭建 Shadowsocks</h2><p><strong><em><a href="/2017/use-vps-cross-wall-by-shadowsocks-under-ubuntu/">Access Blocked Sites(翻墙):VPS自搭建ShadowSocks与加速</a></em></strong></p>
+<h1 id="主题美化篇"><a href="#主题美化篇" class="headerlink" title="主题美化篇"></a>主题美化篇</h1><h2 id="使用Tweaks对gnome进行美化"><a href="#使用Tweaks对gnome进行美化" class="headerlink" title="使用Tweaks对gnome进行美化"></a>使用Tweaks对gnome进行美化</h2><h3 id="依赖安装"><a href="#依赖安装" class="headerlink" title="依赖安装"></a>依赖安装</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install -y \</span><br><span class="line">gnome-tweak-tool \</span><br><span class="line">gnome-shell-extensions \</span><br><span class="line">chrome-gnome-shell \</span><br><span class="line">gtk2-engines-pixbuf \</span><br><span class="line">libxml2-utils</span><br></pre></td></tr></table></figure>
+<h3 id="主题安装"><a href="#主题安装" class="headerlink" title="主题安装"></a>主题安装</h3><p>推荐一个网站 <strong><em><a href="https://www.gnome-look.org/" target="_blank" rel="noopener">Gnome Look</a></em></strong>，这里面有大量的主题，并且都是以压缩包形式的，应用程序和shell的主题都是放在<code>/usr/share/themes</code>目录下面，图标的主题都是放在<br><code>/usr/share/icons</code>目录下，并且注意一下解压后shell的主题文件夹的二级目录应该是<code>/gnome-shell</code>，然后分别放到对应的目录，就能在<strong>gnome-tweak</strong>工具里面识别了</p>
+<h4 id="Flatabulous"><a href="#Flatabulous" class="headerlink" title="Flatabulous"></a>Flatabulous</h4><p><code>Flatabulous</code>主题是一款<code>Ubuntu</code>下扁平化主题.</p>
+<p>执行以下命令安装<code>Flatabulous</code>主题：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository ppa:noobslab/themes </span><br><span class="line">sudo apt update </span><br><span class="line">sudo apt install flatabulous-theme</span><br></pre></td></tr></table></figure>
+<p>该主题有配套的图标，安装方式如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository ppa:noobslab/icons </span><br><span class="line">sudo apt update </span><br><span class="line">sudo apt install ultra-flat-icons</span><br></pre></td></tr></table></figure></p>
+<h4 id="Arc-Theme"><a href="#Arc-Theme" class="headerlink" title="Arc-Theme"></a>Arc-Theme</h4><blockquote>
+<p><strong><em><a href="https://github.com/horst3180/arc-theme" target="_blank" rel="noopener">https://github.com/horst3180/arc-theme</a></em></strong></p>
+</blockquote>
+<p>这也是一款很漂亮的主题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install arc-theme</span><br></pre></td></tr></table></figure>
+<p>选择主题</p>
+<p>安装完成后打开自带的 <code>GNOME Tweak Tool</code> 工具选择对应的 <code>Arc</code> 主题即可。</p>
+<p><img src="https://cdn.yangbingdong.com/img/gnome/gnome-tweak-tool.png" alt=""></p>
+<p><strong>注意</strong> :对于高分屏，可能使用 <code>Arc-Theme</code> 显示 GNOME Shell 的字体过小，可通过修改 <code>/usr/share/themes/[对应 Arc 主题]/gnome-shell/gnome-shell.css</code> 修改 <strong>stage</strong> 的 <code>font-size</code> 。</p>
+<p><a href="https://github.com/snwh/paper-icon-theme" target="_blank" rel="noopener"><strong>项目地址</strong></a> ，其他热门主题 <a href="https://github.com/snwh/paper-gtk-theme" target="_blank" rel="noopener"><strong>Numix</strong></a> 、 <a href="https://github.com/numixproject/numix-gtk-theme" target="_blank" rel="noopener"><strong>Paper</strong></a></p>
+<h3 id="图标安装"><a href="#图标安装" class="headerlink" title="图标安装"></a>图标安装</h3><h4 id="Numix"><a href="#Numix" class="headerlink" title="Numix"></a>Numix</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository ppa:numix/ppa</span><br><span class="line">sudo apt update</span><br><span class="line">sudo apt install numix-icon-theme</span><br></pre></td></tr></table></figure>
+<p><strong><a href="https://github.com/numixproject/numix-icon-theme" target="_blank" rel="noopener">项目地址</a></strong></p>
+<h4 id="Paper"><a href="#Paper" class="headerlink" title="Paper"></a>Paper</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository ppa:snwh/pulp</span><br><span class="line">sudo apt update</span><br><span class="line">sudo apt install paper-icon-theme</span><br><span class="line"># 同时也可以安装 GTK 和 Cursor 主题</span><br><span class="line">sudo apt install paper-gtk-theme</span><br><span class="line">sudo apt install paper-cursor-theme</span><br></pre></td></tr></table></figure>
+<p><strong><a href="https://github.com/snwh/paper-icon-theme" target="_blank" rel="noopener">项目地址</a></strong></p>
+<h4 id="Papirus"><a href="#Papirus" class="headerlink" title="Papirus"></a>Papirus</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository ppa:papirus/papirus</span><br><span class="line">sudo apt update</span><br><span class="line">sudo apt install papirus-icon-theme</span><br></pre></td></tr></table></figure>
+<p>或者下载最新的 <a href="https://launchpad.net/~papirus/+archive/ubuntu/papirus/+packages?field.name_filter=papirus-icon-theme" target="_blank" rel="noopener"><strong>deb 安装包</strong></a><br><strong><a href="https://github.com/PapirusDevelopmentTeam/papirus-icon-theme" target="_blank" rel="noopener">项目地址</a></strong></p>
+<h3 id="GNOME-Shell-Extensions"><a href="#GNOME-Shell-Extensions" class="headerlink" title="GNOME Shell Extensions"></a>GNOME Shell Extensions</h3><p>先上图…</p>
+<p><img src="https://cdn.yangbingdong.com/img/gnome/desktop1.png" alt=""></p>
+<p><img src="https://cdn.yangbingdong.com/img/gnome/desktop2.png" alt=""></p>
+<p><strong><a href="https://extensions.gnome.org/extension/307/dash-to-dock/" target="_blank" rel="noopener">Dash To Dock</a></strong>: 虽然Ubuntu18已经有了一个Dock，但定制性不强。这个Dock插件提供了很多选项定制，个人比较喜欢的一个选项就是隔离工作区。</p>
+<p><img src="https://cdn.yangbingdong.com/img/gnome/dock02.png" alt=""></p>
+<p><img src="https://cdn.yangbingdong.com/img/gnome/dock01.png" alt=""></p>
+<p><a href="https://extensions.gnome.org/extension/613/weather/" target="_blank" rel="noopener"><strong>Weather</strong></a> 天气插件</p>
+<p><a href="https://extensions.gnome.org/extension/1064/system-monitor/" target="_blank" rel="noopener"><strong>System Monitor</strong></a> 系统监视器</p>
+<p>这个先要安装依赖：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install gir1.2-gtop-2.0 libgtop2-dev</span><br></pre></td></tr></table></figure>
+<p><a href="https://extensions.gnome.org/extension/1031/topicons/" target="_blank" rel="noopener"><strong>Topicons Plus</strong></a> 任务图标栏</p>
+<p>任务图标栏使用默认的图标，如何让他使用自定义的图标主题呢？<br>比如使用 <strong>Papirus</strong> ，它支持 <code>hardcode-tray</code> 脚本来实现</p>
+<ol>
+<li>安装 <code>hardcode-tray</code></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository ppa:andreas-angerer89/sni-qt-patched</span><br><span class="line">sudo apt update</span><br><span class="line">sudo apt install sni-qt sni-qt:i386 hardcode-tray inkscape</span><br></pre></td></tr></table></figure>
+<ol>
+<li>转换图标</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hardcode-tray --conversion-tool Inkscape</span><br></pre></td></tr></table></figure>
+<p><a href="https://extensions.gnome.org/extension/541/nvidia-gpu-temperature-indicator/" target="_blank" rel="noopener"><strong>Nvidia GPU Temperature Indicator</strong></a> 显卡温度指示器</p>
+<p><a href="https://extensions.gnome.org/extension/307/dash-to-dock/" target="_blank" rel="noopener"><strong>Dash To Dock</strong></a> 可定制的 </p>
+<p><strong><a href="https://extensions.gnome.org/extension/19/user-themes/" target="_blank" rel="noopener">User Themes</a></strong> 可以使用shell-theme：</p>
+<p><img src="https://cdn.yangbingdong.com/img/individuation/user-themes.png" alt=""></p>
+<p>为什么单独的模块，迷…</p>
+<h2 id="Oh-My-Zsh"><a href="#Oh-My-Zsh" class="headerlink" title="Oh-My-Zsh"></a>Oh-My-Zsh</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>终端采用<code>zsh</code>和<code>oh-my-zsh</code>，既美观又简单易用，主要是能提高你的逼格！！！</p>
+<p>首先，安装<code>zsh</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install zsh</span><br></pre></td></tr></table></figure>
+<p>接下来我们需要下载 <code>oh-my-zsh</code> 项目来帮我们配置 <code>zsh</code>，采用<code>wget</code>安装(需要先安装<code>git</code>)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh -c &quot;$(wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)&quot;</span><br></pre></td></tr></table></figure></p>
+<h3 id="语法高亮"><a href="#语法高亮" class="headerlink" title="语法高亮"></a>语法高亮</h3><p>安装插件<code>highlight</code>，<strong>高亮语法</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd ~/.oh-my-zsh/custom/plugins &amp;&amp;\</span><br><span class="line">git clone git://github.com/zsh-users/zsh-syntax-highlighting.git</span><br></pre></td></tr></table></figure>
+<p>在<code>Oh-my-zsh</code>的配置文件中<code>~/.zshrc</code>中添加插件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plugins=( [plugins...] zsh-syntax-highlighting)</span><br></pre></td></tr></table></figure>
+<p>重新打开终端即可生效！</p>
+<h3 id="调色"><a href="#调色" class="headerlink" title="调色"></a>调色</h3><p>最后，修改以下配色，会让你的终端样式看起来更舒服，在终端任意地方右键，进入配置文件(<code>profile</code>)-&gt;外观配置(<code>profile Preferences</code>)，弹出如下界面，进入<code>colors</code>一栏:<br><img src="https://cdn.yangbingdong.com/img/individuation/zsh02.png" alt=""></p>
+<p>其中，文字和背景采用系统主题，透明度设为10%，下面的<code>palette</code>样式采用<code>Tango</code>，这样一通设置后，效果如下：<br><img src="https://cdn.yangbingdong.com/img/individuation/screenfetch.png" alt=""></p>
+<p><strong>推荐配色</strong>：</p>
+<ul>
+<li>文本颜色：<code>#00FF00</code></li>
+<li>粗体字颜色：与文本颜色相同</li>
+<li>背景颜色：<code>#002B36</code></li>
+</ul>
+<h3 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h3><p>在<code>~/.oh-my-zsh/themes</code>中查看主题。</p>
+<p>然后编辑<code>~/.zshrc</code>，找到<code>ZSH_THEME</code>修改为你想要的主题即可（感觉<code>ys</code>这个主题不错）。</p>
+<p><code>agnoster</code>这款主题也不错，但需要先安装一些 <em><a href="https://github.com/powerline/fonts" target="_blank" rel="noopener">字体样式</a></em>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install fonts-powerline</span><br></pre></td></tr></table></figure>
+<p>或者通过源码安装：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone git@github.com:powerline/fonts.git</span><br><span class="line">cd fonts</span><br><span class="line">./install.sh</span><br></pre></td></tr></table></figure>
+<h2 id="安装字体"><a href="#安装字体" class="headerlink" title="安装字体"></a>安装字体</h2><p><code>Ubuntu</code>自带的字体不太好看，所以采用<strong>文泉译微米黑字体</strong>替代，效果会比较好，毕竟是国产字体！<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install fonts-wqy-microhei</span><br></pre></td></tr></table></figure></p>
+<p>然后通过<code>gnome-tweak-tool</code>来替换字体</p>
+<h2 id="GRUB-2-美化"><a href="#GRUB-2-美化" class="headerlink" title="GRUB 2 美化"></a>GRUB 2 美化</h2><blockquote>
+<p>由于安装了多系统，恰好Ubuntu的GRUB2提供了切换系统的选择，但是界面不咋样</p>
+</blockquote>
+<p>前往 <strong><em><a href="https://www.gnome-look.org/browse/cat/109/" target="_blank" rel="noopener">https://www.gnome-look.org/browse/cat/109/</a></em></strong> 选择一款合适自己的主题安装</p>
+<p>博主推荐 <strong><em><a href="https://www.gnome-look.org/p/1009236/" target="_blank" rel="noopener">Grub-theme-vimix</a></em></strong> 或 <strong><em><a href="https://www.gnome-look.org/p/1220920/" target="_blank" rel="noopener">Blur grub</a></em></strong> </p>
+<p><img src="https://cdn.yangbingdong.com/img/gnome/stylish.png" alt=""></p>
+<p>根据提示下载源码执行安装脚本即可。</p>
+<h2 id="壁纸推荐"><a href="#壁纸推荐" class="headerlink" title="壁纸推荐"></a>壁纸推荐</h2><p>推荐一个不错的壁纸下载网站： <strong><em><a href="https://pixabay.com" target="_blank" rel="noopener">https://pixabay.com</a></em></strong></p>
+<h1 id="软件篇"><a href="#软件篇" class="headerlink" title="软件篇"></a>软件篇</h1><blockquote>
+<p>Java开发者的环境搭建请看： <strong><em><a href="/2017/ubuntu-dev-environment-to-build/">Ubuntu的Java开发环境基本搭建</a></em></strong></p>
+</blockquote>
+<h2 id="Wechat-for-Ubuntu"><a href="#Wechat-for-Ubuntu" class="headerlink" title="Wechat for Ubuntu"></a>Wechat for Ubuntu</h2><p>下载地址：<br><strong><em><a href="https://github.com/geeeeeeeeek/electronic-wechat/releases" target="_blank" rel="noopener">https://github.com/geeeeeeeeek/electronic-wechat/releases</a></em></strong><br><strong><em><a href="https://pan.baidu.com/s/1c2uyTEw" target="_blank" rel="noopener">博主的百度盘</a></em></strong> (密码: 9bpi) (提取路径：<code>UbuntuTools -&gt; wechat4Ubuntu</code>)</p>
+<p>下载最新版本，解压后打开目录里面的<code>electronic-wechat</code>，然后创建个软连接换个图标拉倒桌面就可以了</p>
+<p>另外，Github中还有一个Linux版的Wechat： <strong><em><a href="https://github.com/eNkru/electron-wechat" target="_blank" rel="noopener">https://github.com/eNkru/electron-wechat</a></em></strong></p>
+<h2 id="Wine-QQ与Wine-TIM的Appimage版本"><a href="#Wine-QQ与Wine-TIM的Appimage版本" class="headerlink" title="Wine-QQ与Wine-TIM的Appimage版本"></a>Wine-QQ与Wine-TIM的Appimage版本</h2><p>Github: <strong><em><a href="https://github.com/askme765cs/Wine-QQ-TIM" target="_blank" rel="noopener">https://github.com/askme765cs/Wine-QQ-TIM</a></em></strong></p>
+<p>下载玩对应的Appimage后，右键属性，在权限中允许执行，然后可以直接打开了</p>
+<h2 id="QQ轻聊版"><a href="#QQ轻聊版" class="headerlink" title="QQ轻聊版"></a>QQ轻聊版</h2><blockquote>
+<p>这种方式比较麻烦，可以直接才上面的Appimage</p>
+</blockquote>
+<p>虽然不太想安装QQ，但工作时候团队交流需要，QQ国际版又太难看，所以装个Deepin的轻聊版。<br>工具包下载：<strong><em><a href="https://pan.baidu.com/s/1c2uyTEw" target="_blank" rel="noopener">博主的百度盘</a></em></strong> (密码: 9bpi) (提取路径：<code>UbuntuTools&gt;qq4Ubuntu</code>)</p>
+<p>内含文件：</p>
+<ul>
+<li><code>crossover_16.0.0-1.deb</code></li>
+<li><code>crossover16crack.tar.gz</code></li>
+<li><code>apps.com.qq.im.light_7.9.14308deepin0_i386.deb</code></li>
+</ul>
+<h3 id="crossover安装与破解"><a href="#crossover安装与破解" class="headerlink" title="crossover安装与破解"></a>crossover安装与破解</h3><p>这个轻聊版是Deepin的作品，要在Ubuntu上使用，就要安装<strong>crossover</strong>，很不幸这玩意是收费的，很幸运的是这玩意是可以破解的。<br>1、安装的工具包下载下来解压后会有三个文件，首先先安装<code>crossover_16.0.0-1.deb</code>，缺少依赖就执行一下<code>sudo apt -f install</code>，安装完后<strong>先不要打开</strong>crossover。<br>2、在命令行输入<code>sudo nautilus</code>打开一个root权限的文件管理器<br>3、把破解文件 (<code>crossover16crack</code>-&gt;<code>winewrapper.exe.so</code>) 替换路径: <code>/opt/cxoffice/lib/wine</code>下的<code>winewrapper.exe.so</code>文件。提示已有文件，点“替换”破解完成。</p>
+<h3 id="Deepin-QQ轻聊版"><a href="#Deepin-QQ轻聊版" class="headerlink" title="Deepin QQ轻聊版"></a>Deepin QQ轻聊版</h3><p>1、用归档管理器打开<code>apps.com.qq.im.light_7.9.14308deepin0_i386.deb</code><br>2、点开 <code>data.tar.xz</code> 找到 <code>./opt/cxoffice/support</code><br>3、把 <code>apps.com.qq.im.light</code> 这个文件夹提取出来<br>4、在命令行输入<code>sudo nautilus</code>打开一个root权限的文件管理器<br>5、然后将这个文件夹复制到系统的 <code>/opt/cxoffice/support</code> 下<br><img src="https://cdn.yangbingdong.com/img/individuation/crossover-file.png" alt=""><br>6、然后打开 <code>crossover</code> ，发现多了一个容器 ，点击图标即可运行QQ轻聊版<br><img src="https://cdn.yangbingdong.com/img/individuation/crossover.png" alt=""><br>7、如果运行后出现乱码，把 Windows 系统下的 <code>%systemroot%\fonts\simsun.ttf (simsun.ttc)</code> 复制到容器的对应文件夹就可以</p>
+<h2 id="搜狗输入法安装与崩溃处理"><a href="#搜狗输入法安装与崩溃处理" class="headerlink" title="搜狗输入法安装与崩溃处理"></a>搜狗输入法安装与崩溃处理</h2><h3 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h3><p>点击下载 Sogou For Linux -&gt; <a id="download" href="http://pinyin.sogou.com/linux/" target="_blank" rel="noopener"><i class="fa fa-download"></i><span> Download Now</span><br></a><br>然后<code>dpkg -i</code> 就可以安装了，中间如有冲突就<code>sudo apt -f install</code>进行修复。</p>
+<h3 id="搜狗输入法不能输入中文解决（linux下常见软件崩溃问题解决方案）"><a href="#搜狗输入法不能输入中文解决（linux下常见软件崩溃问题解决方案）" class="headerlink" title="搜狗输入法不能输入中文解决（linux下常见软件崩溃问题解决方案）"></a>搜狗输入法不能输入中文解决（linux下常见软件崩溃问题解决方案）</h3><p>先关闭<code>fcitx</code>：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">killall fcitx</span><br><span class="line">killall sogou-qinpanel</span><br></pre></td></tr></table></figure></p>
+<p>然后<strong>删除搜狗配置文件</strong>，ubuntu下搜狗的配置文件在 ~/.config下的3个文件夹里：<br><code>SogouPY</code>、<code>SogouPY.users</code>、<code>sogou-qimpanel</code><br>删除这3个文件夹，然后重启搜狗：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fcitx</span><br></pre></td></tr></table></figure></p>
+<p>解决！</p>
+<h2 id="版本控制系统GUI-SmartGit"><a href="#版本控制系统GUI-SmartGit" class="headerlink" title="版本控制系统GUI-SmartGit"></a>版本控制系统GUI-SmartGit</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository ppa:eugenesan/ppa</span><br><span class="line">sudo apt update</span><br><span class="line">sudo apt install smartgithg</span><br></pre></td></tr></table></figure>
+<p>卸载：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt remove smartgithg</span><br></pre></td></tr></table></figure></p>
+<h2 id="Typora-Markdown编辑器"><a href="#Typora-Markdown编辑器" class="headerlink" title="Typora(Markdown编辑器)"></a>Typora(Markdown编辑器)</h2><p><em><a href="https://typora.io/#linux" target="_blank" rel="noopener">官方</a></em>安装方法如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># optional, but recommended</span><br><span class="line">sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys BA300B7755AFCFAE</span><br><span class="line"># add Typora&apos;s repository</span><br><span class="line">sudo add-apt-repository &apos;deb http://typora.io linux/&apos;</span><br><span class="line">sudo apt update</span><br><span class="line"># install typora</span><br><span class="line">sudo apt install typora</span><br></pre></td></tr></table></figure></p>
+<h2 id="GIF制作软件-Peek"><a href="#GIF制作软件-Peek" class="headerlink" title="GIF制作软件 Peek"></a>GIF制作软件 Peek</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository ppa:peek-developers/stable</span><br><span class="line">sudo apt update</span><br><span class="line">sudo apt install peek</span><br></pre></td></tr></table></figure>
+<p>终端执行<code>peek</code>即可运行</p>
+<p><img src="https://cdn.yangbingdong.com/img/individuation/Peek%202018-01-22%2015-49.gif" alt=""></p>
+<h2 id="StarUml"><a href="#StarUml" class="headerlink" title="StarUml"></a>StarUml</h2><p>这个一款绘图工具<br>下载：<strong><em><a href="http://staruml.io/download" target="_blank" rel="noopener">http://staruml.io/download</a></em></strong><br>安装依赖：<strong><em><a href="https://launchpad.net/ubuntu/trusty/amd64/libgcrypt11/1.5.3-2ubuntu4.5" target="_blank" rel="noopener">https://launchpad.net/ubuntu/trusty/amd64/libgcrypt11/1.5.3-2ubuntu4.5</a></em></strong><br>然后<code>dpkg</code>安装就好了，如果还有依赖直接<code>apt install -f</code>修复一下就好。<br>安装好之后修改<code>LicenseManagerDomain.js</code><br>查找：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dpkg -S staruml | grep LicenseManagerDomain.js</span><br></pre></td></tr></table></figure></p>
+<p>修改：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo gedit /opt/staruml/www/license/node/LicenseManagerDomain.js</span><br></pre></td></tr></table></figure></p>
+<p>如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">(function () &#123;</span><br><span class="line">    &quot;use strict&quot;;</span><br><span class="line"></span><br><span class="line">    var NodeRSA = require(&apos;node-rsa&apos;);</span><br><span class="line">    </span><br><span class="line">    function validate(PK, name, product, licenseKey) &#123;</span><br><span class="line">        var pk, decrypted;</span><br><span class="line">		return &#123;  </span><br><span class="line">            name: &quot;yangbingdong&quot;,  </span><br><span class="line">            product: &quot;StarUML&quot;,  </span><br><span class="line">            licenseType: &quot;vip&quot;,  </span><br><span class="line">            quantity: &quot;yangbingdong.com&quot;,  </span><br><span class="line">            licenseKey: &quot;later equals never!&quot;  </span><br><span class="line">        &#125;;  </span><br><span class="line">        try &#123;</span><br><span class="line">            pk = new NodeRSA(PK);</span><br><span class="line">            decrypted = pk.decrypt(licenseKey, &apos;utf8&apos;);</span><br><span class="line">        &#125; catch (err) &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        var terms = decrypted.trim().split(&quot;\n&quot;);</span><br><span class="line">        if (terms[0] === name &amp;&amp; terms[1] === product) &#123;</span><br><span class="line">            return &#123; </span><br><span class="line">                name: name, </span><br><span class="line">                product: product, </span><br><span class="line">                licenseType: terms[2],</span><br><span class="line">                quantity: terms[3],</span><br><span class="line">                licenseKey: licenseKey</span><br><span class="line">            &#125;;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ......</span><br></pre></td></tr></table></figure></p>
+<p>改完打开StarUml -&gt; <code>Help</code> -&gt; <code>Enter License</code>，不是输入任何东西直接确定</p>
+<h2 id="VirtualBox"><a href="#VirtualBox" class="headerlink" title="VirtualBox"></a>VirtualBox</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install virtualbox</span><br></pre></td></tr></table></figure>
+<h2 id="KVM"><a href="#KVM" class="headerlink" title="KVM"></a>KVM</h2><p>KVM要求我们的CPU支持硬件虚拟化(hardware virtualization)．在终端里输入下面的命令来查看CPU是否支持硬件虚拟化：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">egrep -c &apos;(svm|vmx)&apos; /proc/cpuinfo</span><br></pre></td></tr></table></figure>
+<p>如果上面的命令返回数字０，就表示CPU不支持硬件虚拟化，那么我们就只能使用<a href="http://www.linuxdashen.com/category/virtualbox" target="_blank" rel="noopener">Virtualbox</a>或VMware来创建虚拟机了．如果返回的数字大于０，那么表示CPU支持硬件虚拟化，我们就能使用KVM来创建虚拟机．</p>
+<p>安装：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install qemu-kvm libvirt-bin ubuntu-vm-builder bridge-utils virt-manager virtinst virt-viewer</span><br></pre></td></tr></table></figure>
+<p>Dash里打开virt-manager:</p>
+<p><img src="https://cdn.yangbingdong.com/img/individuation/kvm-manager.png" alt=""></p>
+<h2 id="SecureCRT-Crack"><a href="#SecureCRT-Crack" class="headerlink" title="SecureCRT Crack"></a>SecureCRT Crack</h2><h3 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h3><p>官方下载地址（选择Linux版deb包）：<strong><em><a href="https://www.vandyke.com/download/securecrt/download.html" target="_blank" rel="noopener">https://www.vandyke.com/download/securecrt/download.html</a></em></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo dpkg -i scrt-8.3.2-1584.ubuntu16-64.x86_64.deb</span><br></pre></td></tr></table></figure>
+<h3 id="Crack"><a href="#Crack" class="headerlink" title="Crack"></a>Crack</h3><p>准备：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget http://download.boll.me/securecrt_linux_crack.pl &amp;&amp; \</span><br><span class="line">sudo apt install perl</span><br></pre></td></tr></table></figure>
+<p>查看一下SecureCRT的安装路径：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">whereis SecureCRT</span><br><span class="line"></span><br><span class="line"># 不出意外应该是在 /usr/bin/SecureCRT</span><br></pre></td></tr></table></figure>
+<p>运行perl脚本：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo perl securecrt_linux_crack.pl /usr/bin/SecureCRT</span><br></pre></td></tr></table></figure>
+<p><img src="https://cdn.yangbingdong.com/img/individuation/securecrt-crack.png" alt=""></p>
+<p>然后按照提示手动输入License即可</p>
+<h2 id="wiznote-为知笔记"><a href="#wiznote-为知笔记" class="headerlink" title="wiznote(为知笔记)"></a>wiznote(为知笔记)</h2><p>一款<code>linux</code>下强大的笔记软件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository ppa:wiznote-team </span><br><span class="line">sudo apt update </span><br><span class="line">sudo apt install wiznote</span><br></pre></td></tr></table></figure>
+<h2 id="Vim"><a href="#Vim" class="headerlink" title="Vim"></a>Vim</h2><p>系统并没有集成<code>vim</code>，可以执行以下代码安装：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install vim</span><br></pre></td></tr></table></figure></p>
+<h2 id="WPS"><a href="#WPS" class="headerlink" title="WPS"></a>WPS</h2><p>去<em><a href="http://linux.wps.cn/" target="_blank" rel="noopener">wps官网</a></em> 下载wps for Linux。<br>先不要执行dpkg -i 去执行安装。这个地方有个问题，就是ubuntu 16 版本不支持32位的支持库，所以需要安装一下支持库。<br>32位的支持库名为：ia32-libs<br>安装的时候会提示有替代包，需要安装替代包。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install lib32ncurses5 lib32z1</span><br></pre></td></tr></table></figure></p>
+<p>还是不要执行dpkg -i ，因为即使现在安装还是会缺少一个依赖。这个依赖是libpng-12.0。不过这个在默认的apt 仓库里没有。所以需要手动下载一下。<br>下载地址：<strong><em><a href="https://packages.debian.org/zh-cn/wheezy/amd64/libpng12-0/download" target="_blank" rel="noopener">https://packages.debian.org/zh-cn/wheezy/amd64/libpng12-0/download</a></em></strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo dpkg -i libpng12-0_1.2.49-1+deb7u2_amd64.deb</span><br></pre></td></tr></table></figure></p>
+<p>最后：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo dpkg -i wps-office_10.1.0.5672~a21_amd64.deb</span><br></pre></td></tr></table></figure></p>
+<h2 id="Chrome"><a href="#Chrome" class="headerlink" title="Chrome"></a>Chrome</h2><p>到<em><a href="https://www.google.com/chrome/browser/desktop/index.html" target="_blank" rel="noopener">chrome官网</a></em> 下载linux版的chrome。<br>不能翻墙的小朋友可以到<strong><em><a href="https://pan.baidu.com/s/1c2uyTEw" target="_blank" rel="noopener">博主的百度盘</a></em></strong> (密码: 9bpi)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo dpkg -i google-chrome-stable_current_amd64.deb</span><br></pre></td></tr></table></figure></p>
+<h2 id="XMind-8-Crack"><a href="#XMind-8-Crack" class="headerlink" title="XMind 8 Crack"></a>XMind 8 Crack</h2><h3 id="Setup"><a href="#Setup" class="headerlink" title="Setup"></a>Setup</h3><p>一款思维导图软件，再<em><a href="http://www.xmindchina.net/xiazai.html" target="_blank" rel="noopener">XMind官网</a></em>下载压缩包.</p>
+<p>解压后先执行一下解压包根目录下的<code>setup.sh</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo sh setup.sh</span><br></pre></td></tr></table></figure>
+<h3 id="Crack-1"><a href="#Crack-1" class="headerlink" title="Crack"></a>Crack</h3><ul>
+<li>将<code>XMindCrack.jar</code>复制到根目录的<code>plugins</code>文件中</li>
+</ul>
+<ul>
+<li>以文本格式打开根目录中 <code>XMind.ini</code></li>
+<li>在最后一行添加<code>-javaagent:../plugins/XMindCrack.jar</code></li>
+<li>禁止XMind访问网络：在host文件中添加<code>127.0.0.1 www.xmind.net</code>，然后重启网络<code>sudo /etc/init.d/networking restart</code></li>
+<li>打开XMind输入序列号</li>
+</ul>
+<p><strong><code>XMindCrack.jar</code></strong>与<strong>序列号</strong>如果有需要可以私聊博主。</p>
+<h2 id="Shutter"><a href="#Shutter" class="headerlink" title="Shutter"></a>Shutter</h2><p><code>Ubuntu</code>下很强大的一款截图软件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install shutter</span><br></pre></td></tr></table></figure></p>
+<p><strong><em>设置快捷键：</em></strong><br>打开系统设置 -&gt; <code>键盘</code> -&gt; <code>快捷键</code> -&gt; <code>自定义快捷键</code> -&gt; <code>点击&quot; + &quot;</code><br>名字随便起，命令：<code>shutter -s</code><br>点击确定，再点禁用，键盘按下<code>ctrl+alt+a</code>，完成设置</p>
+<h3 id="编辑按钮变成程灰色解决方法"><a href="#编辑按钮变成程灰色解决方法" class="headerlink" title="编辑按钮变成程灰色解决方法"></a>编辑按钮变成程灰色解决方法</h3><p>需要3个deb包：</p>
+<p><em><a href="https://launchpad.net/ubuntu/+archive/primary/+files/libgoocanvas-common_1.0.0-1_all.deb" target="_blank" rel="noopener">libgoocanvas-common</a></em></p>
+<p><em><a href="https://launchpad.net/ubuntu/+archive/primary/+files/libgoocanvas3_1.0.0-1_amd64.deb" target="_blank" rel="noopener">libgoocanvas3</a></em></p>
+<p><em><a href="https://launchpad.net/ubuntu/+archive/primary/+files/libgoo-canvas-perl_0.06-2ubuntu3_amd64.deb" target="_blank" rel="noopener">libgoo-canvas-perl</a></em></p>
+<p>或者：<strong><em><a href="https://pan.baidu.com/s/1c2uyTEw" target="_blank" rel="noopener">博主的百度盘</a></em></strong> (密码: 9bpi) (提取路径：<code>UbuntuTools -&gt; shutter-1804-editor.zip</code>)</p>
+<p>依次使用<code>dpkg</code>命令安装，报错使用<code>sudo apt-get -f install</code>修复</p>
+<p>最后重启Shutter进程就好了</p>
+<h2 id="系统清理软件-BleachBit"><a href="#系统清理软件-BleachBit" class="headerlink" title="系统清理软件 BleachBit"></a>系统清理软件 BleachBit</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository ppa:n-muench/programs-ppa</span><br><span class="line">sudo apt update </span><br><span class="line">sudo apt install bleachbit</span><br></pre></td></tr></table></figure>
+<h2 id="多协议下载器-Aria2"><a href="#多协议下载器-Aria2" class="headerlink" title="多协议下载器 Aria2"></a>多协议下载器 Aria2</h2><p>一般在Linux环境中下载东西都是比较不友好的，不支持多种协议，方式单一，但这款Aria2就是为了解决多协议问题而诞生的，配合UI界面可以很方便地<del>随心所欲</del>地下载。</p>
+<h3 id="搭建-Aria2-以及-AriaNg-Web-UI"><a href="#搭建-Aria2-以及-AriaNg-Web-UI" class="headerlink" title="搭建 Aria2 以及 AriaNg Web UI"></a>搭建 Aria2 以及 AriaNg Web UI</h3><p><img src="https://cdn.yangbingdong.com/img/individuation/aria2-ariaNg.jpg" alt=""></p>
+<blockquote>
+<p>博主选择使用Docker</p>
+</blockquote>
+<p>参考 <em><a href="https://github.com/wahyd4/aria2-ariang-docker" target="_blank" rel="noopener">aria2-ariang-docker</a></em> 以及 <em><a href="https://github.com/wahyd4/aria2-ariang-x-docker-compose" target="_blank" rel="noopener">aria2-ariang-x-docker-compose</a></em></p>
+<h4 id="配置aria2-conf"><a href="#配置aria2-conf" class="headerlink" title="配置aria2.conf"></a>配置<code>aria2.conf</code></h4><p>这个文件是从作者地 Github下载下来的，主要加了代理，而这个代理是 <code>sock5</code> 通过 <code>privoxy</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">#所有协议代理</span><br><span class="line">all-proxy=http://192.168.6.113:8118</span><br><span class="line">#用户名</span><br><span class="line">#rpc-user=user</span><br><span class="line">#密码</span><br><span class="line">#rpc-passwd=passwd</span><br><span class="line">#上面的认证方式不建议使用,建议使用下面的token方式</span><br><span class="line">#设置加密的密钥</span><br><span class="line">#rpc-secret=token</span><br><span class="line">#允许rpc</span><br><span class="line">enable-rpc=true</span><br><span class="line">#允许所有来源, web界面跨域权限需要</span><br><span class="line">rpc-allow-origin-all=true</span><br><span class="line">#允许外部访问，false的话只监听本地端口</span><br><span class="line">rpc-listen-all=true</span><br><span class="line">#RPC端口, 仅当默认端口被占用时修改</span><br><span class="line">#rpc-listen-port=6800</span><br><span class="line">#最大同时下载数(任务数), 路由建议值: 3</span><br><span class="line">max-concurrent-downloads=5</span><br><span class="line">#断点续传</span><br><span class="line">continue=true</span><br><span class="line">#同服务器连接数</span><br><span class="line">max-connection-per-server=5</span><br><span class="line">#最小文件分片大小, 下载线程数上限取决于能分出多少片, 对于小文件重要</span><br><span class="line">min-split-size=10M</span><br><span class="line">#单文件最大线程数, 路由建议值: 5</span><br><span class="line">split=10</span><br><span class="line">#下载速度限制</span><br><span class="line">max-overall-download-limit=0</span><br><span class="line">#单文件速度限制</span><br><span class="line">max-download-limit=0</span><br><span class="line">#上传速度限制</span><br><span class="line">max-overall-upload-limit=0</span><br><span class="line">#单文件速度限制</span><br><span class="line">max-upload-limit=0</span><br><span class="line">#断开速度过慢的连接</span><br><span class="line">#lowest-speed-limit=0</span><br><span class="line">#验证用，需要1.16.1之后的release版本</span><br><span class="line">#referer=*</span><br><span class="line">#文件保存路径, 默认为当前启动位置</span><br><span class="line"># dir=/user-files/superuser/</span><br><span class="line">dir=/data</span><br><span class="line">#文件缓存, 使用内置的文件缓存, 如果你不相信Linux内核文件缓存和磁盘内置缓存时使用, 需要1.16及以上版本</span><br><span class="line">#disk-cache=0</span><br><span class="line">#另一种Linux文件缓存方式, 使用前确保您使用的内核支持此选项, 需要1.15及以上版本(?)</span><br><span class="line">#enable-mmap=true</span><br><span class="line">#文件预分配, 能有效降低文件碎片, 提高磁盘性能. 缺点是预分配时间较长</span><br><span class="line">#所需时间 none &lt; falloc ? trunc « prealloc, falloc和trunc需要文件系统和内核支持</span><br><span class="line">file-allocation=prealloc</span><br><span class="line"></span><br><span class="line"># General Options</span><br><span class="line">log=/var/log/aria2.log</span><br><span class="line">#You can set either debug, info, notice, warn or error.</span><br><span class="line">log-level=error</span><br><span class="line"></span><br><span class="line">## 进度保存相关 ##</span><br><span class="line"># 从会话文件中读取下载任务</span><br><span class="line">input-file=/root/conf/aria2.session</span><br><span class="line"># 在Aria2退出时保存`错误/未完成`的下载任务到会话文件</span><br><span class="line">save-session=/root/conf/aria2.session</span><br><span class="line"># 定时保存会话, 0为退出时才保存, 需1.16.1以上版本, 默认:0</span><br><span class="line">save-session-interval=10</span><br><span class="line"></span><br><span class="line"># BT trackers from https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_best.txt</span><br><span class="line"># echo `wget -qO- https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_best.txt|awk NF|sed &quot;:a;N;s/\n/,/g;ta&quot;`</span><br><span class="line">bt-tracker=udp://tracker.coppersurfer.tk:6969/announce,udp://tracker.leechers-paradise.org:6969/announce,udp://9.rarbg.to:2710/announce,udp://p4p.arenabg.com:1337/announce,http://p4p.arenabg.com:1337/announce,udp://tracker.internetwarriors.net:1337/announce,http://tracker.internetwarriors.net:1337/announce,udp://tracker.skyts.net:6969/announce,udp://tracker.safe.moe:6969/announce,udp://tracker.piratepublic.com:1337/announce,udp://tracker.opentrackr.org:1337/announce,http://tracker.opentrackr.org:1337/announce,udp://wambo.club:1337/announce,udp://trackerxyz.tk:1337/announce,udp://tracker4.itzmx.com:2710/announce,udp://tracker2.christianbro.pw:6969/announce,udp://tracker1.wasabii.com.tw:6969/announce,udp://tracker.zer0day.to:1337/announce,udp://public.popcorn-tracker.org:6969/announce,udp://peerfect.org:6969/announce,udp://tracker.mg64.net:6969/announce,udp://mgtracker.org:6969/announce,http://tracker.mg64.net:6881/announce,http://mgtracker.org:6969/announce,http://t.nyaatracker.com:80/announce,http://retracker.telecom.by:80/announce,ws://tracker.btsync.cf:2710/announce,udp://zephir.monocul.us:6969/announce,udp://z.crazyhd.com:2710/announce,udp://tracker.xku.tv:6969/announce,udp://tracker.vanitycore.co:6969/announce,udp://tracker.tvunderground.org.ru:3218/announce,udp://tracker.torrent.eu.org:451/announce,udp://tracker.tiny-vps.com:6969/announce,udp://tracker.swateam.org.uk:2710/announce,udp://tracker.halfchub.club:6969/announce,udp://tracker.grepler.com:6969/announce,udp://tracker.files.fm:6969/announce,udp://tracker.dutchtracking.com:6969/announce,udp://tracker.dler.org:6969/announce,udp://tracker.desu.sh:6969/announce,udp://tracker.cypherpunks.ru:6969/announce,udp://tracker.cyberia.is:6969/announce,udp://tracker.christianbro.pw:6969/announce,udp://tracker.bluefrog.pw:2710/announce,udp://tracker.acg.gg:2710/announce,udp://thetracker.org:80/announce,udp://sd-95.allfon.net:2710/announce,udp://santost12.xyz:6969/announce,udp://sandrotracker.biz:1337/announce,udp://retracker.nts.su:2710/announce,udp://retracker.lanta-net.ru:2710/announce,udp://retracker.coltel.ru:2710/announce,udp://oscar.reyesleon.xyz:6969/announce,udp://open.stealth.si:80/announce,udp://ipv4.tracker.harry.lu:80/announce,udp://inferno.demonoid.pw:3418/announce,udp://allesanddro.de:1337/announce,http://tracker2.itzmx.com:6961/announce,http://tracker.vanitycore.co:6969/announce,http://tracker.torrentyorg.pl:80/announce,http://tracker.city9x.com:2710/announce,http://torrentsmd.me:8080/announce,http://sandrotracker.biz:1337/announce,http://retracker.mgts.by:80/announce,http://open.acgtracker.com:1096/announce,http://omg.wtftrackr.pw:1337/announce,wss://tracker.openwebtorrent.com:443/announce,wss://tracker.fastcast.nz:443/announce,wss://tracker.btorrent.xyz:443/announce,udp://tracker.uw0.xyz:6969/announce,udp://tracker.kamigami.org:2710/announce,udp://tracker.justseed.it:1337/announce,udp://tc.animereactor.ru:8082/announce,udp://packages.crunchbangplusplus.org:6969/announce,udp://explodie.org:6969/announce,udp://bt.xxx-tracker.com:2710/announce,udp://bt.aoeex.com:8000/announce,udp://104.238.198.186:8000/announce,https://open.acgnxtracker.com:443/announce,http://tracker.tfile.me:80/announce,http://share.camoe.cn:8080/announce,http://retracker.omsk.ru:2710/announce,http://open.acgnxtracker.com:80/announce,http://explodie.org:6969/announce,http://agusiq-torrents.pl:6969/announce,http://104.238.198.186:8000/announce</span><br></pre></td></tr></table></figure>
+<h4 id="使用h5ai作为文件管理器"><a href="#使用h5ai作为文件管理器" class="headerlink" title="使用h5ai作为文件管理器"></a>使用h5ai作为文件管理器</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">version: &apos;3.4&apos;</span><br><span class="line"></span><br><span class="line">services:</span><br><span class="line">  h5ai:</span><br><span class="line">    image: bixidock/h5ai</span><br><span class="line">    volumes:</span><br><span class="line">      - /home/ybd/data/docker/aria2/data:/var/www</span><br><span class="line">    restart: always</span><br><span class="line">  aria2:</span><br><span class="line">    image: wahyd4/aria2-ui:h5ai</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;8000:80&quot;</span><br><span class="line">      - &quot;6800:6800&quot;</span><br><span class="line">    volumes:</span><br><span class="line">    #   - /some_folder:/root/conf/key</span><br><span class="line">      - /home/ybd/data/docker/aria2/config/aria2.conf:/root/conf/aria2.conf</span><br><span class="line">      - /home/ybd/data/docker/aria2/config/aria2.session:/root/conf/aria2.session</span><br><span class="line">      - /home/ybd/data/docker/aria2/cache/dht.dat:/root/.cache/aria2/dht.dat</span><br><span class="line">      - /home/ybd/data/docker/aria2/data:/data</span><br><span class="line">    environment:</span><br><span class="line">      - DOMAIN=:80</span><br><span class="line">      # - SSL=true</span><br><span class="line">      # - RPC_SECRET=Hello</span><br><span class="line">      # - ARIA2_USER=admin</span><br><span class="line">      # - ARIA2_PWD=password</span><br><span class="line">      # - ENABLE_AUTH=true</span><br><span class="line">    links:</span><br><span class="line">      - h5ai:file-manager</span><br><span class="line">    restart: always</span><br></pre></td></tr></table></figure>
+<p><img src="https://cdn.yangbingdong.com/img/individuation/h5ai.jpg" alt=""></p>
+<h4 id="使用nextcloud作为文件管理器"><a href="#使用nextcloud作为文件管理器" class="headerlink" title="使用nextcloud作为文件管理器"></a>使用nextcloud作为文件管理器</h4><p><code>docker-compose.yml</code> :</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">version: &apos;3.4&apos;</span><br><span class="line"></span><br><span class="line">services:</span><br><span class="line">  nextcloud:</span><br><span class="line">    image: wonderfall/nextcloud</span><br><span class="line">    volumes:</span><br><span class="line">      - /home/ybd/data/docker/aria2/nextcloud:/data</span><br><span class="line">      - /home/ybd/data/docker/aria2/data:/user-files</span><br><span class="line">    restart: always</span><br><span class="line">  aria2:</span><br><span class="line">    image: wahyd4/aria2-ui:nextcloud</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;8000:80&quot;</span><br><span class="line">      - &quot;6800:6800&quot;</span><br><span class="line">    volumes:</span><br><span class="line">      - /home/ybd/data/docker/aria2/config/aria2.conf:/root/conf/aria2.conf</span><br><span class="line">      - /home/ybd/data/docker/aria2/config/aria2.session:/root/conf/aria2.session</span><br><span class="line">      - /home/ybd/data/docker/aria2/data:/data</span><br><span class="line">    environment:</span><br><span class="line">      - DOMAIN=:80</span><br><span class="line">      # - SSL=true</span><br><span class="line">      # - RPC_SECRET=Hello</span><br><span class="line">      # - ARIA2_USER=admin</span><br><span class="line">      # - ARIA2_PWD=password</span><br><span class="line">      # - ENABLE_AUTH=true</span><br><span class="line">    links:</span><br><span class="line">      - nextcloud:file-manager</span><br><span class="line">    restart: always</span><br></pre></td></tr></table></figure>
+<p>使用nettcloud作为文件管理还需要手动配置一下：</p>
+<p><em><a href="https://github.com/wahyd4/aria2-ariang-x-docker-compose/tree/master/nextcloud#nextcloud-%E9%85%8D%E7%BD%AE-external-storage" target="_blank" rel="noopener">https://github.com/wahyd4/aria2-ariang-x-docker-compose/tree/master/nextcloud#nextcloud-%E9%85%8D%E7%BD%AE-external-storage</a></em></p>
+<h3 id="百度网盘直接下载助手"><a href="#百度网盘直接下载助手" class="headerlink" title="百度网盘直接下载助手"></a>百度网盘直接下载助手</h3><p>1、安装 <em><a href="https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=zh-CN" target="_blank" rel="noopener">Tampermonkey</a></em> Chrome插件，这个主要是管理脚本的，下面安装百度云盘脚本需要用到</p>
+<p>2、进入 <em><a href="https://greasyfork.org/zh-CN/scripts/36549-%E7%99%BE%E5%BA%A6%E7%BD%91%E7%9B%98%E7%9B%B4%E6%8E%A5%E4%B8%8B%E8%BD%BD%E5%8A%A9%E6%89%8B-%E6%98%BE%E7%A4%BA%E7%9B%B4%E6%8E%A5%E4%B8%8B%E8%BD%BD%E5%85%A5%E5%8F%A3" target="_blank" rel="noopener">百度网盘直接下载助手(显示直接下载入口)</a></em> ，点击<code>安装</code>或者<code>install</code>,完了直接刷新界面，进入到自己的百度云盘选择所需的下载文件即可。</p>
+<h3 id="BaiduExporter"><a href="#BaiduExporter" class="headerlink" title="BaiduExporter"></a>BaiduExporter</h3><blockquote>
+<p>博主使用的是BaiduExporter，上面那个下载助手导出来链接在我这边并不能下载成功。。囧</p>
+<p>官方是这么说明的</p>
+<ul>
+<li>Chrome : Click Settings -&gt; Extensions, drag BaiduExporter.crx file to the page, install it, or check Developer mode -&gt; Load unpacked extension, navigate to the chrome/release folder.</li>
+<li>Firefox : Open about:debugging in Firefox, click “Load Temporary Add-on” and navigate to the chrome/release folder, select manifest.json, click OK.</li>
+</ul>
+</blockquote>
+<p>1、到 <em><a href="https://github.com/acgotaku/BaiduExporter" target="_blank" rel="noopener">Github</a></em> 下载与源码</p>
+<p>2、打开Chrome -&gt; 扩展程序 -&gt; 勾选开发者模式 -&gt; 加载已解压的扩展程序 ，然后会弹出文件框，找到刚才下载的源码，找到chrome -&gt; release，添加成功！</p>
+<p>3、打开百度云盘网页版，勾选需要下载的文件，在上方会出现导出下载地选项，通过设置可以修改RCP地址</p>
+<p><img src="https://cdn.yangbingdong.com/img/individuation/baiduexporter1.jpg" alt=""><br><img src="https://cdn.yangbingdong.com/img/individuation/baiduexporter2.jpg" alt=""></p>
+<h2 id="Stardict火星译王"><a href="#Stardict火星译王" class="headerlink" title="Stardict火星译王"></a>Stardict火星译王</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install stardict</span><br></pre></td></tr></table></figure>
+<p><strong><em>安装词库：</em></strong><br>进入<em><a href="http://download.huzheng.org/" target="_blank" rel="noopener">http://download.huzheng.org/</a></em><br>选择所需词库并下载，<code>a</code>为下载的词库名，然后重启<code>stardict</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -xjvf a.tar.bz2</span><br><span class="line">mv a /usr/share/stardict/dic</span><br></pre></td></tr></table></figure></p>
+<h2 id="Filezilla"><a href="#Filezilla" class="headerlink" title="Filezilla"></a>Filezilla</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install filezilla</span><br><span class="line">sudo apt install filezilla-locales</span><br></pre></td></tr></table></figure>
+<h2 id="rar安装与使用"><a href="#rar安装与使用" class="headerlink" title="rar安装与使用"></a>rar安装与使用</h2><h3 id="安装-2"><a href="#安装-2" class="headerlink" title="安装"></a>安装</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install rar</span><br></pre></td></tr></table></figure>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>解压到当前目录：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unrar e update.rar</span><br></pre></td></tr></table></figure></p>
+<p>解压到指定目录：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unrar x update.rar update/</span><br></pre></td></tr></table></figure></p>
+<p>压缩：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rar a pg_healthcheck.rar1 pg_healthcheck/</span><br></pre></td></tr></table></figure></p>
+<h2 id="备份工具"><a href="#备份工具" class="headerlink" title="备份工具"></a>备份工具</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository ppa:nemh/systemback</span><br><span class="line">sudo apt update</span><br><span class="line">sudo apt install systemback</span><br></pre></td></tr></table></figure>
+<h2 id="键盘输入声音特效（Tickys）"><a href="#键盘输入声音特效（Tickys）" class="headerlink" title="键盘输入声音特效（Tickys）"></a>键盘输入声音特效（Tickys）</h2><p><strong><em><a href="http://www.yingdev.com/projects/tickeys" target="_blank" rel="noopener">官网</a></em></strong> 或者 <strong><em><a href="https://pan.baidu.com/s/1c2uyTEw" target="_blank" rel="noopener">博主的百度盘</a></em></strong> (密码: 9bpi)<br>下载<code>tickys</code>之后执行:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install tickys</span><br></pre></td></tr></table></figure></p>
+<p>然后通过<code>sudo tickeys</code>来打开 (sudo tickeys -c 打开CLI版本)<br><img src="https://cdn.yangbingdong.com/img/individuation/tickeys_v0.2.5.png" alt=""></p>
+<h2 id="硬件信息"><a href="#硬件信息" class="headerlink" title="硬件信息"></a>硬件信息</h2><h3 id="I-Nex"><a href="#I-Nex" class="headerlink" title="I-Nex"></a>I-Nex</h3><p>这是一个类似CPU-Z的工具</p>
+<p>下载链接：<strong><em><a href="https://launchpad.net/i-nex/+download" target="_blank" rel="noopener">https://launchpad.net/i-nex/+download</a></em></strong></p>
+<p><img src="https://cdn.yangbingdong.com/img/individuation/I-Nex%20-%20CPU_001.png" alt=""></p>
+<h3 id="Hardinfo"><a href="#Hardinfo" class="headerlink" title="Hardinfo"></a>Hardinfo</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install hardinfo -y</span><br></pre></td></tr></table></figure>
+<p><img src="https://cdn.yangbingdong.com/img/individuation/System%20Information_002.png" alt=""></p>
+<h1 id="其他设置篇"><a href="#其他设置篇" class="headerlink" title="其他设置篇"></a>其他设置篇</h1><h2 id="screenfetch"><a href="#screenfetch" class="headerlink" title="screenfetch"></a>screenfetch</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install screenfetch</span><br></pre></td></tr></table></figure>
+<p><img src="https://cdn.yangbingdong.com/img/individuation/screenfetch.png" alt=""></p>
+<h2 id="点击图标最小化"><a href="#点击图标最小化" class="headerlink" title="点击图标最小化"></a>点击图标最小化</h2><p>试了之后发现这种交互也不太好，如果开了多个窗口，全部都一起最小化了…</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gsettings set org.gnome.shell.extensions.dash-to-dock click-action &apos;minimize&apos;</span><br></pre></td></tr></table></figure>
+<h2 id="exfat驱动"><a href="#exfat驱动" class="headerlink" title="exfat驱动"></a>exfat驱动</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install exfat-fuse exfat-utils</span><br></pre></td></tr></table></figure>
+<h2 id="设置grub2引导等待时间"><a href="#设置grub2引导等待时间" class="headerlink" title="设置grub2引导等待时间"></a>设置grub2引导等待时间</h2><p><code>Ubuntu</code>系统的<code>Grub2</code>菜单的相关信息在读取<code>/boot/grub/grub.cfg</code>文件，不过<code>Ubuntu</code>官方不建议直接修改这个文件，想要修改<code>Grub2</code>的等待时间还可以修改<code>/etc/deafalt/grub</code>来实现。具体的修改方法如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo gedit /etc/default/grub</span><br></pre></td></tr></table></figure></p>
+<p>将<code>GRUB_TIMEOUT=10</code>中的<code>10</code>改为你想要修改的等待时间，比如<code>3</code>，网上很多的教程都是到这一步，其实是不行的，估计都是乱转一气。到这里还有最重要的一步，就是使用<code>#</code>号将<code>GRUB_HIDDEN_TIMEOUT=0</code>标注,然后再次回到终端，输入下面的命令刷新<code>/boot/grub/grub.cfg</code>文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo update-grub2</span><br></pre></td></tr></table></figure></p>
+<h2 id="启动项管理"><a href="#启动项管理" class="headerlink" title="启动项管理"></a>启动项管理</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gnome-session-properties</span><br></pre></td></tr></table></figure>
+<h2 id="统一Win10和Ubuntu18-04双系统的时间"><a href="#统一Win10和Ubuntu18-04双系统的时间" class="headerlink" title="统一Win10和Ubuntu18.04双系统的时间"></a>统一Win10和Ubuntu18.04双系统的时间</h2><p>装了双系统会出现win10中的时间总是慢8个小时（时区不对）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">统一Win10和Ubuntu18.04双系统的时间</span><br></pre></td></tr></table></figure>
+<h3 id="方式一"><a href="#方式一" class="headerlink" title="方式一"></a>方式一</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">timedatectl set-local-rtc 1 --adjust-system-clock</span><br></pre></td></tr></table></figure>
+<h3 id="方式二"><a href="#方式二" class="headerlink" title="方式二"></a>方式二</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install ntpdate</span><br><span class="line">sudo ntpdate time.windows.com</span><br><span class="line">sudo hwclock --localtime --systohc</span><br></pre></td></tr></table></figure>
+<h2 id="终端高逼格屏保"><a href="#终端高逼格屏保" class="headerlink" title="终端高逼格屏保"></a>终端高逼格屏保</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install cmatrix</span><br><span class="line">cmatrix -b</span><br></pre></td></tr></table></figure>
+<p><img src="https://cdn.yangbingdong.com/img/individuation/cmatrix.png" alt=""></p>
+<p>够骚气。。。</p>
+<h1 id="Finally"><a href="#Finally" class="headerlink" title="Finally"></a>Finally</h1><p>使用Ubuntu的这一路过来真的是跌跌撞撞，一路摸爬滚打不断谷歌百度解决各种奇怪的系统问题，磨合了也有好长一段日子，重装系统的次数也数不过来了，有一段时间甚至觉得重装系统已是日常，有时候一装就是到凌晨2点。。。给我最大的收获并不是觉得自己用Ubuntu用得多牛X，而是锻炼了自己的耐性，小强般的韧性。曾经一度想放弃Ubuntu，但一路都在边缘徘徊，还是坚持了下来。。。</p>
+<p>本文将定期更新，与时俱进~</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Ubuntu/" rel="tag"># Ubuntu</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/11/ubuntu-myeclipse-crack/" rel="next" title="Ubuntu16.04下MyEclipse安装与破解">
+                <i class="fa fa-chevron-left"></i> Ubuntu16.04下MyEclipse安装与破解
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/01/15/build-blog-hexo-base/" rel="prev" title="基于Hexo+Github+Coding搭建个人博客——基础篇(从菜鸟到放弃)">
+                基于Hexo+Github+Coding搭建个人博客——基础篇(从菜鸟到放弃) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">杨凯</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#启动盘制作篇"><span class="nav-number">2.</span> <span class="nav-text">启动盘制作篇</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Windows中利用UltraISO制作"><span class="nav-number">2.1.</span> <span class="nav-text">Windows中利用UltraISO制作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux中利用DD命令制作"><span class="nav-number">2.2.</span> <span class="nav-text">Linux中利用DD命令制作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">Step 1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-2"><span class="nav-number">2.2.2.</span> <span class="nav-text">Step 2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-3"><span class="nav-number">2.2.3.</span> <span class="nav-text">Step 3</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#系统篇"><span class="nav-number">3.</span> <span class="nav-text">系统篇</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#换源"><span class="nav-number">3.1.</span> <span class="nav-text">换源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新"><span class="nav-number">3.2.</span> <span class="nav-text">更新</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关掉sudo的密码"><span class="nav-number">3.3.</span> <span class="nav-text">关掉sudo的密码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#中文输入法"><span class="nav-number">3.4.</span> <span class="nav-text">中文输入法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#科学上网篇"><span class="nav-number">4.</span> <span class="nav-text">科学上网篇</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#方式一：下载Lantern"><span class="nav-number">4.1.</span> <span class="nav-text">方式一：下载Lantern</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方式二：自搭建-Shadowsocks"><span class="nav-number">4.2.</span> <span class="nav-text">方式二：自搭建 Shadowsocks</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#主题美化篇"><span class="nav-number">5.</span> <span class="nav-text">主题美化篇</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用Tweaks对gnome进行美化"><span class="nav-number">5.1.</span> <span class="nav-text">使用Tweaks对gnome进行美化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#依赖安装"><span class="nav-number">5.1.1.</span> <span class="nav-text">依赖安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主题安装"><span class="nav-number">5.1.2.</span> <span class="nav-text">主题安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Flatabulous"><span class="nav-number">5.1.2.1.</span> <span class="nav-text">Flatabulous</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Arc-Theme"><span class="nav-number">5.1.2.2.</span> <span class="nav-text">Arc-Theme</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图标安装"><span class="nav-number">5.1.3.</span> <span class="nav-text">图标安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Numix"><span class="nav-number">5.1.3.1.</span> <span class="nav-text">Numix</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Paper"><span class="nav-number">5.1.3.2.</span> <span class="nav-text">Paper</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Papirus"><span class="nav-number">5.1.3.3.</span> <span class="nav-text">Papirus</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GNOME-Shell-Extensions"><span class="nav-number">5.1.4.</span> <span class="nav-text">GNOME Shell Extensions</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Oh-My-Zsh"><span class="nav-number">5.2.</span> <span class="nav-text">Oh-My-Zsh</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">5.2.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#语法高亮"><span class="nav-number">5.2.2.</span> <span class="nav-text">语法高亮</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调色"><span class="nav-number">5.2.3.</span> <span class="nav-text">调色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主题"><span class="nav-number">5.2.4.</span> <span class="nav-text">主题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装字体"><span class="nav-number">5.3.</span> <span class="nav-text">安装字体</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GRUB-2-美化"><span class="nav-number">5.4.</span> <span class="nav-text">GRUB 2 美化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#壁纸推荐"><span class="nav-number">5.5.</span> <span class="nav-text">壁纸推荐</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#软件篇"><span class="nav-number">6.</span> <span class="nav-text">软件篇</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Wechat-for-Ubuntu"><span class="nav-number">6.1.</span> <span class="nav-text">Wechat for Ubuntu</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Wine-QQ与Wine-TIM的Appimage版本"><span class="nav-number">6.2.</span> <span class="nav-text">Wine-QQ与Wine-TIM的Appimage版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#QQ轻聊版"><span class="nav-number">6.3.</span> <span class="nav-text">QQ轻聊版</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#crossover安装与破解"><span class="nav-number">6.3.1.</span> <span class="nav-text">crossover安装与破解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deepin-QQ轻聊版"><span class="nav-number">6.3.2.</span> <span class="nav-text">Deepin QQ轻聊版</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#搜狗输入法安装与崩溃处理"><span class="nav-number">6.4.</span> <span class="nav-text">搜狗输入法安装与崩溃处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-1"><span class="nav-number">6.4.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#搜狗输入法不能输入中文解决（linux下常见软件崩溃问题解决方案）"><span class="nav-number">6.4.2.</span> <span class="nav-text">搜狗输入法不能输入中文解决（linux下常见软件崩溃问题解决方案）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#版本控制系统GUI-SmartGit"><span class="nav-number">6.5.</span> <span class="nav-text">版本控制系统GUI-SmartGit</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Typora-Markdown编辑器"><span class="nav-number">6.6.</span> <span class="nav-text">Typora(Markdown编辑器)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GIF制作软件-Peek"><span class="nav-number">6.7.</span> <span class="nav-text">GIF制作软件 Peek</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#StarUml"><span class="nav-number">6.8.</span> <span class="nav-text">StarUml</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VirtualBox"><span class="nav-number">6.9.</span> <span class="nav-text">VirtualBox</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#KVM"><span class="nav-number">6.10.</span> <span class="nav-text">KVM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SecureCRT-Crack"><span class="nav-number">6.11.</span> <span class="nav-text">SecureCRT Crack</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Install"><span class="nav-number">6.11.1.</span> <span class="nav-text">Install</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Crack"><span class="nav-number">6.11.2.</span> <span class="nav-text">Crack</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#wiznote-为知笔记"><span class="nav-number">6.12.</span> <span class="nav-text">wiznote(为知笔记)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vim"><span class="nav-number">6.13.</span> <span class="nav-text">Vim</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WPS"><span class="nav-number">6.14.</span> <span class="nav-text">WPS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Chrome"><span class="nav-number">6.15.</span> <span class="nav-text">Chrome</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XMind-8-Crack"><span class="nav-number">6.16.</span> <span class="nav-text">XMind 8 Crack</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Setup"><span class="nav-number">6.16.1.</span> <span class="nav-text">Setup</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Crack-1"><span class="nav-number">6.16.2.</span> <span class="nav-text">Crack</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Shutter"><span class="nav-number">6.17.</span> <span class="nav-text">Shutter</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#编辑按钮变成程灰色解决方法"><span class="nav-number">6.17.1.</span> <span class="nav-text">编辑按钮变成程灰色解决方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#系统清理软件-BleachBit"><span class="nav-number">6.18.</span> <span class="nav-text">系统清理软件 BleachBit</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多协议下载器-Aria2"><span class="nav-number">6.19.</span> <span class="nav-text">多协议下载器 Aria2</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#搭建-Aria2-以及-AriaNg-Web-UI"><span class="nav-number">6.19.1.</span> <span class="nav-text">搭建 Aria2 以及 AriaNg Web UI</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#配置aria2-conf"><span class="nav-number">6.19.1.1.</span> <span class="nav-text">配置aria2.conf</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用h5ai作为文件管理器"><span class="nav-number">6.19.1.2.</span> <span class="nav-text">使用h5ai作为文件管理器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用nextcloud作为文件管理器"><span class="nav-number">6.19.1.3.</span> <span class="nav-text">使用nextcloud作为文件管理器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#百度网盘直接下载助手"><span class="nav-number">6.19.2.</span> <span class="nav-text">百度网盘直接下载助手</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BaiduExporter"><span class="nav-number">6.19.3.</span> <span class="nav-text">BaiduExporter</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Stardict火星译王"><span class="nav-number">6.20.</span> <span class="nav-text">Stardict火星译王</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Filezilla"><span class="nav-number">6.21.</span> <span class="nav-text">Filezilla</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rar安装与使用"><span class="nav-number">6.22.</span> <span class="nav-text">rar安装与使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-2"><span class="nav-number">6.22.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用"><span class="nav-number">6.22.2.</span> <span class="nav-text">使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#备份工具"><span class="nav-number">6.23.</span> <span class="nav-text">备份工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#键盘输入声音特效（Tickys）"><span class="nav-number">6.24.</span> <span class="nav-text">键盘输入声音特效（Tickys）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#硬件信息"><span class="nav-number">6.25.</span> <span class="nav-text">硬件信息</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#I-Nex"><span class="nav-number">6.25.1.</span> <span class="nav-text">I-Nex</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hardinfo"><span class="nav-number">6.25.2.</span> <span class="nav-text">Hardinfo</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他设置篇"><span class="nav-number">7.</span> <span class="nav-text">其他设置篇</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#screenfetch"><span class="nav-number">7.1.</span> <span class="nav-text">screenfetch</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#点击图标最小化"><span class="nav-number">7.2.</span> <span class="nav-text">点击图标最小化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#exfat驱动"><span class="nav-number">7.3.</span> <span class="nav-text">exfat驱动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置grub2引导等待时间"><span class="nav-number">7.4.</span> <span class="nav-text">设置grub2引导等待时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动项管理"><span class="nav-number">7.5.</span> <span class="nav-text">启动项管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#统一Win10和Ubuntu18-04双系统的时间"><span class="nav-number">7.6.</span> <span class="nav-text">统一Win10和Ubuntu18.04双系统的时间</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#方式一"><span class="nav-number">7.6.1.</span> <span class="nav-text">方式一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方式二"><span class="nav-number">7.6.2.</span> <span class="nav-text">方式二</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#终端高逼格屏保"><span class="nav-number">7.7.</span> <span class="nav-text">终端高逼格屏保</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Finally"><span class="nav-number">8.</span> <span class="nav-text">Finally</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">杨凯</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java,JVM,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言 想要深刻地理解Java，那么就要深入地理解底层——JVM(Java Virtual Machine | Java虚拟机)。JVM（Java Virtual Machine）Java 虚拟机是整个 java 平台的基石，是 java 系统实现硬件无关与操作系统无关的关键部分，是保障用户机器免于恶意代码损害的屏障。Java开发人员不需要了解JVM是如何工作的，但是，了解 JVM 有助于我们更好">
+<meta name="keywords" content="Java,JVM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JVM知识杂汇">
+<meta property="og:url" content="http://yoursite.com/2017/03/09/jvm-knowledge-collect-01/index.html">
+<meta property="og:site_name" content="如风过境">
+<meta property="og:description" content="前言 想要深刻地理解Java，那么就要深入地理解底层——JVM(Java Virtual Machine | Java虚拟机)。JVM（Java Virtual Machine）Java 虚拟机是整个 java 平台的基石，是 java 系统实现硬件无关与操作系统无关的关键部分，是保障用户机器免于恶意代码损害的屏障。Java开发人员不需要了解JVM是如何工作的，但是，了解 JVM 有助于我们更好">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/jvm/structure.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/jvm/java-tutorial.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/jvm/jdk.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/jvm/jre.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/jvm/jvm-frame-diagram.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/jvm/jvm-runtime-area.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/jvm/hprof1.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/jvm/hrpof2.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/jvm/jdk6-intern.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/jvm/jdk7-intern1.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/jvm/jdk7-intern2.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/jvm/java-heap-memory.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/jvm/class.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/jvm/classlodertest.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/jvm/calssloader.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/jvm/result.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/jvm/jvm-men-thread.webp">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/jvm/jvm-param.webp">
+<meta property="og:updated_time" content="2018-12-09T10:09:00.041Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JVM知识杂汇">
+<meta name="twitter:description" content="前言 想要深刻地理解Java，那么就要深入地理解底层——JVM(Java Virtual Machine | Java虚拟机)。JVM（Java Virtual Machine）Java 虚拟机是整个 java 平台的基石，是 java 系统实现硬件无关与操作系统无关的关键部分，是保障用户机器免于恶意代码损害的屏障。Java开发人员不需要了解JVM是如何工作的，但是，了解 JVM 有助于我们更好">
+<meta name="twitter:image" content="https://cdn.yangbingdong.com/img/jvm/structure.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/03/09/jvm-knowledge-collect-01/">
+
+
+
+
+
+  <title>JVM知识杂汇 | 如风过境</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">如风过境</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/09/jvm-knowledge-collect-01/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="杨凯">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="如风过境">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JVM知识杂汇</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-09T13:04:51+08:00">
+                2017-03-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Programming/" itemprop="url" rel="index">
+                    <span itemprop="name">Programming</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Programming/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="https://cdn.yangbingdong.com/img/jvm/structure.png" alt=""></p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
+<p>想要深刻地理解Java，那么就要深入地理解底层——JVM(Java Virtual Machine | Java虚拟机)。<br>JVM（Java Virtual Machine）Java 虚拟机是整个 java 平台的基石，是 java 系统实现硬件无关与操作系统无关的关键部分，是保障用户机器免于恶意代码损害的屏障。Java开发人员不需要了解JVM是如何工作的，但是，了解 JVM 有助于我们更好的开（通）发（过） java（公司） 程（面）序（试）<br>博主经过一番查阅，找到了自认为写的好的一些文章，并记录总结，方便不定时的看。<br>希望每次看都会有新的领悟，不断提高自己。</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="Java虚拟机架构"><a href="#Java虚拟机架构" class="headerlink" title="Java虚拟机架构"></a>Java虚拟机架构</h1><h2 id="什么是JVM"><a href="#什么是JVM" class="headerlink" title="什么是JVM"></a>什么是JVM</h2><p>要想说明白什么 JVM 就不得不提另外两个概念，JRE 和 JDK，初学者总是把这几个概念搞混。<br><img src="https://cdn.yangbingdong.com/img/jvm/java-tutorial.png" alt=""><br>JVM，JRE，JDK 都是 Java 语言的支柱，他们分工协作。但不同的是 <strong>JDK 和 JRE 是真实存在的</strong>，而 JVM 是一个<strong>抽象</strong>的概念，并不真实存在。</p>
+<h3 id="JDK"><a href="#JDK" class="headerlink" title="JDK"></a>JDK</h3><p>JDK(Java Development Kit) 是 Java 语言的软件开发工具包（SDK）。JDK 物理存在，是 programming tools、JRE 和 JVM 的一个集合。<br><img src="https://cdn.yangbingdong.com/img/jvm/jdk.png" alt=""></p>
+<h3 id="JRE"><a href="#JRE" class="headerlink" title="JRE"></a>JRE</h3><p>JRE（Java Runtime Environment）Java 运行时环境，JRE 物理存在，主要由Java API 和 JVM 组成，提供了用于执行 Java 应用程序最低要求的环境。<br><img src="https://cdn.yangbingdong.com/img/jvm/jre.png" alt=""></p>
+<h3 id="JVM（Java-Virtual-Machine）"><a href="#JVM（Java-Virtual-Machine）" class="headerlink" title="JVM（Java Virtual Machine）"></a>JVM（Java Virtual Machine）</h3><p>JVM(Java Virtual Machine) 是一种软件实现，执行像物理机程序的机器（即电脑）。<br>本来，Java被设计基于从物理机器分离实现WORA（ 写一次，随处运行 ）的虚拟机上运行，虽然这个目标已经几乎被遗忘。<br>JVM 并不是专为 Java 所实现的运行时，实际上只要有其他编程语言的编译器能生成正确 Java bytecode 文件，则这个语言也能实现在JVM上运行。<br>因此，JVM 通过执行 Java bytecode 可以使 java 代码在不改变的情况下运行在各种硬件之上。</p>
+<p>JVM实现了Java语言最重要的特征：即平台无关性。<br><strong>平台无关性原理</strong>：编译后的 Java程序（<code>.class</code>文件）由<strong>JVM执行</strong>。JVM<strong>屏蔽了与具体平台相关的信息</strong>，使程序可以在多种平台上不加修改地运行。Java虚拟机在执行字节码时，把字节码解释成具体平台上的机器指令执行。因此实现<strong>Java平台无关性</strong>。</p>
+<h2 id="JVM结构图"><a href="#JVM结构图" class="headerlink" title="JVM结构图"></a>JVM结构图</h2><p><img src="https://cdn.yangbingdong.com/img/jvm/jvm-frame-diagram.png" alt=""><br><strong>JVM = 类加载器 classloader+ 执行引擎 executionengine + 运行时数据区域 runtime data area</strong><br>首先Java源代码文件被Java编译器编译为字节码文件，然后JVM中的<strong>类加载器</strong>加载完毕之后，交由JVM<strong>执行引擎</strong>执行。在整个程序执行过程中，JVM中的<strong>运行时数据区（内存）</strong>会用来存储程序执行期间需要用到的数据和相关信息。<br>因此，<strong>在Java中我们常常说到的内存管理就是针对这段空间进行管理</strong>（如何分配和回收内存空间）。</p>
+<h2 id="ClassLoader"><a href="#ClassLoader" class="headerlink" title="ClassLoader"></a>ClassLoader</h2><p>ClassLoader把硬盘上的class文件<strong>加载到JVM中的运行时数据区域</strong>，但是它不负责这个类文件能否执行，而这个是执行引擎负责的。</p>
+<h2 id="执行引擎"><a href="#执行引擎" class="headerlink" title="执行引擎"></a>执行引擎</h2><p>作用：<strong>执行字节码，或者执行本地方法。</strong></p>
+<h2 id="Runtime-DataArea"><a href="#Runtime-DataArea" class="headerlink" title="Runtime DataArea"></a>Runtime DataArea</h2><p>JVM运行时数据区 (JVM RuntimeArea)其实就是指 JVM在<strong>运行期间</strong>，其<strong>对JVM内存空间的划分和分配</strong>。JVM在运行时将数据划分为了<strong>以下几个区域来存储</strong>。<br>程序员写的所有程序都被加载到运行时数据区域中。<br><img src="https://cdn.yangbingdong.com/img/jvm/jvm-runtime-area.png" alt=""><br>（图注：<strong>JDK1.7已经把常量池转移到堆里面了！</strong>）</p>
+<h3 id="PC寄存器（The-pc-Register）"><a href="#PC寄存器（The-pc-Register）" class="headerlink" title="PC寄存器（The pc Register）"></a>PC寄存器（The pc Register）</h3><p>（1）每一个Java线程<strong>都有一个PC寄存器</strong>，用以<strong>记录当前执行到哪个指令</strong>。<br>（2）用于存储每个线程下一步将执行的JVM指令，如该方法是Java方法，则记录的是<strong>正在执行的虚拟机字节码地址</strong>，如该方法为native的，则<strong>计数器值为空</strong>。<br>（3）此内存区域是<strong>唯一一个在JVM中没有规定任何OutOfMemoryError情况</strong>的区域。</p>
+<h3 id="JVM栈（Java-Virtual-Machine-Stacks）"><a href="#JVM栈（Java-Virtual-Machine-Stacks）" class="headerlink" title="JVM栈（Java Virtual Machine Stacks）"></a>JVM栈（Java Virtual Machine Stacks）</h3><p>（1）JVM栈是<strong>线程私有的，并且生命周期与线程相同</strong>。并且当线程运行完毕后，相应内存也就被<strong>自动回收</strong>。<br>（2）栈里面存放的元素叫<strong>栈帧</strong>，每个函数从调用到执行结束，其实是对应一个栈帧的<strong>入栈和出栈</strong>。<br>（栈帧好像很复杂的样子，其实它很简单！）它里面具体存放的是执行的函数的一些数据，如<strong>局部变量、操作数</strong>栈（执行引擎计算时需要），<strong>方法出口</strong>等等。<br>（3）这个区域可能有两种异常：如果线程请求的栈深度大于虚拟机所允许的深度，将抛出<code>StackOverflowError</code>异常（如：将一个函数反复递归自己，最终会出现这种异常）。如果JVM栈可以动态扩展（大部分JVM是可以的），当扩展时无法申请到足够内存则抛出<code>OutOfMemoryError</code>异常。</p>
+<p>下面来实现一个栈溢出：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.antd.test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StackOverFlowMock</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> num;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getNum</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> num;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">stackOver</span><span class="params">()</span></span>&#123;</span><br><span class="line">		num++;</span><br><span class="line">		stackOver();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		StackOverFlowMock stackOverFlowTest = <span class="keyword">new</span> StackOverFlowMock();</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			stackOverFlowTest.stackOver();</span><br><span class="line">		&#125; <span class="keyword">catch</span> (Throwable t) &#123;</span><br><span class="line">			System.out.println(<span class="string">"迭代深度："</span>+stackOverFlowTest.getNum());</span><br><span class="line">			t.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出为：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">迭代深度：<span class="number">17781</span></span><br><span class="line">java.lang.StackOverflowError</span><br><span class="line">	at org.antd.test.StackOverFlowMock.stackOver(StackOverFlowMock.java:<span class="number">10</span>)</span><br><span class="line">	at org.antd.test.StackOverFlowMock.stackOver(StackOverFlowMock.java:<span class="number">10</span>)</span><br><span class="line">	at org.antd.test.StackOverFlowMock.stackOver(StackOverFlowMock.java:<span class="number">10</span>)</span><br><span class="line">	at org.antd.test.StackOverFlowMock.stackOver(StackOverFlowMock.java:<span class="number">10</span>)</span><br><span class="line">	at org.antd.test.StackOverFlowMock.stackOver(StackOverFlowMock.java:<span class="number">10</span>)</span><br><span class="line">	at org.antd.test.StackOverFlowMock.stackOver(StackOverFlowMock.java:<span class="number">10</span>)</span><br></pre></td></tr></table></figure></p>
+<h3 id="本地方法栈（Native-Method-Stacks）"><a href="#本地方法栈（Native-Method-Stacks）" class="headerlink" title="本地方法栈（Native Method Stacks）"></a>本地方法栈（Native Method Stacks）</h3><p>（1）本地方法栈与虚拟机栈所发挥的作用很相似，他们的区别在于<strong>虚拟机栈为执行Java代码方法服务，而本地方法栈是为Native方法服务</strong>。<br>（2）和JVM栈一样，这个区域也会抛出<code>StackOverflowError</code>和<code>OutOfMemoryError</code>异常。</p>
+<h3 id="方法区（Method-Area）"><a href="#方法区（Method-Area）" class="headerlink" title="方法区（Method Area）"></a>方法区（Method Area）</h3><p>（1）在方法区中，存储了每个<strong>类的信息</strong>、<strong>静态变量</strong>等。如，当程序中通过<code>getName</code>、<code>isInterface</code>等方法来获取信息时，这些数据来源于<strong>方法区</strong>。<br>（2）方法区域是<strong>全局共享</strong>的，比如<strong>每个线程都可以访问同一个类的静态变量</strong>。<br>（3）由于使用<strong>反射机制</strong>的原因，虚拟机<strong>很难推测哪个类信息不再使用</strong>，因此这块区域的<strong>回收很难</strong>！另外，对这块区域主要是针对<strong>常量池</strong>回收，<strong>值得注意的是JDK1.7已经把常量池转移到堆里面了</strong>。<br>（4）同样，当方法区<strong>无法满足内存分配需求</strong>时，会抛出<code>OutOfMemoryError</code>。下面演示一下造成方法区内的OOM场景。<br>执行之前，可以把虚拟机的参数<code>-XXpermSize</code>和<code>-XX：MaxPermSize</code>限制方法区大小。<br>那么实现一下OOM：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HeapOomMock</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		List&lt;<span class="keyword">byte</span>[]&gt; list = <span class="keyword">new</span> ArrayList&lt;<span class="keyword">byte</span>[]&gt;();</span><br><span class="line">		<span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">boolean</span> flag = <span class="keyword">true</span>;</span><br><span class="line">		<span class="keyword">while</span> (flag) &#123;</span><br><span class="line">			<span class="keyword">try</span> &#123;</span><br><span class="line">				i++;</span><br><span class="line">				list.add(<span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span> * <span class="number">1024</span>]);<span class="comment">// 每次增加一个1M大小的数组对象</span></span><br><span class="line">			&#125; <span class="keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">				flag = <span class="keyword">false</span>;</span><br><span class="line">				System.out.println(<span class="string">"count="</span> + i);<span class="comment">// 记录运行的次数</span></span><br><span class="line">				e.printStackTrace();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>控制台输出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">count=3422</span><br><span class="line">java.lang.OutOfMemoryError: Java heap space</span><br><span class="line">	at org.antd.test.HeapOomMock.main(HeapOomMock.java:14)</span><br></pre></td></tr></table></figure></p>
+<h3 id="运行时常量池（Runtime-Constant-Pool）"><a href="#运行时常量池（Runtime-Constant-Pool）" class="headerlink" title="运行时常量池（Runtime Constant Pool）"></a>运行时常量池（Runtime Constant Pool）</h3><p>（1）存放类中固定的常量信息、方法引用信息等，其空间从方法区域（JDK1.7后为堆空间）中分配。<br>（2）Class文件中除了有类的版本、字段、方法、接口等描述等信息外，还有就是<strong>常量表</strong>(constant_pool table)，用于存放<strong>编译期已可知的常量</strong>，这部分内容将在<strong>类加载后进入方法区（永久代）存放</strong>。但是Java语言并不要求常量一定只有编译期预置入Class的常量表的内容才能进入方法区常量池，运行期间也可将新内容放入常量池（最典型的<code>String.intern()</code>方法）。<br>（3）当常量池无法在申请到内存时会抛出<code>OutOfMemoryError</code>异常。<br>再来一段代码展示以下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//不断将字符串添加到常量池，最终导致内存不足抛出方法区的OOM </span><br><span class="line">List&lt;String&gt; list =new ArrayList&lt;String&gt;(); </span><br><span class="line">int i =0; </span><br><span class="line">while(true)&#123; </span><br><span class="line">    list.add(String.valueOf(i).intern()); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>String的intern函数的作用就不多赘述了，在这篇博文<strong><em><a href="#%E9%80%9A%E8%BF%87String%E7%B1%BB%E7%9A%84intern-%E4%BA%86%E8%A7%A3%E5%86%85%E5%AD%98%E5%BB%BA%E6%A8%A1%E4%B8%8E%E5%B8%B8%E9%87%8F%E6%B1%A0">了解String类的intern()方法</a></em></strong>有所介绍。关于JDK1.6和JDK1.7之后常量池位置的变化对该函数的影响，也在链接文中阐述了。</p>
+<h3 id="Java堆"><a href="#Java堆" class="headerlink" title="Java堆"></a>Java堆</h3><p>（1）Java堆是JVM所管理的<strong>最大的一块内存</strong>。它是被<strong>所有线程共享的一块内存区域，在虚拟机启动时创建</strong>。<br>（2）几乎所有的<strong>实例对象都是在这块区域中存放</strong>。（JIT编译器貌似不是这样的）。<br>（3）Java堆是<strong>垃圾搜集管理</strong>的主要战场。所有Java堆可以细分为：<strong>新生代</strong>和<strong>老年代</strong>。再细致分就是把新生代分为：<strong>Eden空间</strong>、<strong>FromSurvivor空间</strong>、<strong>To Survivor空间</strong>。<br>（4）根据<strong>Java虚拟机规范</strong>的规定，Java堆可以处于物理上<strong>不连续的内存空间</strong>中，只要<strong>逻辑上是连续</strong>的即可，就像我们的磁盘空间一样。如果在<strong>堆中没有内存完成实例分配</strong>，并且<strong>堆也无法再扩展时</strong>，将会抛出<code>OutOfMemoryError</code>异常。</p>
+<h2 id="堆和栈的区别"><a href="#堆和栈的区别" class="headerlink" title="堆和栈的区别"></a>堆和栈的区别</h2><p>这是一个非常常见的面试题，主要从以下几个方面来回答。</p>
+<h3 id="各司其职"><a href="#各司其职" class="headerlink" title="各司其职"></a>各司其职</h3><p>最主要的区别就是<strong>栈内存用来存储局部变量和方法调用</strong>。<br>而堆内存用来存储<strong>Java中的对象</strong>。无论是成员变量、局部变量还是类变量，它们指向的对象都存储在堆内存中。</p>
+<h3 id="空间大小"><a href="#空间大小" class="headerlink" title="空间大小"></a>空间大小</h3><p><strong>栈的内存要远远小于堆内存</strong>，如果你使用<strong>递归</strong>的话，那么你的栈很快就会充满并产生<code>StackOverFlowError</code>。</p>
+<h3 id="独有还是共享"><a href="#独有还是共享" class="headerlink" title="独有还是共享"></a>独有还是共享</h3><p>栈内存归属于<strong>线程的私有内存</strong>，每个线程都会有一个栈内存，其存储的变量只能在其所属线程中可见。<br>而堆内存中的对象<strong>对所有线程可见</strong>，可以被所有线程访问。</p>
+<h3 id="异常错误"><a href="#异常错误" class="headerlink" title="异常错误"></a>异常错误</h3><p>如果线程请求的<strong>栈深度</strong>大于虚拟机所允许的深度，将抛出<code>StackOverflowError</code>异常。<br>如果JVM栈可以动态扩展（大部分JVM是可以的），当扩展时<strong>无法申请到足够内存</strong>则抛出<code>OutOfMemoryError</code>异常。<br>而堆内存没有可用的空间存储生成的对象，JVM会抛出<code>java.lang.OutOfMemoryError</code>。</p>
+<p>以上便是关于JVM架构的相关知识。</p>
+<h1 id="通过String类的intern-了解内存建模与常量池"><a href="#通过String类的intern-了解内存建模与常量池" class="headerlink" title="通过String类的intern()了解内存建模与常量池"></a>通过String类的intern()了解内存建模与常量池</h1><h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>什么都先不说，先看下面这个引入的例子：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String str1 = <span class="keyword">new</span> String(<span class="string">"SEU"</span>)+ <span class="keyword">new</span> String(<span class="string">"Calvin"</span>); </span><br><span class="line">System.out.println(str1.intern() == str1);</span><br><span class="line">System.out.println(str1 == <span class="string">"SEUCalvin"</span>);</span><br></pre></td></tr></table></figure></p>
+<p>JDK版本1.8，输出结果为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">true</span><br><span class="line">true</span><br></pre></td></tr></table></figure></p>
+<p>再将上面的例子加上一行代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String str2 = <span class="string">"SEUCalvin"</span>;<span class="comment">//新加的一行代码，其余不变 </span></span><br><span class="line">String str1 = <span class="keyword">new</span> String(<span class="string">"SEU"</span>)+ <span class="keyword">new</span> String(<span class="string">"Calvin"</span>); </span><br><span class="line">System.out.println(str1.intern() == str1);</span><br><span class="line">System.out.println(str1 == <span class="string">"SEUCalvin"</span>);</span><br></pre></td></tr></table></figure></p>
+<p>再运行，结果为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">false </span><br><span class="line">false</span><br></pre></td></tr></table></figure></p>
+<p>是不是感觉莫名其妙，新定义的<code>str2</code>好像和<code>str1</code>没有半毛钱的关系，怎么会影响到有关<code>str1</code>的输出结果呢？其实这都是<code>intern()</code>方法搞的鬼！看完这篇文章，你就会明白。<br>在JVM架构一文中也有介绍，在JVM<strong>运行时数据区中的方法区有一个常量池</strong>，但是发现在<strong>JDK1.6以后常量池被放置在了堆空间</strong>，因此常量池位置的不同影响到了<strong>String的intern()方法</strong>的表现。深入了解后发现还是值得写下来记录一下的。为了确保文章的实时更新，实时修改可能出错的地方，请确保这篇是原文，而不是无脑转载来的“原创文”，原文链接为：<strong><em><a href="http://blog.csdn.net/seu_calvin/article/details/52291082" target="_blank" rel="noopener">http://blog.csdn.net/seu_calvin/article/details/52291082</a></em></strong>。</p>
+<h2 id="为什么要介绍intern-方法"><a href="#为什么要介绍intern-方法" class="headerlink" title="为什么要介绍intern()方法"></a>为什么要介绍intern()方法</h2><p><code>intern()</code>方法设计的初衷，就是<strong>重用String对象</strong>，以<strong>节省内存消耗</strong>。这么说可能有点抽象，那么就用例子来证明。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> MAX = <span class="number">100000</span>; </span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> String[] arr = <span class="keyword">new</span> String[MAX]; </span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123; </span><br><span class="line">    <span class="comment">//为长度为10的Integer数组随机赋值  </span></span><br><span class="line">    Integer[] sample = <span class="keyword">new</span> Integer[<span class="number">10</span>];  </span><br><span class="line">    Random random = <span class="keyword">new</span> Random(<span class="number">1000</span>);  </span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; sample.length; i++) &#123;  </span><br><span class="line">        sample[i] = random.nextInt();  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="comment">//记录程序开始时间  </span></span><br><span class="line">    <span class="keyword">long</span> t = System.currentTimeMillis();  </span><br><span class="line">    <span class="comment">//使用/不使用intern方法为10万个String赋值，值来自于Integer数组的10个数  </span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; MAX; i++) &#123;  </span><br><span class="line">            arr[i] = <span class="keyword">new</span> String(String.valueOf(sample[i % sample.length]));  </span><br><span class="line">            <span class="comment">//arr[i] = new String(String.valueOf(sample[i % sample.length])).intern();  </span></span><br><span class="line">        &#125;  </span><br><span class="line">        System.out.println((System.currentTimeMillis() - t) + <span class="string">"ms"</span>);  </span><br><span class="line">        System.gc();  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这个例子也比较简单，<strong>就是为了证明使用<code>intern()</code>比不使用<code>intern()</code>消耗的内存更少</strong>。<br>先定义一个长度为10的Integer数组，并随机为其赋值，在通过for循环为长度为10万的String对象依次赋值，这些值都来自于Integer数组。两种情况分别运行，可通过<code>Window</code>&gt;<code>Preferences</code>&gt;<code>Java</code>&gt;<code>InstalledJREs</code>设置JVM启动参数为<code>-agentlib:hprof=heap=dump,format=b</code>，将程序运行完后的hprof置于工程目录下。再通过<strong>MAT插件</strong>查看该<code>hprof</code>文件。<br>两次实验结果如下：<br><img src="https://cdn.yangbingdong.com/img/jvm/hprof1.png" alt=""><br><img src="https://cdn.yangbingdong.com/img/jvm/hrpof2.png" alt=""><br>从运行结果来看，不使用<code>intern()</code>的情况下，程序生成了101762个String对象，而使用了<code>intern()</code>方法时，程序仅生成了1772个String对象。自然也证明了<strong><code>intern()</code>节省内存的结论</strong>。<br>细心的同学会发现使用了<code>intern()</code>方法后<strong>程序运行时间有所增加</strong>。这是因为程序中每次都是用了<code>new String</code>后又进行<strong><code>intern()</code>操作的耗时时间</strong>，但是不使用<code>intern()</code>占用内存空间导致GC的时间是要远远大于这点时间的。 </p>
+<h2 id="深入认识intern-方法"><a href="#深入认识intern-方法" class="headerlink" title="深入认识intern()方法"></a>深入认识intern()方法</h2><p><strong>JDK1.7后</strong>，<strong>常量池被放入到堆空间中</strong>，这导致<code>intern()</code>函数的功能不同，具体怎么个不同法，且看看下面代码，这个例子是网上流传较广的一个例子，分析图也是直接粘贴过来的，这里自己的理解去解释这个例子：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">String s = <span class="keyword">new</span> String(<span class="string">"1"</span>); </span><br><span class="line">s.intern();</span><br><span class="line">String s2 = <span class="string">"1"</span>; </span><br><span class="line">System.out.println(s == s2); </span><br><span class="line">  </span><br><span class="line">String s3 = <span class="keyword">new</span> String(<span class="string">"1"</span>) + <span class="keyword">new</span> String(<span class="string">"1"</span>); </span><br><span class="line">s3.intern(); </span><br><span class="line">String s4 = <span class="string">"11"</span>; </span><br><span class="line">System.out.println(s3 == s4);</span><br></pre></td></tr></table></figure></p>
+<p>输出结果为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">JDK1.6以及以下：false false </span><br><span class="line">JDK1.7以及以上：false true</span><br></pre></td></tr></table></figure></p>
+<p>再分别调整上面代码2.3行、7.8行的顺序：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">String s = <span class="keyword">new</span> String(<span class="string">"1"</span>); </span><br><span class="line">String s2 = <span class="string">"1"</span>; </span><br><span class="line">s.intern(); </span><br><span class="line">System.out.println(s == s2); </span><br><span class="line">  </span><br><span class="line">String s3 = <span class="keyword">new</span> String(<span class="string">"1"</span>) + <span class="keyword">new</span> String(<span class="string">"1"</span>); </span><br><span class="line">String s4 = <span class="string">"11"</span>; </span><br><span class="line">s3.intern(); </span><br><span class="line">System.out.println(s3 == s4);</span><br></pre></td></tr></table></figure></p>
+<p>输出结果为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">JDK1.6以及以下：false false </span><br><span class="line">JDK1.7以及以上：false false</span><br></pre></td></tr></table></figure></p>
+<p>下面依据上面代码对<code>intern()</code>方法进行分析</p>
+<h3 id="JDK1-6"><a href="#JDK1-6" class="headerlink" title="JDK1.6"></a>JDK1.6</h3><p><img src="https://cdn.yangbingdong.com/img/jvm/jdk6-intern.png" alt=""><br>在JDK1.6中所有的输出结果都是 false，因为JDK1.6以及以前版本中，常量池是放在 Perm 区（属于方法区）中的，熟悉JVM的话应该知道这是和堆区完全分开的。<br>使用<strong>引号声明的字符串都是会直接在字符串常量池</strong>中生成的，而 <strong>new 出来的 String 对象是放在堆空间中的</strong>。所以两者的内存地址肯定是不相同的，即使调用了<code>intern()</code>方法也是不影响的。如果不清楚String类的<code>“==”</code>和<code>equals()</code>的区别可以查看这篇博文<strong><em><a href="http://blog.csdn.net/seu_calvin/article/details/52089040" target="_blank" rel="noopener">Java面试——从Java堆、栈角度比较equals和==的区别</a></em></strong>。<br><code>intern()</code>方法在JDK1.6中的<strong>作用</strong>是：比如<code>String s=new String(&quot;SEU_Calvin&quot;)</code>，再调用<code>s.intern()</code>，此时返回值还是字符串<code>&quot;SEU_Calvin&quot;</code>，表面上看起来好像这个方法没什么用处。但实际上，在JDK1.6中它做了个小动作：检查字符串池里<strong>是否存在<code>&quot;SEU_Calvin&quot;</code>这么一个字符串</strong>，如果存在，就返回池里的字符串；如果不存在，该方法会把<code>&quot;SEU_Calvin&quot;</code>添加到字符串池中，然后再返回它的引用。然而在JDK1.7中却不是这样的，后面会讨论。</p>
+<h2 id="JDK1-7"><a href="#JDK1-7" class="headerlink" title="JDK1.7"></a>JDK1.7</h2><p>针对JDK1.7以及以上的版本，我们将上面两段代码分开讨论。先看第一段代码的情况：<br><img src="https://cdn.yangbingdong.com/img/jvm/jdk7-intern1.png" alt=""><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">String s = <span class="keyword">new</span> String(<span class="string">"1"</span>); </span><br><span class="line">s.intern(); </span><br><span class="line">String s2 = <span class="string">"1"</span>; </span><br><span class="line">System.out.println(s == s2); </span><br><span class="line">  </span><br><span class="line">String s3 = <span class="keyword">new</span> String(<span class="string">"1"</span>) + <span class="keyword">new</span> String(<span class="string">"1"</span>); </span><br><span class="line">s3.intern(); </span><br><span class="line">String s4 = <span class="string">"11"</span>; </span><br><span class="line">System.out.println(s3 == s4);</span><br></pre></td></tr></table></figure></p>
+<p><code>String s = newString(&quot;1&quot;)</code>，生成了<strong>常量池中的“1” 和堆空间中的字符串对象</strong>。<br><code>s.intern()</code>，这一行的作用是s对象去常量池中寻找后发现”1”<strong>已经存在于常量池中了</strong>。<br><code>String s2 = &quot;1&quot;</code>，这行代码是生成一个s2的引用<strong>指向常量池中的“1”对象</strong>。<br>结果就是 s 和 s2 的<strong>引用地址</strong>明显不同。因此返回了<code>false</code>。</p>
+<p><code>String s3 = new String(&quot;1&quot;) + newString(&quot;1&quot;)</code>，这行代码在<strong>字符串常量池中生成“1”</strong> ，<strong>并在堆空间中生成s3引用指向的对象（内容为”11”）</strong>。注意此时常量池中是没有 “11”对象的。<br><code>s3.intern()</code>，这一行代码，是将 s3中的<strong>“11”字符串放入 String 常量池</strong>中，此时常量池中不存在“11”字符串，JDK1.6的做法是直接在常量池中生成一个 “11” 的对象。<br><strong>但是在JDK1.7中，常量池中不需要再存储一份对象了，可以直接存储堆中的引用</strong>。这份引用直接<strong>指向 s3 引用的对象，也就是说<code>s3.intern() == s3</code>会返回<code>true</code></strong>。<br><code>String s4 = &quot;11&quot;</code>， 这一行代码会<strong>直接去常量池中创建</strong>，但是发现已经有这个对象了，此时也就是指向 <strong>s3 引用对象的一个引用</strong>。因此<code>s3 == s4</code>返回了<code>true</code>。</p>
+<p>下面继续分析第二段代码：<br><img src="https://cdn.yangbingdong.com/img/jvm/jdk7-intern2.png" alt=""><br>再把第二段代码贴一下便于查看：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">String s = <span class="keyword">new</span> String(<span class="string">"1"</span>); </span><br><span class="line">String s2 = <span class="string">"1"</span>; </span><br><span class="line">s.intern(); </span><br><span class="line">System.out.println(s == s2); </span><br><span class="line"></span><br><span class="line">String s3 = <span class="keyword">new</span> String(<span class="string">"1"</span>) + <span class="keyword">new</span> String(<span class="string">"1"</span>); </span><br><span class="line">String s4 = <span class="string">"11"</span>; </span><br><span class="line">s3.intern(); </span><br><span class="line">System.out.println(s3 == s4);</span><br></pre></td></tr></table></figure></p>
+<p><code>String s = newString(&quot;1&quot;)</code>，生成了<strong>常量池中的“1” 和堆空间中的字符串对象</strong>。<br><code>String s2 = &quot;1&quot;</code>，这行代码是生成一个s2的引用<strong>指向常量池中的“1”对象，但是发现已经存在了，那么就直接指向了它</strong>。<br><code>s.intern()</code>，这一行在这里就没什么实际作用了。因为”1”已经存在了。<br>结果就是 s 和 s2 的引用地址明显不同。因此返回了<code>false</code>。</p>
+<p><code>String s3 = new String(&quot;1&quot;) + newString(&quot;1&quot;)</code>，这行代码在<strong>字符串常量池中生成“1” ，并在堆空间中生成s3引用指向的对象（内容为”11”）</strong>。注意此时常量池中是没有 “11”对象的。<br><code>String s4 = &quot;11&quot;</code>， 这一行代码会<strong>直接去生成常量池中的”11”</strong>。<br><code>s3.intern()</code>，这一行在这里就没什么实际作用了。因为”11”已经存在了。<br>结果就是 s3 和 s4 的引用地址明显不同。因此返回了<code>false</code>。<br>为了确保文章的实时更新，实时修改可能出错的地方，请确保这篇是原文，而不是无脑转载来的“原创文”，原文链接为：<strong><em><a href="http://blog.csdn.net/seu_calvin/article/details/52291082" target="_blank" rel="noopener">http://blog.csdn.net/seu_calvin/article/details/52291082</a></em></strong>。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>终于要做Ending了。现在再来看一下开篇给的引入例子，是不是就很清晰了呢。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String str1 = <span class="keyword">new</span> String(<span class="string">"SEU"</span>) + <span class="keyword">new</span> String(<span class="string">"Calvin"</span>); </span><br><span class="line">System.out.println(str1.intern() == str1); </span><br><span class="line">System.out.println(str1 == <span class="string">"SEUCalvin"</span>);</span><br></pre></td></tr></table></figure></p>
+<p><code>str1.intern()==str1</code>就是上面例子中的情况，<code>str1.intern()</code>发现常量池中不存在<code>“SEUCalvin”</code>，因此指向了str1。<code>&quot;SEUCalvin&quot;</code>在常量池中创建时，也就直接指向了str1了。两个都返回<code>true</code>就理所当然啦。<br>那么第二段代码呢：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String str2 = <span class="string">"SEUCalvin"</span>;<span class="comment">//新加的一行代码，其余不变 </span></span><br><span class="line">String str1 = <span class="keyword">new</span> String(<span class="string">"SEU"</span>)+ <span class="keyword">new</span> String(<span class="string">"Calvin"</span>); </span><br><span class="line">System.out.println(str1.intern() == str1); </span><br><span class="line">System.out.println(str1 == <span class="string">"SEUCalvin"</span>);</span><br></pre></td></tr></table></figure></p>
+<p>也很简单啦，str2先在常量池中创建了<code>“SEUCalvin”</code>，那么<code>str1.intern()</code>当然就直接指向了str2，你可以去验证它们两个是返回的true。后面的<code>&quot;SEUCalvin&quot;</code>也一样指向str2。所以谁都不搭理在堆空间中的str1了，所以都返回了<code>false</code>。<br>好了，本篇对intern的作用以及在JDK1.6和1.7中的实现原理的介绍就到此为止了。希望能给你带来帮助。</p>
+<h1 id="内存管理和垃圾回收"><a href="#内存管理和垃圾回收" class="headerlink" title="内存管理和垃圾回收"></a>内存管理和垃圾回收</h1><h2 id="何为GC"><a href="#何为GC" class="headerlink" title="何为GC"></a>何为GC</h2><p>Java与C语言相比的一个优势是，可以通过自己的JVM<strong>自动分配和回收内存空间</strong>。<br>垃圾回收机制是由垃圾搜集器Garbage Collection来实现的，GC是后台一个<strong>低优先级的守护进程</strong>。在内存中低到一定限度时才会自动运行，因此垃圾<strong>回收的时间是不确定的</strong>。</p>
+<p><strong>为何要这样设计</strong>：因为GC也要消耗CPU等资源，如果GC执行过于频繁会对Java的程序的执行产生较大的影响，因此实行<strong>不定期的GC</strong>。</p>
+<p><strong>与GC有关的是</strong>：JVM运行时数据区中的堆（对象实例会存储在这里）和 gabagecollector方法。<br>垃圾回收GC<strong>只能回收通过new关键字申请的内存</strong>（在堆上），但是堆上的内存并不完全是通过new申请分配的。还有一些本地方法，这些内存如果不手动释放，就会导致内存泄露，所以需要在finalize中用本地方法(nativemethod)如<strong>free操作等，再使用gc</strong>方法。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.gc();</span><br></pre></td></tr></table></figure></p>
+<h2 id="何为垃圾"><a href="#何为垃圾" class="headerlink" title="何为垃圾"></a>何为垃圾</h2><p>Java中那些<strong>不可达</strong>的对象就会变成垃圾。对象之间的引用可以抽象成树形结构，通过树根（GC Roots）作为起点，从这些树根往下搜索，搜索走过的链称为引用链。<br><strong>当一个对象到GC Roots没有任何引用链相连时，则证明这个对象为可回收的对象</strong>。<br><strong>可以作为GC Roots的主要有以下几种</strong>：<br>（1）<strong>栈帧中的本地变量表</strong>所引用的对象。<br>（2）方法区中<strong>类静态属性和常量</strong>引用的对象。<br>（3）本地方法栈中JNI（<strong>Native方法</strong>）引用的对象。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//垃圾产生的情况举例： </span></span><br><span class="line"><span class="comment">//1.改变对象的引用，如置为null或者指向其他对象 </span></span><br><span class="line">Object obj1 = <span class="keyword">new</span> Object(); </span><br><span class="line">Object obj2 = <span class="keyword">new</span> Object(); </span><br><span class="line">obj1 = obj2; <span class="comment">//obj1成为垃圾 </span></span><br><span class="line">obj1 = obj2 = <span class="keyword">null</span> ; <span class="comment">//obj2成为垃圾</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//2.引用类型 </span></span><br><span class="line"><span class="comment">//第2句在内存不足的情况下会将String对象判定为可回收对象，第3句无论什么情况下String对象都会被判定为可回收对象 </span></span><br><span class="line">String str = <span class="keyword">new</span> String(<span class="string">"hello"</span>); </span><br><span class="line">SoftReference&lt;String&gt; sr = <span class="keyword">new</span> SoftReference&lt;String&gt;(<span class="keyword">new</span> String(<span class="string">"java"</span>)); </span><br><span class="line">WeakReference&lt;String&gt; wr = <span class="keyword">new</span> WeakReference&lt;String&gt;(<span class="keyword">new</span> String(<span class="string">"world"</span>));</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//3.循环每执行完一次，生成的Object对象都会成为可回收的对象 </span></span><br><span class="line"> <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++) &#123; </span><br><span class="line">        Object obj = <span class="keyword">new</span> Object();  </span><br><span class="line">        System.out.println(obj.getClass());  </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//4.类嵌套 </span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span>&#123; </span><br><span class="line">   A a; </span><br><span class="line">&#125; </span><br><span class="line">A x = <span class="keyword">new</span> A();<span class="comment">//分配了一个空间 </span></span><br><span class="line">x.a = <span class="keyword">new</span> A();<span class="comment">//又分配了一个空间 </span></span><br><span class="line">x = <span class="keyword">null</span>;<span class="comment">//产生两个垃圾</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//5.线程中的垃圾 </span></span><br><span class="line">calss A implements Runnable&#123; </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;  </span><br><span class="line">    <span class="comment">//....  </span></span><br><span class="line">&#125; </span><br><span class="line">&#125;</span><br><span class="line">  </span><br><span class="line"><span class="comment">//main </span></span><br><span class="line">A x = <span class="keyword">new</span> A(); </span><br><span class="line">x.start(); </span><br><span class="line">x=<span class="keyword">null</span>; <span class="comment">//线程执行完成后x对象才被认定为垃圾</span></span><br></pre></td></tr></table></figure>
+<h2 id="四种引用类型"><a href="#四种引用类型" class="headerlink" title="四种引用类型"></a>四种引用类型</h2><h3 id="强引用"><a href="#强引用" class="headerlink" title="强引用"></a>强引用</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Object obj = <span class="keyword">new</span> Object();</span><br></pre></td></tr></table></figure>
+<p>这里的obj引用便是一个强引用，强引用不会被GC回收。即使抛出<code>OutOfMemoryError</code>错误，使程序异常终止。</p>
+<h3 id="软引用"><a href="#软引用" class="headerlink" title="软引用"></a>软引用</h3><p>如果内存空间足够，垃圾回收器就不会回收它，如果内存空间不足了，就会回收这些对象的内存。软引用可用来实现内存敏感的高速缓存。<br>软引用可以和一个引用队列（ReferenceQueue）联合使用，如果软引用所引用的对象被垃圾回收，Java虚拟机就会把这个软引用加入到与之关联的引用队列中。</p>
+<h3 id="弱引用"><a href="#弱引用" class="headerlink" title="弱引用"></a>弱引用</h3><p>弱引用与软引用的区别在于：垃圾回收器一旦发现了弱引用的对象，不管当前内存空间足够与否，都会回收它的内存。不过由于垃圾回收器是一个优先级很低的线程，因此不一定会很快发现那些弱引用的对象。<br>弱引用可以和一个引用队列（ReferenceQueue）联合使用，如果弱引用所引用的对象被垃圾回收，Java虚拟机就会把这个弱引用加入到与之关联的引用队列中。</p>
+<h3 id="虚引用"><a href="#虚引用" class="headerlink" title="虚引用"></a>虚引用</h3><p>虚引用与软引用和弱引用的一个区别在于：虚引用必须和引用队列（ReferenceQueue）联合使用。当垃圾回收器发现一个对象有虚引用时，就会把这个虚引用对象加入到与之关联的引用队列中。此时该对象并没有被GC回收。而是要等到引用队列被真正的处理后才会被回收。<br>程序可以通过判断引用队列中是否已经加入了虚引用，来了解被引用的对象是否将要被垃圾回收。<br>（由于<code>Object.finalize()</code>方法的不安全性、低效性，常常使用虚引用完成对象回收前的资源释放工作。）<br>这里特别需要注意：当JVM将虚引用插入到引用队列的时候，虚引用执行的对象内存还是存在的。但是PhantomReference并没有暴露API返回对象。所以如果想做清理工作，需要继承PhantomReference类，以便访问它指向的对象。如NIO直接内存的自动回收，就使用到了sun.misc.Cleaner。</p>
+<h2 id="典型的垃圾回收算法"><a href="#典型的垃圾回收算法" class="headerlink" title="典型的垃圾回收算法"></a>典型的垃圾回收算法</h2><p>在确定了哪些垃圾可以被回收后，垃圾搜集器要做的事情就是开始进行垃圾回收，但是这里面涉及到一个问题是：<strong>如何高效地进行垃圾回收</strong>。<br>下面讨论几种常见的<strong>垃圾搜集算法</strong>。</p>
+<h3 id="Mark-Sweep（标记-清除）算法"><a href="#Mark-Sweep（标记-清除）算法" class="headerlink" title="Mark-Sweep（标记-清除）算法"></a>Mark-Sweep（标记-清除）算法</h3><p>标记-清除算法分为两个阶段：标记阶段和清除阶段。<br><strong>标记阶段</strong>的任务是标记出所有需要被回收的对象，<strong>清除阶段</strong>就是回收被标记的对象所占用的空间。<br>标记-清除算法实现起来比较容易，但是有一个比较严重的问题就是<strong>容易产生内存碎片</strong>，碎片太多可能会导致后续过程中需要为大对象分配空间时无法找到足够的空间而提前触发GC。</p>
+<h3 id="Copying（复制）算法"><a href="#Copying（复制）算法" class="headerlink" title="Copying（复制）算法"></a>Copying（复制）算法</h3><p>Copying算法将可用内存<strong>按容量划分为大小相等的两块</strong>，<strong>每次只使用其中的一块</strong>。当这一块的内存用完了，就<strong>将还存活着的对象复制到另外一块上面</strong>，然后再把第一块内存上的空间一次清理掉，这样就<strong>不容易出现内存碎片</strong>的问题，并且<strong>运行高效</strong>。<br>但是该算法导致<strong>能够使用的内存缩减到原来的一半</strong>。而且，该算法的<strong>效率跟存活对象的数目多少有很大的关系</strong>，如果存活对象<strong>很多</strong>，那么Copying算法的<strong>效率将会大大降低</strong>。（这也是为什么后面提到的新生代采用Copying算法）</p>
+<h3 id="Mark-Compact（标记-整理）算法"><a href="#Mark-Compact（标记-整理）算法" class="headerlink" title="Mark-Compact（标记-整理）算法"></a>Mark-Compact（标记-整理）算法</h3><p>为了解决Copying算法的缺陷，充分利用内存空间，提出了Mark-Compact算法。<br>该算法标<strong>记阶段标</strong>记出所有需要被回收的对象，但是在完成标记之后不是直接清理可回收对象，而是<strong>将存活的对象都移向一端</strong>，然后<strong>清理掉端边界以外的所有内存</strong>（<strong>只留下存活对象</strong>）。</p>
+<h3 id="以上三种算法对比"><a href="#以上三种算法对比" class="headerlink" title="以上三种算法对比"></a>以上三种算法对比</h3><p>它们的共同点主要有以下两点：<br>1、<strong>三个算法都基于根搜索算法去判断一个对象是否应该被回收，而支撑根搜索算法可以正常工作的理论依据，就是语法中变量作用域的相关内容。因此，要想防止内存泄露，最根本的办法就是掌握好变量作用域，而不应该使用前面内存管理杂谈一章中所提到的C/C++式内存管理方式。</strong><br>2、<strong>在GC线程开启时，或者说GC过程开始时，它们都要暂停应用程序（stop the world）。</strong><br>它们的区别按照下面几点来给各位展示。（&gt;表示前者要优于后者，=表示两者效果一样）<br><strong>效率：复制算法&gt;标记-整理算法&gt;标记-清除算法（此处的效率只是简单的对比时间复杂度，实际情况不一定如此）。</strong><br><strong>内存整齐度：复制算法=标记-整理算法&gt;标记-清除算法。</strong><br><strong>内存利用率：标记-整理算法=标记-清除算法&gt;复制算法。</strong><br>可以看到标记-清除算法是比较落后的算法了，但是后两种算法却是在此基础上建立的，俗话说“吃水不忘挖井人”，因此各位也莫要忘记了标记-清除这一算法前辈。而且，在某些时候，标记-清除也会有用武之地。</p>
+<p>到此我们已经将三个算法了解清楚了，可以看出，效率上来说，复制算法是当之无愧的老大，但是却浪费了太多内存，而为了尽量兼顾上面所提到的三个指标，标记-整理算法相对来说更平滑一些，但效率上依然不尽如人意，它比复制算法多了一个标记的阶段，又比标记-清除多了一个整理内存的过程。<br>难道就没有一种最优算法吗？<br>当然是没有的，这个世界是公平的，任何东西都有两面性，试想一下，你怎么可能找到一个又漂亮又勤快又有钱又通情达理，性格又合适，家境也合适，身高长相等等等等都合适的女人？就算你找到了，至少有一点这个女人也肯定不满足，那就是她不会爱上你。你是不是想说你比博主强太多了，那博主只想对你说，高富帅是不会爬在电脑前看技术文章的，0.0。<br>但是古人就是给力，古人说了，找媳妇不一定要找最好的，而是要找最合适的，听完这句话，瞬间感觉世界美好了许多。<br>算法也是一样的，<strong>没有最好的算法，只有最合适的算法</strong>。<br>既然这三种算法都各有缺陷，高人们自然不会容许这种情况发生。因此，高人们提出可以根据对象的不同特性，使用不同的算法处理，类似于萝卜白菜各有所爱的原理。于是奇迹发生了，高人们终于找到了GC算法中的神级算法—–<strong>分代搜集算法</strong>。</p>
+<h3 id="Generational-Collection（分代搜集）算法"><a href="#Generational-Collection（分代搜集）算法" class="headerlink" title="Generational Collection（分代搜集）算法"></a>Generational Collection（分代搜集）算法</h3><p>分代搜集算法是针对对象的不同特性，而使用适合的算法，这里面并没有实际上的新算法产生。<strong>与其说分代搜集算法是第四个算法，不如说它是对前三个算法的实际应用</strong>。<br><strong>分代搜集算法</strong>是目前大部分JVM的垃圾搜集器采用的算法。<br>它的核心思想是<strong>将堆区划分为老年代（Tenured Generation）和新生代（Young Generation）</strong>，老年代的特点是每次垃圾搜集时只有<strong>少量</strong>对象需要被回收，而新生代的特点是每次垃圾回收时都有<strong>大量</strong>的对象需要被回收，那么就可以在<strong>不同代的采取不同的最适合的搜集算法</strong>。</p>
+<p>目前大部分垃圾搜集器对于<strong>新生代都采取Copying算法</strong>，因为新生代中每次垃圾回收都要<strong>回收大部分对象</strong>，也就是说需要<strong>复制的操作次数较少</strong>，该算法效率在新生代也较高。但是实际中并不是按照1：1的比例来划分新生代的空间的，一般来说是将新生代划分为<strong>一块较大的Eden空间</strong>和<strong>两块较小的Survivor空间</strong>，<strong>每次使用Eden空间和其中的一块Survivor空间</strong>，当进行回收时，将还存活的对象复制到另一块Survivor空间中，然后清理掉Eden和A空间。在进行了第一次GC之后，使用的便是Eden space和<strong>B空间</strong>了，下次GC时会将存活对象复制到<strong>A空间</strong>，如此<strong>反复循环</strong>。</p>
+<p>当对象在<strong>Survivor区</strong>躲过一次GC的话，其<strong>对象年龄便会加1</strong>，默认情况下，<strong>对象年龄达到15时</strong>，就会<strong>移动到老年代中</strong>。一般来说，大对象会被直接分配到老年代，所谓的大对象是指需要大量连续存储空间的对象，最常见的一种大对象就是大数组，比如：<code>byte[]</code> <code>data</code> <code>=</code> <code>new</code> <code>byte[4*1024*1024]</code>。<br>当然分配的规则并不是百分之百固定的，这要取决于当前使用的是哪种垃圾搜集器组合和JVM的相关参数。这些<strong>搬运工作都是GC完成的</strong>，GC不仅负责在Heap中搬运实例，同时负责回收存储空间。<br>最后，因为每次回收都只回收少量对象，所以<strong>老年代一般使用的是标记整理算法</strong>。</p>
+<p><strong>注意</strong>，在方法区中有一个<strong>永久代</strong>（Permanet Generation），它用来存储class类、常量、方法描述等。对永久代的回收主要回收两部分内容：<strong>废弃常量</strong>和<strong>无用的类</strong>。<br><img src="https://cdn.yangbingdong.com/img/jvm/java-heap-memory.png" alt=""><br>有关查看垃圾回收信息的JVM常见配置方式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-XX:+PrintGCDetails</span><br></pre></td></tr></table></figure></p>
+<p>最后介绍一下有关堆的JVM常见配置方式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">-Xss //选置栈内存的大小  </span><br><span class="line">-Xms: //初始堆大小  </span><br><span class="line">-Xmx: //最大堆大小  </span><br><span class="line">-XX:NewSize=n: //设置年轻代大小  </span><br><span class="line">-XX:NewRatio=n: //设置年轻代和年老代的比值。比如设置为3，表示年轻代与年老代比值为1：3  </span><br><span class="line">-XX:SurvivorRatio=n: //年轻代中Eden区与两个Survivor区的比值。注意Survivor区有两个。比如设置为3，表示Eden：Survivor=3：2，一个Survivor区占整个年轻代的1/5。  </span><br><span class="line">-XX:MaxPermSize=n: //设置持久代大小</span><br></pre></td></tr></table></figure></p>
+<h2 id="典型的垃圾回收器"><a href="#典型的垃圾回收器" class="headerlink" title="典型的垃圾回收器"></a>典型的垃圾回收器</h2><p>垃圾搜集算法是内存回收的理论基础，而垃圾搜集器就是内存回收的具体实现。<br>下面介绍一下<strong>HotSpot</strong>（JDK 7)虚拟机提供的几种垃圾搜集器，用户可以根据自己的需求组合出各个年代使用的搜集器。</p>
+<h3 id="Serial-amp-Serial-Old"><a href="#Serial-amp-Serial-Old" class="headerlink" title="Serial&amp;Serial Old"></a>Serial&amp;Serial Old</h3><p><code>Serial</code>和<code>Serial Old</code>搜集器是最基本最古老的搜集器，是一个<strong>单线程</strong>搜集器，并且在它进行垃圾搜集时，必须<strong>暂停所有用户线程</strong>。<code>Serial</code>搜集器是<strong>针对新生代</strong>的搜集器，采用的是<strong>Copying算法</strong>，<code>Serial Old</code>搜集器是针对<strong>老年代的搜集器</strong>，采用的是<strong>Mark-Compact算法</strong>。它的优点是实现简单高效，但是缺点是会给用户带来停顿。</p>
+<h3 id="ParNew"><a href="#ParNew" class="headerlink" title="ParNew"></a>ParNew</h3><p><code>ParNew</code>搜集器是<code>Serial</code>搜集器的<strong>多线程版本</strong>，使用多个线程进行垃圾搜集。</p>
+<h3 id="Parallel-Scavenge"><a href="#Parallel-Scavenge" class="headerlink" title="Parallel Scavenge"></a>Parallel Scavenge</h3><p><code>Parallel Scavenge</code>搜集器是一个<strong>新生代的多线程搜集器（并行搜集器）</strong>，它在回收期间<strong>不需要暂停其他用户线程</strong>，其采用的是<strong>Copying算法</strong>，该搜集器与前两个搜集器有所不同，它主要是为了达到一个<strong>可控的吞吐量</strong>。</p>
+<h3 id="Parallel-Old"><a href="#Parallel-Old" class="headerlink" title="Parallel Old"></a>Parallel Old</h3><p><code>Parallel Old</code>是<code>Parallel Scavenge</code>搜集器的<strong>老年代版本（并行搜集器）</strong>，使用多线程和<strong>Mark-Compact算法</strong>。</p>
+<h3 id="CMS"><a href="#CMS" class="headerlink" title="CMS"></a>CMS</h3><p><code>CMS</code>（Current Mark Sweep）搜集器是一种以<strong>获取最短回收停顿时间</strong>为目标的搜集器，它是一种<strong>并发</strong>搜集器，采用的是<strong>Mark-Sweep算法</strong>。</p>
+<h3 id="G1"><a href="#G1" class="headerlink" title="G1"></a>G1</h3><p>G1搜集器是当今搜集器技术发展最前沿的成果，它是一款<strong>面向服务端应用</strong>的搜集器，它能充分利用<strong>多CPU</strong>、<strong>多核</strong>环境。因此它是一款<strong>并行与并发</strong>搜集器，并且它能建立<strong>可预测的停顿时间</strong>模型。<br>最后介绍一下有关搜集器设置的JVM常见配置方式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">-XX:+UseSerialGC: //设置串行搜集器  </span><br><span class="line">-XX:+UseParallelGC: //设置并行搜集器  </span><br><span class="line">-XX:+UseParalledlOldGC: //设置并行年老代搜集器  </span><br><span class="line">-XX:+UseConcMarkSweepGC: //设置并发搜集器  </span><br><span class="line">//并行搜集器设置  </span><br><span class="line">-XX:ParallelGCThreads=n: //设置并行搜集器搜集时使用的CPU数，并行搜集线程数  </span><br><span class="line">-XX:MaxGCPauseMillis=n: //设置并行搜集最大暂停时间  </span><br><span class="line">-XX:GCTimeRatio=n: //设置垃圾回收时间占程序运行时间的百分比，公式为1/(1+n)  </span><br><span class="line">//并发搜集器设置  </span><br><span class="line">-XX:+CMSIncrementalMode: //设置为增量模式。适用于单CPU情况  </span><br><span class="line">-XX:ParallelGCThreads=n: //设置并发搜集器年轻代搜集方式为并行搜集时，使用的CPU数。并行搜集线程数</span><br></pre></td></tr></table></figure></p>
+<h1 id="Java类加载机制总结"><a href="#Java类加载机制总结" class="headerlink" title="Java类加载机制总结"></a>Java类加载机制总结</h1><p><img src="https://cdn.yangbingdong.com/img/jvm/class.png" alt=""></p>
+<h2 id="类加载器的组织结构"><a href="#类加载器的组织结构" class="headerlink" title="类加载器的组织结构"></a>类加载器的组织结构</h2><p>类加载器 <code>ClassLoader</code>是具有层次结构的，也就是父子关系。其中，<strong><code>Bootstrap</code>是所有类加载器的父亲</strong>。<br>（1）<code>Bootstrapclass loader</code>： <strong>启动类加载器</strong><br>当运行Java虚拟机时，这个类加载器被创建，它负责加载虚拟机的<strong>核心类库</strong>，如<code>java.lang.*</code>等。<br>（2）<code>Extensionclass loader</code>：<strong>标准扩展类加载器</strong><br>用于加载除了基本 API之外的一些拓展类。<br>（3）<code>AppClassLoader</code>：加载应用程序和程序员<strong>自定义的类</strong>。<br>运行下面的程序，结果也显示出来了：<br><img src="https://cdn.yangbingdong.com/img/jvm/classlodertest.png" alt=""><br>从运行结果可以看出加载器之间的<strong>父子关系</strong>，<code>ExtClassLoader</code>的父<code>Loader</code>返回了null<br>原因是<code>BootstrapLoader</code>（启动类加载器）是用<strong><code>C</code>语言实现</strong>的，找不到一个确定的返回父<code>Loader</code>的方式。</p>
+<h2 id="类的加载机制"><a href="#类的加载机制" class="headerlink" title="类的加载机制"></a>类的加载机制</h2><p>类被加载到虚拟机内存包括<strong>加载</strong>、<strong>链接</strong>、<strong>初始化</strong>几个阶段。其中<strong>链接又细化分为验证</strong>、<strong>准备</strong>、<strong>解析</strong>。<br>这里需要注意的是，解析阶段在某些情况下可以在初始化阶段之后再开始，这是为了支持Java的运行时绑定。各个阶段的作用整理如下：</p>
+<h3 id="加载阶段"><a href="#加载阶段" class="headerlink" title="加载阶段"></a>加载阶段</h3><p><strong>加载阶段</strong>可以使用系统提供的<strong>类加载器</strong>(ClassLoader)来完成，也可以由用户<strong>自定义的类加载器</strong>完成，开发人员可以通过定义类加载器去<strong>控制字节流的获取方式</strong>。<br>（1）通过类的<strong>全名</strong>产生对应类的<strong>二进制数据流</strong>（注意，若未找到该类文件，只有在类<strong>实际使用时</strong>才<strong>抛出</strong>错误）。<br>（2）分析并将这些二进制数据流转换为<strong>方法区的运行时数据结构</strong>。<br>（3）创建代表这个类的<code>java.lang.Class</code>对象。作为方法区这些数据的访问入口。</p>
+<h3 id="链接阶段（实现-Java-的动态性的重要一步）"><a href="#链接阶段（实现-Java-的动态性的重要一步）" class="headerlink" title="链接阶段（实现 Java 的动态性的重要一步）"></a>链接阶段（实现 Java 的动态性的重要一步）</h3><p>（1）<strong>验证</strong>：主要的目的是确保class文件的字节流中包含的信息符合当前虚拟机的要求，并且<strong>不会危害虚拟机自身安全</strong>。验证点可能包括：class文件格式规范、这个类是否继承了不允许被继承的类(被final修饰的)、如果这个类的父类是抽象类，是否实现了起父类或接口中要求实现的所有方法、不能把一个父类对象赋值给子类数据类型、方法的访问性(private、protected、public、default)是否可被当前类访问等等。<br>（2）<strong>准备</strong>：准备阶段为<strong>类的成员变量分配内存空间</strong>并设置类变量<strong>初始值</strong>的阶段，这些变量所使用的内存都在<strong>方法区</strong>中分配。<strong>所有原始类型的值都为0</strong>。如<code>float</code>为0f、 <code>int</code>为0、<code>boolean</code>为0、引用类型为<code>null</code>。<br>（3）<strong>解析</strong>：解析阶段是把虚拟机中<strong>常量池的符号引用</strong>替换为<strong>直接引用</strong>的过程。</p>
+<h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><p>类初始化时类加载的最后一步，前面除了<strong>加载阶段用户可以通过自定义类加载器参与</strong>以外，其余都是<strong>虚拟机</strong>主导和控制。到了初始化阶段，才是<strong>真正执行类中定义Java程序代码</strong>。初始化阶段，<strong>根据程序中的定制</strong>，<strong>初始化类变量</strong>。<br><strong>初始化过程其实是执行类构造器方法的过程</strong>。<br>（<strong>类构造器方法是由编译器自动搜集类中所有类变量的赋值动作和静态语句块中的语句合并产生的</strong>。）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//静态语句块中只能访问定义在静态语句块之前的变量，定义在它之后的变量可以赋值，但不能访问  </span><br><span class="line">public class Test&#123;  </span><br><span class="line">    static&#123;  </span><br><span class="line">        i=0;//給变量赋值，可以通过编译  </span><br><span class="line">        System.out.print(i);//这句编译器会提示非法向前引用  </span><br><span class="line">    &#125;  </span><br><span class="line">    static int i=1;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>初始化过程会被触发执行的条件汇总</strong>：<br>（1）使用<code>new</code>关键字<strong>实例化对象</strong>、读取或设置一个类的<strong>静态字段</strong>（被final修饰、已在编译器把结果放入常量池的静态字段除外）的时候，以及调用类的<strong>静态方法*的时候。<br>（2）</strong>对类进行反射调用<strong>的时候。<br>（3）当初始化一个类的时候，如果发现其</strong>父类还没有进行过初始化<strong>，则进行</strong>父类的初始化<strong>。<br>（4）JVM启动时，用</strong>户指定执行的主类**（包含main方法所在类），虚拟机会先初始化这个类。</p>
+<p>【<strong>关于构造器方法拓展知识</strong>】（可以不看）<br>（1）类构造器<code>&lt;clinit&gt;()</code>方法与<strong>类的构造函数不同</strong>，它不需要<strong>显式</strong>调用父类构造，虚拟机会保证在子类<code>&lt;clinit&gt;()</code>方法执行之前，父类的<code>&lt;clinit&gt;()</code>方法已经执行完毕。因此在虚拟机中的<strong>第一个执行的<code>&lt;clinit&gt;()</code>方法的类肯定是<code>java.lang.Object</code></strong>。<br>（2）由于父类的<code>&lt;clinit&gt;()</code>方法先执行，也就意味着父类中定义的<strong>静态语句块要优先于子类的变量赋值</strong>操作。<br>（3）<code>&lt;clinit&gt;()</code>方法对于类或接口来说<strong>并不是必须的</strong>，如果一个类中<strong>没有静态语句</strong>，<strong>也没有变量赋值的操作</strong>，那么编译器可以不为这个类生成<code>&lt;clinit&gt;()</code>方法。<br>（4）<strong>接口中不能使用静态语句块</strong>，和类不同的是，执行接口的<code>&lt;clinit&gt;()</code>方法<strong>不需要先执行父接口</strong>的<code>&lt;clinit&gt;()</code>方法。只有当父接口中定义的变量<strong>被使用</strong>时，父接口才会被初始化。另外，接口的<strong>实现类在初始化</strong>时也一样不会执行接口的<code>&lt;clinit&gt;()</code>方法。<br>（5）虚拟机会保证一个类的<code>&lt;clinit&gt;()</code>方法<strong>在多线程环境中被正确加锁和同步</strong>，可能会导致阻塞。</p>
+<h2 id="类的整个加载过程触发的的三种方式"><a href="#类的整个加载过程触发的的三种方式" class="headerlink" title="类的整个加载过程触发的的三种方式"></a>类的整个加载过程触发的的三种方式</h2><p>（1）由 <code>new</code> 关键字创建一个类的实例。<br>（2）调用 <code>Class.forName()</code> 方法，通过反射加载类。<br>（3）调用某个<code>ClassLoader</code>实例的<code>loadClass()</code>方法。</p>
+<p>三者的区别汇总如下：<br>（1）方法1和2都是使用的<strong>当前类加载器</strong>（<code>this.getClass.getClassLoader</code>）。方法3由<strong>用户指定类加载器</strong>并且加载的类与当前类<strong>分属不同的命名空间</strong>。<br>（2）方法1是<strong>静态加载</strong>，2、3是<strong>动态加载</strong>。<br>（3）对于两种动态加载，区别如下。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Class.forName(className);  </span><br><span class="line"><span class="comment">//实际上是调用的是：  </span></span><br><span class="line">Class.forName(className, <span class="keyword">true</span>, <span class="keyword">this</span>.getClass().getClassLoader());<span class="comment">//第二个参数设置Class被loading后是不是必须被初始化，默认初始化</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ClassLoader.loadClass(className);  </span><br><span class="line"><span class="comment">//实际上调用的是:  </span></span><br><span class="line">ClassLoader.loadClass(name, <span class="keyword">false</span>);<span class="comment">//第二个参数指Class是否被链接，默认为false</span></span><br></pre></td></tr></table></figure>
+<p><strong>通过上面的描述，如果程序依赖于<code>Class</code>是否被初始化，就必须用<code>Class.forName(name)</code>了</strong></p>
+<h1 id="自定义类加载器"><a href="#自定义类加载器" class="headerlink" title="自定义类加载器"></a>自定义类加载器</h1><p><img src="https://cdn.yangbingdong.com/img/jvm/calssloader.png" alt=""></p>
+<h2 id="为什么需要自定义类加载器"><a href="#为什么需要自定义类加载器" class="headerlink" title="为什么需要自定义类加载器"></a>为什么需要自定义类加载器</h2><p>网上的大部分自定义类加载器文章，几乎都是贴一段实现代码，然后分析一两句自定义ClassLoader的原理。但是个人觉得首先得把为什么需要自定义加载器这个问题搞清楚，因为如果不明白它的作用的情况下，还要去学习它显然是很让人困惑的。<br>首先介绍自定义类的<strong>应用场景</strong>：<br>（1）<strong>加密</strong>：Java代码可以轻易的被<strong>反编译</strong>，如果你需要把自己的代码进行<strong>加密以防止反编译</strong>，可以先将<strong>编译后的代码</strong>用某种<strong>加密算法加密</strong>，类加密后就不能再用Java的<code>ClassLoader</code>去加载类了，这时就需要<strong>自定义<code>ClassLoader</code></strong>在加载类的时候<strong>先解密类</strong>，然后再加载。<br>（2）<strong>从非标准的来源加载代码</strong>：如果你的字节码是放在数据库、甚至是在云端，就可以自定义类加载器，从指定的来源加载类。<br>（3）<strong>以上两种情况在实际中的综合运用</strong>：比如你的应用需要<strong>通过网络来传输 Java 类的字节码</strong>，为了安全性，这些字节码经过了加密处理。这个时候你就需要自定义类加载器来从某个网络地址上读取加密后的字节代码，接着进行解密和验证，最后定义出在Java虚拟机中运行的类。</p>
+<h2 id="双亲委派模型"><a href="#双亲委派模型" class="headerlink" title="双亲委派模型"></a>双亲委派模型</h2><p>在实现自己的<code>ClassLoade</code>r之前，我们先了解一下系统是如何加载类的，那么就不得不介绍<strong>双亲委派模型的特点和实现过程</strong>。<br>双亲委派模型<strong>特点</strong>：<br>该模型要求除了顶层的<code>Bootstrapclassloader</code>启动类加载器外，其余的类加载器都应当<strong>有自己的父类加载器</strong>。子类加载器和父类加载器<strong>不是</strong>以继承（Inheritance）的关系来实现，而是<strong>通过组合（Composition）关系</strong>来<strong>复用</strong>父加载器的代码。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//双亲委派模型的工作过程源码  </span></span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">synchronized</span> Class&lt;?&gt; loadClass(String name, <span class="keyword">boolean</span> resolve)  </span><br><span class="line"><span class="keyword">throws</span> ClassNotFoundException  </span><br><span class="line">&#123;  </span><br><span class="line"><span class="comment">// First, check if the class has already been loaded  </span></span><br><span class="line">Class c = findLoadedClass(name);  </span><br><span class="line"><span class="keyword">if</span> (c == <span class="keyword">null</span>) &#123;  </span><br><span class="line"><span class="keyword">try</span> &#123;  </span><br><span class="line"><span class="keyword">if</span> (parent != <span class="keyword">null</span>) &#123;  </span><br><span class="line">c = parent.loadClass(name, <span class="keyword">false</span>);  </span><br><span class="line">&#125; <span class="keyword">else</span> &#123;  </span><br><span class="line">c = findBootstrapClassOrNull(name);  </span><br><span class="line">&#125;  </span><br><span class="line">&#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;  </span><br><span class="line"><span class="comment">// ClassNotFoundException thrown if class not found  </span></span><br><span class="line"><span class="comment">// from the non-null parent class loader  </span></span><br><span class="line"><span class="comment">//父类加载器无法完成类加载请求  </span></span><br><span class="line">&#125;  </span><br><span class="line"><span class="keyword">if</span> (c == <span class="keyword">null</span>) &#123;  </span><br><span class="line"><span class="comment">// If still not found, then invoke findClass in order to find the class  </span></span><br><span class="line"><span class="comment">//子加载器进行类加载   </span></span><br><span class="line">c = findClass(name);  </span><br><span class="line">&#125;  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="keyword">if</span> (resolve) &#123;<span class="comment">//判断是否需要链接过程，参数传入  </span></span><br><span class="line">resolveClass(c);  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="keyword">return</span> c;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>双亲委派模型的工作过程如下：<br>（1）代码中一开始的<strong>判空</strong>操作是当前 <code>ClassLoader</code>从自己已经加载的类中<strong>查询是否此类已经加载</strong>，如果已经加载则直接返回原来已经加载的类。（每个类加载器都有自己的加载缓存，当一个类被加载了以后就会放入缓存，等下次加载的时候就可以直接返回）<br>（2）当前 <code>ClassLoader</code>的缓存中<strong>没有找到被加载的类的时候</strong>，它自己不会尝试去加载该类，而是<strong>委托父类加载器去加载</strong>，如代码<code>c</code> <code>=</code> <code>parent.loadClass(name, false)</code>所示（父类加载器采用<strong>同样的策略</strong>，递归了<code>loadClass</code>函数），首先查看自己的缓存，没有就<strong>委托父类的父类去加载</strong>，一直到 <code>BootStrap ClassLoader</code>。如代码所示，如果父加载器为空则默认使用启动类加载器（<code>BootStrap ClassLoader</code>）作为父加载器去加载，如代码<code>findBootstrapClassOrNull(name)</code>所示（为何父类为<code>BootStrap ClassLoader</code>会返回空，原因在<strong><em><a href="#Java%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6%E6%80%BB%E7%BB%93">Java类加载机制总结</a></em></strong>中介绍过了）。<br>（3）如果<strong><code>BootStrapClassLoader</code>加载失败</strong>（例如在<code>$JAVA_HOME/jre/lib</code>里未查找到该<code>class</code>），会使用<code>ExtClassLoader</code>来尝试加载； 若<code>ExtClassLoader</code>也加载失败，则会使用<code>AppClassLoader</code>来加载，如果<code>AppClassLoader</code>也加载失败，则会抛出<code>ClassNotFoundException</code>。<strong>最后再调用当前加载器的<code>findClass()</code>方法进行加载</strong>。</p>
+<p>双亲委派模型的<strong>好处</strong>：<br>（1）主要是为了<strong>安全性</strong>，<strong>避免用户自己编写的类动态替换Java的一些核心类</strong>，比如 <code>String</code>。<br>（2）同时也<strong>避免重复加载</strong>，因为 JVM中区分不同类，不仅仅是根据类名，相同的<code>class</code>文件被<strong>不同的 <code>ClassLoader</code>加载就是不同的两个类</strong>。</p>
+<h2 id="自定义类加载器-1"><a href="#自定义类加载器-1" class="headerlink" title="自定义类加载器"></a>自定义类加载器</h2><p>（1）从上面源码可以看出，在调用<code>loadClass</code>方法时，会先根据委派模型在父加载器中加载，如果加载失败，则会<strong>调用自己的<code>findClass</code>方法来完成加载</strong>。<br>（2）因此我们自定义的类加载器只需要<strong>继承ClassLoader，并覆盖findClass方法</strong>。<br>（3）下面是一个实际例子，在该例中我们用自定义的类加载器去加载我们事先准备好的class文件。</p>
+<h3 id="自定义一个People-java类做例子"><a href="#自定义一个People-java类做例子" class="headerlink" title="自定义一个People.java类做例子"></a>自定义一个People.java类做例子</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">People</span> </span>&#123;  </span><br><span class="line"><span class="comment">//该类写在记事本里，在用javac命令行编译成class文件，放在d盘根目录下  </span></span><br><span class="line">    <span class="keyword">private</span> String name;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">People</span><span class="params">()</span> </span>&#123;&#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">People</span><span class="params">(String name)</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">this</span>.name = name;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">return</span> name;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">this</span>.name = name;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">return</span> <span class="string">"I am a people, my name is "</span> + name;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="自定义类加载器-2"><a href="#自定义类加载器-2" class="headerlink" title="自定义类加载器"></a>自定义类加载器</h3><p>自定义一个类加载器，需要继承<strong><code>ClassLoader</code>类，并实现<code>findClass</code>方法</strong>。其中<code>defineClass</code>方法可以把二进制流字节组成的文件转换为一个<code>java.lang.Class</code>（只要二进制字节流的内容符合Class文件规范）。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyClassLoader</span> <span class="keyword">extends</span> <span class="title">ClassLoader</span>  </span></span><br><span class="line"><span class="class"></span>&#123;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyClassLoader</span><span class="params">()</span>  </span></span><br><span class="line"><span class="function">    </span>&#123;  </span><br><span class="line">          </span><br><span class="line">    &#125;  </span><br><span class="line">      </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyClassLoader</span><span class="params">(ClassLoader parent)</span>  </span></span><br><span class="line"><span class="function">    </span>&#123;  </span><br><span class="line">        <span class="keyword">super</span>(parent);  </span><br><span class="line">    &#125;  </span><br><span class="line">      </span><br><span class="line">    <span class="keyword">protected</span> Class&lt;?&gt; findClass(String name) <span class="keyword">throws</span> ClassNotFoundException  </span><br><span class="line">    &#123;  </span><br><span class="line">        File file = <span class="keyword">new</span> File(<span class="string">"D:/People.class"</span>);  </span><br><span class="line">        <span class="keyword">try</span>&#123;  </span><br><span class="line">            <span class="keyword">byte</span>[] bytes = getClassBytes(file);  </span><br><span class="line">            <span class="comment">//defineClass方法可以把二进制流字节组成的文件转换为一个java.lang.Class  </span></span><br><span class="line">            Class&lt;?&gt; c = <span class="keyword">this</span>.defineClass(name, bytes, <span class="number">0</span>, bytes.length);  </span><br><span class="line">            <span class="keyword">return</span> c;  </span><br><span class="line">        &#125;   </span><br><span class="line">        <span class="keyword">catch</span> (Exception e)  </span><br><span class="line">        &#123;  </span><br><span class="line">            e.printStackTrace();  </span><br><span class="line">        &#125;  </span><br><span class="line">          </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.findClass(name);  </span><br><span class="line">    &#125;  </span><br><span class="line">      </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">byte</span>[] getClassBytes(File file) <span class="keyword">throws</span> Exception  </span><br><span class="line">    &#123;  </span><br><span class="line">        <span class="comment">// 这里要读入.class的字节，因此要使用字节流  </span></span><br><span class="line">        FileInputStream fis = <span class="keyword">new</span> FileInputStream(file);  </span><br><span class="line">        FileChannel fc = fis.getChannel();  </span><br><span class="line">        ByteArrayOutputStream baos = <span class="keyword">new</span> ByteArrayOutputStream();  </span><br><span class="line">        WritableByteChannel wbc = Channels.newChannel(baos);  </span><br><span class="line">        ByteBuffer by = ByteBuffer.allocate(<span class="number">1024</span>);  </span><br><span class="line">          </span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>)&#123;  </span><br><span class="line">            <span class="keyword">int</span> i = fc.read(by);  </span><br><span class="line">            <span class="keyword">if</span> (i == <span class="number">0</span> || i == -<span class="number">1</span>)  </span><br><span class="line">            <span class="keyword">break</span>;  </span><br><span class="line">            by.flip();  </span><br><span class="line">            wbc.write(by);  </span><br><span class="line">            by.clear();  </span><br><span class="line">        &#125;  </span><br><span class="line">        fis.close();  </span><br><span class="line">        <span class="keyword">return</span> baos.toByteArray();  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="在主函数里使用"><a href="#在主函数里使用" class="headerlink" title="在主函数里使用"></a>在主函数里使用</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">MyClassLoader mcl = <span class="keyword">new</span> MyClassLoader();   </span><br><span class="line">Class&lt;?&gt; clazz = Class.forName(<span class="string">"People"</span>, <span class="keyword">true</span>, mcl);   </span><br><span class="line">Object obj = clazz.newInstance();  </span><br><span class="line">         </span><br><span class="line">System.out.println(obj);  </span><br><span class="line">System.out.println(obj.getClass().getClassLoader());<span class="comment">//打印出我们的自定义类加载器</span></span><br></pre></td></tr></table></figure>
+<h3 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h3><p><img src="https://cdn.yangbingdong.com/img/jvm/result.png" alt=""></p>
+<p>至此关于自定义<code>ClassLoader</code>的内容总结完毕。</p>
+<h1 id="Tomcat与Eclipse性能调优"><a href="#Tomcat与Eclipse性能调优" class="headerlink" title="Tomcat与Eclipse性能调优"></a>Tomcat与Eclipse性能调优</h1><h2 id="Tomcat服务器优化"><a href="#Tomcat服务器优化" class="headerlink" title="Tomcat服务器优化"></a>Tomcat服务器优化</h2><h3 id="JDK内存优化"><a href="#JDK内存优化" class="headerlink" title="JDK内存优化"></a>JDK内存优化</h3><p>根据服务器物理内容情况配置相关参数优化tomcat性能。当应用程序需要的内存超出堆的最大值时虚拟机就会提示内存溢出，并且导致应用服务崩溃。因此一般建议堆的最大值设置为可用内存的最大值的80%。 Tomcat默认可以使用的内存为128MB，在较大型的应用项目中，这点内存是不够的，需要调大。<br>Tomcat默认可以使用的内存为128MB,Windows下,在文件/bin/catalina.bat，Unix下，在文件/bin/catalina.sh的前面，增加如下设置： JAVA_OPTS=’-Xms【初始化内存大小】 -Xmx【可以使用的最大内存】 -XX:PermSize=64M -XX:MaxPermSize=128m’ 需要把几个参数值调大。例如： JAVA_OPTS=’-Xms256m -Xmx512m’ 表示初始化内存为256MB，可以使用的最大内存为512MB。<br> 参数详解：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-server  启用jdk 的 server 版；</span><br><span class="line">-Xms    java虚拟机初始化时的最小内存；</span><br><span class="line">-Xmx    java虚拟机可使用的最大内存；</span><br><span class="line">-XX:PermSize    内存永久保留区域</span><br><span class="line">-XX:MaxPermSize   内存最大永久保留区域 </span><br><span class="line">-Xmn    jvm最小内存</span><br></pre></td></tr></table></figure></p>
+<p>32G 内存配置示例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JAVA_OPTS=&quot;$JAVA_OPTS  -Xms10g -Xmx10g -XX:PermSize=1g -XX:MaxPermSize=2g -Xshare:off -Xmn1024m</span><br></pre></td></tr></table></figure></p>
+<h3 id="Tomcat线程优化"><a href="#Tomcat线程优化" class="headerlink" title="Tomcat线程优化"></a>Tomcat线程优化</h3><p>在Tomcat配置文件<code>server.xml</code>中的配置中，和连接数相关的参数有：<br><code>maxThreads</code>： Tomcat使用线程来处理接收的每个请求。这个值表示Tomcat可创建的最大的线程数。默认值150。<br><code>acceptCount</code>： 指定当所有可以使用的处理请求的线程数都被使用时，可以放到处理队列中的请求数，超过这个数的请求将不予处理。默认值10。<br><code>minSpareThreads</code>： Tomcat初始化时创建的线程数。默认值25。<br><code>maxSpareThreads</code>： 一旦创建的线程超过这个值，Tomcat就会关闭不再需要的socket线程。默认值75。<br><code>enableLookups</code>： 是否反查域名，默认值为true。为了提高处理能力，应设置为false<br><code>connnectionTimeout</code>： 网络连接超时，默认值60000，单位：毫秒。设置为0表示永不超时，这样设置有隐患的。通常可设置为30000毫秒。<br><code>maxKeepAliveRequests</code>： 保持请求数量，默认值100。 bufferSize： 输入流缓冲大小，默认值2048 bytes。<br><code>compression</code>： 压缩传输，取值on/off/force，默认值off。 其中和最大连接数相关的参数为maxThreads和<code>acceptCount</code>。如果要加大并发连接数，应同时加大这两个参数。<br>32G 内存配置示例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;Connector port=&quot;8080&quot; protocol=&quot;HTTP/1.1&quot;</span><br><span class="line">               connectionTimeout=&quot;20000&quot; maxThreads=&quot;1000&quot; minSpareThreads=&quot;60&quot; maxSpareThreads=&quot;600&quot;  acceptCount=&quot;120&quot; </span><br><span class="line">               redirectPort=&quot;8443&quot; URIEncoding=&quot;utf-8&quot;/&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="Eclipse调优"><a href="#Eclipse调优" class="headerlink" title="Eclipse调优"></a>Eclipse调优</h2><p>eclipse.ini配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">-startup</span><br><span class="line">plugins/org.eclipse.equinox.launcher_1.3.100.v20150511-1540.jar</span><br><span class="line">--launcher.library</span><br><span class="line">plugins/org.eclipse.equinox.launcher.win32.win32.x86_64_1.1.300.v20150602-1417</span><br><span class="line">-product</span><br><span class="line">org.eclipse.epp.package.jee.product</span><br><span class="line">--launcher.defaultAction</span><br><span class="line">openFile</span><br><span class="line">--launcher.XXMaxPermSize</span><br><span class="line">512M</span><br><span class="line">-showsplash</span><br><span class="line">org.eclipse.platform</span><br><span class="line">--launcher.XXMaxPermSize</span><br><span class="line">512m</span><br><span class="line">--launcher.defaultAction</span><br><span class="line">openFile</span><br><span class="line">--launcher.appendVmargs</span><br><span class="line">-vmargs</span><br><span class="line">-Dosgi.requiredJavaVersion=1.7</span><br><span class="line">-Xms2048m</span><br><span class="line">-Xmx2048m</span><br><span class="line">-Xverify:none</span><br><span class="line">-XX:+PrintGCDetails                 </span><br><span class="line">-XX:+PrintGCDateStamps</span><br><span class="line">-Xloggc:gc.log</span><br></pre></td></tr></table></figure></p>
+<h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><p>附上两张来自 <strong><em><a href="https://mp.weixin.qq.com/s?__biz=MzU3NDY4NzQwNQ==&amp;mid=2247483820&amp;idx=1&amp;sn=8418f0f6a618bb0f0ca0980af09a816f&amp;chksm=fd2fd06eca5859786ab124dd204a7ec9b1ad3ed230b9b531086cc6729a277a05d3e8307b7e0d&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">无敌码农</a></em></strong> 的图片：</p>
+<p><img src="https://cdn.yangbingdong.com/img/jvm/jvm-men-thread.webp" alt=""></p>
+<p><img src="https://cdn.yangbingdong.com/img/jvm/jvm-param.webp" alt=""></p>
+<blockquote>
+<p><strong>参考并转载于：</strong><br><strong><em><a href="http://blog.csdn.net/seu_calvin/article/details/51404589" target="_blank" rel="noopener">http://blog.csdn.net/seu_calvin/article/details/51404589</a></em></strong><br><strong><em><a href="http://blog.csdn.net/seu_calvin/article/details/51892567" target="_blank" rel="noopener">http://blog.csdn.net/seu_calvin/article/details/51892567</a></em></strong><br><strong><em><a href="http://blog.csdn.net/seu_calvin/article/details/52301541" target="_blank" rel="noopener">http://blog.csdn.net/seu_calvin/article/details/52301541</a></em></strong><br><strong><em><a href="http://www.importnew.com/23774.html" target="_blank" rel="noopener">http://www.importnew.com/23774.html</a></em></strong><br><strong><em><a href="http://www.importnew.com/23780.html" target="_blank" rel="noopener">http://www.importnew.com/23774.html</a></em></strong></p>
+</blockquote>
+<p>更多JVM汇总请看：</p>
+<p><strong><em><a href="http://www.ityouknow.com/jvm.html" target="_blank" rel="noopener">Jvm系列文章</a></em></strong></p>
+<p><strong><em><a href="https://mp.weixin.qq.com/s/4c9K5eYMFGVV2WyKaYXVBA" target="_blank" rel="noopener">关于Jvm知识看这一篇就够了</a></em></strong></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/JVM/" rel="tag"># JVM</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/07/java-dev-ten-mistake-and-some-advice/" rel="next" title="Java开发人员最常犯的10个错误以及35个代码性能优化小结">
+                <i class="fa fa-chevron-left"></i> Java开发人员最常犯的10个错误以及35个代码性能优化小结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/17/note-of-learning-idea-under-ubuntu/" rel="prev" title="Ubuntu下使用IntelliJ IDEA的正确姿势">
+                Ubuntu下使用IntelliJ IDEA的正确姿势 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">杨凯</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java虚拟机架构"><span class="nav-number">2.</span> <span class="nav-text">Java虚拟机架构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是JVM"><span class="nav-number">2.1.</span> <span class="nav-text">什么是JVM</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JDK"><span class="nav-number">2.1.1.</span> <span class="nav-text">JDK</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JRE"><span class="nav-number">2.1.2.</span> <span class="nav-text">JRE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JVM（Java-Virtual-Machine）"><span class="nav-number">2.1.3.</span> <span class="nav-text">JVM（Java Virtual Machine）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JVM结构图"><span class="nav-number">2.2.</span> <span class="nav-text">JVM结构图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ClassLoader"><span class="nav-number">2.3.</span> <span class="nav-text">ClassLoader</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#执行引擎"><span class="nav-number">2.4.</span> <span class="nav-text">执行引擎</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Runtime-DataArea"><span class="nav-number">2.5.</span> <span class="nav-text">Runtime DataArea</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PC寄存器（The-pc-Register）"><span class="nav-number">2.5.1.</span> <span class="nav-text">PC寄存器（The pc Register）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JVM栈（Java-Virtual-Machine-Stacks）"><span class="nav-number">2.5.2.</span> <span class="nav-text">JVM栈（Java Virtual Machine Stacks）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#本地方法栈（Native-Method-Stacks）"><span class="nav-number">2.5.3.</span> <span class="nav-text">本地方法栈（Native Method Stacks）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法区（Method-Area）"><span class="nav-number">2.5.4.</span> <span class="nav-text">方法区（Method Area）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行时常量池（Runtime-Constant-Pool）"><span class="nav-number">2.5.5.</span> <span class="nav-text">运行时常量池（Runtime Constant Pool）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java堆"><span class="nav-number">2.5.6.</span> <span class="nav-text">Java堆</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#堆和栈的区别"><span class="nav-number">2.6.</span> <span class="nav-text">堆和栈的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#各司其职"><span class="nav-number">2.6.1.</span> <span class="nav-text">各司其职</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#空间大小"><span class="nav-number">2.6.2.</span> <span class="nav-text">空间大小</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#独有还是共享"><span class="nav-number">2.6.3.</span> <span class="nav-text">独有还是共享</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异常错误"><span class="nav-number">2.6.4.</span> <span class="nav-text">异常错误</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#通过String类的intern-了解内存建模与常量池"><span class="nav-number">3.</span> <span class="nav-text">通过String类的intern()了解内存建模与常量池</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#引言"><span class="nav-number">3.1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要介绍intern-方法"><span class="nav-number">3.2.</span> <span class="nav-text">为什么要介绍intern()方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#深入认识intern-方法"><span class="nav-number">3.3.</span> <span class="nav-text">深入认识intern()方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JDK1-6"><span class="nav-number">3.3.1.</span> <span class="nav-text">JDK1.6</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JDK1-7"><span class="nav-number">3.4.</span> <span class="nav-text">JDK1.7</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">3.5.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内存管理和垃圾回收"><span class="nav-number">4.</span> <span class="nav-text">内存管理和垃圾回收</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#何为GC"><span class="nav-number">4.1.</span> <span class="nav-text">何为GC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#何为垃圾"><span class="nav-number">4.2.</span> <span class="nav-text">何为垃圾</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四种引用类型"><span class="nav-number">4.3.</span> <span class="nav-text">四种引用类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#强引用"><span class="nav-number">4.3.1.</span> <span class="nav-text">强引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#软引用"><span class="nav-number">4.3.2.</span> <span class="nav-text">软引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#弱引用"><span class="nav-number">4.3.3.</span> <span class="nav-text">弱引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#虚引用"><span class="nav-number">4.3.4.</span> <span class="nav-text">虚引用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#典型的垃圾回收算法"><span class="nav-number">4.4.</span> <span class="nav-text">典型的垃圾回收算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Mark-Sweep（标记-清除）算法"><span class="nav-number">4.4.1.</span> <span class="nav-text">Mark-Sweep（标记-清除）算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Copying（复制）算法"><span class="nav-number">4.4.2.</span> <span class="nav-text">Copying（复制）算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mark-Compact（标记-整理）算法"><span class="nav-number">4.4.3.</span> <span class="nav-text">Mark-Compact（标记-整理）算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#以上三种算法对比"><span class="nav-number">4.4.4.</span> <span class="nav-text">以上三种算法对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generational-Collection（分代搜集）算法"><span class="nav-number">4.4.5.</span> <span class="nav-text">Generational Collection（分代搜集）算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#典型的垃圾回收器"><span class="nav-number">4.5.</span> <span class="nav-text">典型的垃圾回收器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Serial-amp-Serial-Old"><span class="nav-number">4.5.1.</span> <span class="nav-text">Serial&amp;Serial Old</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ParNew"><span class="nav-number">4.5.2.</span> <span class="nav-text">ParNew</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Parallel-Scavenge"><span class="nav-number">4.5.3.</span> <span class="nav-text">Parallel Scavenge</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Parallel-Old"><span class="nav-number">4.5.4.</span> <span class="nav-text">Parallel Old</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CMS"><span class="nav-number">4.5.5.</span> <span class="nav-text">CMS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#G1"><span class="nav-number">4.5.6.</span> <span class="nav-text">G1</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java类加载机制总结"><span class="nav-number">5.</span> <span class="nav-text">Java类加载机制总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#类加载器的组织结构"><span class="nav-number">5.1.</span> <span class="nav-text">类加载器的组织结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类的加载机制"><span class="nav-number">5.2.</span> <span class="nav-text">类的加载机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#加载阶段"><span class="nav-number">5.2.1.</span> <span class="nav-text">加载阶段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链接阶段（实现-Java-的动态性的重要一步）"><span class="nav-number">5.2.2.</span> <span class="nav-text">链接阶段（实现 Java 的动态性的重要一步）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化"><span class="nav-number">5.2.3.</span> <span class="nav-text">初始化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类的整个加载过程触发的的三种方式"><span class="nav-number">5.3.</span> <span class="nav-text">类的整个加载过程触发的的三种方式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自定义类加载器"><span class="nav-number">6.</span> <span class="nav-text">自定义类加载器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么需要自定义类加载器"><span class="nav-number">6.1.</span> <span class="nav-text">为什么需要自定义类加载器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#双亲委派模型"><span class="nav-number">6.2.</span> <span class="nav-text">双亲委派模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义类加载器-1"><span class="nav-number">6.3.</span> <span class="nav-text">自定义类加载器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义一个People-java类做例子"><span class="nav-number">6.3.1.</span> <span class="nav-text">自定义一个People.java类做例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义类加载器-2"><span class="nav-number">6.3.2.</span> <span class="nav-text">自定义类加载器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在主函数里使用"><span class="nav-number">6.3.3.</span> <span class="nav-text">在主函数里使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行结果"><span class="nav-number">6.3.4.</span> <span class="nav-text">运行结果</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Tomcat与Eclipse性能调优"><span class="nav-number">7.</span> <span class="nav-text">Tomcat与Eclipse性能调优</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tomcat服务器优化"><span class="nav-number">7.1.</span> <span class="nav-text">Tomcat服务器优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JDK内存优化"><span class="nav-number">7.1.1.</span> <span class="nav-text">JDK内存优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tomcat线程优化"><span class="nav-number">7.1.2.</span> <span class="nav-text">Tomcat线程优化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Eclipse调优"><span class="nav-number">7.2.</span> <span class="nav-text">Eclipse调优</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最后"><span class="nav-number">8.</span> <span class="nav-text">最后</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">杨凯</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

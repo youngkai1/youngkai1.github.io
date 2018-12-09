@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java,Spring Boot,AssertJ,JMH,Gatling,ContPerf,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Preface 测试已经是贯穿我们程序员的日常开发流程了，无论写个main方法，还是使用测试框架Junit、AssertJ，或者压测，都是我们日常开发的一部分。也有很多互联网公司推崇TDD（测试驱动开发）的。 下面主要介绍AssertJ、JMH、Gatling以及ContPerf。">
+<meta name="keywords" content="Java,Spring Boot,AssertJ,JMH,Gatling,ContPerf">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring Boot学习之测试篇">
+<meta property="og:url" content="http://yoursite.com/2018/08/28/spring-boot-learning-testing/index.html">
+<meta property="og:site_name" content="如风过境">
+<meta property="og:description" content="Preface 测试已经是贯穿我们程序员的日常开发流程了，无论写个main方法，还是使用测试框架Junit、AssertJ，或者压测，都是我们日常开发的一部分。也有很多互联网公司推崇TDD（测试驱动开发）的。 下面主要介绍AssertJ、JMH、Gatling以及ContPerf。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/spring-boot-testing/java-testing.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/spring-boot-learning/gatling-logo.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/spring-boot-learning/recorder1.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/spring-boot-learning/firefox-proxy.jpg">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/spring-boot-learning/scala-script-location.jpg">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/spring-boot-learning/terminal-gatling-test1.jpg">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/spring-boot-learning/terminal-gatling-test2.jpg">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/spring-boot-learning/scala-plugin.jpg">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/spring-boot-learning/add-scala-sdk02.jpg">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/spring-boot-learning/add-scala-sdk01.jpg">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/spring-boot-learning/idea-gatling-test.jpg">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/spring-boot-learning/gatling-test-result1.jpg">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/spring-boot-learning/gatling-test-result2.jpg">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/spring-boot-learning/gatling-error1.jpg">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/spring-boot-learning/gatling-error2.jpg">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/spring-boot-learning/contiperf-report.jpg">
+<meta property="og:updated_time" content="2018-12-09T10:09:00.060Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring Boot学习之测试篇">
+<meta name="twitter:description" content="Preface 测试已经是贯穿我们程序员的日常开发流程了，无论写个main方法，还是使用测试框架Junit、AssertJ，或者压测，都是我们日常开发的一部分。也有很多互联网公司推崇TDD（测试驱动开发）的。 下面主要介绍AssertJ、JMH、Gatling以及ContPerf。">
+<meta name="twitter:image" content="https://cdn.yangbingdong.com/img/spring-boot-testing/java-testing.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/28/spring-boot-learning-testing/">
+
+
+
+
+
+  <title>Spring Boot学习之测试篇 | 如风过境</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">如风过境</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/28/spring-boot-learning-testing/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="杨凯">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="如风过境">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Spring Boot学习之测试篇</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-28T10:16:40+08:00">
+                2018-08-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Programming/" itemprop="url" rel="index">
+                    <span itemprop="name">Programming</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Programming/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Programming/Java/Spring-Boot/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Boot</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="https://cdn.yangbingdong.com/img/spring-boot-testing/java-testing.png" alt=""></p>
+<h1 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h1><blockquote>
+<p>测试已经是贯穿我们程序员的日常开发流程了，无论写个main方法，还是使用测试框架Junit、AssertJ，或者压测，都是我们日常开发的一部分。也有很多互联网公司推崇TDD（测试驱动开发）的。</p>
+<p>下面主要介绍<code>AssertJ</code>、<code>JMH</code>、<code>Gatling</code>以及<code>ContPerf</code>。</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="使用AssertJ"><a href="#使用AssertJ" class="headerlink" title="使用AssertJ"></a>使用AssertJ</h1><p><code>AseertJ</code>: JAVA 流式断言器，什么是流式，常见的断言器一条断言语句只能对实际值断言一个校验点，而流式断言器，支持一条断言语句对实际值同时断言多个校验点。</p>
+<blockquote>
+<p><a href="http://joel-costigliola.github.io/assertj/assertj-core-features-highlight.html" target="_blank" rel="noopener">AssertJ Core features highlight</a></p>
+</blockquote>
+<p>如果是Spring Boot 1.x版本，在<code>spring-boot-starter-test</code>模块中，AssertJ的版本依然停留在<code>2.x</code>，为了可以使用新功能，我们可以引入新版本的AssertJ（<strong>Spring Boot 2已经是最新版的AssertJ</strong>）:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.assertj<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>assertj-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.assertj<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>assertj-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.9.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="字符串断言"><a href="#字符串断言" class="headerlink" title="字符串断言"></a>字符串断言</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	String str = <span class="keyword">null</span>;</span><br><span class="line">	<span class="comment">// 断言null或为空字符串</span></span><br><span class="line">	assertThat(str).isNullOrEmpty();</span><br><span class="line">	<span class="comment">// 断言空字符串</span></span><br><span class="line">	assertThat(<span class="string">""</span>).isEmpty();</span><br><span class="line">	<span class="comment">// 断言字符串相等 断言忽略大小写判断字符串相等</span></span><br><span class="line">	assertThat(<span class="string">"Frodo"</span>).isEqualTo(<span class="string">"Frodo"</span>).isEqualToIgnoringCase(<span class="string">"frodo"</span>);</span><br><span class="line">	<span class="comment">// 断言开始字符串 结束字符穿 字符串长度</span></span><br><span class="line">	assertThat(<span class="string">"Frodo"</span>).startsWith(<span class="string">"Fro"</span>).endsWith(<span class="string">"do"</span>).hasSize(<span class="number">5</span>);</span><br><span class="line">	<span class="comment">// 断言包含字符串 不包含字符串</span></span><br><span class="line">	assertThat(<span class="string">"Frodo"</span>).contains(<span class="string">"rod"</span>).doesNotContain(<span class="string">"fro"</span>);</span><br><span class="line">	<span class="comment">// 断言字符串只出现过一次</span></span><br><span class="line">	assertThat(<span class="string">"Frodo"</span>).containsOnlyOnce(<span class="string">"do"</span>);</span><br><span class="line">	<span class="comment">// 判断正则匹配</span></span><br><span class="line">	assertThat(<span class="string">"Frodo"</span>).matches(<span class="string">"..o.o"</span>).doesNotMatch(<span class="string">".*d"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="数字断言"><a href="#数字断言" class="headerlink" title="数字断言"></a>数字断言</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testNumber</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	Integer num = <span class="keyword">null</span>;</span><br><span class="line">	<span class="comment">// 断言空</span></span><br><span class="line">	assertThat(num).isNull();</span><br><span class="line">	<span class="comment">// 断言相等</span></span><br><span class="line">	assertThat(<span class="number">42</span>).isEqualTo(<span class="number">42</span>);</span><br><span class="line">	<span class="comment">// 断言大于 大于等于</span></span><br><span class="line">	assertThat(<span class="number">42</span>).isGreaterThan(<span class="number">38</span>).isGreaterThanOrEqualTo(<span class="number">38</span>);</span><br><span class="line">	<span class="comment">// 断言小于 小于等于</span></span><br><span class="line">	assertThat(<span class="number">42</span>).isLessThan(<span class="number">58</span>).isLessThanOrEqualTo(<span class="number">58</span>);</span><br><span class="line">	<span class="comment">// 断言0</span></span><br><span class="line">	assertThat(<span class="number">0</span>).isZero();</span><br><span class="line">	<span class="comment">// 断言正数 非负数</span></span><br><span class="line">	assertThat(<span class="number">1</span>).isPositive().isNotNegative();</span><br><span class="line">	<span class="comment">// 断言负数 非正数</span></span><br><span class="line">	assertThat(-<span class="number">1</span>).isNegative().isNotPositive();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="时间断言"><a href="#时间断言" class="headerlink" title="时间断言"></a>时间断言</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testDate</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 断言与指定日期相同 不相同 在指定日期之后 在指定日期之钱</span></span><br><span class="line">	assertThat(parse(<span class="string">"2014-02-01"</span>)).isEqualTo(<span class="string">"2014-02-01"</span>).isNotEqualTo(<span class="string">"2014-01-01"</span>)</span><br><span class="line">								   .isAfter(<span class="string">"2014-01-01"</span>).isBefore(parse(<span class="string">"2014-03-01"</span>));</span><br><span class="line">	<span class="comment">// 断言 2014 在指定年份之前 在指定年份之后</span></span><br><span class="line">	assertThat(<span class="keyword">new</span> Date()).isBeforeYear(<span class="number">2020</span>).isAfterYear(<span class="number">2013</span>);</span><br><span class="line">	<span class="comment">// 断言时间再指定范围内 不在指定范围内</span></span><br><span class="line">	assertThat(parse(<span class="string">"2014-02-01"</span>)).isBetween(<span class="string">"2014-01-01"</span>, <span class="string">"2014-03-01"</span>).isNotBetween(</span><br><span class="line">			parse(<span class="string">"2014-02-02"</span>), parse(<span class="string">"2014-02-28"</span>));</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 断言两时间相差100毫秒</span></span><br><span class="line">	Date d1 = <span class="keyword">new</span> Date();</span><br><span class="line">	Date d2 = <span class="keyword">new</span> Date(d1.getTime() + <span class="number">100</span>);</span><br><span class="line">	assertThat(d1).isCloseTo(d2, <span class="number">100</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// sets dates differing more and more from date1</span></span><br><span class="line">	Date date1 = parseDatetimeWithMs(<span class="string">"2003-01-01T01:00:00.000"</span>);</span><br><span class="line">	Date date2 = parseDatetimeWithMs(<span class="string">"2003-01-01T01:00:00.555"</span>);</span><br><span class="line">	Date date3 = parseDatetimeWithMs(<span class="string">"2003-01-01T01:00:55.555"</span>);</span><br><span class="line">	Date date4 = parseDatetimeWithMs(<span class="string">"2003-01-01T01:55:55.555"</span>);</span><br><span class="line">	Date date5 = parseDatetimeWithMs(<span class="string">"2003-01-01T05:55:55.555"</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 断言 日期忽略毫秒，与给定的日期相等</span></span><br><span class="line">	assertThat(date1).isEqualToIgnoringMillis(date2);</span><br><span class="line">	<span class="comment">// 断言 日期与给定的日期具有相同的年月日时分秒</span></span><br><span class="line">	assertThat(date1).isInSameSecondAs(date2);</span><br><span class="line">	<span class="comment">// 断言 日期忽略秒，与给定的日期时间相等</span></span><br><span class="line">	assertThat(date1).isEqualToIgnoringSeconds(date3);</span><br><span class="line">	<span class="comment">// 断言 日期与给定的日期具有相同的年月日时分</span></span><br><span class="line">	assertThat(date1).isInSameMinuteAs(date3);</span><br><span class="line">	<span class="comment">// 断言 日期忽略分，与给定的日期时间相等</span></span><br><span class="line">	assertThat(date1).isEqualToIgnoringMinutes(date4);</span><br><span class="line">	<span class="comment">// 断言 日期与给定的日期具有相同的年月日时</span></span><br><span class="line">	assertThat(date1).isInSameHourAs(date4);</span><br><span class="line">	<span class="comment">// 断言 日期忽略小时，与给定的日期时间相等</span></span><br><span class="line">	assertThat(date1).isEqualToIgnoringHours(date5);</span><br><span class="line">	<span class="comment">// 断言 日期与给定的日期具有相同的年月日</span></span><br><span class="line">	assertThat(date1).isInSameDayAs(date5);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="集合断言"><a href="#集合断言" class="headerlink" title="集合断言"></a>集合断言</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testList</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 断言 列表是空的</span></span><br><span class="line">	assertThat(newArrayList()).isEmpty();</span><br><span class="line">	<span class="comment">// 断言 列表的开始 结束元素</span></span><br><span class="line">	assertThat(newArrayList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)).startsWith(<span class="number">1</span>).endsWith(<span class="number">3</span>);</span><br><span class="line">	<span class="comment">// 断言 列表包含元素 并且是排序的</span></span><br><span class="line">	assertThat(newArrayList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)).contains(<span class="number">1</span>, atIndex(<span class="number">0</span>)).contains(<span class="number">2</span>, atIndex(<span class="number">1</span>)).contains(<span class="number">3</span>)</span><br><span class="line">									 .isSorted();</span><br><span class="line">	<span class="comment">// 断言 被包含与给定列表</span></span><br><span class="line">	assertThat(newArrayList(<span class="number">3</span>, <span class="number">1</span>, <span class="number">2</span>)).isSubsetOf(newArrayList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>));</span><br><span class="line">	<span class="comment">// 断言 存在唯一元素</span></span><br><span class="line">	assertThat(newArrayList(<span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>)).containsOnlyOnce(<span class="string">"a"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Map断言"><a href="#Map断言" class="headerlink" title="Map断言"></a>Map断言</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testMap</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	Map&lt;String, Object&gt; foo = Maps.newHashMap(<span class="string">"A"</span>, <span class="number">1</span>);</span><br><span class="line">	foo.put(<span class="string">"B"</span>, <span class="number">2</span>);</span><br><span class="line">	foo.put(<span class="string">"C"</span>, <span class="number">3</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 断言 map 不为空 size</span></span><br><span class="line">	assertThat(foo).isNotEmpty().hasSize(<span class="number">3</span>);</span><br><span class="line">	<span class="comment">// 断言 map 包含元素</span></span><br><span class="line">	assertThat(foo).contains(entry(<span class="string">"A"</span>, <span class="number">1</span>), entry(<span class="string">"B"</span>, <span class="number">2</span>));</span><br><span class="line">	<span class="comment">// 断言 map 包含key</span></span><br><span class="line">	assertThat(foo).containsKeys(<span class="string">"A"</span>, <span class="string">"B"</span>, <span class="string">"C"</span>);</span><br><span class="line">	<span class="comment">// 断言 map 包含value</span></span><br><span class="line">	assertThat(foo).containsValue(<span class="number">3</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="类断言"><a href="#类断言" class="headerlink" title="类断言"></a>类断言</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testClass</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 断言 是注解</span></span><br><span class="line">	assertThat(Magical.class).isAnnotation();</span><br><span class="line">	<span class="comment">// 断言 不是注解</span></span><br><span class="line">	assertThat(Ring.class).isNotAnnotation();</span><br><span class="line">	<span class="comment">// 断言 存在注解</span></span><br><span class="line">	assertThat(Ring.class).hasAnnotation(Magical.class);</span><br><span class="line">	<span class="comment">// 断言 不是借口</span></span><br><span class="line">	assertThat(Ring.class).isNotInterface();</span><br><span class="line">	<span class="comment">// 断言 是否为指定Class实例</span></span><br><span class="line">	assertThat(<span class="string">"string"</span>).isInstanceOf(String.class);</span><br><span class="line">	<span class="comment">// 断言 类是给定类的父类</span></span><br><span class="line">	assertThat(Person1.class).isAssignableFrom(Employee.class);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Magical</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> Ring &#123;</span><br><span class="line">	oneRing, vilya, nenya, narya, dwarfRing, manRing;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Target</span>(ElementType.TYPE)</span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Magical &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person1</span> </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Employee</span> <span class="keyword">extends</span> <span class="title">Person1</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="异常断言"><a href="#异常断言" class="headerlink" title="异常断言"></a>异常断言</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testException</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	assertThatThrownBy(() -&gt; &#123; <span class="keyword">throw</span> <span class="keyword">new</span> Exception(<span class="string">"boom!"</span>); &#125;).isInstanceOf(Exception.class)</span><br><span class="line">															   .hasMessageContaining(<span class="string">"boom"</span>);</span><br><span class="line"></span><br><span class="line">	assertThatExceptionOfType(IOException.class).isThrownBy(() -&gt; &#123; <span class="keyword">throw</span> <span class="keyword">new</span> IOException(<span class="string">"boom!"</span>); &#125;)</span><br><span class="line">												.withMessage(<span class="string">"%s!"</span>, <span class="string">"boom"</span>)</span><br><span class="line">												.withMessageContaining(<span class="string">"boom"</span>)</span><br><span class="line">												.withNoCause();</span><br><span class="line"></span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	 * assertThatNullPointerException</span></span><br><span class="line"><span class="comment">	 * assertThatIllegalArgumentException</span></span><br><span class="line"><span class="comment">	 * assertThatIllegalStateException</span></span><br><span class="line"><span class="comment">	 * assertThatIOException</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	assertThatIOException().isThrownBy(() -&gt; &#123; <span class="keyword">throw</span> <span class="keyword">new</span> IOException(<span class="string">"boom!"</span>); &#125;)</span><br><span class="line">						   .withMessage(<span class="string">"%s!"</span>, <span class="string">"boom"</span>)</span><br><span class="line">						   .withMessageContaining(<span class="string">"boom"</span>)</span><br><span class="line">						   .withNoCause();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="文件断言"><a href="#文件断言" class="headerlink" title="文件断言"></a>文件断言</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testFile</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">	File xFile = writeFile(<span class="string">"xFile"</span>, <span class="string">"The Truth Is Out There"</span>);</span><br><span class="line"></span><br><span class="line">	assertThat(xFile).exists().isFile().isRelative();</span><br><span class="line"></span><br><span class="line">	assertThat(xFile).canRead().canWrite();</span><br><span class="line"></span><br><span class="line">	assertThat(contentOf(xFile)).startsWith(<span class="string">"The Truth"</span>).contains(<span class="string">"Is Out"</span>).endsWith(<span class="string">"There"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> File <span class="title">writeFile</span><span class="params">(String fileName, String fileContent)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> writeFile(fileName, fileContent, Charset.defaultCharset());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> File <span class="title">writeFile</span><span class="params">(String fileName, String fileContent, Charset charset)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">	File file = <span class="keyword">new</span> File(<span class="string">"target/"</span> + fileName);</span><br><span class="line">	BufferedWriter out = <span class="keyword">new</span> BufferedWriter(<span class="keyword">new</span> OutputStreamWriter(<span class="keyword">new</span> FileOutputStream(file), charset));</span><br><span class="line">	out.write(fileContent);</span><br><span class="line">	out.close();</span><br><span class="line">	<span class="keyword">return</span> file;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="对象列表断言"><a href="#对象列表断言" class="headerlink" title="对象列表断言"></a>对象列表断言</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">personListTest</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	List&lt;Person&gt; personList = Arrays.asList(<span class="keyword">new</span> Person(<span class="string">"A"</span>, <span class="number">1</span>), <span class="keyword">new</span> Person(<span class="string">"B"</span>, <span class="number">2</span>), <span class="keyword">new</span> Person(<span class="string">"C"</span>, <span class="number">3</span>));</span><br><span class="line">	assertThat(personList).extracting(Person::getName).contains(<span class="string">"A"</span>, <span class="string">"B"</span>).doesNotContain(<span class="string">"D"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">personListTest1</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	List&lt;Person&gt; personList = Arrays.asList(<span class="keyword">new</span> Person(<span class="string">"A"</span>, <span class="number">1</span>), <span class="keyword">new</span> Person(<span class="string">"B"</span>, <span class="number">2</span>), <span class="keyword">new</span> Person(<span class="string">"C"</span>, <span class="number">3</span>));</span><br><span class="line">	assertThat(personList).flatExtracting(Person::getName).contains(<span class="string">"A"</span>, <span class="string">"B"</span>).doesNotContain(<span class="string">"D"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="断言添加描述"><a href="#断言添加描述" class="headerlink" title="断言添加描述"></a>断言添加描述</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addDesc</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	Person person = <span class="keyword">new</span> Person(<span class="string">"ybd"</span>, <span class="number">18</span>);</span><br><span class="line">	assertThat(person.getAge()).as(<span class="string">"check %s's age"</span>, person.getName()).isEqualTo(<span class="number">18</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="官方例子"><a href="#官方例子" class="headerlink" title="官方例子"></a>官方例子</h2><p><strong><em><a href="https://github.com/joel-costigliola/assertj-examples" target="_blank" rel="noopener">https://github.com/joel-costigliola/assertj-examples</a></em></strong></p>
+<h1 id="JMH基准测试"><a href="#JMH基准测试" class="headerlink" title="JMH基准测试"></a>JMH基准测试</h1><blockquote>
+<p>JMH 是一个由 OpenJDK/Oracle 里面那群开发了 Java 编译器的大牛们所开发的 Micro Benchmark Framework 。何谓 Micro Benchmark 呢？简单地说就是在 <strong>method</strong> 层面上的 benchmark，精度可以精确到微秒级。可以看出 JMH 主要使用在当你已经找出了热点函数，而需要对热点函数进行进一步的优化时，就可以使用 JMH 对优化的效果进行定量的分析。</p>
+<p>比较典型的使用场景还有：</p>
+<ul>
+<li>想定量地知道某个函数需要执行多长时间，以及执行时间和输入 n 的相关性</li>
+<li>一个函数有两种不同实现（例如实现 A 使用了 <code>FixedThreadPool</code>，实现 B 使用了 <code>ForkJoinPool</code>），不知道哪种实现性能更好</li>
+</ul>
+<p>尽管 JMH 是一个相当不错的 Micro Benchmark Framework，但很无奈的是网上能够找到的文档比较少，而官方也没有提供比较详细的文档，对使用造成了一定的障碍。但是有个好消息是官方的 <strong><em><a href="http://hg.openjdk.java.net/code-tools/jmh/file/tip/jmh-samples/src/main/java/org/openjdk/jmh/samples/" target="_blank" rel="noopener">Code Sample</a></em></strong> 写得非常浅显易懂，</p>
+</blockquote>
+<h2 id="导入Jar包"><a href="#导入Jar包" class="headerlink" title="导入Jar包"></a>导入Jar包</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.openjdk.jmh<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jmh-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.21<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.openjdk.jmh<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jmh-generator-annprocess<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.21<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>provided<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><p>我们来测试一下Snowflake的性能：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@BenchmarkMode</span>(Mode.Throughput)</span><br><span class="line"><span class="meta">@Warmup</span>(iterations = <span class="number">3</span>, time = <span class="number">1</span>)</span><br><span class="line"><span class="meta">@Measurement</span>(iterations = <span class="number">4</span>, time = <span class="number">2</span>)</span><br><span class="line"><span class="meta">@Threads</span>(<span class="number">10</span>)</span><br><span class="line"><span class="meta">@Fork</span>(<span class="number">1</span>)</span><br><span class="line"><span class="meta">@OutputTimeUnit</span>(TimeUnit.SECONDS)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SnowflakeTest</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Snowflake[] SNOWFLAKES = IntStream.rangeClosed(<span class="number">1</span>, <span class="number">8</span>)</span><br><span class="line">														   .mapToObj(Snowflake::create)</span><br><span class="line">														   .toArray(Snowflake[]::<span class="keyword">new</span>);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> AtomicLong ATOMIC_LONG = <span class="keyword">new</span> AtomicLong(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Benchmark</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">getId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> SNOWFLAKES[(<span class="keyword">int</span>) (ATOMIC_LONG.incrementAndGet() &amp; (<span class="number">1</span> &lt;&lt; <span class="number">3</span>) - <span class="number">1</span>)].nextId();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> RunnerException </span>&#123;</span><br><span class="line">		Options options = <span class="keyword">new</span> OptionsBuilder().include(SnowflakeTest.class.getSimpleName())</span><br><span class="line">											  .build();</span><br><span class="line">		<span class="keyword">new</span> Runner(options).run();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Benchmark             Mode  Cnt         Score       Error  Units</span><br><span class="line">SnowflakeTest.getId  thrpt    4  32751461.735 ± 88155.402  ops/s</span><br></pre></td></tr></table></figure>
+<p>注解都可以换成方法的方式在main方法中指定，比如这样：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Options opt = <span class="keyword">new</span> OptionsBuilder().include(SnowflakeTest.class.getSimpleName())</span><br><span class="line">								  .forks(<span class="number">1</span>)</span><br><span class="line">								  .measurementIterations(<span class="number">3</span>)</span><br><span class="line">								  .measurementTime(TimeValue.seconds(<span class="number">1</span>))</span><br><span class="line">								  .warmupIterations(<span class="number">3</span>)</span><br><span class="line">								  .warmupTime(TimeValue.seconds(<span class="number">1</span>))</span><br><span class="line">								  .build();</span><br></pre></td></tr></table></figure>
+<h2 id="注解分析"><a href="#注解分析" class="headerlink" title="注解分析"></a>注解分析</h2><p>下面我把一些常用的注解全部分析一遍，看完之后你就可以得心应手的使用了。</p>
+<h3 id="BenchmarkMode"><a href="#BenchmarkMode" class="headerlink" title="@BenchmarkMode"></a>@BenchmarkMode</h3><p>基准测试类型，对应Mode选项，可用于<strong>类或者方法</strong>上。 需要注意的是，这个注解的<code>value</code>是一个<strong>数组</strong>，可以把几种Mode集合在一起执行，如：<code>@BenchmarkMode({Mode.SampleTime, Mode.AverageTime})</code></p>
+<ul>
+<li><code>Throughput</code>：整体吞吐量，每秒执行了多少次调用。</li>
+<li><code>AverageTime</code>：用的平均时间，每次操作的平均时间。</li>
+<li><code>SampleTime</code>：随机取样，最后输出取样结果的分布，例如“99%的调用在xxx毫秒以内，99.99%的调用在xxx毫秒以内”。</li>
+<li><code>SingleShotTime</code>：上模式都是默认一次 <code>iteration</code> 是 1s，唯有 <code>SingleShotTime</code> 是只运行一次。往往同时把 <code>warmup</code> 次数设为0，用于测试冷启动时的性能。</li>
+<li><code>All</code>：上面的所有模式都执行一次，适用于内部JMH测试。</li>
+</ul>
+<h3 id="Warmup"><a href="#Warmup" class="headerlink" title="@Warmup"></a>@Warmup</h3><p>预热所需要配置的一些基本测试参数。可用于<strong>类或者方法</strong>上。一般我们前几次进行程序测试的时候都会比较慢，所以要让程序进行几轮预热，保证测试的准确性。为什么需要预热？因为 JVM 的 JIT 机制的存在，<strong>如果某个函数被调用多次之后</strong>，<strong>JVM 会尝试将其编译成为机器码从而提高执行速度</strong>。所以为了让 benchmark 的结果更加接近真实情况就需要进行预热。</p>
+<ul>
+<li><code>iterations</code>：预热的次数。</li>
+<li><code>time</code>：每次预热的时间。</li>
+<li><code>timeUnit</code>：时间的单位，默认秒。</li>
+<li><code>batchSize</code>：批处理大小，每次操作调用几次方法。</li>
+</ul>
+<h3 id="Measurement"><a href="#Measurement" class="headerlink" title="@Measurement"></a>@Measurement</h3><p>实际调用方法所需要配置的一些基本测试参数。可用于<strong>类或者方法</strong>上。参数和<strong>@Warmup</strong>一样。</p>
+<h3 id="Threads"><a href="#Threads" class="headerlink" title="@Threads"></a>@Threads</h3><p>每个进程中的测试线程，可用于<strong>类或者方法</strong>上。一般选择为cpu乘以2。如果配置了 <code>Threads.MAX</code> ，代表使用 <code>Runtime.getRuntime().availableProcessors()</code> 个线程。</p>
+<h3 id="Fork"><a href="#Fork" class="headerlink" title="@Fork"></a>@Fork</h3><p>进行 fork 的次数。可用于<strong>类或者方法</strong>上。如果 fork 数是2的话，则 JMH 会 fork 出两个进程来进行测试。</p>
+<h3 id="Benchmark"><a href="#Benchmark" class="headerlink" title="@Benchmark"></a>@Benchmark</h3><p>方法级注解，表示该方法是需要进行 benchmark 的对象，用法和 JUnit 的 @Test 类似。</p>
+<h3 id="Param"><a href="#Param" class="headerlink" title="@Param"></a>@Param</h3><p><code>@Param</code> 可以用来指定某项参数的多种情况。只能作用在<strong>字段</strong>上。特别适合用来测试一个函数在不同的参数输入的情况下的性能。使用该注解必须定义 <code>@State</code> 注解。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Param</span>(value = &#123;<span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>&#125;)</span><br><span class="line"><span class="keyword">private</span> String param;</span><br></pre></td></tr></table></figure>
+<p>最后的结果可能是这个样子的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Benchmark                    (param)  Mode  Cnt    Score   Error  Units</span><br><span class="line">FirstBenchMark.stringConcat        a    ss       330.752          us/op</span><br><span class="line">FirstBenchMark.stringConcat        b    ss       186.050          us/op</span><br><span class="line">FirstBenchMark.stringConcat        c    ss       222.559          us/op</span><br></pre></td></tr></table></figure>
+<h3 id="Setup-amp-TearDown"><a href="#Setup-amp-TearDown" class="headerlink" title="@Setup&amp;@TearDown"></a>@Setup&amp;@TearDown</h3><p><code>@Setup</code>主要实现测试前的初始化工作，只能作用在<strong>方法</strong>上。用法和Junit一样。使用该注解必须定义 <code>@State</code> 注解。</p>
+<p><code>@TearDown</code>主要实现测试完成后的垃圾回收等工作，只能作用在<strong>方法</strong>上。用法和Junit一样。使用该注解必须定义 <code>@State</code> 注解。</p>
+<p>这两个注解都有一个 <code>Level</code> 的枚举value，它有三个值（默认的是Trial）：</p>
+<ul>
+<li><code>Trial</code>：在每次Benchmark的之前/之后执行。</li>
+<li><code>Iteration</code>：在每次Benchmark的<code>iteration</code>的之前/之后执行。</li>
+<li><code>Invocation</code>：每次调用Benchmark标记的方法之前/之后都会执行。</li>
+</ul>
+<p>可见，Level的粒度从<code>Trial</code>到<code>Invocation</code>越来越细。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">@TearDown(Level.Iteration)</span><br><span class="line">public void check() &#123;</span><br><span class="line">    assert x &gt; Math.PI : &quot;Nothing changed?&quot;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Benchmark</span><br><span class="line">public void measureRight() &#123;</span><br><span class="line">    x++;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Benchmark</span><br><span class="line">public void measureWrong() &#123;</span><br><span class="line">    double x = 0;</span><br><span class="line">    x++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="State"><a href="#State" class="headerlink" title="@State"></a>@State</h3><p>该注解定义了给定类实例的可用范围。JMH可以在多线程同时运行的环境测试，因此需要选择正确的状态。只能作用在<strong>类</strong>上。被该注解定义的类通常作为 <code>@Benchmark</code> 标记的方法的入参，JMH根据scope来进行实例化和共享操作，当然<code>@State</code>可以被继承使用，如果父类定义了该注解，子类则无需定义。</p>
+<p>Scope有如下3种值：</p>
+<ul>
+<li><code>Benchmark</code>：同一个benchmark在多个线程之间共享实例。</li>
+<li><code>Group</code>：同一个线程在同一个group里共享实例。group定义参考注解 <code>@Group</code> 。</li>
+<li><code>Thread</code>：不同线程之间的实例不共享。</li>
+</ul>
+<p>首先说一下<code>Benchmark</code>，对于同一个<code>@Benchmark</code>，所有线程共享实例，也就是只会new Person 1次</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@State</span>(Scope.Benchmark)</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">BenchmarkState</span> </span>&#123;</span><br><span class="line">    Person person = <span class="keyword">new</span> Person(<span class="number">21</span>, <span class="string">"ben"</span>, <span class="string">"benchmark"</span>);</span><br><span class="line">    <span class="keyword">volatile</span> <span class="keyword">double</span> x = Math.PI;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Benchmark</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">measureShared</span><span class="params">(BenchmarkState state)</span> </span>&#123;</span><br><span class="line">    state.x++;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> RunnerException </span>&#123;</span><br><span class="line">    Options opt = <span class="keyword">new</span> OptionsBuilder()</span><br><span class="line">            .include(JMHSample_03_States.class.getSimpleName())</span><br><span class="line">            .threads(<span class="number">8</span>)</span><br><span class="line">            .warmupTime(TimeValue.seconds(<span class="number">1</span>))</span><br><span class="line">            .measurementTime(TimeValue.seconds(<span class="number">1</span>))</span><br><span class="line">            .forks(<span class="number">1</span>)</span><br><span class="line">            .build();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">new</span> Runner(opt).run();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>再说一下<code>Thread</code>，这个比较好理解，不同线程之间的实例不共享。对于上面我们设定的线程数为8个，也就是会new Person 8次。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@State</span>(Scope.Thread)</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">ThreadState</span> </span>&#123;</span><br><span class="line">    Person person = <span class="keyword">new</span> Person(<span class="number">21</span>, <span class="string">"ben"</span>, <span class="string">"thread"</span>);</span><br><span class="line">    <span class="keyword">volatile</span> <span class="keyword">double</span> x = Math.PI;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Benchmark</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">measureUnshared</span><span class="params">(ThreadState state)</span> </span>&#123;</span><br><span class="line">    state.x++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>而对于Group来说，同一个group的作为一个执行单元，所以 <code>measureGroup</code> 和 <code>measureGroup2</code> 共享8个线程，所以一个方法也就会执行new Person 4次。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@State</span>(Scope.Group)</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">GroupState</span> </span>&#123;</span><br><span class="line">    Person person = <span class="keyword">new</span> Person(<span class="number">21</span>, <span class="string">"ben"</span>, <span class="string">"group"</span>);</span><br><span class="line">    <span class="keyword">volatile</span> <span class="keyword">double</span> x = Math.PI;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Benchmark</span></span><br><span class="line"><span class="meta">@Group</span>(<span class="string">"ben"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">measureGroup</span><span class="params">(GroupState state)</span> </span>&#123;</span><br><span class="line">    state.x++;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Benchmark</span></span><br><span class="line"><span class="meta">@Group</span>(<span class="string">"ben"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">measureGroup2</span><span class="params">(GroupState state)</span> </span>&#123;</span><br><span class="line">    state.x++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Group"><a href="#Group" class="headerlink" title="@Group"></a>@Group</h3><p>结合<code>@Benchmark</code>一起使用，把多个基准方法归为一类，只能作用在<strong>方法</strong>上。同一个组中的所有测试设置相同的名称(否则这些测试将独立运行——没有任何警告提示！)</p>
+<h3 id="GroupThreads"><a href="#GroupThreads" class="headerlink" title="@GroupThreads"></a>@GroupThreads</h3><p>定义了多少个线程参与在组中运行基准方法。只能作用在<strong>方法</strong>上。</p>
+<h3 id="OutputTimeUnit"><a href="#OutputTimeUnit" class="headerlink" title="@OutputTimeUnit"></a>@OutputTimeUnit</h3><p>这个比较简单了，基准测试结果的时间类型。可用于<strong>类或者方法</strong>上。一般选择秒、毫秒、微秒。</p>
+<h3 id="CompilerControl"><a href="#CompilerControl" class="headerlink" title="@CompilerControl"></a>@CompilerControl</h3><p>该注解可以控制方法编译的行为，可用于<strong>类或者方法或者构造函数</strong>上。它内部有6种模式，这里我们只关心三种重要的模式：</p>
+<ul>
+<li><code>CompilerControl.Mode.INLINE</code>：强制使用内联。</li>
+<li><code>CompilerControl.Mode.DONT_INLINE</code>：禁止使用内联。</li>
+<li><code>CompilerControl.Mode.EXCLUDE</code>：禁止编译方法。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">target_blank</span><span class="params">()</span> </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@CompilerControl</span>(CompilerControl.Mode.DONT_INLINE)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">target_dontInline</span><span class="params">()</span> </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@CompilerControl</span>(CompilerControl.Mode.INLINE)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">target_inline</span><span class="params">()</span> </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@CompilerControl</span>(CompilerControl.Mode.EXCLUDE)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">target_exclude</span><span class="params">()</span> </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Benchmark</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">baseline</span><span class="params">()</span> </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Benchmark</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">blank</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    target_blank();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Benchmark</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">dontinline</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    target_dontInline();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Benchmark</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">inline</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    target_inline();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Benchmark</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">exclude</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    target_exclude();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最后得出的结果也表名，使用内联优化会影响实际的结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Benchmark                                Mode  Cnt   Score   Error  Units</span><br><span class="line">JMHSample_16_CompilerControl.baseline    avgt    3   0.338 ± 0.475  ns/op</span><br><span class="line">JMHSample_16_CompilerControl.blank       avgt    3   0.343 ± 0.213  ns/op</span><br><span class="line">JMHSample_16_CompilerControl.dontinline  avgt    3   2.247 ± 0.421  ns/op</span><br><span class="line">JMHSample_16_CompilerControl.exclude     avgt    3  82.814 ± 7.333  ns/op</span><br><span class="line">JMHSample_16_CompilerControl.inline      avgt    3   0.322 ± 0.023  ns/op</span><br></pre></td></tr></table></figure>
+<h2 id="避免JIT优化"><a href="#避免JIT优化" class="headerlink" title="避免JIT优化"></a>避免JIT优化</h2><p>我们在测试的时候，一定要避免JIT优化。对于有一些代码，编译器可以推导出一些计算是多余的，并且完全消除它们。 如果我们的基准测试里有部分代码被清除了，那测试的结果就不准确了。比如下面这一段代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">double</span> x = Math.PI;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Benchmark</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">baseline</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// do nothing, this is a baseline</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Benchmark</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">measureWrong</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// This is wrong: result is not used and the entire computation is optimized away.</span></span><br><span class="line">    Math.log(x);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Benchmark</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">measureRight</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// This is correct: the result is being used.</span></span><br><span class="line">    <span class="keyword">return</span> Math.log(x);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>由于 <code>measureWrong</code> 方法被编译器优化了，导致效果和 <code>baseline</code> 方法一样变成了空方法，结果也证实了这一点：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Benchmark                           Mode  Cnt   Score   Error  Units</span><br><span class="line">JMHSample_08_DeadCode.baseline      avgt    5   0.311 ± 0.018  ns/op</span><br><span class="line">JMHSample_08_DeadCode.measureRight  avgt    5  23.702 ± 0.320  ns/op</span><br><span class="line">JMHSample_08_DeadCode.measureWrong  avgt    5   0.306 ± 0.003  ns/op</span><br></pre></td></tr></table></figure>
+<p>如果我们想方法返回值还是<code>void</code>，但是需要让<code>Math.log(x)</code>的耗时加入到基准运算中，我们可以使用JMH提供给我们的类 <code>Blackhole</code> ，使用它的 <code>consume</code>来避免JIT的优化消除。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Benchmark</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">measureRight_2</span><span class="params">(Blackhole bh)</span> </span>&#123;</span><br><span class="line">    bh.consume(Math.log(x));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但是有返回值的方法就不会被优化了吗？你想的太多了。。。重新改改刚才的代码，让字段 <code>x</code> 变成final的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">double</span> x = Math.PI;</span><br></pre></td></tr></table></figure>
+<p>运行后的结果发现 <code>measureRight</code> 被JIT进行了优化，从 <code>23.7ns/op</code> 降到了 <code>2.5ns/op</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JMHSample_08_DeadCode.measureRight    avgt    5  2.587 ± 0.081  ns/op</span><br></pre></td></tr></table></figure>
+<p>当然 <code>Math.log(Math.PI );</code> 这种返回写法和字段定义成final一样，都会被进行优化。</p>
+<p>优化的原因是因为JVM认为每次计算的结果都是相同的，于是就会把相同代码移到了JMH的循环之外。</p>
+<p><strong>结论：</strong></p>
+<ol>
+<li>基准测试方法一定不要返回<code>void</code>。</li>
+<li>如果要使用<code>void</code>返回，可以使用 <code>Blackhole</code> 的 <code>consume</code> 来避免JIT的优化消除。</li>
+<li>计算<strong>不要引用常量</strong>，否则会被优化到JMH的循环之外。</li>
+</ol>
+<h2 id="IDEA插件"><a href="#IDEA插件" class="headerlink" title="IDEA插件"></a>IDEA插件</h2><p>在插件中直接搜JMH，该插件可以右键生成JMH方法，不用写main方法也能执行<code>@Benchmark</code>的方法</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><blockquote>
+<p><strong><em><a href="http://benjaminwhx.com/2018/06/15/%E4%BD%BF%E7%94%A8JMH%E5%81%9A%E5%9F%BA%E5%87%86%E6%B5%8B%E8%AF%95/" target="_blank" rel="noopener">http://benjaminwhx.com/2018/06/15/%E4%BD%BF%E7%94%A8JMH%E5%81%9A%E5%9F%BA%E5%87%86%E6%B5%8B%E8%AF%95/</a></em></strong></p>
+</blockquote>
+<h1 id="Gatling性能测试"><a href="#Gatling性能测试" class="headerlink" title="Gatling性能测试"></a>Gatling性能测试</h1><blockquote>
+<p>性能测试的两种类型，负载测试和压力测试：</p>
+<ul>
+<li><strong>负载测试（Load Testing）：</strong>负载测试是一种主要为了测试软件系统是否达到需求文档设计的目标，譬如软件在一定时期内，最大支持多少并发用户数，软件请求出错率等，测试的主要是软件系统的性能。</li>
+<li><strong>压力测试（Stress Testing）：</strong>压力测试主要是为了测试硬件系统是否达到需求文档设计的性能目标，譬如在一定时期内，系统的cpu利用率，内存使用率，磁盘I/O吞吐率，网络吞吐量等，压力测试和负载测试最大的差别在于测试目的不同。</li>
+</ul>
+</blockquote>
+<h2 id="Gatling-简介"><a href="#Gatling-简介" class="headerlink" title="Gatling 简介"></a>Gatling 简介</h2><p><img src="https://cdn.yangbingdong.com/img/spring-boot-learning/gatling-logo.png" alt=""></p>
+<p>Gatling 是一个功能强大的负载测试工具。它是为易用性、可维护性和高性能而设计的。</p>
+<p>开箱即用，Gatling 带有对 HTTP 协议的出色支持，使其成为负载测试任何 HTTP 服务器的首选工具。由于核心引擎实际上是协议不可知的，所以完全可以实现对其他协议的支持，例如，Gatling 目前也提供JMS 支持。</p>
+<p>只要底层协议（如 HTTP）能够以非阻塞的方式实现，Gatling 的架构就是异步的。这种架构可以将虚拟用户作为消息而不是专用线程来实现。因此，运行数千个并发的虚拟用户不是问题。</p>
+<h2 id="使用Recorder快速开始"><a href="#使用Recorder快速开始" class="headerlink" title="使用Recorder快速开始"></a>使用Recorder快速开始</h2><p>官方提供了GUI界面的录制器，可以监听对应端口记录请求操作并转化为Scala脚本</p>
+<p>1、进入 <em><a href="https://gatling.io/download/" target="_blank" rel="noopener">下载页面</a></em> 下载最新版本<br>2、解压并进入 <code>$GATLING_HOME/bin</code> (<code>$GATLING_HOME</code>为解压目录)，运行<code>recorder.sh</code><br><img src="https://cdn.yangbingdong.com/img/spring-boot-learning/recorder1.png" alt=""></p>
+<ul>
+<li><p>上图监听8000端口（若被占用请更换端口），需要在浏览器设置代理，以FireFox为例：<br><img src="https://cdn.yangbingdong.com/img/spring-boot-learning/firefox-proxy.jpg" alt=""></p>
+</li>
+<li><p><code>Output folder</code>为Scala脚本输出路径，例如设置为 <code>/home/ybd/data/application/gatling-charts-highcharts-bundle-2.3.0/user-files/simulations</code>，会在该路经下面生成一个<code>RecordedSimulation.scala</code>的文件（上面指定的Class Name）：<br><img src="https://cdn.yangbingdong.com/img/spring-boot-learning/scala-script-location.jpg" alt=""></p>
+</li>
+</ul>
+<p>3、点击<code>record</code>并在Firefox进行相应操作，然后点击<code>Stop</code>，会生成类似下面的脚本：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> computerdatabase </span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> io.gatling.core.Predef._ </span><br><span class="line"><span class="keyword">import</span> io.gatling.http.Predef._</span><br><span class="line"><span class="keyword">import</span> scala.concurrent.duration._</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BasicSimulation</span> <span class="keyword">extends</span> <span class="title">Simulation</span> </span>&#123; </span><br><span class="line"></span><br><span class="line">  val httpConf = http </span><br><span class="line">    .baseURL(<span class="string">"http://computer-database.gatling.io"</span>) </span><br><span class="line">    .acceptHeader(<span class="string">"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"</span>) </span><br><span class="line">    .doNotTrackHeader(<span class="string">"1"</span>)</span><br><span class="line">    .acceptLanguageHeader(<span class="string">"en-US,en;q=0.5"</span>)</span><br><span class="line">    .acceptEncodingHeader(<span class="string">"gzip, deflate"</span>)</span><br><span class="line">    .userAgentHeader(<span class="string">"Mozilla/5.0 (Windows NT 5.1; rv:31.0) Gecko/20100101 Firefox/31.0"</span>)</span><br><span class="line"></span><br><span class="line">  val scn = scenario(<span class="string">"BasicSimulation"</span>)</span><br><span class="line">    .exec(http(<span class="string">"request_1"</span>)</span><br><span class="line">    .get(<span class="string">"/"</span>))</span><br><span class="line">    .pause(<span class="number">5</span>) </span><br><span class="line"></span><br><span class="line">  setUp( </span><br><span class="line">    scn.inject(atOnceUsers(<span class="number">1</span>))</span><br><span class="line">  ).protocols(httpConf)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>4、然后运行 <code>$GATLING_HOME/bin/gatling.sh</code>，选择 <code>[0] RecordedSimulation</code>，随后的几个选项直接回车即可生成测试结果：</p>
+<p><img src="https://cdn.yangbingdong.com/img/spring-boot-learning/terminal-gatling-test1.jpg" alt=""></p>
+<p><img src="https://cdn.yangbingdong.com/img/spring-boot-learning/terminal-gatling-test2.jpg" alt=""></p>
+<p>注意看上图最下面那一行，就是生成测试结果的入口。</p>
+<p>具体请看官方文档：<em><a href="https://gatling.io/docs/current/quickstart" target="_blank" rel="noopener">https://gatling.io/docs/current/quickstart</a></em></p>
+<h2 id="使用IDEA编写"><a href="#使用IDEA编写" class="headerlink" title="使用IDEA编写"></a>使用IDEA编写</h2><p>1、首先安装Scala插件：</p>
+<p><img src="https://cdn.yangbingdong.com/img/spring-boot-learning/scala-plugin.jpg" alt=""></p>
+<p>2、安装 scala SDK：</p>
+<p><img src="https://cdn.yangbingdong.com/img/spring-boot-learning/add-scala-sdk02.jpg" alt=""></p>
+<p><img src="https://cdn.yangbingdong.com/img/spring-boot-learning/add-scala-sdk01.jpg" alt=""></p>
+<p>3、编写测试脚本</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ApiGatlingSimulationTest</span> <span class="keyword">extends</span> <span class="title">Simulation</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  val scn: ScenarioBuilder = scenario(<span class="string">"AddAndFindPersons"</span>).repeat(<span class="number">100</span>, <span class="string">"n"</span>) &#123;</span><br><span class="line">    exec(</span><br><span class="line">      http(<span class="string">"AddPerson-API"</span>)</span><br><span class="line">        .post(<span class="string">"http://localhost:8080/persons"</span>)</span><br><span class="line">        .header(<span class="string">"Content-Type"</span>, <span class="string">"application/json"</span>)</span><br><span class="line">        .body(StringBody(<span class="string">""</span><span class="string">"&#123;"</span>firstName<span class="string">":"</span>John$&#123;n&#125;<span class="string">","</span>lastName<span class="string">":"</span>Smith$&#123;n&#125;<span class="string">","</span>birthDate<span class="string">":"</span><span class="number">1980</span>-<span class="number">01</span>-<span class="number">01</span><span class="string">", "</span>address<span class="string">": &#123;"</span>country<span class="string">":"</span>pl<span class="string">","</span>city<span class="string">":"</span>Warsaw<span class="string">","</span>street<span class="string">":"</span>Test$&#123;n&#125;<span class="string">","</span>postalCode<span class="string">":"</span><span class="number">02</span>-<span class="number">200</span><span class="string">","</span>houseNo<span class="string">":$&#123;n&#125;&#125;&#125;"</span><span class="string">""</span>))</span><br><span class="line">        .check(status.is(<span class="number">200</span>))</span><br><span class="line">    ).pause(Duration.apply(<span class="number">5</span>, TimeUnit.MILLISECONDS))</span><br><span class="line">  &#125;.repeat(<span class="number">1000</span>, <span class="string">"n"</span>) &#123;</span><br><span class="line">    exec(</span><br><span class="line">      http(<span class="string">"GetPerson-API"</span>)</span><br><span class="line">        .get(<span class="string">"http://localhost:8080/persons/$&#123;n&#125;"</span>)</span><br><span class="line">        .check(status.is(<span class="number">200</span>))</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  setUp(scn.inject(atOnceUsers(<span class="number">30</span>))).maxDuration(FiniteDuration.apply(<span class="number">10</span>, <span class="string">"minutes"</span>))</span><br></pre></td></tr></table></figure>
+<p>4、配置pom</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">gatling-plugin.version</span>&gt;</span>2.2.4<span class="tag">&lt;/<span class="name">gatling-plugin.version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">gatling-charts-highcharts.version</span>&gt;</span>2.3.0<span class="tag">&lt;/<span class="name">gatling-charts-highcharts.version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 性能测试 Gatling --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.gatling.highcharts<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>gatling-charts-highcharts<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;gatling-charts-highcharts.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 由于配置了log4j2，运行Gatling时需要**注释**以下的 exclusions，否则会抛异常，但貌似不影响测试结果 --&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--&lt;exclusions&gt;</span></span><br><span class="line"><span class="comment">            &lt;exclusion&gt;</span></span><br><span class="line"><span class="comment">                &lt;groupId&gt;ch.qos.logback&lt;/groupId&gt;</span></span><br><span class="line"><span class="comment">                &lt;artifactId&gt;logback-classic&lt;/artifactId&gt;</span></span><br><span class="line"><span class="comment">            &lt;/exclusion&gt;</span></span><br><span class="line"><span class="comment">        &lt;/exclusions&gt;--&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- Gatling Maven 插件， 使用： mvn gatling:execute 命令运行 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.gatling<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>gatling-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;gatling-plugin.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!-- 测试脚本 --&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">simulationClass</span>&gt;</span>com.yangbingdong.springbootgatling.gatling.DockerTest<span class="tag">&lt;/<span class="name">simulationClass</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!-- 结果输出地址 --&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">resultsFolder</span>&gt;</span>/home/ybd/test/gatling<span class="tag">&lt;/<span class="name">resultsFolder</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>5、运行 Spring Boot 应用</p>
+<p>6、运行测试</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn gatling:execute</span><br></pre></td></tr></table></figure>
+<p><img src="https://cdn.yangbingdong.com/img/spring-boot-learning/idea-gatling-test.jpg" alt=""></p>
+<p>我们打开结果中的<code>index.html</code>：</p>
+<p><img src="https://cdn.yangbingdong.com/img/spring-boot-learning/gatling-test-result1.jpg" alt=""></p>
+<p><img src="https://cdn.yangbingdong.com/img/spring-boot-learning/gatling-test-result2.jpg" alt=""></p>
+<h2 id="遇到问题"><a href="#遇到问题" class="headerlink" title="遇到问题"></a>遇到问题</h2><p>途中出现了以下错误</p>
+<p><img src="https://cdn.yangbingdong.com/img/spring-boot-learning/gatling-error1.jpg" alt=""></p>
+<p><img src="https://cdn.yangbingdong.com/img/spring-boot-learning/gatling-error2.jpg" alt=""></p>
+<p>这是由于<strong>使用了Log4J2</strong>，把Gatling自带的Logback排除了（同一个项目），把<code>&lt;exclusions&gt;</code>这一段注释掉就没问题了：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.gatling.highcharts<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>gatling-charts-highcharts<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;gatling-charts-highcharts.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 由于配置了log4j2，运行Gatling时需要**注释**以下的 exclusions，否则会抛异常，但貌似不影响测试结果 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>ch.qos.logback<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>logback-classic<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>囧。。。。。。</p>
+<blockquote>
+<p>参考：<em><a href="http://www.spring4all.com/article/584" target="_blank" rel="noopener">http://www.spring4all.com/article/584</a></em></p>
+<p>代码：<em><a href="https://github.com/masteranthoneyd/spring-boot-learning/tree/master/spring-boot-gatling" target="_blank" rel="noopener">https://github.com/masteranthoneyd/spring-boot-learning/tree/master/spring-boot-gatling</a></em></p>
+<p>官方教程：<em><a href="https://gatling.io/docs/current/advanced_tutorial/" target="_blank" rel="noopener">https://gatling.io/docs/current/advanced_tutorial/</a></em></p>
+</blockquote>
+<h1 id="ContPerf"><a href="#ContPerf" class="headerlink" title="ContPerf"></a>ContPerf</h1><p>ContiPerf是一个轻量级的<strong>测试</strong>工具，基于<strong>JUnit</strong>4 开发，可用于<strong>接口</strong>级的<strong>性能测试</strong>，快速压测。</p>
+<p>引入依赖:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 性能测试 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.databene<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>contiperf<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="ContiPerf介绍"><a href="#ContiPerf介绍" class="headerlink" title="ContiPerf介绍"></a>ContiPerf介绍</h2><p>可以指定在线程数量和执行次数，通过限制最大时间和平均执行时间来进行效率测试，一个简单的例子如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ContiPerfTest</span> </span>&#123; </span><br><span class="line">    <span class="meta">@Rule</span> </span><br><span class="line">    <span class="keyword">public</span> ContiPerfRule i = <span class="keyword">new</span> ContiPerfRule(); </span><br><span class="line">   </span><br><span class="line">    <span class="meta">@Test</span> </span><br><span class="line">    <span class="meta">@PerfTest</span>(invocations = <span class="number">1000</span>, threads = <span class="number">40</span>) </span><br><span class="line">    <span class="meta">@Required</span>(max = <span class="number">1200</span>, average = <span class="number">250</span>, totalTime = <span class="number">60000</span>) </span><br><span class="line">    publicvoidtest1() throwsException &#123; </span><br><span class="line">        Thread.sleep(<span class="number">200</span>); </span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用<code>@Rule</code>注释激活ContiPerf，通过<code>@Test</code>指定测试方法，<code>@PerfTest</code>指定调用次数和线程数量，<code>@Required</code>指定性能要求（每次执行的最长时间，平均时间，总时间等）。</p>
+<p>也可以通过对类指定<code>@PerfTest</code>和<code>@Required</code>，表示类中方法的默认设置，如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PerfTest</span>(invocations = <span class="number">1000</span>, threads = <span class="number">40</span>) </span><br><span class="line"><span class="meta">@Required</span>(max = <span class="number">1200</span>, average = <span class="number">250</span>, totalTime = <span class="number">60000</span>) </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ContiPerfTest</span> </span>&#123; </span><br><span class="line">    <span class="meta">@Rule</span> </span><br><span class="line">    <span class="keyword">public</span> ContiPerfRule i = <span class="keyword">new</span> ContiPerfRule(); </span><br><span class="line">   </span><br><span class="line">    <span class="meta">@Test</span> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test1</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123; </span><br><span class="line">        Thread.sleep(<span class="number">200</span>); </span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="主要参数介绍"><a href="#主要参数介绍" class="headerlink" title="主要参数介绍"></a>主要参数介绍</h2><p>1）PerfTest参数</p>
+<p><code>@PerfTest(invocations = 300)</code>：执行300次，和线程数量无关，默认值为1，表示执行1次；</p>
+<p><code>@PerfTest(threads=30)</code>：并发执行30个线程，默认值为1个线程；</p>
+<p><code>@PerfTest(duration = 20000)</code>：重复地执行测试至少执行20s。</p>
+<p>三个属性可以组合使用，其中<code>Threads</code>必须和其他两个属性组合才能生效。当<code>Invocations</code>和<code>Duration</code>都有指定时，以执行次数多的为准。</p>
+<p>　　例，<code>@PerfTest(invocations = 300, threads = 2, duration = 100)</code>，如果执行方法300次的时候执行时间还没到100ms，则继续执行到满足执行时间等于100ms，如果执行到50次的时候已经100ms了，则会继续执行之100次。</p>
+<p>　　如果你不想让测试连续不间断的跑完，可以通过注释设置等待时间，例，<code>@PerfTest(invocations = 1000, threads = 10, timer = RandomTimer.class, timerParams = { 30, 80 })</code> ，每执行完一次会等待30~80ms然后才会执行下一次调用。</p>
+<p>　　在开多线程进行并发压测的时候，如果一下子达到最大进程数有些系统可能会受不了，ContiPerf还提供了“预热”功能，例，<code>@PerfTest(threads = 10, duration = 60000, rampUp = 1000)</code> ，启动时会先起一个线程，然后每个1000ms起一线程，到9000ms时10个线程同时执行，那么这个测试实际执行了69s，如果只想衡量全力压测的结果，那么可以在注释中加入warmUp，即<code>@PerfTest(threads = 10, duration = 60000, rampUp = 1000, warmUp = 9000)</code> ，那么统计结果的时候会去掉预热的9s。</p>
+<p>2）Required参数</p>
+<p><code>@Required(throughput = 20)</code>：要求每秒至少执行20个测试；</p>
+<p><code>@Required(average = 50)</code>：要求平均执行时间不超过50ms；</p>
+<p><code>@Required(median = 45)</code>：要求所有执行的50%不超过45ms； </p>
+<p><code>@Required(max = 2000)</code>：要求没有测试超过2s；</p>
+<p><code>@Required(totalTime = 5000)</code>：要求总的执行时间不超过5s；</p>
+<p><code>@Required(percentile90 = 3000)</code>：要求90%的测试不超过3s；</p>
+<p><code>@Required(percentile95 = 5000)</code>：要求95%的测试不超过5s； </p>
+<p><code>@Required(percentile99 = 10000)</code>：要求99%的测试不超过10s; </p>
+<p><code>@Required(percentiles = &quot;66:200,96:500&quot;)</code>：要求66%的测试不超过200ms，96%的测试不超过500ms。</p>
+<h2 id="测试结果"><a href="#测试结果" class="headerlink" title="测试结果"></a>测试结果</h2><p>测试结果除了会在控制台显示之外，还会生成一个结果文件<code>target/contiperf-report/index.html</code></p>
+<p><img src="https://cdn.yangbingdong.com/img/spring-boot-learning/contiperf-report.jpg" alt=""></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/Spring-Boot/" rel="tag"># Spring Boot</a>
+          
+            <a href="/tags/AssertJ/" rel="tag"># AssertJ</a>
+          
+            <a href="/tags/JMH/" rel="tag"># JMH</a>
+          
+            <a href="/tags/Gatling/" rel="tag"># Gatling</a>
+          
+            <a href="/tags/ContPerf/" rel="tag"># ContPerf</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/12/design-pattern-creational/" rel="next" title="设计模式之创建型(Creational)">
+                <i class="fa fa-chevron-left"></i> 设计模式之创建型(Creational)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/15/distribution-lock/" rel="prev" title="分布式锁的几种实现方式">
+                分布式锁的几种实现方式 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">杨凯</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Preface"><span class="nav-number">1.</span> <span class="nav-text">Preface</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用AssertJ"><span class="nav-number">2.</span> <span class="nav-text">使用AssertJ</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串断言"><span class="nav-number">2.1.</span> <span class="nav-text">字符串断言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数字断言"><span class="nav-number">2.2.</span> <span class="nav-text">数字断言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#时间断言"><span class="nav-number">2.3.</span> <span class="nav-text">时间断言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#集合断言"><span class="nav-number">2.4.</span> <span class="nav-text">集合断言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Map断言"><span class="nav-number">2.5.</span> <span class="nav-text">Map断言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类断言"><span class="nav-number">2.6.</span> <span class="nav-text">类断言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异常断言"><span class="nav-number">2.7.</span> <span class="nav-text">异常断言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件断言"><span class="nav-number">2.8.</span> <span class="nav-text">文件断言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象列表断言"><span class="nav-number">2.9.</span> <span class="nav-text">对象列表断言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#断言添加描述"><span class="nav-number">2.10.</span> <span class="nav-text">断言添加描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#官方例子"><span class="nav-number">2.11.</span> <span class="nav-text">官方例子</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JMH基准测试"><span class="nav-number">3.</span> <span class="nav-text">JMH基准测试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#导入Jar包"><span class="nav-number">3.1.</span> <span class="nav-text">导入Jar包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#例子"><span class="nav-number">3.2.</span> <span class="nav-text">例子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注解分析"><span class="nav-number">3.3.</span> <span class="nav-text">注解分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#BenchmarkMode"><span class="nav-number">3.3.1.</span> <span class="nav-text">@BenchmarkMode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Warmup"><span class="nav-number">3.3.2.</span> <span class="nav-text">@Warmup</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Measurement"><span class="nav-number">3.3.3.</span> <span class="nav-text">@Measurement</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Threads"><span class="nav-number">3.3.4.</span> <span class="nav-text">@Threads</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Fork"><span class="nav-number">3.3.5.</span> <span class="nav-text">@Fork</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Benchmark"><span class="nav-number">3.3.6.</span> <span class="nav-text">@Benchmark</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Param"><span class="nav-number">3.3.7.</span> <span class="nav-text">@Param</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Setup-amp-TearDown"><span class="nav-number">3.3.8.</span> <span class="nav-text">@Setup&amp;@TearDown</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#State"><span class="nav-number">3.3.9.</span> <span class="nav-text">@State</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Group"><span class="nav-number">3.3.10.</span> <span class="nav-text">@Group</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GroupThreads"><span class="nav-number">3.3.11.</span> <span class="nav-text">@GroupThreads</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OutputTimeUnit"><span class="nav-number">3.3.12.</span> <span class="nav-text">@OutputTimeUnit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CompilerControl"><span class="nav-number">3.3.13.</span> <span class="nav-text">@CompilerControl</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#避免JIT优化"><span class="nav-number">3.4.</span> <span class="nav-text">避免JIT优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IDEA插件"><span class="nav-number">3.5.</span> <span class="nav-text">IDEA插件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">3.6.</span> <span class="nav-text">参考</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Gatling性能测试"><span class="nav-number">4.</span> <span class="nav-text">Gatling性能测试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Gatling-简介"><span class="nav-number">4.1.</span> <span class="nav-text">Gatling 简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用Recorder快速开始"><span class="nav-number">4.2.</span> <span class="nav-text">使用Recorder快速开始</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用IDEA编写"><span class="nav-number">4.3.</span> <span class="nav-text">使用IDEA编写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#遇到问题"><span class="nav-number">4.4.</span> <span class="nav-text">遇到问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ContPerf"><span class="nav-number">5.</span> <span class="nav-text">ContPerf</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ContiPerf介绍"><span class="nav-number">5.1.</span> <span class="nav-text">ContiPerf介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主要参数介绍"><span class="nav-number">5.2.</span> <span class="nav-text">主要参数介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试结果"><span class="nav-number">5.3.</span> <span class="nav-text">测试结果</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">杨凯</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

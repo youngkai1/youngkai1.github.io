@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo,Node.js,Github,Coding,Git,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言搭建此博客的动机以及好处在此就不多谈了，之前已经表达过，详情请看Start My Blog Trip — Power By Hexo记录一下搭建的基本过程以及遇到的一些问题，仅供参考= =废话不多说，进入主题">
+<meta name="keywords" content="Hexo,Node.js,Github,Coding,Git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于Hexo+Github+Coding搭建个人博客——基础篇(从菜鸟到放弃)">
+<meta property="og:url" content="http://yoursite.com/2017/01/15/build-blog-hexo-base/index.html">
+<meta property="og:site_name" content="如风过境">
+<meta property="og:description" content="前言搭建此博客的动机以及好处在此就不多谈了，之前已经表达过，详情请看Start My Blog Trip — Power By Hexo记录一下搭建的基本过程以及遇到的一些问题，仅供参考= =废话不多说，进入主题">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/build-hexo/hexoGoverment.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/build-hexo/version.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/build-hexo/git-version.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/build-hexo/buildCmd.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/build-hexo/helloWorld.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/uploadImg.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/build-hexo/copyUrl.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/build-hexo/scheme.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/build-hexo/newRepo.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/build-hexo/createRepo.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/build-hexo/createCoding.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/build-hexo/codingPage.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/build-hexo/githubSSH.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/build-hexo/codingSSH.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/build-hexo/deploy.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/build-hexo/coding-encrypt.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/build-hexo/github-encccrypt.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/build-hexo/green-lock.png">
+<meta property="og:updated_time" content="2018-12-09T10:09:00.019Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基于Hexo+Github+Coding搭建个人博客——基础篇(从菜鸟到放弃)">
+<meta name="twitter:description" content="前言搭建此博客的动机以及好处在此就不多谈了，之前已经表达过，详情请看Start My Blog Trip — Power By Hexo记录一下搭建的基本过程以及遇到的一些问题，仅供参考= =废话不多说，进入主题">
+<meta name="twitter:image" content="https://cdn.yangbingdong.com/img/build-hexo/hexoGoverment.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/01/15/build-blog-hexo-base/">
+
+
+
+
+
+  <title>基于Hexo+Github+Coding搭建个人博客——基础篇(从菜鸟到放弃) | 如风过境</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">如风过境</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/15/build-blog-hexo-base/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="杨凯">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="如风过境">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">基于Hexo+Github+Coding搭建个人博客——基础篇(从菜鸟到放弃)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-15T20:44:05+08:00">
+                2017-01-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hexo/" itemprop="url" rel="index">
+                    <span itemprop="name">Hexo</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="https://cdn.yangbingdong.com/img/build-hexo/hexoGoverment.png" alt=""></p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>搭建此博客的动机以及好处在此就不多谈了，之前已经表达过，详情请看<em><a href="/2017/hello-world/">Start My Blog Trip — Power By Hexo</a></em><br>记录一下搭建的基本过程以及遇到的一些问题，仅供参考<br>= =废话不多说，进入主题<br><a id="more"></a></p>
+<ul>
+<li><p>Hexo博客搭建的基础大致流程为：<br> 安装Node.js →安装Git → 安装Hexo → 安装主题 → 本地测试运行 → 注册给github与coding并创建pages仓库 → 部署</p>
+</li>
+<li><p>这是博主的系统环境与版本:<br>OS: Ubuntu16.04<br>Node.js: 6.2.0<br>Npm: 3.8.9<br>Hexo: 3.2.2<br>主题NexT: 5.1.0<br>Git: 2.7.4</p>
+</li>
+<li><p><strong>对于使用windows的童鞋，可参考文章末尾处的参考链接，步骤大同小异</strong></p>
+</li>
+<li>以下提到的<strong><font color="red">站点配置文件</font></strong>指的是博客文件根目录下的 <code>_config.yml</code>，<strong><font color="red">主题配置文件</font></strong>是主题文件夹下的 <code>_config.yml</code>，童鞋们不要混淆了</li>
+</ul>
+<hr>
+<h1 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h1><blockquote>
+<p>Node.js的安装有很多种方式，<em><a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener">Hexo的官方文档</a></em> 建议是用<em><a href="https://github.com/creationix/nvm" target="_blank" rel="noopener">nvm</a></em> 安装，但好多人都说不行，所以找了另外两种方式安装<br><strong>windows</strong>的童鞋可参考<em><a href="http://www.runoob.com/nodejs/nodejs-install-setup.html" target="_blank" rel="noopener">安装Node.js</a></em></p>
+</blockquote>
+<h2 id="方法一：二进制包直接解压配置"><a href="#方法一：二进制包直接解压配置" class="headerlink" title="方法一：二进制包直接解压配置"></a>方法一：二进制包直接解压配置</h2><p>在node.js的<em><a href="https://nodejs.org/en/" target="_blank" rel="noopener">官网</a></em> 下载二进制包来安装的，下载过后，解压，设置软链接，要不然每次都执行命令都要加上路径，好麻烦<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo ln -s /home/ybd/Data/soft/application/node-v6.2.0-linux-x64/bin/node /usr/local/bin/node</span><br><span class="line"></span><br><span class="line">sudo ln -s /home/ybd/Data/soft/application/node-v6.2.0-linux-x64/bin/npm /usr/local/bin/npm</span><br></pre></td></tr></table></figure></p>
+<p><strong>注意</strong>！源文件要写<strong><font color="red">绝对路径</font></strong>，否则会报错：<strong>链接层数过多</strong>。也可以直接将node可执行文件拷贝到 <code>/usr/local/bin</code> 目录下。</p>
+<p>接下来就可以查看是否成功配置了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">node -v</span><br><span class="line">npm -v</span><br></pre></td></tr></table></figure></p>
+<h2 id="方法二：换源下载"><a href="#方法二：换源下载" class="headerlink" title="方法二：换源下载"></a>方法二：换源下载</h2><p>安装 6.x 版本：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -</span><br><span class="line">sudo apt-get install -y nodejs</span><br></pre></td></tr></table></figure></p>
+<p>安装 8.x 版本：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -</span><br><span class="line">sudo apt-get install -y nodejs</span><br></pre></td></tr></table></figure></p>
+<p>npm 更换淘宝镜像：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config set registry https://registry.npm.taobao.org/</span><br></pre></td></tr></table></figure></p>
+<h2 id="方法三：源文件编译安装"><a href="#方法三：源文件编译安装" class="headerlink" title="方法三：源文件编译安装"></a>方法三：源文件编译安装</h2><p>在安装前，首先需要配置安g++编译器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install build-essential</span><br></pre></td></tr></table></figure></p>
+<p>去<em><a href="https://nodejs.org/en/download/" target="_blank" rel="noopener">官网</a></em> 下载源代码，选择最后一项，Source Code<br>解压到某一目录，然后进入此目录,依次执行以下3条命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./configure</span><br><span class="line">make</span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure></p>
+<p>执行以下命令，检测是否已经装好node.js<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node -v</span><br></pre></td></tr></table></figure></p>
+<p>npm安装，一条命令即可解决<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://npmjs.org/install.sh | sudo sh</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://cdn.yangbingdong.com/img/build-hexo/version.png" alt=""></p>
+<p>博主安装Node.js遇到的问题就是多次安装了不同版本的Node.js，有的是安装在用户变量上，有的是系统变量，所以每次用的时候都要切换到root用户，就算赋权 <code>sudo chmod 777 file</code> 都没有用，所以折腾了很久才把Node.js完全卸载，再重新安装</p>
+<h1 id="安装Git"><a href="#安装Git" class="headerlink" title="安装Git"></a>安装Git</h1><p><strong>Ubuntu</strong>系统下安装Git非常简单，只需一条命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install git</span><br></pre></td></tr></table></figure></p>
+<p><strong>windows</strong>下就直接到<em><a href="https://git-scm.com/download/win" target="_blank" rel="noopener">Git官网</a></em> 下载安装即可</p>
+<p>然后终端执行 <code>git --version</code> 查看是否安装成功<br><img src="https://cdn.yangbingdong.com/img/build-hexo/git-version.png" alt=""></p>
+<h1 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h1><blockquote>
+<p>什么是 Hexo？Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。</p>
+</blockquote>
+<ul>
+<li>所有以上必备的应用程序安装完成后，<strong>无论是在哪个操作系统</strong>，之后的操作都一样</li>
+</ul>
+<p>安装Hexo的非常简单，只要一条命令，前提是安装好Node.js与Git<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>如果npm安装hexo失败，则很有可能是<strong><font color="red">权限</font></strong>问题，或者npm与node的版本不兼容（很少出现）</li>
+</ul>
+<p>如果顺利安装完成，理论上Hexo已经安装完成，但在<strong>Ubuntu</strong>系统中，比较<strong>坑</strong>的地方就是 <code>hexo</code> 命令居然放在了Node.js安装目录的 <code>bin</code> 文件夹下，不能快捷地在终端把命令敲出来，所以还是老规矩，软链接走起<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ln -s /home/ybd/data/application/node-v7.4.0-linux-x64/bin/hexo /usr/local/bin/hexo</span><br></pre></td></tr></table></figure></p>
+<p>到此，Hexo的安装已基本完成，可以先试一下<strong>Hello World</strong>。</p>
+<h1 id="解决Hexo命令fs-SyncWriteStream问题"><a href="#解决Hexo命令fs-SyncWriteStream问题" class="headerlink" title="解决Hexo命令fs.SyncWriteStream问题"></a>解决Hexo命令fs.SyncWriteStream问题</h1><blockquote>
+<p><code>nodejs</code>版本更新到<code>8.0</code>之后，运行<code>hexo</code>相关命令总会出现这么一行鬼东西：<br><code>(node:538) [DEP0061] DeprecationWarning: fs.SyncWriteStream is deprecated.</code><br>虽然不怎么影响大局，当对于强迫症来说是一个<strong>噩梦</strong>！</p>
+</blockquote>
+<p><code>nodejs</code>从<code>8.0</code>开始已经弃用了<code>fs.SyncWriteStream</code>方法，但是某些插件里面还是用到这个方法。查看Hexo项目也有这个一条<a href="https://github.com/hexojs/hexo/issues/2598" target="_blank" rel="noopener">issue</a>，在<code>hexo</code>项目中其中有一个<code>hexo-fs</code>的插件调用了这个方法，所以需要更新<code>hexo-fs</code>插件，更新方法如下：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-fs --save</span><br></pre></td></tr></table></figure></p>
+<p>当然还有一些插件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git@0.3.1 --save</span><br><span class="line">npm install hexo-renderer-ejs@0.3.1 --save</span><br><span class="line">npm install hexo-server@0.2.2 --save</span><br></pre></td></tr></table></figure>
+<p><strong>But</strong>，问题木有得到解决啊！<br><code>hexo</code>命令有个<code>-debug</code>参数，运行命令的时候加上这个参数，可以定位问题：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">ybd@15ffab36a16c:~/blog$ hexo clean --debug</span><br><span class="line">03:01:16.464 DEBUG Hexo version: 3.3.9</span><br><span class="line">03:01:16.467 DEBUG Working directory: ~/blog/</span><br><span class="line">03:01:16.539 DEBUG Config loaded: ~/blog/_config.yml</span><br><span class="line">03:01:16.613 DEBUG Plugin loaded: hexo-admin-qiniu</span><br><span class="line">(node:538) [DEP0061] DeprecationWarning: fs.SyncWriteStream is deprecated.</span><br><span class="line">03:01:16.655 DEBUG Plugin loaded: hexo-algolia</span><br><span class="line">03:01:16.657 DEBUG Plugin loaded: hexo-baidu-url-submit</span><br><span class="line">03:01:16.668 DEBUG Plugin loaded: hexo-deployer-git</span><br><span class="line">03:01:16.672 DEBUG Plugin loaded: hexo-fs</span><br><span class="line">03:01:16.674 DEBUG Plugin loaded: hexo-generator-archive</span><br><span class="line">03:01:16.677 DEBUG Plugin loaded: hexo-generator-baidu-sitemap</span><br><span class="line">03:01:16.678 DEBUG Plugin loaded: hexo-generator-category</span><br><span class="line">03:01:16.680 DEBUG Plugin loaded: hexo-generator-feed</span><br><span class="line">03:01:16.681 DEBUG Plugin loaded: hexo-generator-index</span><br><span class="line">03:01:16.682 DEBUG Plugin loaded: hexo-generator-tag</span><br><span class="line">03:01:16.826 DEBUG Plugin loaded: hexo-inject</span><br><span class="line">03:01:16.828 DEBUG Plugin loaded: hexo-renderer-ejs</span><br><span class="line">03:01:16.829 DEBUG Plugin loaded: hexo-generator-sitemap</span><br><span class="line">03:01:16.834 DEBUG Plugin loaded: hexo-renderer-marked</span><br><span class="line">03:01:16.836 DEBUG Plugin loaded: hexo-renderer-stylus</span><br><span class="line">03:01:16.881 DEBUG Plugin loaded: hexo-server</span><br><span class="line">03:01:16.912 DEBUG Plugin loaded: hexo-wordcount</span><br><span class="line">03:01:16.943 DEBUG Plugin loaded: hexo-reference</span><br><span class="line">03:01:16.946 DEBUG Script loaded: themes/next/scripts/merge-configs.js</span><br><span class="line">03:01:16.947 DEBUG Script loaded: themes/next/scripts/tags/button.js</span><br><span class="line">03:01:16.947 DEBUG Script loaded: themes/next/scripts/tags/center-quote.js</span><br><span class="line">03:01:16.947 DEBUG Script loaded: themes/next/scripts/tags/full-image.js</span><br><span class="line">03:01:16.947 DEBUG Script loaded: themes/next/scripts/tags/note.js</span><br><span class="line">03:01:16.948 DEBUG Script loaded: themes/next/scripts/tags/group-pictures.js</span><br><span class="line">03:01:16.949 DEBUG [hexo-inject] firing inject_ready</span><br><span class="line">03:01:16.951 INFO  Deleted database.</span><br><span class="line">03:01:16.956 DEBUG Database saved</span><br></pre></td></tr></table></figure>
+<p>发现问题在<code>hexo-admin-qiniu</code>这个插件=.=</p>
+<p>貌似也没怎么用这个插件，那么就删掉吧：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmp uninstall hexo-admin-qiniu --save</span><br></pre></td></tr></table></figure></p>
+<p>那个报错终于消失啦～～～</p>
+<h1 id="本地启动Hello-World与Hexo简单使用"><a href="#本地启动Hello-World与Hexo简单使用" class="headerlink" title="本地启动Hello World与Hexo简单使用"></a>本地启动Hello World与Hexo简单使用</h1><h2 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h2><p>随便建一个文件夹，名字随便取，博主取其名为blog，<code>cd</code> 到文件夹里，先安装必要的文件，执行以下命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo init  # hexo会在目标文件夹建立网站所需要的所有文件</span><br><span class="line">npm install  # 安装依赖包</span><br></pre></td></tr></table></figure></p>
+<h2 id="本地启动"><a href="#本地启动" class="headerlink" title="本地启动"></a>本地启动</h2><p>有了必要的各种配置文件之后就可以在本地预览效果了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo g # 等同于hexo generate，生成静态文件</span><br><span class="line">hexo s # 等同于hexo server，在本地服务器运行</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://cdn.yangbingdong.com/img/build-hexo/buildCmd.png" alt=""><br>之后打开浏览器并输入IP地址 <code>http://localhost:4000/</code> 查看，效果如下<br><img src="https://cdn.yangbingdong.com/img/build-hexo/helloWorld.png" alt=""></p>
+<h2 id="新建文章与页面"><a href="#新建文章与页面" class="headerlink" title="新建文章与页面"></a>新建文章与页面</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo new &quot;title&quot;  # 生成新文章：\source\_posts\title.md</span><br><span class="line">hexo new page &quot;title&quot;  # 生成新的页面，后面可在主题配置文件中配置页面</span><br></pre></td></tr></table></figure>
+<ul>
+<li>生成文章或页面的模板放在博客文件夹根目录下的 <code>scaffolds/</code> 文件夹里面，文章对应的是 <code>post.md</code> ，页面对应的是<code>page.md</code>，草稿的是<code>draft.md</code></li>
+</ul>
+<h2 id="编辑文章"><a href="#编辑文章" class="headerlink" title="编辑文章"></a>编辑文章</h2><p>打开新建的文章<code>\source\_posts\postName.md</code>，其中<code>postName</code>是<code>hexo new &quot;title&quot;</code>中的<code>title</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">title: Start My Blog Trip — Power By Hexo  # 文章页面上的显示名称，可以任意修改，不会出现在URL中</span><br><span class="line">date: 2017-01-10 23:49:28  # 文章生成时间，一般不改</span><br><span class="line">categories: diary  # 文章分类目录，多个分类使用[a,b,c]这种格式</span><br><span class="line">tags: [Hexo,diary]  # 文章标签</span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">#这里开始使用markdown格式输入你的正文。</span><br><span class="line"></span><br><span class="line">&lt;!--more--&gt; </span><br><span class="line">#more标签以下的内容要点击“阅读全文”才能看见</span><br></pre></td></tr></table></figure></p>
+<h2 id="插入图片"><a href="#插入图片" class="headerlink" title="插入图片"></a>插入图片</h2><p><strong>插入图片有三种方式</strong></p>
+<h3 id="方式一"><a href="#方式一" class="headerlink" title="方式一"></a>方式一</h3><p>在博客根目录的 <code>source</code> 文件夹下新建一个 <code>img</code> 文件夹专门存放图片，在博文中引用的<strong>图片路径</strong>为 <code>/img/图片名.后缀</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![](图片路径)</span><br></pre></td></tr></table></figure>
+<h3 id="方式二"><a href="#方式二" class="headerlink" title="方式二"></a>方式二</h3><p>对于那些想要更有规律地提供图片和其他资源以及想要将他们的资源分布在各个文章上的人来说，Hexo也提供了更组织化的方式来管理资源，将<strong>站点配置文件</strong>中的 <code>post_asset_folder</code> 选项设为 <code>true</code> 来打开文章资源文件夹</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">post_asset_folder: true</span><br></pre></td></tr></table></figure>
+<p>然后再博文中通过相对路径引用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% asset_img 图片文件名 %&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="方式三"><a href="#方式三" class="headerlink" title="方式三"></a>方式三</h3><p>使用<em><a href="http://www.qiniu.com/" target="_blank" rel="noopener">七牛云储存</a></em>，因为Github跟Coding项目容量有限，而且Github的主机在国外，访问速度较慢，把图片放在国内的图床上是个更好的选择，免费用户实名审核之后，新建空间，专门用来放置博客上引用的资源，进入空间后点击「内容管理」，再点击「上传」<br><img src="https://cdn.yangbingdong.com/uploadImg.png" alt=""></p>
+<p>上传完成之后点击关闭回到管理页面，选中刚上传的图片，最右边的操作点击复制链接即可<br><img src="https://cdn.yangbingdong.com/img/build-hexo/copyUrl.png" alt=""><br>然后在博文中通过地址引用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![](图片地址如：https://cdn.yangbingdong.com/img/build-hexo/copyUrl.png)</span><br></pre></td></tr></table></figure></p>
+<h2 id="简单的命令"><a href="#简单的命令" class="headerlink" title="简单的命令"></a>简单的命令</h2><p>总结一下简单的使用命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">hexo init [folder] # 初始化一个网站。如果没有设置 folder ，Hexo 默认在目前的文件夹建立网站</span><br><span class="line">hexo new [layout] &lt;title&gt; # 新建一篇文章。如果没有设置 layout 的话，默认使用 _config.yml 中的 default_layout 参数代替。如果标题包含空格的话，请使用引号括起来</span><br><span class="line">hexo version # 查看版本</span><br><span class="line">hexo clean # 清除缓存文件 (db.json) 和已生成的静态文件 (public)</span><br><span class="line">hexo g # 等于hexo generate # 生成静态文件</span><br><span class="line">hexo s # 等于hexo server # 本地预览</span><br><span class="line">hexo d # 等于hexo deploy # 部署，可与hexo g合并为 hexo d -g</span><br></pre></td></tr></table></figure></p>
+<h1 id="安装主题（以NexT为例）"><a href="#安装主题（以NexT为例）" class="headerlink" title="安装主题（以NexT为例）"></a>安装主题（以NexT为例）</h1><p>更多主题请看<strong><em><a href="https://www.zhihu.com/question/24422335" target="_blank" rel="noopener">知乎专栏</a></em></strong><br><img src="https://cdn.yangbingdong.com/img/build-hexo/scheme.png" alt=""></p>
+<h2 id="复制主题"><a href="#复制主题" class="headerlink" title="复制主题"></a>复制主题</h2><p>Hexo 安装主题的方式非常简单，只需要将主题文件拷贝至站点目录的 <code>themes</code> 目录下， 然后修改下配置文件即可<br>在这我们使用git克隆最新版<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd your-hexo-site</span><br><span class="line">git clone https://github.com/iissnan/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure></p>
+<h2 id="启用主题"><a href="#启用主题" class="headerlink" title="启用主题"></a>启用主题</h2><p>打开<strong>站点配置文件</strong>， 找到 theme 字段，并将其值更改为 next<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">theme: next</span><br></pre></td></tr></table></figure></p>
+<p>然后 <code>hexo s</code> 即可预览主题效果</p>
+<h2 id="更换主题外观"><a href="#更换主题外观" class="headerlink" title="更换主题外观"></a>更换主题外观</h2><p>NexT有三个外观，博主用的是 <code>Muse</code>，直接更改<strong>主题配置文件</strong>的 <code>scheme</code> 参数即可，如果显示的是繁体中文，那么<strong>站点配置文件</strong>中的 <code>language: zh-CN</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">scheme: Muse</span><br><span class="line">#scheme: Mist</span><br><span class="line">#scheme: Pisces</span><br></pre></td></tr></table></figure></p>
+<p>在次执行 <code>hexo clean</code> 和 <code>heox s</code> 可预览效果<br><strong>大部分的设定都能在<em><a href="http://theme-next.iissnan.com/getting-started.html" target="_blank" rel="noopener">NexT的官方文档</a></em> 里面找到，如侧栏、头像、打赏、评论等等，在此就不多讲了，照着文档走就行了，接下只是个性定制的问题</strong></p>
+<h1 id="注册Github和Coding并分别创建Pages"><a href="#注册Github和Coding并分别创建Pages" class="headerlink" title="注册Github和Coding并分别创建Pages"></a>注册Github和Coding并分别创建Pages</h1><p>在本地运行没有问题的话，那么可以部署到外网去，在此之前，先得有服务器让你的项目可以托管，那么Github Page与Coding Page就是个很好的东西，它们可以让我们访问<strong>静态文件</strong>，而Hexo生成的恰恰是静态文件<br>具体请查看 <em><a href="https://coding.net/help/doc/pages/index.html" target="_blank" rel="noopener">Coding Page</a></em> 、 <em><a href="https://pages.github.com/" target="_blank" rel="noopener">Github Page</a></em></p>
+<p>那为什么要注册两个网站呢？因为Github是国外的服务器，访问速度比较慢，而Coding是国内的，速度相对来说比较快，在后面<strong>DNS解析</strong>的时候可以把国内的解析到Coding，国外的解析到Github，完美</p>
+<h2 id="GitHub"><a href="#GitHub" class="headerlink" title="GitHub"></a>GitHub</h2><h3 id="注册Github帐号"><a href="#注册Github帐号" class="headerlink" title="注册Github帐号"></a>注册Github帐号</h3><p>进入<em><a href="https://github.com/" target="_blank" rel="noopener">Github</a></em> 首页进行注册，用户名、邮箱和密码之后都需要用到，自己记好，不知道怎么注册的童鞋去问问度娘</p>
+<h3 id="创建Repository-Github-Pages"><a href="#创建Repository-Github-Pages" class="headerlink" title="创建Repository(Github Pages)"></a>创建Repository(Github Pages)</h3><p>Repository相当于一个仓库，用来放置你的代码文件。首先，登陆进入<em><a href="https://github.com/" target="_blank" rel="noopener">Github</a></em>，选择首页中的 <code>New repository</code> 按钮<br><img src="https://cdn.yangbingdong.com/img/build-hexo/newRepo.png" alt=""><br>创建时，只需要填写Repository name即可，可以顺便创建README文件，就是红色那个钩，当然这个名字的格式必须为<code>{user_name}.github.io</code>，其中<code>{user_name}</code><strong>必须</strong>与你的用户名一样，这是github pages的<strong>特殊命名规范</strong>，如下图请忽视红色警告，那是因为博主已经有了一个pages项目<br><img src="https://cdn.yangbingdong.com/img/build-hexo/createRepo.png" alt=""></p>
+<h2 id="Coding"><a href="#Coding" class="headerlink" title="Coding"></a>Coding</h2><h3 id="注册Coding帐号"><a href="#注册Coding帐号" class="headerlink" title="注册Coding帐号"></a>注册Coding帐号</h3><p>国内的网站，绝大部分都是中文的，注册什么的就不说了,进入<em><a href="https://coding.net" target="_blank" rel="noopener">Coding</a></em> 滚键盘就是了= =</p>
+<h3 id="创建项目-Coding-Pages"><a href="#创建项目-Coding-Pages" class="headerlink" title="创建项目(Coding Pages)"></a>创建项目(Coding Pages)</h3><p>Coding Pages请看 <em><a href="https://coding.net/help/doc/pages/index.html" target="_blank" rel="noopener">Coding Pages</a></em><br>注册之后进入主页，点击项目，点击<strong>+</strong>，项目名为你的用户名<br><img src="https://cdn.yangbingdong.com/img/build-hexo/createCoding.png" alt=""><br>查看Pages 服务是否开启：点击项目 -&gt; 代码 -&gt; Pages 服务，若没有开启则点开启<br><img src="https://cdn.yangbingdong.com/img/build-hexo/codingPage.png" alt=""></p>
+<h1 id="配置SSH与Git"><a href="#配置SSH与Git" class="headerlink" title="配置SSH与Git"></a>配置SSH与Git</h1><p>那么我们有了两个免费的服务器之后，就要绑定个人电脑与它们联系，那就是<strong>SSH</strong>与<strong>Git</strong><br>绑定之后我们每次部署项目就不用输入帐号和密码</p>
+<h2 id="生成SSH-Key"><a href="#生成SSH-Key" class="headerlink" title="生成SSH Key"></a>生成SSH Key</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C your_email@youremail.com</span><br></pre></td></tr></table></figure>
+<p>后面的 <a href="mailto:`your_email@youremail.com" target="_blank" rel="noopener">`your_email@youremail.com</a><code>改为你的邮箱，之后会要求确认路径和输入密码，我们这使用默认的一路回车就行。成功的话会在~/下生成</code>.ssh<code>文件夹，进去，打开</code>id_rsa.pub`，复制里面的key，粗暴点就是 Ctrl+a 然后 Ctrl+c</p>
+<h2 id="添加SSH-Key"><a href="#添加SSH-Key" class="headerlink" title="添加SSH Key"></a>添加SSH Key</h2><p>首先是Github，登录Github，右上角 头像 -&gt; <code>Settings</code> —&gt; <code>SSH nd GPG keys</code> —&gt; <code>New SSH key</code> 。把公钥粘贴到key中，填好title并点击 <code>Add SSH key</code><br><img src="https://cdn.yangbingdong.com/img/build-hexo/githubSSH.png" alt=""></p>
+<p>至于Coding，登录进入主页，点击 <code>账户</code> —&gt; <code>SSH公钥</code> —&gt; 输入key再点击 <code>添加</code><br><img src="https://cdn.yangbingdong.com/img/build-hexo/codingSSH.png" alt=""></p>
+<h2 id="验证成功与否"><a href="#验证成功与否" class="headerlink" title="验证成功与否"></a>验证成功与否</h2><p>验证github<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure></p>
+<p>如果是第一次的会提示是否continue，输入<strong><font color="red">yes</font></strong>就会看到：You’ve successfully authenticated, but GitHub does not provide shell access 。这就表示已成功连上github!之前博主就是因为没有输入<strong>yes</strong>，导致几次失败，粗心地一路回车= =<br>验证coding<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@git.coding.net</span><br></pre></td></tr></table></figure></p>
+<p>同上，按<strong>yes</strong><br>接下来我们要做的就是把本地仓库传到github上去，在此之前还需要设置username和email，因为github每次commit都会记录他们<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name your name</span><br><span class="line">git config --global user.email your_email@youremail.com</span><br></pre></td></tr></table></figure></p>
+<p>关于git可参考：<br><em><a href="http://blog.csdn.net/v123411739/article/details/44071059/" target="_blank" rel="noopener">史上最全github使用方法：github入门到精通</a></em><br><em><a href="/2017/note-of-learning-git/">Git学习笔记</a></em></p>
+<h1 id="部署到Github与Coding"><a href="#部署到Github与Coding" class="headerlink" title="部署到Github与Coding"></a>部署到Github与Coding</h1><p>在此之前，先安装<strong>Git部署插件</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure></p>
+<p>打<strong>开站点配置文件</strong>，拉到底部，修改部署配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># Deployment</span><br><span class="line">## Docs: https://hexo.io/docs/deployment.html</span><br><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo:</span><br><span class="line">    github: git@github.com:masteranthoneyd/masteranthoneyd.github.io.git,master</span><br><span class="line">    coding: git@git.coding.net:ookamiantd/ookamiantd.git,master</span><br></pre></td></tr></table></figure></p>
+<p>注意冒号后面是网站对应的用户名，接着就是<strong>/</strong>，然后再是你的项目名加上 <code>.git,master</code><br>保存后终端执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure></p>
+<p>稍等片刻，可能会由于环境、网络等原因，部署的时间会有偏差，有的人快有的慢<br><img src="https://cdn.yangbingdong.com/img/build-hexo/deploy.png" alt=""><br>部署完成后可在浏览器输入 <code>yourName.github.io</code> 或者 <code>yourName.coding.me</code> 都可以浏览到一个属于自己的博客了 ～</p>
+<h1 id="绑定自定义域名开启Https"><a href="#绑定自定义域名开启Https" class="headerlink" title="绑定自定义域名开启Https"></a>绑定自定义域名开启Https</h1><ol>
+<li>首先你需要一个域名，这个就不说了，可以去万网</li>
+<li>分别对Coding以及Github解析</li>
+</ol>
+<h2 id="Coding-1"><a href="#Coding-1" class="headerlink" title="Coding"></a>Coding</h2><p>在代码中找到Pages服务：</p>
+<p><img src="https://cdn.yangbingdong.com/img/build-hexo/coding-encrypt.png" alt=""></p>
+<p>要注意的是需要<strong>按照提示添加CHAME记录</strong>，比如博主的是<code>ookamiantd.coding.me</code>，检验成功后才可绑定成功。</p>
+<h2 id="Github"><a href="#Github" class="headerlink" title="Github"></a>Github</h2><ul>
+<li>跟Coding一样，需要添加CHAME记录，记录值为对应的Pages域名，比如博主的是<code>masteranthoneyd.github.io</code></li>
+<li>除此之外还需要在网站根目录添加一个CHAME文件，内容为你的自定义域名</li>
+</ul>
+<p><img src="https://cdn.yangbingdong.com/img/build-hexo/github-encccrypt.png" alt=""></p>
+<p>效果图：</p>
+<p><img src="https://cdn.yangbingdong.com/img/build-hexo/green-lock.png" alt=""></p>
+<p>至此，境内外的小绿锁都开启了。</p>
+<p>当然，如果站内有部分资源不是https方式（比如图片），锁就绿不起来了。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>最后用拙劣的语言总结一下博主搭建Hexo博客的体会，六个字：简洁但，不简单。<br>再六个字，正如NexT官方说的：精于心，简于形<br>= =貌似这个博客也不怎么简洁，有点花俏，装X嫌疑<br>但无论怎样，折腾这个博客让我受益匪浅，正如之前听到的一句名言，忘了谁说的：不努力试一把，又怎么会知道绝望…好像很有道理，绝望中寻找光芒，绝处逢生…嘿嘿嘿</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><blockquote>
+<p><strong><em><a href="http://opiece.me/2015/04/09/hexo-guide/" target="_blank" rel="noopener">使用Hexo搭建个人博客(基于hexo3.0) </a></em></strong><br><strong><em><a href="http://codepub.cn/2015/04/06/Github-Pages-personal-blog-from-Octopress-to-Hexo/#" target="_blank" rel="noopener">Github Pages个人博客，从Octopress转向Hexo</a></em></strong><br><strong><em><a href="http://lovenight.github.io/2015/11/10/Hexo-3-1-1-%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E6%8C%87%E5%8D%97/" target="_blank" rel="noopener">Hexo 3.1.1 静态博客搭建指南</a></em></strong><br><strong><em><a href="https://hexo.io/zh-cn/" target="_blank" rel="noopener">Hexo官方文档</a></em></strong><br><strong><em><a href="http://theme-next.iissnan.com/getting-started.html" target="_blank" rel="noopener">NexT官方文档</a></em></strong></p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Hexo/" rel="tag"># Hexo</a>
+          
+            <a href="/tags/Node-js/" rel="tag"># Node.js</a>
+          
+            <a href="/tags/Github/" rel="tag"># Github</a>
+          
+            <a href="/tags/Coding/" rel="tag"># Coding</a>
+          
+            <a href="/tags/Git/" rel="tag"># Git</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/12/ubuntu-todo-after-install/" rel="next" title="Ubuntu主题美化、个性化设置与常用软件">
+                <i class="fa fa-chevron-left"></i> Ubuntu主题美化、个性化设置与常用软件
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/01/18/note-of-learning-git/" rel="prev" title="Git学习笔记">
+                Git学习笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">杨凯</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装Node-js"><span class="nav-number">2.</span> <span class="nav-text">安装Node.js</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#方法一：二进制包直接解压配置"><span class="nav-number">2.1.</span> <span class="nav-text">方法一：二进制包直接解压配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法二：换源下载"><span class="nav-number">2.2.</span> <span class="nav-text">方法二：换源下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法三：源文件编译安装"><span class="nav-number">2.3.</span> <span class="nav-text">方法三：源文件编译安装</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装Git"><span class="nav-number">3.</span> <span class="nav-text">安装Git</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装Hexo"><span class="nav-number">4.</span> <span class="nav-text">安装Hexo</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解决Hexo命令fs-SyncWriteStream问题"><span class="nav-number">5.</span> <span class="nav-text">解决Hexo命令fs.SyncWriteStream问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#本地启动Hello-World与Hexo简单使用"><span class="nav-number">6.</span> <span class="nav-text">本地启动Hello World与Hexo简单使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#初始化"><span class="nav-number">6.1.</span> <span class="nav-text">初始化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本地启动"><span class="nav-number">6.2.</span> <span class="nav-text">本地启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#新建文章与页面"><span class="nav-number">6.3.</span> <span class="nav-text">新建文章与页面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编辑文章"><span class="nav-number">6.4.</span> <span class="nav-text">编辑文章</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#插入图片"><span class="nav-number">6.5.</span> <span class="nav-text">插入图片</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#方式一"><span class="nav-number">6.5.1.</span> <span class="nav-text">方式一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方式二"><span class="nav-number">6.5.2.</span> <span class="nav-text">方式二</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方式三"><span class="nav-number">6.5.3.</span> <span class="nav-text">方式三</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简单的命令"><span class="nav-number">6.6.</span> <span class="nav-text">简单的命令</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装主题（以NexT为例）"><span class="nav-number">7.</span> <span class="nav-text">安装主题（以NexT为例）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#复制主题"><span class="nav-number">7.1.</span> <span class="nav-text">复制主题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启用主题"><span class="nav-number">7.2.</span> <span class="nav-text">启用主题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更换主题外观"><span class="nav-number">7.3.</span> <span class="nav-text">更换主题外观</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注册Github和Coding并分别创建Pages"><span class="nav-number">8.</span> <span class="nav-text">注册Github和Coding并分别创建Pages</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#GitHub"><span class="nav-number">8.1.</span> <span class="nav-text">GitHub</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#注册Github帐号"><span class="nav-number">8.1.1.</span> <span class="nav-text">注册Github帐号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建Repository-Github-Pages"><span class="nav-number">8.1.2.</span> <span class="nav-text">创建Repository(Github Pages)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Coding"><span class="nav-number">8.2.</span> <span class="nav-text">Coding</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#注册Coding帐号"><span class="nav-number">8.2.1.</span> <span class="nav-text">注册Coding帐号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建项目-Coding-Pages"><span class="nav-number">8.2.2.</span> <span class="nav-text">创建项目(Coding Pages)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置SSH与Git"><span class="nav-number">9.</span> <span class="nav-text">配置SSH与Git</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#生成SSH-Key"><span class="nav-number">9.1.</span> <span class="nav-text">生成SSH Key</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加SSH-Key"><span class="nav-number">9.2.</span> <span class="nav-text">添加SSH Key</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#验证成功与否"><span class="nav-number">9.3.</span> <span class="nav-text">验证成功与否</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#部署到Github与Coding"><span class="nav-number">10.</span> <span class="nav-text">部署到Github与Coding</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#绑定自定义域名开启Https"><span class="nav-number">11.</span> <span class="nav-text">绑定自定义域名开启Https</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Coding-1"><span class="nav-number">11.1.</span> <span class="nav-text">Coding</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Github"><span class="nav-number">11.2.</span> <span class="nav-text">Github</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">12.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">13.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">杨凯</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

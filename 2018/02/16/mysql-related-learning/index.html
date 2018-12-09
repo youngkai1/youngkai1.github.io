@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="MySQL,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Preface MySQL是什么就多说了。。。">
+<meta name="keywords" content="MySQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL杂记">
+<meta property="og:url" content="http://yoursite.com/2018/02/16/mysql-related-learning/index.html">
+<meta property="og:site_name" content="如风过境">
+<meta property="og:description" content="Preface MySQL是什么就多说了。。。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/mysql-related-learning/MySQL.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/mysql-related-learning/mysql-warning.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/mysql-related-learning/mycli.gif">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/javaDevEnv/navicat12.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/mysql-related-learning/MySQL%20Workbench_001.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/mysql-related-learning/idx-explain01.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/mysql-related-learning/idx-explain02.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/mysql-related-learning/idx-explain03.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/mysql-related-learning/idx-explain04.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/mysql-related-learning/idx-explain05.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/mysql-related-learning/idx-explain07.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/mysql-related-learning/idx-explain06.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/mysql-related-learning/idx-explain08.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/mysql-related-learning/idx-explain09.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/mysql-related-learning/idx-explain10.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/mysql-related-learning/idx-explain11.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/mysql-related-learning/mysql-engine01.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/mysql-related-learning/mysql-engine02.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/mysql-related-learning/mysql-engine03.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/mysql-related-learning/mysql-engine04.png">
+<meta property="og:updated_time" content="2018-12-09T10:09:00.043Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MySQL杂记">
+<meta name="twitter:description" content="Preface MySQL是什么就多说了。。。">
+<meta name="twitter:image" content="https://cdn.yangbingdong.com/img/mysql-related-learning/MySQL.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/02/16/mysql-related-learning/">
+
+
+
+
+
+  <title>MySQL杂记 | 如风过境</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">如风过境</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/16/mysql-related-learning/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="杨凯">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="如风过境">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">MySQL杂记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-16T15:16:18+08:00">
+                2018-02-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/MySQL/" itemprop="url" rel="index">
+                    <span itemprop="name">MySQL</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="https://cdn.yangbingdong.com/img/mysql-related-learning/MySQL.png" alt=""></p>
+<h1 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h1><blockquote>
+<p>MySQL是什么就多说了。。。</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><h2 id="传统安装"><a href="#传统安装" class="headerlink" title="传统安装"></a>传统安装</h2><p>请见<a href="/2017/ubuntu-dev-environment-to-build/#%E5%AE%89%E8%A3%85MySQL%E4%BB%A5%E5%8F%8AGUI%E5%B7%A5%E5%85%B7"><em>博主之前的一篇博文</em></a></p>
+<h2 id="Docker版安装"><a href="#Docker版安装" class="headerlink" title="Docker版安装"></a>Docker版安装</h2><p>直接贴出<code>docker-compose.yml</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">version: &apos;3.5&apos;</span><br><span class="line"></span><br><span class="line">services:</span><br><span class="line">  mysql:</span><br><span class="line">    image: mysql:latest</span><br><span class="line">    container_name: mysql</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;3306:3306&quot;</span><br><span class="line">    volumes:</span><br><span class="line">      - ../data:/var/lib/mysql</span><br><span class="line">      - ../conf:/etc/mysql/conf.d</span><br><span class="line">    environment:</span><br><span class="line">      - MYSQL_ROOT_PASSWORD=root</span><br><span class="line">    restart: always</span><br><span class="line">    networks:</span><br><span class="line">      - backend</span><br><span class="line"></span><br><span class="line">networks:</span><br><span class="line">  backend:</span><br><span class="line">    external: true</span><br></pre></td></tr></table></figure>
+<p>配置文件（<code>config-file.cnf</code>，放在上面<code>volumes</code>中提到的<code>../conf</code>里）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[mysqld]</span><br><span class="line"></span><br><span class="line">sql_mode = STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION</span><br><span class="line">lower_case_table_names = 1</span><br><span class="line">character-set-server = utf8mb4</span><br><span class="line">collation-server = utf8mb4_unicode_ci</span><br></pre></td></tr></table></figure>
+<h2 id="遇到问题"><a href="#遇到问题" class="headerlink" title="遇到问题"></a>遇到问题</h2><p>虽然启动成功，但发现MySQL实例是关闭的，在启动日志中发现这一条信息</p>
+<p><img src="https://cdn.yangbingdong.com/img/mysql-related-learning/mysql-warning.png" alt=""></p>
+<p>大概意思是<strong>权限全局可写</strong>，任何一个用户都可以写。MySQL担心这种文件<strong>被其他用户恶意修改</strong>，所以<strong>忽略</strong>掉这个配置文件。</p>
+<p>结论：<strong>配置文件权限过大，会影响实例不能启动，或者不能关闭，需要修改为 644</strong></p>
+<p>问题得以解决~！</p>
+<h1 id="客户端以及GUI"><a href="#客户端以及GUI" class="headerlink" title="客户端以及GUI"></a>客户端以及GUI</h1><h2 id="传统终端客户端"><a href="#传统终端客户端" class="headerlink" title="传统终端客户端"></a>传统终端客户端</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install mysql-client</span><br><span class="line"></span><br><span class="line">// 链接</span><br><span class="line">mysql -h 127.0.0.1 -P 3306 -u root -p</span><br></pre></td></tr></table></figure>
+<h2 id="智能补全命令客户端"><a href="#智能补全命令客户端" class="headerlink" title="智能补全命令客户端"></a>智能补全命令客户端</h2><p>这个一个智能补全并且高亮语法的终端客户端 <strong><em><a href="https://github.com/dbcli/mycli" target="_blank" rel="noopener">mycli</a></em></strong></p>
+<p><img src="https://cdn.yangbingdong.com/img/mysql-related-learning/mycli.gif" alt=""></p>
+<p>安装：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install mycli</span><br></pre></td></tr></table></figure>
+<p>使用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">$ mycli --help</span><br><span class="line">Usage: mycli [OPTIONS] [DATABASE]</span><br><span class="line"></span><br><span class="line">  A MySQL terminal client with auto-completion and syntax highlighting.</span><br><span class="line"></span><br><span class="line">  Examples:</span><br><span class="line">    - mycli my_database</span><br><span class="line">    - mycli -u my_user -h my_host.com my_database</span><br><span class="line">    - mycli mysql://my_user@my_host.com:3306/my_database</span><br><span class="line"></span><br><span class="line">Options:</span><br><span class="line">  -h, --host TEXT               Host address of the database.</span><br><span class="line">  -P, --port INTEGER            Port number to use for connection. Honors</span><br><span class="line">                                $MYSQL_TCP_PORT.</span><br><span class="line">  -u, --user TEXT               User name to connect to the database.</span><br><span class="line">  -S, --socket TEXT             The socket file to use for connection.</span><br><span class="line">  -p, --password TEXT           Password to connect to the database.</span><br><span class="line">  --pass TEXT                   Password to connect to the database.</span><br><span class="line">  --ssl-ca PATH                 CA file in PEM format.</span><br><span class="line">  --ssl-capath TEXT             CA directory.</span><br><span class="line">  --ssl-cert PATH               X509 cert in PEM format.</span><br><span class="line">  --ssl-key PATH                X509 key in PEM format.</span><br><span class="line">  --ssl-cipher TEXT             SSL cipher to use.</span><br><span class="line">  --ssl-verify-server-cert      Verify server&apos;s &quot;Common Name&quot; in its cert</span><br><span class="line">                                against hostname used when connecting. This</span><br><span class="line">                                option is disabled by default.</span><br><span class="line">  -v, --version                 Output mycli&apos;s version.</span><br><span class="line">  -D, --database TEXT           Database to use.</span><br><span class="line">  -R, --prompt TEXT             Prompt format (Default: &quot;\t \u@\h:\d&gt; &quot;).</span><br><span class="line">  -l, --logfile FILENAME        Log every query and its results to a file.</span><br><span class="line">  --defaults-group-suffix TEXT  Read MySQL config groups with the specified</span><br><span class="line">                                suffix.</span><br><span class="line">  --defaults-file PATH          Only read MySQL options from the given file.</span><br><span class="line">  --myclirc PATH                Location of myclirc file.</span><br><span class="line">  --auto-vertical-output        Automatically switch to vertical output mode</span><br><span class="line">                                if the result is wider than the terminal</span><br><span class="line">                                width.</span><br><span class="line">  -t, --table                   Display batch output in table format.</span><br><span class="line">  --csv                         Display batch output in CSV format.</span><br><span class="line">  --warn / --no-warn            Warn before running a destructive query.</span><br><span class="line">  --local-infile BOOLEAN        Enable/disable LOAD DATA LOCAL INFILE.</span><br><span class="line">  --login-path TEXT             Read this path from the login file.</span><br><span class="line">  -e, --execute TEXT            Execute command and quit.</span><br><span class="line">  --help                        Show this message and exit.</span><br></pre></td></tr></table></figure>
+<h2 id="Navicat-Premium"><a href="#Navicat-Premium" class="headerlink" title="Navicat Premium"></a>Navicat Premium</h2><p>安装以及破解在<strong><em><a href="/2017/ubuntu-dev-environment-to-build/#Navicat-Premium">另一篇博文</a></em></strong>里面。</p>
+<p><img src="https://cdn.yangbingdong.com/img/javaDevEnv/navicat12.png" alt=""></p>
+<h2 id="Workbench"><a href="#Workbench" class="headerlink" title="Workbench"></a>Workbench</h2><p>MySQL官方开源GUI</p>
+<p>下载地址：<strong><em><a href="https://dev.mysql.com/downloads/workbench/" target="_blank" rel="noopener">https://dev.mysql.com/downloads/workbench/</a></em></strong></p>
+<p><img src="https://cdn.yangbingdong.com/img/mysql-related-learning/MySQL%20Workbench_001.png" alt=""></p>
+<h1 id="索引相关"><a href="#索引相关" class="headerlink" title="索引相关"></a>索引相关</h1><h2 id="如何判断数据库索引是否生效"><a href="#如何判断数据库索引是否生效" class="headerlink" title="如何判断数据库索引是否生效"></a>如何判断数据库索引是否生效</h2><p>使用<code>explain ... \G</code>分析语句 (使用<code>\G</code>可格式化结果)</p>
+<p>表结构：</p>
+<p><img src="https://cdn.yangbingdong.com/img/mysql-related-learning/idx-explain01.png" alt=""></p>
+<p>不使用索引：</p>
+<p><img src="https://cdn.yangbingdong.com/img/mysql-related-learning/idx-explain02.png" alt=""></p>
+<p>使用索引：</p>
+<p><img src="https://cdn.yangbingdong.com/img/mysql-related-learning/idx-explain03.png" alt=""></p>
+<p>可以看到，使用<code>explain</code>显示了很多列，各个关键字的含义如下：</p>
+<ul>
+<li><p><code>table</code>：顾名思义，显示这一行的数据是关于哪张表的；</p>
+</li>
+<li><p><code>type</code>：这是重要的列，显示连接使用了何种类型。从<strong>最好到最差</strong>的连接类型为：<code>const</code>、<code>eq_reg</code>、<code>ref</code>、<code>range</code>、<code>indexhe</code>和<code>ALL</code>（详情：<a href="https://dev.mysql.com/doc/refman/5.7/en/explain-output.html#explain-join-types" target="_blank" rel="noopener"><em>https://dev.mysql.com/doc/refman/5.7/en/explain-output.html#explain-join-types</em></a>）；</p>
+</li>
+<li><p><code>possible_keys</code>：显示可能应用在这张表中的索引。如果为空，没有可能的索引。可以为相关的域从<code>where</code>语句中选择一个合适的语句；</p>
+</li>
+<li><p><code>key</code>： 实际使用的索引。如果为<code>NULL</code>，则没有使用索引。很少的情况下，MySQL会选择优化不足的索引。这种情况下，可以在<code>Select</code>语句中使用<code>USE INDEX（indexname）</code>来强制使用一个索引或者用<code>IGNORE INDEX（indexname）</code>来强制MySQL忽略索引；</p>
+</li>
+<li><p><code>key_len</code>：使用的索引的长度。在不损失精确性的情况下，长度越短越好；</p>
+</li>
+<li><p><code>ref</code>：显示索引的哪一列被使用了，如果可能的话，是一个常数；</p>
+</li>
+<li><p><code>rows</code>：MySQL认为必须检查的用来返回请求数据的行数；</p>
+</li>
+<li><p><code>Extra</code>：关于MySQL如何解析查询的额外信息。</p>
+<p>  以下是<code>Extra</code>返回含义：</p>
+<p>  <code>Distinct</code>:一旦MYSQL找到了与行相联合匹配的行，就不再搜索了</p>
+<p>  <code>Not exists</code>: MYSQL优化了<code>LEFT JOIN</code>，一旦它找到了匹配<code>LEFT JOIN</code>标准的行，就不再搜索了</p>
+<p>  <code>Range checked for each Record（index map:#）</code>:没有找到理想的索引，因此对于从前面表中来的每一个行组合，MYSQL检查使用哪个索引，并用它来从表中返回行。这是使用索引的最慢的连接之一</p>
+<p>  <code>Using filesort</code>: 看到这个的时候，查询就需要优化了。MYSQL需要进行额外的步骤来发现如何对返回的行排序。它根据连接类型以及存储排序键值和匹配条件的全部行的行指针来排序全部行</p>
+<p>  <code>Using index</code>: 列数据是从仅仅使用了索引中的信息而没有读取实际的行动的表返回的，这发生在对表的全部的请求列都是同一个索引的部分的时候</p>
+<p>  <code>Using temporary</code> 看到这个的时候，查询需要优化了。这里，MYSQL需要创建一个临时表来存储结果，这通常发生在对不同的列集进行<code>ORDER BY</code>上，而不是<code>GROUP BY</code>上</p>
+<p>  <code>Where used</code> 使用了<code>WHERE</code>从句来限制哪些行将与下一张表匹配或者是返回给用户。如果不想返回表中的全部行，并且连接类型<code>ALL</code>或<code>index</code>，这就会发生，或者是查询有问题不同连接类型的解释（按照效率高低的顺序排序）</p>
+<p>  <code>system</code> 表只有一行：<code>system</code>表。这是<code>const</code>连接类型的特殊情况</p>
+<p>  <code>const</code>:表中的一个记录的最大值能够匹配这个查询（索引可以是主键或惟一索引）。因为只有一行，这个值实际就是常数，因为MYSQL先读这个值然后把它当做常数来对待</p>
+<p>  <code>eq_ref</code>:在连接中，MYSQL在查询时，从前面的表中，对每一个记录的联合都从表中读取一个记录，它在查询使用了索引为主键或惟一键的全部时使用</p>
+<p>  <code>ref</code>:这个连接类型只有在查询使用了不是惟一或主键的键或者是这些类型的部分（比如，利用最左边前缀）时发生。对于之前的表的每一个行联合，全部记录都将从表中读出。这个类型严重依赖于根据索引匹配的记录多少—越少越好</p>
+<p>  <code>range</code>:这个连接类型使用索引返回一个范围中的行，比如使用&gt;或&lt;查找东西时发生的情况</p>
+<p>  <code>index</code>: 这个连接类型对前面的表中的每一个记录联合进行完全扫描（比ALL更好，因为索引一般小于表数据）</p>
+<p>  <code>ALL</code>:这个连接类型对于前面的每一个记录联合进行完全扫描，这一般比较糟糕，应该尽量避免</p>
+</li>
+</ul>
+<p>具体的各个列所能表示的值以及含义可以参考MySQL官方文档介绍，地址：<a href="https://dev.mysql.com/doc/refman/5.7/en/explain-output.html" target="_blank" rel="noopener"><em>https://dev.mysql.com/doc/refman/5.7/en/explain-output.html</em></a></p>
+<h2 id="哪些场景会造成索引失效"><a href="#哪些场景会造成索引失效" class="headerlink" title="哪些场景会造成索引失效"></a>哪些场景会造成索引失效</h2><ol>
+<li><p>应尽量避免在 <code>where</code> 子句中使用 <code>!=</code> 或 <code>&lt;&gt;</code> 操作符，否则引擎将放弃使用索引而进行全表扫描</p>
+</li>
+<li><p>尽量避免在 <code>where</code> 子句中使用 <code>or</code> 来连接条件，否则将<strong>导致引擎放弃使用索引而进行全表扫描</strong>，即使其中有条件带索引也不会使用，这也是为什么尽量少用 <code>or</code> 的原因</p>
+</li>
+<li><p>对于<strong>多列索引</strong>，<strong>不是使用的第一部分</strong>，则不会使用索引</p>
+</li>
+<li><p>如果列类型是<strong>字符串</strong>，那一定要在条件中将数据使用<strong>引号</strong>引用起来，否则不会使用索引</p>
+<p><img src="https://cdn.yangbingdong.com/img/mysql-related-learning/idx-explain04.png" alt=""></p>
+</li>
+<li><p><code>like</code>的模糊查询以 <code>%</code> 开头，索引失效</p>
+</li>
+<li><p>应尽量<strong>避免</strong>在 <code>where</code> 子句中对字段进行<strong>表达式操作</strong>，这将导致引擎放弃使用索引而进行全表扫描</p>
+<p>如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select id from t where num/2 = 100 1</span><br></pre></td></tr></table></figure>
+<p>应改为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select id from t where num = 100*2；1</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>应尽量<strong>避免</strong>在 where 子句中对字段进行<strong>函数操作</strong>，这将导致引擎放弃使用索引而进行全表扫描</p>
+<p>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select id from t where substring(name,1,3) = &apos;abc&apos; – name;1</span><br></pre></td></tr></table></figure>
+<p>以abc开头的，应改成：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select id from t where name like ‘abc%’ 1</span><br></pre></td></tr></table></figure>
+<p>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select id from t where datediff(day, createdate, &apos;2005-11-30&apos;) = 0 – &apos;2005-11-30&apos;;1</span><br></pre></td></tr></table></figure>
+<p>应改为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select id from t where createdate &gt;= &apos;2005-11-30&apos; and createdate &lt; &apos;2005-12-1&apos;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>不要在 <code>where</code> 子句中的 <code>=</code> 左边进行函数、算术运算或其他表达式运算，否则系统将可能无法正确使用索引</p>
+</li>
+<li><p>如果MySQL估计使用全表扫描要比使用索引快，则不使用索引</p>
+</li>
+<li><p>不适合键值较少的列（重复数据较多的列）</p>
+<blockquote>
+<p>假如索引列TYPE有5个键值，如果有1万条数据，那么 WHERE TYPE = 1将访问表中的2000个数据块。再加上访问索引块，一共要访问大于2000个的数据块。如果全表扫描，假设10条数据一个数据块，那么只需访问1000个数据块，既然全表扫描访问的数据块少一些，肯定就不会利用索引了。</p>
+</blockquote>
+</li>
+</ol>
+<blockquote>
+<p>参考：<em><a href="http://blog.csdn.net/xlgen157387/article/details/79572598" target="_blank" rel="noopener">http://blog.csdn.net/xlgen157387/article/details/79572598</a></em></p>
+</blockquote>
+<h1 id="JSON相关"><a href="#JSON相关" class="headerlink" title="JSON相关"></a>JSON相关</h1><h2 id="JSON支持"><a href="#JSON支持" class="headerlink" title="JSON支持"></a>JSON支持</h2><ul>
+<li>在MySQL 5.7.8中，MySQL支持由RFC 7159定义的本地JSON数据类型，它支持对JSON(JavaScript对象标记)文档中的数据进行有效访问.</li>
+<li>MySQL会对DML JSON数据自动验证。无效的DML JSON数据操作会产生错误.</li>
+<li>优化的存储格式。存储在JSON列中的JSON文档转换为一种内部格式，允许对Json元素进行快速读取访问.</li>
+<li>MySQL Json类型支持通过虚拟列方式建立索引，从而增加查询性能提升.</li>
+</ul>
+<h3 id="函数语法"><a href="#函数语法" class="headerlink" title="函数语法"></a>函数语法</h3><p>mysql在json类型中增加了一些json相关的函数 可以参考如下</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://dev.mysql.com/doc/refman/5.7/en/json-modification-functions.html#function_json-append" target="_blank" rel="noopener"><code>JSON_APPEND()</code></a> (deprecated 5.7.9)</td>
+<td>Append data to JSON document</td>
+</tr>
+<tr>
+<td><a href="https://dev.mysql.com/doc/refman/5.7/en/json-creation-functions.html#function_json-array" target="_blank" rel="noopener"><code>JSON_ARRAY()</code></a></td>
+<td>Create JSON array</td>
+</tr>
+<tr>
+<td><a href="https://dev.mysql.com/doc/refman/5.7/en/json-modification-functions.html#function_json-array-append" target="_blank" rel="noopener"><code>JSON_ARRAY_APPEND()</code></a></td>
+<td>Append data to JSON document</td>
+</tr>
+<tr>
+<td><a href="https://dev.mysql.com/doc/refman/5.7/en/json-modification-functions.html#function_json-array-insert" target="_blank" rel="noopener"><code>JSON_ARRAY_INSERT()</code></a></td>
+<td>Insert into JSON array</td>
+</tr>
+<tr>
+<td><a href="https://dev.mysql.com/doc/refman/5.7/en/json-search-functions.html#operator_json-column-path" target="_blank" rel="noopener"><code>-&gt;</code></a></td>
+<td>Return value from JSON column after evaluating path; equivalent to JSON_EXTRACT().</td>
+</tr>
+<tr>
+<td><a href="https://dev.mysql.com/doc/refman/5.7/en/json-search-functions.html#function_json-contains" target="_blank" rel="noopener"><code>JSON_CONTAINS()</code></a></td>
+<td>Whether JSON document contains specific object at path</td>
+</tr>
+<tr>
+<td><a href="https://dev.mysql.com/doc/refman/5.7/en/json-search-functions.html#function_json-contains-path" target="_blank" rel="noopener"><code>JSON_CONTAINS_PATH()</code></a></td>
+<td>Whether JSON document contains any data at path</td>
+</tr>
+<tr>
+<td><a href="https://dev.mysql.com/doc/refman/5.7/en/json-attribute-functions.html#function_json-depth" target="_blank" rel="noopener"><code>JSON_DEPTH()</code></a></td>
+<td>Maximum depth of JSON document</td>
+</tr>
+<tr>
+<td><a href="https://dev.mysql.com/doc/refman/5.7/en/json-search-functions.html#function_json-extract" target="_blank" rel="noopener"><code>JSON_EXTRACT()</code></a></td>
+<td>Return data from JSON document</td>
+</tr>
+<tr>
+<td><a href="https://dev.mysql.com/doc/refman/5.7/en/json-search-functions.html#operator_json-inline-path" target="_blank" rel="noopener"><code>-&gt;&gt;</code></a></td>
+<td>Return value from JSON column after evaluating path and unquoting the result; equivalent to JSON_UNQUOTE(JSON_EXTRACT()).</td>
+</tr>
+<tr>
+<td><a href="https://dev.mysql.com/doc/refman/5.7/en/json-modification-functions.html#function_json-insert" target="_blank" rel="noopener"><code>JSON_INSERT()</code></a></td>
+<td>Insert data into JSON document</td>
+</tr>
+<tr>
+<td><a href="https://dev.mysql.com/doc/refman/5.7/en/json-search-functions.html#function_json-keys" target="_blank" rel="noopener"><code>JSON_KEYS()</code></a></td>
+<td>Array of keys from JSON document</td>
+</tr>
+<tr>
+<td><a href="https://dev.mysql.com/doc/refman/5.7/en/json-attribute-functions.html#function_json-length" target="_blank" rel="noopener"><code>JSON_LENGTH()</code></a></td>
+<td>Number of elements in JSON document</td>
+</tr>
+<tr>
+<td><a href="https://dev.mysql.com/doc/refman/5.7/en/json-modification-functions.html#function_json-merge" target="_blank" rel="noopener"><code>JSON_MERGE()</code></a> (deprecated 5.7.22)</td>
+<td>Merge JSON documents, preserving duplicate keys. Deprecated synonym for JSON_MERGE_PRESERVE()</td>
+</tr>
+<tr>
+<td><a href="https://dev.mysql.com/doc/refman/5.7/en/json-modification-functions.html#function_json-merge-patch" target="_blank" rel="noopener"><code>JSON_MERGE_PATCH()</code></a></td>
+<td>Merge JSON documents, replacing values of duplicate keys</td>
+</tr>
+<tr>
+<td><a href="https://dev.mysql.com/doc/refman/5.7/en/json-modification-functions.html#function_json-merge-preserve" target="_blank" rel="noopener"><code>JSON_MERGE_PRESERVE()</code></a></td>
+<td>Merge JSON documents, preserving duplicate keys</td>
+</tr>
+<tr>
+<td><a href="https://dev.mysql.com/doc/refman/5.7/en/json-creation-functions.html#function_json-object" target="_blank" rel="noopener"><code>JSON_OBJECT()</code></a></td>
+<td>Create JSON object</td>
+</tr>
+<tr>
+<td><a href="https://dev.mysql.com/doc/refman/5.7/en/json-utility-functions.html#function_json-pretty" target="_blank" rel="noopener"><code>JSON_PRETTY()</code></a></td>
+<td>Prints a JSON document in human-readable format, with each array element or object member printed on a new line, indented two spaces with respect to its parent.</td>
+</tr>
+<tr>
+<td><a href="https://dev.mysql.com/doc/refman/5.7/en/json-creation-functions.html#function_json-quote" target="_blank" rel="noopener"><code>JSON_QUOTE()</code></a></td>
+<td>Quote JSON document</td>
+</tr>
+<tr>
+<td><a href="https://dev.mysql.com/doc/refman/5.7/en/json-modification-functions.html#function_json-remove" target="_blank" rel="noopener"><code>JSON_REMOVE()</code></a></td>
+<td>Remove data from JSON document</td>
+</tr>
+<tr>
+<td><a href="https://dev.mysql.com/doc/refman/5.7/en/json-modification-functions.html#function_json-replace" target="_blank" rel="noopener"><code>JSON_REPLACE()</code></a></td>
+<td>Replace values in JSON document</td>
+</tr>
+<tr>
+<td><a href="https://dev.mysql.com/doc/refman/5.7/en/json-search-functions.html#function_json-search" target="_blank" rel="noopener"><code>JSON_SEARCH()</code></a></td>
+<td>Path to value within JSON document</td>
+</tr>
+<tr>
+<td><a href="https://dev.mysql.com/doc/refman/5.7/en/json-modification-functions.html#function_json-set" target="_blank" rel="noopener"><code>JSON_SET()</code></a></td>
+<td>Insert data into JSON document</td>
+</tr>
+<tr>
+<td><a href="https://dev.mysql.com/doc/refman/5.7/en/json-utility-functions.html#function_json-storage-size" target="_blank" rel="noopener"><code>JSON_STORAGE_SIZE()</code></a></td>
+<td>Space used for storage of binary representation of a JSON document; for a JSON column, the space used when the document was inserted, prior to any partial updates</td>
+</tr>
+<tr>
+<td><a href="https://dev.mysql.com/doc/refman/5.7/en/json-attribute-functions.html#function_json-type" target="_blank" rel="noopener"><code>JSON_TYPE()</code></a></td>
+<td>Type of JSON value</td>
+</tr>
+<tr>
+<td><a href="https://dev.mysql.com/doc/refman/5.7/en/json-modification-functions.html#function_json-unquote" target="_blank" rel="noopener"><code>JSON_UNQUOTE()</code></a></td>
+<td>Unquote JSON value</td>
+</tr>
+<tr>
+<td><a href="https://dev.mysql.com/doc/refman/5.7/en/json-attribute-functions.html#function_json-valid" target="_blank" rel="noopener"><code>JSON_VALID()</code></a></td>
+<td>Whether JSON value is valid</td>
+</tr>
+</tbody>
+</table>
+<p>常见的就是<code>JSON_EXTRACT()等</code></p>
+<h3 id="表结构"><a href="#表结构" class="headerlink" title="表结构"></a>表结构</h3><p><img src="https://cdn.yangbingdong.com/img/mysql-related-learning/idx-explain05.png" alt=""></p>
+<h3 id="插入数据"><a href="#插入数据" class="headerlink" title="插入数据"></a>插入数据</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO `user_json` VALUES (1, &apos;&#123;\&quot;name\&quot;: \&quot;yang\&quot;, \&quot;address\&quot;: \&quot;shenyang\&quot;&#125;&apos;);</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p><img src="https://cdn.yangbingdong.com/img/mysql-related-learning/idx-explain07.png" alt=""></p>
+<p><strong>JSON校验</strong>：</p>
+<p><img src="https://cdn.yangbingdong.com/img/mysql-related-learning/idx-explain06.png" alt=""></p>
+<h3 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select * from user_json where json_extract(data,&apos;$.name&apos;)=&apos;yang&apos;;</span><br><span class="line">select json_extract(data,&apos;$.name&apos;) from user_json where json_extract(data,&apos;$.name&apos;)=&apos;yang&apos;;</span><br><span class="line">select data-&gt;&apos;$.name&apos; from user_json where data-&gt;&apos;$.name&apos;=&apos;yang&apos;;</span><br></pre></td></tr></table></figure>
+<p>发现结果集是带有双引号的：</p>
+<p><img src="https://cdn.yangbingdong.com/img/mysql-related-learning/idx-explain08.png" alt=""></p>
+<p>如果想要去除双引号一般来说我们这样:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select JSON_UNQUOTE(json_extract(data,&apos;$.name&apos;))from user_json where json_extract(data,&apos;$.name&apos;)=&apos;yang&apos;;</span><br><span class="line">select  data-&gt;&gt;&apos;$.name&apos; from user_json where data-&gt;&apos;$.name&apos;=&apos;yang&apos;;</span><br></pre></td></tr></table></figure>
+<p><img src="https://cdn.yangbingdong.com/img/mysql-related-learning/idx-explain09.png" alt=""></p>
+<h2 id="JSON如何建立索引"><a href="#JSON如何建立索引" class="headerlink" title="JSON如何建立索引"></a>JSON如何建立索引</h2><p>json类型并不能建立索引，但我们可以通过<strong>虚拟列</strong>来建立索引</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE user_json ADD COLUMN `virtual_name` varchar(20) GENERATED ALWAYS AS (data-&gt;&gt;&apos;$.name&apos;) VIRTUAL NULL AFTER `data`;</span><br><span class="line"></span><br><span class="line">ALTER TABLE user_json ADD KEY (virtual_name);</span><br></pre></td></tr></table></figure>
+<p><img src="https://cdn.yangbingdong.com/img/mysql-related-learning/idx-explain10.png" alt=""></p>
+<p><img src="https://cdn.yangbingdong.com/img/mysql-related-learning/idx-explain11.png" alt=""></p>
+<p>可以看到索引起作用了~</p>
+<p>像时间这些要把周一到周日建索引也是可以的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`dayofweek` tinyint(4) GENERATED ALWAYS AS (dayofweek(SomeDate)) VIRTUAL,</span><br></pre></td></tr></table></figure>
+<p>或者某些很麻烦的条件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">alter table ApiLog add verb_url_hash varbinary(16) GENERATED ALWAYS AS (unhex(md5(CONCAT(verb, &apos; - &apos;, replace(url,&apos;.xml&apos;,&apos;&apos;))))) VIRTUAL;</span><br><span class="line">alter table ApiLog add key (verb_url_hash);</span><br></pre></td></tr></table></figure>
+<h1 id="MySQL存储引擎MyISAM与InnoDB区别"><a href="#MySQL存储引擎MyISAM与InnoDB区别" class="headerlink" title="MySQL存储引擎MyISAM与InnoDB区别"></a>MySQL存储引擎MyISAM与InnoDB区别</h1><h2 id="MySQL默认存储引擎的变迁"><a href="#MySQL默认存储引擎的变迁" class="headerlink" title="MySQL默认存储引擎的变迁"></a>MySQL默认存储引擎的变迁</h2><p>在MySQL 5.1之前的版本中，默认的搜索引擎是MyISAM，从MySQL 5.5之后的版本中，默认的搜索引擎变更为InnoDB。</p>
+<h2 id="MyISAM与InnoDB存储引擎的主要特点"><a href="#MyISAM与InnoDB存储引擎的主要特点" class="headerlink" title="MyISAM与InnoDB存储引擎的主要特点"></a>MyISAM与InnoDB存储引擎的主要特点</h2><p>MyISAM存储引擎的特点是：<strong>表级锁</strong>、<strong>不支持事务和全文索引</strong>，适合一些CMS内容管理系统作为后台数据库使用，但是使用大并发、重负荷生产系统上，<strong>表锁结构的特性就显得力不从心</strong>；</p>
+<p>以下是MySQL 5.7 MyISAM存储引擎的版本特性：</p>
+<p><img src="https://cdn.yangbingdong.com/img/mysql-related-learning/mysql-engine01.png" alt=""></p>
+<p>InnoDB存储引擎的特点是：<strong>行级锁</strong>、<strong>事务安全（ACID兼容）</strong>、<strong>支持外键</strong>、不支持FULLTEXT类型的索引(5.6.4以后版本开始支持FULLTEXT类型的索引)。InnoDB存储引擎提供了具有提交、回滚和崩溃恢复能力的事务安全存储引擎。InnoDB是<strong>为处理巨大量时拥有最大性能而设计的</strong>。它的CPU效率可能是任何其他基于磁盘的关系数据库引擎所不能匹敌的。</p>
+<p>以下是MySQL 5.7 InnoDB存储引擎的版本特性：</p>
+<p><img src="https://cdn.yangbingdong.com/img/mysql-related-learning/mysql-engine02.png" alt=""></p>
+<p><em>注意：</em><br>InnoDB表的行锁也不是绝对的，假如在执行一个SQL语句时MySQL不能确定要扫描的范围，InnoDB表同样会锁全表，例如<code>update table set num=1 where name like “a%”</code>。</p>
+<p>两种类型最主要的差别就是InnoDB支持事务处理与外键和行级锁。而MyISAM不支持。所以MyISAM往往就容易被人认为只适合在小项目中使用。</p>
+<h2 id="MyISAM与InnoDB性能测试"><a href="#MyISAM与InnoDB性能测试" class="headerlink" title="MyISAM与InnoDB性能测试"></a>MyISAM与InnoDB性能测试</h2><p>下边两张图是官方提供的MyISAM与InnoDB的压力测试结果</p>
+<p><img src="https://cdn.yangbingdong.com/img/mysql-related-learning/mysql-engine03.png" alt=""></p>
+<p><img src="https://cdn.yangbingdong.com/img/mysql-related-learning/mysql-engine04.png" alt=""></p>
+<p>可以看出，<strong>随着CPU核数的增加</strong>，<strong>InnoDB的吞吐量反而越好</strong>，而MyISAM，其吞吐量几乎没有什么变化，显然，MyISAM的表锁定机制降低了读和写的吞吐量。</p>
+<h2 id="事务支持与否"><a href="#事务支持与否" class="headerlink" title="事务支持与否"></a>事务支持与否</h2><p>MyISAM是一种非事务性的引擎，使得MyISAM引擎的MySQL可以提供高速存储和检索，以及全文搜索能力，适合数据仓库等查询频繁的应用；</p>
+<p>InnoDB是事务安全的；</p>
+<p>事务是一种高级的处理方式，如在一些列增删改中只要哪个出错还可以回滚还原，而MyISAM就不可以了。</p>
+<h2 id="MyISAM与InnoDB构成上的区别"><a href="#MyISAM与InnoDB构成上的区别" class="headerlink" title="MyISAM与InnoDB构成上的区别"></a>MyISAM与InnoDB构成上的区别</h2><p>（1）每个MyISAM在磁盘上存储成三个文件：</p>
+<blockquote>
+<p>第一个文件的名字以表的名字开始，扩展名指出文件类型，.frm文件存储表定义。<br>第二个文件是数据文件，其扩展名为.MYD (MYData)。<br>第三个文件是索引文件，其扩展名是.MYI (MYIndex)。</p>
+</blockquote>
+<p>（2）基于磁盘的资源是InnoDB表空间数据文件和它的日志文件，InnoDB 表的 大小只受限于操作系统文件的大小，一般为 2GB。</p>
+<h2 id="MyISAM与InnoDB表锁和行锁的解释"><a href="#MyISAM与InnoDB表锁和行锁的解释" class="headerlink" title="MyISAM与InnoDB表锁和行锁的解释"></a>MyISAM与InnoDB表锁和行锁的解释</h2><p>MySQL表级锁有两种模式：表共享读锁（Table Read Lock）和表独占写锁（Table Write Lock）。什么意思呢，就是说对MyISAM表进行读操作时，它不会阻塞其他用户对同一表的读请求，但会阻塞对同一表的写操作；而对MyISAM表的写操作，则会阻塞其他用户对同一表的读和写操作。</p>
+<p>InnoDB行锁是通过给索引项加锁来实现的，即<strong>只有通过索引条件检索数据</strong>，<strong>InnoDB才使用行级锁</strong>，<strong>否则将使用表锁</strong>！行级锁在每次获取锁和释放锁的操作需要消耗比表锁更多的资源。在InnoDB两个事务发生死锁的时候，会计算出每个事务影响的行数，然后回滚行数少的那个事务。当锁定的场景中不涉及Innodb的时候，InnoDB是检测不到的。只能依靠锁定超时来解决。</p>
+<h2 id="是否保存数据库表中表的具体行数"><a href="#是否保存数据库表中表的具体行数" class="headerlink" title="是否保存数据库表中表的具体行数"></a>是否保存数据库表中表的具体行数</h2><p>InnoDB 中不保存表的具体行数，也就是说，执行<code>select count(*) from table</code> 时，InnoDB要扫描一遍整个表来计算有多少行，但是MyISAM只要简单的读出保存好的行数即可。</p>
+<p>注意的是，当<code>count(*)</code>语句包含<code>where</code>条件时，两种表的操作是一样的。也就是 上述“6”中介绍到的InnoDB使用表锁的一种情况。</p>
+<h2 id="如何选择"><a href="#如何选择" class="headerlink" title="如何选择"></a>如何选择</h2><p>MyISAM适合：<br>（1）做很多count 的计算；<br>（2）插入不频繁，查询非常频繁，如果执行大量的SELECT，MyISAM是更好的选择；<br>（3）没有事务。</p>
+<p>InnoDB适合：<br>（1）可靠性要求比较高，或者要求事务；<br>（2）表更新和查询都相当的频繁，并且表锁定的机会比较大的情况指定数据引擎的创建；<br>（3）如果你的数据执行大量的INSERT或UPDATE，出于性能方面的考虑，应该使用InnoDB表；<br>（4）DELETE FROM table时，InnoDB不会重新建立表，而是一行一行的 删除；<br>（5）LOAD TABLE FROM MASTER操作对InnoDB是不起作用的，解决方法是首先把InnoDB表改成MyISAM表，导入数据后再改成InnoDB表，但是对于使用的额外的InnoDB特性（例如外键）的表不适用。</p>
+<p>要注意，创建每个表格的代码是相同的，除了最后的 TYPE参数，这一参数用来指定数据引擎。</p>
+<h2 id="其他区别"><a href="#其他区别" class="headerlink" title="其他区别"></a>其他区别</h2><p>1、对于AUTO_INCREMENT类型的字段，InnoDB中必须包含只有该字段的索引，但是在MyISAM表中，可以和其他字段一起建立联合索引。</p>
+<p>2、DELETE FROM table时，InnoDB不会重新建立表，而是一行一行的删除。</p>
+<p>3、LOAD TABLE FROMMASTER操作对InnoDB是不起作用的，解决方法是首先把InnoDB表改成MyISAM表，导入数据后再改成InnoDB表，但是对于使用的额外的InnoDB特性(例如外键)的表不适用。</p>
+<p>4、 InnoDB存储引擎被完全与MySQL服务器整合，InnoDB存储引擎为在主内存中缓存数据和索引而维持它自己的缓冲池。</p>
+<p>5、对于自增长的字段，InnoDB中必须包含只有该字段的索引，但是在MyISAM表中可以和其他字段一起建立联合索引。</p>
+<p>6、清空整个表时，InnoDB是一行一行的删除，效率非常慢。MyISAM则会重建表。</p>
+<h1 id="Finally"><a href="#Finally" class="headerlink" title="Finally"></a>Finally</h1><p>看到一片美团技术团队的博文非常好：<strong><em><a href="https://tech.meituan.com/mysql-index.html" target="_blank" rel="noopener">https://tech.meituan.com/mysql-index.html</a></em></strong></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/MySQL/" rel="tag"># MySQL</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/02/05/disruptor-learning/" rel="next" title="极致的追求：高性能并发框架 Disruptor">
+                <i class="fa fa-chevron-left"></i> 极致的追求：高性能并发框架 Disruptor
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/02/25/spring-boot-learning-hodgepodge/" rel="prev" title="Spring Boot学习之杂记篇">
+                Spring Boot学习之杂记篇 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">杨凯</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Preface"><span class="nav-number">1.</span> <span class="nav-text">Preface</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#传统安装"><span class="nav-number">2.1.</span> <span class="nav-text">传统安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker版安装"><span class="nav-number">2.2.</span> <span class="nav-text">Docker版安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#遇到问题"><span class="nav-number">2.3.</span> <span class="nav-text">遇到问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#客户端以及GUI"><span class="nav-number">3.</span> <span class="nav-text">客户端以及GUI</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#传统终端客户端"><span class="nav-number">3.1.</span> <span class="nav-text">传统终端客户端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#智能补全命令客户端"><span class="nav-number">3.2.</span> <span class="nav-text">智能补全命令客户端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Navicat-Premium"><span class="nav-number">3.3.</span> <span class="nav-text">Navicat Premium</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Workbench"><span class="nav-number">3.4.</span> <span class="nav-text">Workbench</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#索引相关"><span class="nav-number">4.</span> <span class="nav-text">索引相关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#如何判断数据库索引是否生效"><span class="nav-number">4.1.</span> <span class="nav-text">如何判断数据库索引是否生效</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#哪些场景会造成索引失效"><span class="nav-number">4.2.</span> <span class="nav-text">哪些场景会造成索引失效</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JSON相关"><span class="nav-number">5.</span> <span class="nav-text">JSON相关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JSON支持"><span class="nav-number">5.1.</span> <span class="nav-text">JSON支持</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#函数语法"><span class="nav-number">5.1.1.</span> <span class="nav-text">函数语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表结构"><span class="nav-number">5.1.2.</span> <span class="nav-text">表结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插入数据"><span class="nav-number">5.1.3.</span> <span class="nav-text">插入数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询"><span class="nav-number">5.1.4.</span> <span class="nav-text">查询</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JSON如何建立索引"><span class="nav-number">5.2.</span> <span class="nav-text">JSON如何建立索引</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL存储引擎MyISAM与InnoDB区别"><span class="nav-number">6.</span> <span class="nav-text">MySQL存储引擎MyISAM与InnoDB区别</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL默认存储引擎的变迁"><span class="nav-number">6.1.</span> <span class="nav-text">MySQL默认存储引擎的变迁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MyISAM与InnoDB存储引擎的主要特点"><span class="nav-number">6.2.</span> <span class="nav-text">MyISAM与InnoDB存储引擎的主要特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MyISAM与InnoDB性能测试"><span class="nav-number">6.3.</span> <span class="nav-text">MyISAM与InnoDB性能测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事务支持与否"><span class="nav-number">6.4.</span> <span class="nav-text">事务支持与否</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MyISAM与InnoDB构成上的区别"><span class="nav-number">6.5.</span> <span class="nav-text">MyISAM与InnoDB构成上的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MyISAM与InnoDB表锁和行锁的解释"><span class="nav-number">6.6.</span> <span class="nav-text">MyISAM与InnoDB表锁和行锁的解释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#是否保存数据库表中表的具体行数"><span class="nav-number">6.7.</span> <span class="nav-text">是否保存数据库表中表的具体行数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何选择"><span class="nav-number">6.8.</span> <span class="nav-text">如何选择</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他区别"><span class="nav-number">6.9.</span> <span class="nav-text">其他区别</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Finally"><span class="nav-number">7.</span> <span class="nav-text">Finally</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">杨凯</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

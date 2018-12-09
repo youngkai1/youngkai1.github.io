@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Ubuntu,IDE,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言 之前一直用的是Eclipse Luna，没有用MyEclipse是因为它收钱的- -，去新公司工作需要用到MyEclipse，下载安装happy地试用了将近一个月，不幸，试用期已过。身为一个开源爱好者，不想去用破解的（虚伪 - -），也不想出钱，博主秉着屌丝的意志，一番折腾过后，搞定。以下是经过参考与总结得到的操作步骤，博主用的是Linux的发行版Ubuntu，所以以下步骤针对Ubuntu">
+<meta name="keywords" content="Ubuntu,IDE">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ubuntu16.04下MyEclipse安装与破解">
+<meta property="og:url" content="http://yoursite.com/2017/01/11/ubuntu-myeclipse-crack/index.html">
+<meta property="og:site_name" content="如风过境">
+<meta property="og:description" content="前言 之前一直用的是Eclipse Luna，没有用MyEclipse是因为它收钱的- -，去新公司工作需要用到MyEclipse，下载安装happy地试用了将近一个月，不幸，试用期已过。身为一个开源爱好者，不想去用破解的（虚伪 - -），也不想出钱，博主秉着屌丝的意志，一番折腾过后，搞定。以下是经过参考与总结得到的操作步骤，博主用的是Linux的发行版Ubuntu，所以以下步骤针对Ubuntu">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/ubuntu-myclipse-crack/myeclipseInfo.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/ubuntu-myclipse-crack/meInstall.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/ubuntu-myclipse-crack/meFile.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/ubuntu-myclipse-crack/crack.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/ubuntu-myclipse-crack/plugins.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/ubuntu-myclipse-crack/myeclipseInfo.png">
+<meta property="og:updated_time" content="2018-12-09T10:09:00.066Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ubuntu16.04下MyEclipse安装与破解">
+<meta name="twitter:description" content="前言 之前一直用的是Eclipse Luna，没有用MyEclipse是因为它收钱的- -，去新公司工作需要用到MyEclipse，下载安装happy地试用了将近一个月，不幸，试用期已过。身为一个开源爱好者，不想去用破解的（虚伪 - -），也不想出钱，博主秉着屌丝的意志，一番折腾过后，搞定。以下是经过参考与总结得到的操作步骤，博主用的是Linux的发行版Ubuntu，所以以下步骤针对Ubuntu">
+<meta name="twitter:image" content="https://cdn.yangbingdong.com/img/ubuntu-myclipse-crack/myeclipseInfo.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/01/11/ubuntu-myeclipse-crack/">
+
+
+
+
+
+  <title>Ubuntu16.04下MyEclipse安装与破解 | 如风过境</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">如风过境</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/11/ubuntu-myeclipse-crack/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="杨凯">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="如风过境">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Ubuntu16.04下MyEclipse安装与破解</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-11T11:52:00+08:00">
+                2017-01-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/IDE/" itemprop="url" rel="index">
+                    <span itemprop="name">IDE</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="https://cdn.yangbingdong.com/img/ubuntu-myclipse-crack/myeclipseInfo.png" alt=""></p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
+<p>之前一直用的是Eclipse Luna，没有用MyEclipse是因为它<strong>收钱</strong>的- -，去新公司工作需要用到MyEclipse，下载安装happy地<strong>试用</strong>了将近一个月，不幸，试用期已过。身为一个开源爱好者，不想去用破解的（虚伪 - -），也不想出钱，博主秉着屌丝的意志，一番折腾过后，搞定。以下是经过参考与总结得到的操作步骤，博主用的是Linux的发行版Ubuntu，所以以下步骤针对Ubuntu系统，win与mac的步骤也大同小异。<br><a id="more"></a></p>
+</blockquote>
+<hr>
+<h1 id="下载与安装"><a href="#下载与安装" class="headerlink" title="下载与安装"></a>下载与安装</h1><p>首先，请前往<strong><em><a href="http://www.MyEclipsecn.com/download/" target="_blank" rel="noopener">MyEclipse的官网</a></em></strong> 下载相应系统的版本，我选择的是<em>MyEclipse-2015-stable-3.0-offline-installer-linux.run</em>，进入放置安装文件的目录，右键在终端打开安装文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./MyEclipse-2015-stable-3.0-offline-installer-linux.run</span><br></pre></td></tr></table></figure>
+<p><img src="https://cdn.yangbingdong.com/img/ubuntu-myclipse-crack/meInstall.png" alt=""><br>按<code>Nest</code>设置一下安装路径完成安装，安装完之后不要选择运行MyEclipse</p>
+<p><strong>破解之前请不要开启你的MyEclipse，要保持刚安装完的状态，如果你已经开过了，卸载重装吧——否则你就会遭遇打开编译器，然后校验失败，报错关闭</strong></p>
+<h1 id="破解与运行"><a href="#破解与运行" class="headerlink" title="破解与运行"></a>破解与运行</h1><p>首先请前往<strong><em><a href="https://pan.baidu.com/s/1geKxeoz" target="_blank" rel="noopener">博主的百度盘</a></em></strong>（密码：kv25）下载对应的破解工具，我的MyEclipse版本是2015-stable-3.0，所以在这以此版本作为示范。</p>
+<p>下载到本地解压后并进入目录会有以下文件</p>
+<p><img src="https://cdn.yangbingdong.com/img/ubuntu-myclipse-crack/meFile.png" alt=""></p>
+<h2 id="打开注册机"><a href="#打开注册机" class="headerlink" title="打开注册机"></a>打开注册机</h2><p>进入<code>MyEclipse2015_keygen</code>，双击打开注册机<code>cracker2015.jar</code>，失败的话，用java命令打开<code>cracker2015.jar</code>，<strong>前提都是你要安装了JDK并且配置好环境</strong>，JDK版本最好不要太旧，我的是1.8</p>
+<p>当前目录终端执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar cracker2015.jar</span><br></pre></td></tr></table></figure>
+<p>运行之后出现如下界面 ↓</p>
+<p><img src="https://cdn.yangbingdong.com/img/ubuntu-myclipse-crack/crack.png" alt=""></p>
+<h2 id="开始生成注册信息"><a href="#开始生成注册信息" class="headerlink" title="开始生成注册信息"></a>开始生成注册信息</h2><ol>
+<li><p>在算号器填好<code>Usercode</code>,<code>UserCode</code>可以随意输入</p>
+</li>
+<li><p>选择版本：由于<code>Bling</code>版功能最全，所以我选择了这个版本（其他版本也可以）</p>
+</li>
+<li><p>然后点击”SystemId”按钮，就会出现一行ID值，如果提示 <code>Cannot find JNIWrapper native library (jniwrap.dll) in java.library.path:</code>这样的错误，不要紧，再点一下应该就出来了，还是没有的话请注意<strong>权限</strong>问题</p>
+</li>
+<li><p>点击<code>Active</code></p>
+</li>
+<li><p>保存破解信息：点<code>Tools</code>下的<code>SaveProperites</code>把破解信息（注册码）保存到文件 （<font color="red">注意不要手残去点RebuildKey- - !</font>）</p>
+</li>
+</ol>
+
+<h2 id="copy文件"><a href="#copy文件" class="headerlink" title="copy文件"></a>copy文件</h2><p>把plugins文件中的文件复制到MyEclipse的plugins文件夹中，覆盖原文件</p>
+<p><img src="https://cdn.yangbingdong.com/img/ubuntu-myclipse-crack/plugins.png" alt=""></p>
+<h1 id="运行MyEclipse"><a href="#运行MyEclipse" class="headerlink" title="运行MyEclipse"></a>运行MyEclipse</h1><p>打开了MyEclipse，点击菜单栏中的<code>MyEclipse</code>-&gt;<code>Subscription information</code>，激活成功，激动ing=.=</p>
+<p><img src="https://cdn.yangbingdong.com/img/ubuntu-myclipse-crack/myeclipseInfo.png" alt=""></p>
+<hr>
+<h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><p>以上是博主在Ubuntu中安装破解MyEclipse的总结过程，对于不同的环境，不同的版本，不同的操作，有可能会导致一些不一样的小问题，那么可以在一下参考中找到一些答案</p>
+<blockquote>
+<p><strong>参考：</strong><br><strong><em><a href="http://yangl.net/2015/07/14/myeclipse_2015stable_1/" target="_blank" rel="noopener">Myeclipse 2015 stable 1.0 完美破解方法</a></em></strong><br><strong><em><a href="http://http://yangl.net/2016/10/11/myeclipse-2016-ci-6_crack/" target="_blank" rel="noopener">Myeclipse 2016 CI 6 破解</a></em></strong></p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Ubuntu/" rel="tag"># Ubuntu</a>
+          
+            <a href="/tags/IDE/" rel="tag"># IDE</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/10/hello-world/" rel="next" title="Start My Blog Trip — Power By Hexo">
+                <i class="fa fa-chevron-left"></i> Start My Blog Trip — Power By Hexo
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/01/12/ubuntu-todo-after-install/" rel="prev" title="Ubuntu主题美化、个性化设置与常用软件">
+                Ubuntu主题美化、个性化设置与常用软件 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">杨凯</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#下载与安装"><span class="nav-number">2.</span> <span class="nav-text">下载与安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#破解与运行"><span class="nav-number">3.</span> <span class="nav-text">破解与运行</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#打开注册机"><span class="nav-number">3.1.</span> <span class="nav-text">打开注册机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开始生成注册信息"><span class="nav-number">3.2.</span> <span class="nav-text">开始生成注册信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#copy文件"><span class="nav-number">3.3.</span> <span class="nav-text">copy文件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#运行MyEclipse"><span class="nav-number">4.</span> <span class="nav-text">运行MyEclipse</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最后"><span class="nav-number">5.</span> <span class="nav-text">最后</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">杨凯</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java,Spring Cloud,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Preface Spring Cloud 是一系列框架的有序集合。它利用 Spring Boot 的开发便利性巧妙地简化了分布式系统基础设施的开发，如服务发现注册、配置中心、消息总线、负载均衡、断路器、数据监控等，都可以用 Spring Boot 的开发风格做到一键启动和部署。Spring 并没有重复制造轮子，它只是将目前各家公司开发的比较成熟、经得起实际考验的服务框架组合起来，通过 Sprin">
+<meta name="keywords" content="Java,Spring Cloud">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring Cloud Stack Learning">
+<meta property="og:url" content="http://yoursite.com/2018/06/09/spring-cloud-stack-learning/index.html">
+<meta property="og:site_name" content="如风过境">
+<meta property="og:description" content="Preface Spring Cloud 是一系列框架的有序集合。它利用 Spring Boot 的开发便利性巧妙地简化了分布式系统基础设施的开发，如服务发现注册、配置中心、消息总线、负载均衡、断路器、数据监控等，都可以用 Spring Boot 的开发风格做到一键启动和部署。Spring 并没有重复制造轮子，它只是将目前各家公司开发的比较成熟、经得起实际考验的服务框架组合起来，通过 Sprin">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/spring-cloud-docker-integration/spring-cloud-stack.jpg">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/spring-cloud-docker-integration/portainer-eureka.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/spring-cloud-docker-integration/compose-up03.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/spring-cloud-docker-integration/cnm-demo.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/spring-cloud-docker-integration/docker-pid1.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/spring-cloud-docker-integration/eureka-ui.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/spring-cloud-docker-integration/eureka-custom.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/spring-cloud-docker-integration/micro-rpc.jpg">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/spring-cloud-docker-integration/spring-cloud-gateway-flow.jpg">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/spring-cloud-docker-integration/spring-boot-admin.png">
+<meta property="og:updated_time" content="2018-12-09T10:09:00.063Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring Cloud Stack Learning">
+<meta name="twitter:description" content="Preface Spring Cloud 是一系列框架的有序集合。它利用 Spring Boot 的开发便利性巧妙地简化了分布式系统基础设施的开发，如服务发现注册、配置中心、消息总线、负载均衡、断路器、数据监控等，都可以用 Spring Boot 的开发风格做到一键启动和部署。Spring 并没有重复制造轮子，它只是将目前各家公司开发的比较成熟、经得起实际考验的服务框架组合起来，通过 Sprin">
+<meta name="twitter:image" content="https://cdn.yangbingdong.com/img/spring-cloud-docker-integration/spring-cloud-stack.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/06/09/spring-cloud-stack-learning/">
+
+
+
+
+
+  <title>Spring Cloud Stack Learning | 如风过境</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">如风过境</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/09/spring-cloud-stack-learning/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="杨凯">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="如风过境">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Spring Cloud Stack Learning</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-09T16:55:08+08:00">
+                2018-06-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Programming/" itemprop="url" rel="index">
+                    <span itemprop="name">Programming</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Programming/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Programming/Java/Spring-Cloud/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Cloud</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="https://cdn.yangbingdong.com/img/spring-cloud-docker-integration/spring-cloud-stack.jpg" alt=""></p>
+<h1 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h1><blockquote>
+<p>Spring Cloud 是一系列框架的有序集合。它利用 Spring Boot 的开发便利性巧妙地简化了分布式系统基础设施的开发，如服务发现注册、配置中心、消息总线、负载均衡、断路器、数据监控等，都可以用 Spring Boot 的开发风格做到一键启动和部署。Spring 并没有重复制造轮子，它只是将目前各家公司开发的比较成熟、经得起实际考验的服务框架组合起来，通过 Spring Boot 风格进行再封装屏蔽掉了复杂的配置和实现原理，最终给开发者留出了一套简单易懂、易部署和易维护的分布式系统开发工具包。</p>
+<p>至于各种框架组件的相关概念以及入门教程网上一大把，此篇博文主要记录个人在使用Spring Cloud构建微服务的一些配置以及踩坑…</p>
+<p>集成Docker部分请看 <strong><em><a href="/2018/spring-boot-docker-elk/">Spring Boot Docker Integration</a></em></strong></p>
+</blockquote>
+<a id="more"></a>
+<h1 id="Eureka"><a href="#Eureka" class="headerlink" title="Eureka"></a>Eureka</h1><blockquote>
+<p>Eureka是Netflix开发的服务发现组件，本身是一个基于REST的服务。Spring Cloud将它集成在其子项目<code>spring-cloud-netflix</code>中，以实现Spring Cloud的服务发现功能。</p>
+</blockquote>
+<h2 id="单节点"><a href="#单节点" class="headerlink" title="单节点"></a>单节点</h2><h3 id="核心依赖"><a href="#核心依赖" class="headerlink" title="核心依赖"></a>核心依赖</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-server&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- Base认证需要，前端账户密码登陆 --&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-security&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-actuator&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="application-yml"><a href="#application-yml" class="headerlink" title="application.yml"></a><code>application.yml</code></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">  application:</span><br><span class="line">    name: discovery</span><br><span class="line">  profiles:</span><br><span class="line">    active: single</span><br><span class="line">  security:  ## http base security 帐号密码</span><br><span class="line">    user:</span><br><span class="line">      name: ybd</span><br><span class="line">      password: ybd</span><br><span class="line">eureka:</span><br><span class="line">  client: # 以下两项默认为true</span><br><span class="line">    fetch-registry: true</span><br><span class="line">    register-with-eureka: true</span><br><span class="line">  instance:</span><br><span class="line">    prefer-ip-address: true</span><br><span class="line">    ip-address: $&#123;eureka.instance.hostname&#125;</span><br><span class="line">    instance-id: $&#123;spring.application.name&#125;:$&#123;spring.application.instance_id:$&#123;server.port&#125;&#125;</span><br><span class="line"></span><br><span class="line">management: # 暴露所有端点，Spring Boot Admin监控使用</span><br><span class="line">  endpoints:</span><br><span class="line">    web:</span><br><span class="line">      exposure:</span><br><span class="line">        include: &quot;*&quot;</span><br><span class="line">  endpoint:</span><br><span class="line">    health:</span><br><span class="line">      show-details: ALWAYS</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>eureka.client.register-with-eureka</code>：表示是否将自己注册到 Eureka Server，默认为 true。</li>
+<li><code>eureka.client.fetch-registry</code>：表示是否从 Eureka Server 获取注册信息，默认为 true。</li>
+<li><code>eureka.client.service-url.defaultZone</code>：设置与 Eureka Server 交互的地址，查询服务和注册服务都需要依赖这个地址。默认是 <a href="http://localhost:8761/eureka" target="_blank" rel="noopener">http://localhost:8761/eureka</a> ；多个地址可使用英文逗号（,）分隔。</li>
+</ul>
+<h3 id="application-single-yml"><a href="#application-single-yml" class="headerlink" title="application-single.yml"></a><code>application-single.yml</code></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">server:</span><br><span class="line">  port: 8761</span><br><span class="line">eureka:</span><br><span class="line">  environment: dev</span><br><span class="line">  instance:</span><br><span class="line">    hostname: localhost</span><br><span class="line">    prefer-ip-address: false</span><br><span class="line">    metadata-map:  # 由于配置了安全认证，Spring Boot Admin 通过拿到此信息获取Eureka的端点信息</span><br><span class="line">      user.name: ybd</span><br><span class="line">      user.password: ybd</span><br><span class="line">  client: </span><br><span class="line">    fetch-registry: false</span><br><span class="line">    register-with-eureka: true</span><br><span class="line">    service-url:</span><br><span class="line">      defaultZone: http://ybd:ybd@$&#123;eureka.instance.hostname&#125;:$&#123;server.port&#125;/eureka/</span><br><span class="line">  server:</span><br><span class="line">    enable-self-preservation: false  # 禁用保护模式</span><br><span class="line">    eviction-interval-timer-in-ms: 15000</span><br></pre></td></tr></table></figure>
+<h3 id="Security配置"><a href="#Security配置" class="headerlink" title="Security配置"></a>Security配置</h3><p>开启<code>basic</code>的认证需要添加依赖：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">  &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;spring-boot-starter-security&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<p>配置类：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@EnableWebSecurity</span><br><span class="line">class WebSecurityConfig extends WebSecurityConfigurerAdapter &#123;</span><br><span class="line"></span><br><span class="line">	private static final String EUREKA = &quot;/eureka/**&quot;;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	protected void configure(HttpSecurity http) throws Exception &#123;</span><br><span class="line">		http.csrf().ignoringAntMatchers(EUREKA);</span><br><span class="line">		super.configure(http);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Docker构建HA-Eureka-Server"><a href="#Docker构建HA-Eureka-Server" class="headerlink" title="Docker构建HA Eureka Server"></a>Docker构建HA Eureka Server</h2><p><strong>基于Compose运行高可用的Eureka</strong></p>
+<h3 id="application-yml-1"><a href="#application-yml-1" class="headerlink" title="application.yml"></a><code>application.yml</code></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">  application:</span><br><span class="line">    name: discovery</span><br><span class="line">  profiles:</span><br><span class="line">    active: single</span><br><span class="line">  security:  # 安全认证帐号密码</span><br><span class="line">    user:</span><br><span class="line">      name: ybd </span><br><span class="line">      password: ybd</span><br><span class="line">  cloud:  # 忽略以下网卡</span><br><span class="line">    inetutils:</span><br><span class="line">      ignored-interfaces:</span><br><span class="line">      - eth0</span><br><span class="line">      - eth1</span><br><span class="line">      - eth2</span><br><span class="line">      - eth3</span><br><span class="line">      - lo</span><br><span class="line">eureka:</span><br><span class="line">  environment: prod # 在Eureka控制面板中显示prod环境</span><br><span class="line">  client:  # 以下两项默认为true</span><br><span class="line">    fetch-registry: true</span><br><span class="line">    register-with-eureka: true # 注册自己</span><br><span class="line">  instance:</span><br><span class="line">    prefer-ip-address: true</span><br><span class="line">    ip-address: $&#123;eureka.instance.hostname&#125;</span><br><span class="line">    instance-id: $&#123;spring.application.name&#125;:$&#123;spring.application.instance_id:$&#123;server.port&#125;&#125;</span><br><span class="line"></span><br><span class="line">management:  # Spring Boot Admin 使用的端点</span><br><span class="line">  endpoints:</span><br><span class="line">    web:</span><br><span class="line">      exposure:</span><br><span class="line">        include: &quot;*&quot;</span><br><span class="line">  endpoint:</span><br><span class="line">    health:</span><br><span class="line">      show-details: ALWAYS</span><br></pre></td></tr></table></figure>
+<h3 id="application-cluster1-yml"><a href="#application-cluster1-yml" class="headerlink" title="application-cluster1.yml"></a><code>application-cluster1.yml</code></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">server:</span><br><span class="line">  port: 8761</span><br><span class="line">eureka:</span><br><span class="line">  instance:</span><br><span class="line">    prefer-ip-address: true  # 优先使用ip</span><br><span class="line">    ip-address: eureka-cluster1 # ip地址，这里对应的是docker compose文件中的网络别名aliases</span><br><span class="line">    instance-id: $&#123;spring.application.name&#125;:$&#123;spring.application.instance_id:$&#123;server.port&#125;&#125;</span><br><span class="line">    metadata-map:  # spring boot admin 会通过eureka读取该信息从而通过认证拿到相关服务发现信息</span><br><span class="line">      user.name: ybd</span><br><span class="line">      user.password: ybd</span><br><span class="line">  client:</span><br><span class="line">    service-url:</span><br><span class="line">      defaultZone: http://ybd:ybd@eureka-cluster2:8762/eureka/,http://ybd:ybd@eureka-cluster3:8763/eureka/</span><br><span class="line">  server:</span><br><span class="line">    enable-self-preservation: false # 关闭自我保护模式</span><br></pre></td></tr></table></figure>
+<h3 id="application-cluster2-yml"><a href="#application-cluster2-yml" class="headerlink" title="application-cluster2.yml"></a><code>application-cluster2.yml</code></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">server:</span><br><span class="line">  port: 8762</span><br><span class="line">eureka:</span><br><span class="line">  instance:</span><br><span class="line">    prefer-ip-address: true  # 优先使用ip</span><br><span class="line">    ip-address: eureka-cluster2 # ip地址，这里对应的是docker compose文件中的网络alias</span><br><span class="line">    metadata-map:</span><br><span class="line">      user.name: ybd</span><br><span class="line">      user.password: ybd</span><br><span class="line">  client:</span><br><span class="line">    service-url:</span><br><span class="line">      defaultZone: http://ybd:ybd@eureka-cluster1:8761/eureka/,http://ybd:ybd@eureka-cluster3:8763/eureka/</span><br><span class="line">  server:</span><br><span class="line">    enable-self-preservation: false</span><br></pre></td></tr></table></figure>
+<h3 id="application-cluster3-yml"><a href="#application-cluster3-yml" class="headerlink" title="application-cluster3.yml"></a><code>application-cluster3.yml</code></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">server:</span><br><span class="line">  port: 8763</span><br><span class="line">eureka:</span><br><span class="line">  instance:</span><br><span class="line">    prefer-ip-address: true  # 优先使用ip</span><br><span class="line">    ip-address: eureka-cluster3 # ip地址，这里对应的是docker compose文件中的网络alias</span><br><span class="line">    metadata-map:</span><br><span class="line">      user.name: ybd</span><br><span class="line">      user.password: ybd</span><br><span class="line">  client:</span><br><span class="line">    service-url:</span><br><span class="line">      defaultZone: http://ybd:ybd@eureka-cluster1:8761/eureka/,http://ybd:ybd@eureka-cluster2:8762/eureka/</span><br><span class="line">  server:</span><br><span class="line">    enable-self-preservation: false</span><br></pre></td></tr></table></figure>
+<h3 id="docker-compose-yml"><a href="#docker-compose-yml" class="headerlink" title="docker-compose.yml"></a><code>docker-compose.yml</code></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line">version: &apos;3.4&apos;</span><br><span class="line">services:</span><br><span class="line">  eureka-cluster1:</span><br><span class="line">    image: eureka-cluster:latest</span><br><span class="line">    environment:</span><br><span class="line">      - ACTIVE=cluster1</span><br><span class="line">      - JAVA_OPTS=-Xms512m -Xmx512m</span><br><span class="line">    ports:</span><br><span class="line">      - 8761:8761</span><br><span class="line">    restart: always</span><br><span class="line">    healthcheck:</span><br><span class="line">      test: [&quot;CMD&quot;, &quot;curl&quot;, &quot;-f&quot;, &quot;http://ybd:ybd@localhost:8761/actuator/health&quot;]</span><br><span class="line">      interval: 30s</span><br><span class="line">      timeout: 10s</span><br><span class="line">      retries: 3</span><br><span class="line">      start_period: 15s</span><br><span class="line">    deploy:</span><br><span class="line">      placement:</span><br><span class="line">        constraints:</span><br><span class="line">        - node.hostname == node1</span><br><span class="line">    networks:</span><br><span class="line">      backend:</span><br><span class="line">        aliases:</span><br><span class="line">          - eureka-cluster1</span><br><span class="line">          </span><br><span class="line">  eureka-cluster2:</span><br><span class="line">    image: eureka-cluster:latest</span><br><span class="line">    environment:</span><br><span class="line">      - ACTIVE=cluster2</span><br><span class="line">      - JAVA_OPTS=-Xms512m -Xmx512m</span><br><span class="line">    ports:</span><br><span class="line">      - 8762:8762</span><br><span class="line">    restart: always</span><br><span class="line">    healthcheck:</span><br><span class="line">      test: [&quot;CMD&quot;, &quot;curl&quot;, &quot;-f&quot;, &quot;http://ybd:ybd@localhost:8762/actuator/health&quot;]</span><br><span class="line">      interval: 30s</span><br><span class="line">      timeout: 10s</span><br><span class="line">      retries: 3</span><br><span class="line">      start_period: 15s</span><br><span class="line">    deploy:</span><br><span class="line">      placement:</span><br><span class="line">        constraints:</span><br><span class="line">        - node.hostname == node2</span><br><span class="line">    networks:</span><br><span class="line">      backend:</span><br><span class="line">        aliases:</span><br><span class="line">          - eureka-cluster2</span><br><span class="line">          </span><br><span class="line">  eureka-cluster3:</span><br><span class="line">    image: eureka-cluster:latest</span><br><span class="line">    environment:</span><br><span class="line">      - ACTIVE=cluster3</span><br><span class="line">      - JAVA_OPTS=-Xms512m -Xmx512m</span><br><span class="line">    ports:</span><br><span class="line">      - 8763:8763</span><br><span class="line">    restart: always</span><br><span class="line">    healthcheck:</span><br><span class="line">      test: [&quot;CMD&quot;, &quot;curl&quot;, &quot;-f&quot;, &quot;http://ybd:ybd@localhost:8763/actuator/health&quot;]</span><br><span class="line">      interval: 30s</span><br><span class="line">      timeout: 10s</span><br><span class="line">      retries: 3</span><br><span class="line">      start_period: 15s</span><br><span class="line">    deploy:</span><br><span class="line">      placement:</span><br><span class="line">        constraints:</span><br><span class="line">        - node.hostname == node3</span><br><span class="line">    networks:</span><br><span class="line">      backend:</span><br><span class="line">        aliases:</span><br><span class="line">          - eureka-cluster3</span><br><span class="line"></span><br><span class="line">networks:</span><br><span class="line">  backend:</span><br><span class="line">    external:</span><br><span class="line">      name: backend</span><br></pre></td></tr></table></figure>
+<h3 id="Docker-Compose启动"><a href="#Docker-Compose启动" class="headerlink" title="Docker Compose启动"></a>Docker Compose启动</h3><p>启动前确保创建好了网络：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker network create -d=overlay --attachable --subnet 10.10.0.0/16 backend</span><br><span class="line">docker-compse up -d</span><br></pre></td></tr></table></figure>
+<p>此时在<code>Portainer</code>中可以看到三个容器已经启动：</p>
+<p><img src="https://cdn.yangbingdong.com/img/spring-cloud-docker-integration/portainer-eureka.png" alt=""></p>
+<p>随意一个eureka端口都能看到另外两个服务：</p>
+<p><img src="https://cdn.yangbingdong.com/img/spring-cloud-docker-integration/compose-up03.png" alt=""></p>
+<h3 id="Docker-Swarm启动"><a href="#Docker-Swarm启动" class="headerlink" title="Docker Swarm启动"></a>Docker Swarm启动</h3><p>由于目前使用stack方式启动是无法加载<code>env_file</code>的，所以需要预先加载一下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export $(cat .env) &amp;&amp; docker stack deploy --compose-file=docker-compose.yml eureka-stack</span><br></pre></td></tr></table></figure>
+<p>我们的app通过合适的<code>network</code>交互应该是这样的：</p>
+<p><img src="https://cdn.yangbingdong.com/img/spring-cloud-docker-integration/cnm-demo.png" alt=""></p>
+<h4 id="注意事项（ip与hostname混乱）"><a href="#注意事项（ip与hostname混乱）" class="headerlink" title="注意事项（ip与hostname混乱）"></a>注意事项（ip与hostname混乱）</h4><p>之前使用Docker Compose方式启动服务没什么问题，后来换成Docker Swarm方式启动，在Eureka的面板中发现有些服务是ip，有些是hostname，但都注册成功，不过某些服务相互之间又访问不了。Google一番后的解决方案：</p>
+<p>Server端跟Client端都使用以下配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">  cloud:  </span><br><span class="line">    inetutils:</span><br><span class="line">      ignored-interfaces:</span><br><span class="line">      - eth0</span><br><span class="line">      - eth1</span><br><span class="line">      - eth2</span><br><span class="line">      - eth3</span><br><span class="line">      - lo</span><br><span class="line">      </span><br><span class="line">eureka:</span><br><span class="line">  instance:</span><br><span class="line">    prefer-ip-address: true</span><br><span class="line">    ip-address: eureka-cluster1 # 这里对应上面compose文件中的aliases</span><br><span class="line">    instance-id: $&#123;spring.application.name&#125;:$&#123;spring.application.instance_id:$&#123;server.port&#125;&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="踩坑-容器中服务下线无法向注册中心注销服务"><a href="#踩坑-容器中服务下线无法向注册中心注销服务" class="headerlink" title="踩坑(容器中服务下线无法向注册中心注销服务)"></a>踩坑(容器中服务下线无法向注册中心注销服务)</h3><p>在Docker中程序，如果PID不是1，是接收不到<code>docker-compose down</code>发出的<code>sigterm</code>信号从而导致只能等待被Kill，不能向注册中心注销。</p>
+<p>解决方法是在<code>Dockerfile</code>中的入口使用<code>ENTRYPOINT exec java -jar ...</code>这种方式 </p>
+<p><img src="https://cdn.yangbingdong.com/img/spring-cloud-docker-integration/docker-pid1.png" alt=""></p>
+<h3 id="Eureka-Edgware-RELEASE版本注册优化"><a href="#Eureka-Edgware-RELEASE版本注册优化" class="headerlink" title="Eureka Edgware.RELEASE版本注册优化"></a>Eureka Edgware.RELEASE版本注册优化</h3><p>在<code>Edgware.RELEASE</code>版本中相比之前的步骤，省略了在主函数上添加<code>@EnableDiscoveryClient</code>注解这一过程。Spring Cloud默认认为客户端是要完成向注册中心进行注册的。</p>
+<ul>
+<li>添加对应的<code>pom</code>依赖.</li>
+<li><code>properties</code>文件进行配置</li>
+</ul>
+<p><strong>添加pom依赖</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">   &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</span><br><span class="line">   &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-client&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>properties文件进行配置</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">spring.application.name=EUREKA-CLIENT</span><br><span class="line">eureka.client.service-url.defaultZone=http://localhost:8761/eureka</span><br></pre></td></tr></table></figure>
+<p>启动Eureka Client客户端，访问<a href="http://localhost:8761/eureka" target="_blank" rel="noopener">http://localhost:8761/eureka</a><br>可以看到EUEREKA-CLIENT已经注册到Eureka Server服务上了。</p>
+<h3 id="关闭自动注册功能"><a href="#关闭自动注册功能" class="headerlink" title="关闭自动注册功能"></a><strong>关闭自动注册功能</strong></h3><p>Spring Cloud提供了一个参数，该参数的作用是控制是否要向Eureka Server发起注册。具体参数为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//默认为true,如果控制不需要向Eureka Server发起注册将该值设置为false.</span><br><span class="line">spring.cloud.service-registry.auto-registration.enabled = xxx</span><br></pre></td></tr></table></figure>
+<p>可以在<strong>JUnit测试</strong>中通过该变量关闭服务发现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@BeforeClass</span><br><span class="line">public static void beforeClass() &#123;</span><br><span class="line">	System.setProperty(&quot;spring.cloud.service-registry.auto-registration.enabled&quot;, &quot;false&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Eureka的自我保护模式"><a href="#Eureka的自我保护模式" class="headerlink" title="Eureka的自我保护模式"></a>Eureka的自我保护模式</h3><p>当Eureka提示下面一段话的时候，就表示它已经进入保护模式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">EMERGENCY! EUREKA MAY BE INCORRECTLY CLAIMING INSTANCES ARE UP WHEN THEY&apos;RE NOT.</span><br><span class="line">RENEWALS ARE LESSER THAN THRESHOLD AND HENCE THE INSTANCES ARE NOT BEING EXPIRED JUST TO BE SAFE.</span><br></pre></td></tr></table></figure>
+<p>保护模式主要用于一组客户端和Eureka Server之间存在网络分区场景下的保护。一旦进入保护模式，Eureka Server将会尝试保护其服务注册表中的信息，不再删除服务注册表中的数据（也就是不会注销任何微服务）。</p>
+<p>解决方法如下：</p>
+<p>服务器端配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">eureka:</span><br><span class="line">  server:</span><br><span class="line">    enable-self-preservation: false</span><br><span class="line">    eviction-interval-timer-in-ms: 15000</span><br></pre></td></tr></table></figure>
+<p>客户端配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">eureka:</span><br><span class="line">  instance:</span><br><span class="line">    lease-expiration-duration-in-seconds: 30 </span><br><span class="line">    lease-renewal-interval-in-seconds: 10</span><br></pre></td></tr></table></figure>
+<p><strong>注意：</strong><br><strong>更改Eureka更新频率将打破服务器的自我保护功能，生产环境下不建议自定义这些配置。</strong></p>
+<h2 id="修改Eureka界面UI"><a href="#修改Eureka界面UI" class="headerlink" title="修改Eureka界面UI"></a>修改Eureka界面UI</h2><p>覆盖对应源码中的界面文件即可：</p>
+<p><img src="https://cdn.yangbingdong.com/img/spring-cloud-docker-integration/eureka-ui.png" alt=""></p>
+<p>效果图：<br><img src="https://cdn.yangbingdong.com/img/spring-cloud-docker-integration/eureka-custom.png" alt=""></p>
+<p><strong>注意事项</strong>：</p>
+<p>如果<code>pom.xml</code>中的<code>parent</code>不是<code>spring-boot-starter-parent</code>，这些样式文件需要新建一个项目另外打包成jar包再引入方可生效。</p>
+<h1 id="RPC-Remote-Procedure-Call"><a href="#RPC-Remote-Procedure-Call" class="headerlink" title="RPC(Remote Procedure Call)"></a>RPC(Remote Procedure Call)</h1><blockquote>
+<p>这里指针对Http协议调用</p>
+</blockquote>
+<p>通过注册中心，服务间的基本调用如下：</p>
+<p><img src="https://cdn.yangbingdong.com/img/spring-cloud-docker-integration/micro-rpc.jpg" alt=""></p>
+<p>调用方式主要有三种（基本上在实际应用中都使用Feign）</p>
+<p><strong>前置条件：集成服务注册中心</strong></p>
+<p>服务提供者（<code>service-a</code>）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@RestController</span><br><span class="line">@RequestMapping(&quot;/service-a&quot;)</span><br><span class="line">public class HelloController &#123;</span><br><span class="line"></span><br><span class="line">	@GetMapping(&quot;/&#123;name&#125;&quot;)</span><br><span class="line">	public String sayHello(@PathVariable String name) throws UnknownHostException &#123;</span><br><span class="line">		InetAddress localHost = InetAddress.getLocalHost();</span><br><span class="line">		return localHost + &quot;:  Hello 『&quot; + name + &quot;』  , Date: &quot; + new Date();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="LoadBalancerClient"><a href="#LoadBalancerClient" class="headerlink" title="LoadBalancerClient"></a>LoadBalancerClient</h2><p>初始化<code>RestTemplate</code>，用来发起 REST 请求。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@Bean</span><br><span class="line">public RestTemplate restTemplate() &#123;</span><br><span class="line">	return new RestTemplate();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>消费者（<code>service-b</code>）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">@RestController</span><br><span class="line">@RequestMapping(&quot;/service-b&quot;)</span><br><span class="line">public class HelloController &#123;</span><br><span class="line">	@Resource</span><br><span class="line">	private LoadBalancerClient client;</span><br><span class="line"></span><br><span class="line">	@Resource</span><br><span class="line">	private RestTemplate restTemplate;</span><br><span class="line"></span><br><span class="line">	@GetMapping(&quot;/&#123;name&#125;&quot;)</span><br><span class="line">	public String hello(@PathVariable String name) &#123;</span><br><span class="line">		name += &quot;!&quot;;</span><br><span class="line">		ServiceInstance instance = client.choose(&quot;service-a&quot;);</span><br><span class="line">		String url = &quot;http://&quot; + instance.getHost() + &quot;:&quot; + instance.getPort() + &quot;/service-a/&quot; + name;</span><br><span class="line">		return restTemplate.getForObject(url, String.class);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>访问<code>http://127.0.0.1:8082/service-b/ybd</code>，返回：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ybd-PC/127.0.1.1: Hello 『ybd!』 , Date: Wed Aug 08 18:30:48 CST 2018</span><br></pre></td></tr></table></figure>
+<h2 id="Spring-Cloud-Ribbon"><a href="#Spring-Cloud-Ribbon" class="headerlink" title="Spring Cloud Ribbon"></a>Spring Cloud Ribbon</h2><blockquote>
+<p> 它是一个基于 HTTP 和 TCP 的客户端负载均衡器。它可以通过在客户端中配置 ribbonServerList 来设置服务端列表去轮询访问以达到均衡负载的作用。当 Ribbon 与 Eureka 联合使用时，ribbonServerList 会被 DiscoveryEnabledNIWSServerList 重写，扩展成从 Eureka 注册中心中获取服务实例列表。同时它也会用 NIWSDiscoveryPing 来取代 IPing，它将职责委托给 Eureka 来确定服务端是否已经启动。</p>
+</blockquote>
+<p>为<code>RestTemplate</code>添加<code>@LoadBalanced</code>注解:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@LoadBalanced</span><br><span class="line">@Bean</span><br><span class="line">public RestTemplate restTemplate() &#123;</span><br><span class="line">	return new RestTemplate();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Controller:</p>
+<p>修改 controller，去掉<code>LoadBalancerClient</code>，并修改相应的方法，直接用 <code>RestTemplate</code>发起请求</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">@RestController</span><br><span class="line">@RequestMapping(&quot;/service-b&quot;)</span><br><span class="line">public class HelloController &#123;</span><br><span class="line">	@Resource</span><br><span class="line">	private RestTemplate restTemplate;</span><br><span class="line"></span><br><span class="line">	@GetMapping(&quot;/&#123;name&#125;&quot;)</span><br><span class="line">	public String hello(@PathVariable String name) &#123;</span><br><span class="line">		name += &quot;!&quot;;</span><br><span class="line">		String url = &quot;http://service-a/service-a/&quot; + name;</span><br><span class="line">		return restTemplate.getForObject(url, String.class);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Spring-Cloud-Feign"><a href="#Spring-Cloud-Feign" class="headerlink" title="Spring Cloud Feign"></a>Spring Cloud Feign</h2><p>依赖（使用OkHttp组件）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-cloud-starter-openfeign&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;io.github.openfeign&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;feign-okhttp&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<p>配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">feign:</span><br><span class="line">  httpclient:</span><br><span class="line">    enabled: false</span><br><span class="line">  okhttp:</span><br><span class="line">    enabled: true</span><br></pre></td></tr></table></figure>
+<p>在启动类上加上<code>@EnableFeignClients</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@EnableFeignClients</span><br><span class="line">@SpringBootApplication</span><br><span class="line">public class ServiceBApplication &#123;</span><br><span class="line"></span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		SpringApplication.run(ServiceBApplication.class, args);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Feign:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@FeignClient(value = &quot;service-a&quot;, path = &quot;/service-a&quot;)</span><br><span class="line">public interface HelloRemoteClient &#123;</span><br><span class="line"></span><br><span class="line">	@GetMapping(&quot;/&#123;name&#125;&quot;)</span><br><span class="line">	String sayHello(@PathVariable(&quot;name&quot;) String name);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>value</code>指被调用方的服务名</li>
+<li><code>path</code>请求指定前缀，例如上面的<code>sayHello</code>会请求<code>/service-a/{name}</code>这个url</li>
+</ul>
+<p>调用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">@RestController</span><br><span class="line">@RequestMapping(&quot;/service-b&quot;)</span><br><span class="line">public class HelloController &#123;</span><br><span class="line"></span><br><span class="line">	@Resource</span><br><span class="line">	private HelloRemoteClient helloClient;</span><br><span class="line"></span><br><span class="line">	@GetMapping(&quot;/&#123;name&#125;&quot;)</span><br><span class="line">	public String hello(@PathVariable String name) &#123;</span><br><span class="line">		name += &quot;!&quot;;</span><br><span class="line">		return helloClient.sayHello(name);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="踩坑"><a href="#踩坑" class="headerlink" title="踩坑"></a>踩坑</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Caused by: java.lang.IllegalStateException: PathVariable annotation was empty on param 0.</span><br></pre></td></tr></table></figure>
+<p>这个大概的意思就是<code>@PathVariable</code>的第一个参数为空。。。</p>
+<p>因为之前的写法是这样的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@GetMapping(&quot;/&#123;name&#125;&quot;)</span><br><span class="line">String sayHello(@PathVariable String name);</span><br></pre></td></tr></table></figure>
+<p><strong>正确姿势</strong>是这样的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@GetMapping(&quot;/&#123;name&#125;&quot;)</span><br><span class="line">String sayHello(@PathVariable(&quot;name&quot;) String name);</span><br></pre></td></tr></table></figure>
+<p><code>@PathVariable</code>需要指定占位符的名字<code>(&quot;name&quot;)</code></p>
+<h1 id="Spring-Cloud-Gateway"><a href="#Spring-Cloud-Gateway" class="headerlink" title="Spring Cloud Gateway"></a>Spring Cloud Gateway</h1><p>Spring Cloud Gateway 是 Spring Cloud 的一个全新项目，该项目是基于 Spring 5.0，Spring Boot 2.0 和 Project Reactor 等技术开发的网关，它旨在为微服务架构提供一种简单有效的统一的 API 路由管理方式。</p>
+<p>Spring Cloud Gateway 作为 Spring Cloud 生态系统中的网关，目标是替代 Netflix Zuul，其不仅提供统一的路由方式，并且基于 Filter 链的方式提供了网关基本的功能，例如：安全、监控、埋点和限流等。</p>
+<p>Spring Cloud Gateway 的特征：</p>
+<ul>
+<li>基于 Spring Framework 5，Project Reactor 和 Spring Boot 2.0</li>
+<li>动态路由</li>
+<li>Predicates 和 Filters 作用于特定路由</li>
+<li>集成 Hystrix 断路器</li>
+<li>集成 Spring Cloud DiscoveryClient</li>
+<li>易于编写的 Predicates 和 Filters</li>
+<li>限流</li>
+<li>路径重写</li>
+</ul>
+<p><strong>流程图</strong>：</p>
+<p><img src="https://cdn.yangbingdong.com/img/spring-cloud-docker-integration/spring-cloud-gateway-flow.jpg" alt=""></p>
+<h1 id="Spring-Boot-Admin"><a href="#Spring-Boot-Admin" class="headerlink" title="Spring Boot Admin"></a>Spring Boot Admin</h1><p><img src="https://cdn.yangbingdong.com/img/spring-cloud-docker-integration/spring-boot-admin.png" alt=""></p>
+<h2 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependencies&gt;</span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;de.codecentric&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;spring-boot-admin-starter-server&lt;/artifactId&gt;</span><br><span class="line">        &lt;version&gt;2.0.2&lt;/version&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-client&lt;/artifactId&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">    &lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;spring-boot-starter-security&lt;/artifactId&gt;</span><br><span class="line">    &lt;/dependency&gt;</span><br><span class="line">&lt;/dependencies&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="主类添加注解"><a href="#主类添加注解" class="headerlink" title="主类添加注解"></a>主类添加注解</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@EnableAdminServer</span><br><span class="line">@SpringBootApplication</span><br><span class="line">public class AdminApplication &#123;</span><br><span class="line"></span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		SpringApplication.run(AdminApplication.class, args);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p><code>application.yml</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">server:</span><br><span class="line">  port: 6010</span><br><span class="line">spring:</span><br><span class="line">  application:</span><br><span class="line">    name: admin</span><br><span class="line">  profiles:</span><br><span class="line">    active: dev</span><br><span class="line">  security:</span><br><span class="line">    user:</span><br><span class="line">      name: ybd</span><br><span class="line">      password: ybd</span><br><span class="line">management:</span><br><span class="line">  endpoints:</span><br><span class="line">    web:</span><br><span class="line">      exposure:</span><br><span class="line">        include: &quot;*&quot;</span><br><span class="line">  endpoint:</span><br><span class="line">    health:</span><br><span class="line">      show-details: ALWAYS</span><br></pre></td></tr></table></figure>
+<p><code>application-dev.yml</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">eureka:</span><br><span class="line">  client:</span><br><span class="line">    service-url:</span><br><span class="line">      defaultZone: http://ybd:ybd@127.0.0.1:8761/eureka/</span><br><span class="line">  instance:</span><br><span class="line">    metadata-map:</span><br><span class="line">      user.name: ybd</span><br><span class="line">      user.password: ybd</span><br></pre></td></tr></table></figure>
+<p><code>SecuritySecureConfig</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">public class SecuritySecureConfig extends WebSecurityConfigurerAdapter &#123;</span><br><span class="line"></span><br><span class="line">	private final String adminContextPath;</span><br><span class="line"></span><br><span class="line">	public SecuritySecureConfig(AdminServerProperties adminServerProperties) &#123;</span><br><span class="line">		this.adminContextPath = adminServerProperties.getContextPath();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	protected void configure(HttpSecurity http) throws Exception &#123;</span><br><span class="line">		SavedRequestAwareAuthenticationSuccessHandler successHandler = new SavedRequestAwareAuthenticationSuccessHandler();</span><br><span class="line">		successHandler.setTargetUrlParameter(&quot;redirectTo&quot;);</span><br><span class="line">		http.authorizeRequests()</span><br><span class="line">//			.antMatchers(&quot;/actuator&quot;, &quot;/actuator/health&quot;, &quot;/actuator/info&quot;).permitAll()</span><br><span class="line">			.antMatchers(adminContextPath + &quot;/assets/**&quot;).permitAll()</span><br><span class="line">			.antMatchers(adminContextPath + &quot;/login&quot;).permitAll()</span><br><span class="line">			.anyRequest().authenticated()</span><br><span class="line">			.and()</span><br><span class="line">			.formLogin().loginPage(adminContextPath + &quot;/login&quot;).successHandler(successHandler).and()</span><br><span class="line">			.logout().logoutUrl(adminContextPath + &quot;/logout&quot;).and()</span><br><span class="line">			.httpBasic()</span><br><span class="line">			.and()</span><br><span class="line">			.csrf().disable();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="Finally"><a href="#Finally" class="headerlink" title="Finally"></a>Finally</h1><blockquote>
+<p>代码：<strong><em><a href="https://github.com/masteranthoneyd/spring-cloud-learning" target="_blank" rel="noopener">https://github.com/masteranthoneyd/spring-cloud-learning</a></em></strong></p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/Spring-Cloud/" rel="tag"># Spring Cloud</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/02/spring-boot-docker-elk/" rel="next" title="Spring Boot应用集成Docker并结合Log4j2、Kafka、ELK管理Docker日志">
+                <i class="fa fa-chevron-left"></i> Spring Boot应用集成Docker并结合Log4j2、Kafka、ELK管理Docker日志
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/12/design-pattern-creational/" rel="prev" title="设计模式之创建型(Creational)">
+                设计模式之创建型(Creational) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">杨凯</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Preface"><span class="nav-number">1.</span> <span class="nav-text">Preface</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Eureka"><span class="nav-number">2.</span> <span class="nav-text">Eureka</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#单节点"><span class="nav-number">2.1.</span> <span class="nav-text">单节点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#核心依赖"><span class="nav-number">2.1.1.</span> <span class="nav-text">核心依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#application-yml"><span class="nav-number">2.1.2.</span> <span class="nav-text">application.yml</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#application-single-yml"><span class="nav-number">2.1.3.</span> <span class="nav-text">application-single.yml</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Security配置"><span class="nav-number">2.1.4.</span> <span class="nav-text">Security配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker构建HA-Eureka-Server"><span class="nav-number">2.2.</span> <span class="nav-text">Docker构建HA Eureka Server</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#application-yml-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">application.yml</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#application-cluster1-yml"><span class="nav-number">2.2.2.</span> <span class="nav-text">application-cluster1.yml</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#application-cluster2-yml"><span class="nav-number">2.2.3.</span> <span class="nav-text">application-cluster2.yml</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#application-cluster3-yml"><span class="nav-number">2.2.4.</span> <span class="nav-text">application-cluster3.yml</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#docker-compose-yml"><span class="nav-number">2.2.5.</span> <span class="nav-text">docker-compose.yml</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-Compose启动"><span class="nav-number">2.2.6.</span> <span class="nav-text">Docker Compose启动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-Swarm启动"><span class="nav-number">2.2.7.</span> <span class="nav-text">Docker Swarm启动</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#注意事项（ip与hostname混乱）"><span class="nav-number">2.2.7.1.</span> <span class="nav-text">注意事项（ip与hostname混乱）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#踩坑-容器中服务下线无法向注册中心注销服务"><span class="nav-number">2.2.8.</span> <span class="nav-text">踩坑(容器中服务下线无法向注册中心注销服务)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Eureka-Edgware-RELEASE版本注册优化"><span class="nav-number">2.2.9.</span> <span class="nav-text">Eureka Edgware.RELEASE版本注册优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关闭自动注册功能"><span class="nav-number">2.2.10.</span> <span class="nav-text">关闭自动注册功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Eureka的自我保护模式"><span class="nav-number">2.2.11.</span> <span class="nav-text">Eureka的自我保护模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改Eureka界面UI"><span class="nav-number">2.3.</span> <span class="nav-text">修改Eureka界面UI</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RPC-Remote-Procedure-Call"><span class="nav-number">3.</span> <span class="nav-text">RPC(Remote Procedure Call)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#LoadBalancerClient"><span class="nav-number">3.1.</span> <span class="nav-text">LoadBalancerClient</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring-Cloud-Ribbon"><span class="nav-number">3.2.</span> <span class="nav-text">Spring Cloud Ribbon</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring-Cloud-Feign"><span class="nav-number">3.3.</span> <span class="nav-text">Spring Cloud Feign</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#踩坑"><span class="nav-number">3.3.1.</span> <span class="nav-text">踩坑</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring-Cloud-Gateway"><span class="nav-number">4.</span> <span class="nav-text">Spring Cloud Gateway</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring-Boot-Admin"><span class="nav-number">5.</span> <span class="nav-text">Spring Boot Admin</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#依赖"><span class="nav-number">5.1.</span> <span class="nav-text">依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主类添加注解"><span class="nav-number">5.2.</span> <span class="nav-text">主类添加注解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置"><span class="nav-number">5.3.</span> <span class="nav-text">配置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Finally"><span class="nav-number">6.</span> <span class="nav-text">Finally</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">杨凯</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

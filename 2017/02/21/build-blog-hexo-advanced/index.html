@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo,Node.js,Github,Coding,Git,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言好久没更新了，因为懒- -前面介绍了Hexo的一些基本搭建→基于Hexo+github+coding搭建个人博客——基础篇(从菜鸟到放弃)对于追求装X的博主来说，基本的搭建是满足不了的，接下来整理了一下各方面的细节优化，包括页面字体大小、配色、背景、SEO(搜索引擎优化)、域名绑定、DNS域名解析实现负载均衡等。关于NexT主题的很多配置、插件都可以在官方文档找到答案，那么博主只是整理了一些">
+<meta name="keywords" content="Hexo,Node.js,Github,Coding,Git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于Hexo搭建个人博客——进阶篇(从入门到入土)">
+<meta property="og:url" content="http://yoursite.com/2017/02/21/build-blog-hexo-advanced/index.html">
+<meta property="og:site_name" content="如风过境">
+<meta property="og:description" content="前言好久没更新了，因为懒- -前面介绍了Hexo的一些基本搭建→基于Hexo+github+coding搭建个人博客——基础篇(从菜鸟到放弃)对于追求装X的博主来说，基本的搭建是满足不了的，接下来整理了一下各方面的细节优化，包括页面字体大小、配色、背景、SEO(搜索引擎优化)、域名绑定、DNS域名解析实现负载均衡等。关于NexT主题的很多配置、插件都可以在官方文档找到答案，那么博主只是整理了一些">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/build-hexo/next.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/build-hexo/share-mod.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/build-hexo/mod-share.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/disqus-proxy/disqus-proxy.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/disqus-proxy/disqus-api-applcation.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/disqus-proxy/disqus-admin-setting.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/disqus-proxy/comment02.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/disqus-proxy/comment01.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/build-hexo/result.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/build-hexo/footer.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/build-hexo/languages.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/build-hexo/hexo-helper-live2d.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/build-hexo/yemiantiaoshi.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/build-hexo/DNSjiexi.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/build-hexo/baiduyanzheng.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/build-hexo/sitemap.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/build-hexo/GoogleSearch.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/build-hexo/baidutoken.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/build-hexo/robots.png">
+<meta property="og:updated_time" content="2018-12-09T10:09:00.018Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基于Hexo搭建个人博客——进阶篇(从入门到入土)">
+<meta name="twitter:description" content="前言好久没更新了，因为懒- -前面介绍了Hexo的一些基本搭建→基于Hexo+github+coding搭建个人博客——基础篇(从菜鸟到放弃)对于追求装X的博主来说，基本的搭建是满足不了的，接下来整理了一下各方面的细节优化，包括页面字体大小、配色、背景、SEO(搜索引擎优化)、域名绑定、DNS域名解析实现负载均衡等。关于NexT主题的很多配置、插件都可以在官方文档找到答案，那么博主只是整理了一些">
+<meta name="twitter:image" content="https://cdn.yangbingdong.com/img/build-hexo/next.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/02/21/build-blog-hexo-advanced/">
+
+
+
+
+
+  <title>基于Hexo搭建个人博客——进阶篇(从入门到入土) | 如风过境</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">如风过境</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/21/build-blog-hexo-advanced/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="杨凯">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="如风过境">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">基于Hexo搭建个人博客——进阶篇(从入门到入土)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-21T23:07:34+08:00">
+                2017-02-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hexo/" itemprop="url" rel="index">
+                    <span itemprop="name">Hexo</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="https://cdn.yangbingdong.com/img/build-hexo/next.png" alt=""></p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>好久没更新了，因为懒- -<br>前面介绍了Hexo的一些基本搭建→<strong><em><a href="/2017/build-blog-hexo-base/">基于Hexo+github+coding搭建个人博客——基础篇(从菜鸟到放弃)</a></em></strong><br>对于追求装X的博主来说，基本的搭建是满足不了的，接下来整理了一下各方面的细节优化，包括页面字体大小、配色、背景、SEO(搜索引擎优化)、域名绑定、DNS域名解析实现负载均衡等。<br>关于<code>NexT</code>主题的很多配置、插件都可以在<strong><em><a href="theme-next.iissnan.com/getting-started.html">官方文档</a></em></strong>找到答案，那么博主只是整理了一些官方没怎么提及的细节优化。</p>
+<a id="more"></a>
+<h1 id="解决Hexo命令fs-SyncWriteStream问题"><a href="#解决Hexo命令fs-SyncWriteStream问题" class="headerlink" title="解决Hexo命令fs.SyncWriteStream问题"></a>解决Hexo命令fs.SyncWriteStream问题</h1><p>请看<strong><em><a href="/2017/build-blog-hexo-base/#解决Hexo命令fs-SyncWriteStream问题">解决Hexo命令fs.SyncWriteStream问题</a></em></strong></p>
+<h1 id="高度定制优化篇"><a href="#高度定制优化篇" class="headerlink" title="高度定制优化篇"></a>高度定制优化篇</h1><h2 id="集成Mod分享组件"><a href="#集成Mod分享组件" class="headerlink" title="集成Mod分享组件"></a>集成Mod分享组件</h2><p><img src="https://cdn.yangbingdong.com/img/build-hexo/share-mod.png" alt=""></p>
+<p>Step1、获取 AppKey<br>在 <em><a href="http://www.mob.com/" target="_blank" rel="noopener">Mob</a></em> 注册账号后，点击头像进入后台，选择 <code>shareSDK</code> 添加一个 <code>Web应用</code>：</p>
+<p><img src="https://cdn.yangbingdong.com/img/build-hexo/mod-share.png" alt=""></p>
+<p>Step2、在<strong>主题配置文件</strong>中添加配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mob_share:</span><br><span class="line">  enable: true</span><br><span class="line">  appkey: ********</span><br></pre></td></tr></table></figure></p>
+<p>Step3、在<code>next/layout/_partials/share/</code>里面添加<code>mob_share.swig</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--MOB SHARE BEGIN--&gt;</span><br><span class="line">&lt;div class=&quot;-hoofoo-share-title&quot;&gt;分享到：&lt;/div&gt;</span><br><span class="line">&lt;div class=&quot;-hoofoo-share-buttons&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;-mob-share-weibo -hoofoo-share-weibo -hoofoo-share-ui-button&quot;&gt;&lt;i class=&quot;fa fa-weibo&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;-mob-share-weixin -hoofoo-share-weixin -hoofoo-share-ui-button&quot;&gt;&lt;i class=&quot;fa fa-weixin&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;-mob-share-qq -hoofoo-share-qq -hoofoo-share-ui-button&quot;&gt;&lt;i class=&quot;fa fa-qq&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;-mob-share-twitter -hoofoo-share-twitter -hoofoo-share-ui-button&quot;&gt;&lt;i class=&quot;fa fa-twitter&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;-hoofoo-share-more -hoofoo-share-ui-button -mob-share-open&quot;&gt;&lt;i class=&quot;fa fa-ellipsis-h&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;div class=&quot;-mob-share-ui&quot; style=&quot;display: none&quot;&gt;</span><br><span class="line">    &lt;ul class=&quot;-mob-share-list&quot;&gt;</span><br><span class="line">        &lt;li class=&quot;-mob-share-weibo&quot;&gt;&lt;p&gt;新浪微博&lt;/p&gt;&lt;/li&gt;</span><br><span class="line">        &lt;li class=&quot;-mob-share-weixin&quot;&gt;&lt;p&gt;微信&lt;/p&gt;&lt;/li&gt;</span><br><span class="line">        &lt;li class=&quot;-mob-share-qzone&quot;&gt;&lt;p&gt;QQ空间&lt;/p&gt;&lt;/li&gt;</span><br><span class="line">        &lt;li class=&quot;-mob-share-qq&quot;&gt;&lt;p&gt;QQ好友&lt;/p&gt;&lt;/li&gt;</span><br><span class="line">        &lt;li class=&quot;-mob-share-tencentweibo&quot;&gt;&lt;p&gt;腾讯微博&lt;/p&gt;&lt;/li&gt;</span><br><span class="line">        &lt;li class=&quot;-mob-share-renren&quot;&gt;&lt;p&gt;人人网&lt;/p&gt;&lt;/li&gt;</span><br><span class="line">        &lt;li class=&quot;-mob-share-kaixin&quot;&gt;&lt;p&gt;开心网&lt;/p&gt;&lt;/li&gt;</span><br><span class="line">        &lt;li class=&quot;-mob-share-douban&quot;&gt;&lt;p&gt;豆瓣&lt;/p&gt;&lt;/li&gt;</span><br><span class="line">        &lt;li class=&quot;-mob-share-youdao&quot;&gt;&lt;p&gt;有道云笔记&lt;/p&gt;&lt;/li&gt;</span><br><span class="line">        &lt;li class=&quot;-mob-share-mingdao&quot;&gt;&lt;p&gt;明道&lt;/p&gt;&lt;/li&gt;</span><br><span class="line">        &lt;li class=&quot;-mob-share-pengyou&quot;&gt;&lt;p&gt;朋友网&lt;/p&gt;&lt;/li&gt;</span><br><span class="line">        &lt;li class=&quot;-mob-share-facebook&quot;&gt;&lt;p&gt;Facebook&lt;/p&gt;&lt;/li&gt;</span><br><span class="line">        &lt;li class=&quot;-mob-share-twitter&quot;&gt;&lt;p&gt;Twitter&lt;/p&gt;&lt;/li&gt;</span><br><span class="line">        &lt;li class=&quot;-mob-share-pocket&quot;&gt;&lt;p&gt;Pocket&lt;/p&gt;&lt;/li&gt;</span><br><span class="line">        &lt;li class=&quot;-mob-share-google&quot;&gt;&lt;p&gt;Google+&lt;/p&gt;&lt;/li&gt;</span><br><span class="line">        &lt;li class=&quot;-mob-share-tumblr&quot;&gt;&lt;p&gt;Tumblr&lt;/p&gt;&lt;/li&gt;</span><br><span class="line">        &lt;li class=&quot;-mob-share-instapaper&quot;&gt;&lt;p&gt;Instapaper&lt;/p&gt;&lt;/li&gt;</span><br><span class="line">        &lt;li class=&quot;-mob-share-linkedin&quot;&gt;&lt;p&gt;Linkedin&lt;/p&gt;&lt;/li&gt;</span><br><span class="line">    &lt;/ul&gt;</span><br><span class="line">    &lt;div class=&quot;-mob-share-close&quot;&gt;取消&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;div class=&quot;-mob-share-ui-bg&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;script id=&quot;-mob-share&quot; src=&quot;http://f1.webshare.mob.com/code/mob-share.js?appkey=&#123;&#123;theme.mob_share.appkey&#125;&#125;&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;!--MOB SHARE END--&gt;</span><br></pre></td></tr></table></figure></p>
+<p>Step4、在<code>next/layout/post.swig</code>中添加条件分支：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;% if theme.jiathis %&#125;</span><br><span class="line">      &#123;% include &apos;_partials/share/jiathis.swig&apos; %&#125;</span><br><span class="line">    &#123;% elseif theme.baidushare %&#125;</span><br><span class="line">      &#123;% include &apos;_partials/share/baidushare.swig&apos; %&#125;</span><br><span class="line">    &#123;% elseif theme.add_this_id %&#125;</span><br><span class="line">      &#123;% include &apos;_partials/share/add-this.swig&apos; %&#125;</span><br><span class="line">    &#123;% elseif theme.duoshuo_shortname and theme.duoshuo_share %&#125;</span><br><span class="line">      &#123;% include &apos;_partials/share/duoshuo_share.swig&apos; %&#125;</span><br><span class="line">    &#123;% elseif theme.mob_share.enable %&#125;</span><br><span class="line">      &#123;% include &apos;_partials/share/mob_share.swig&apos; %&#125;</span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Step5、在<code>next/source/css/_common/components/third-party/</code>里添加样式文件<code>mob_share.styl</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line">.-hoofoo-share-buttons&#123;</span><br><span class="line">    display: inline-block;</span><br><span class="line">&#125;</span><br><span class="line">.-hoofoo-share-title&#123;</span><br><span class="line">    font-size: 1.1em;</span><br><span class="line">    font-weight: 200;</span><br><span class="line">&#125;</span><br><span class="line">.-hoofoo-share-ui-button&#123;</span><br><span class="line">    cursor: pointer;</span><br><span class="line">    background-color: #555;</span><br><span class="line">    color: #fff;</span><br><span class="line">    font-size: 24px;</span><br><span class="line">    line-height: 40px;</span><br><span class="line">    width: 40px;</span><br><span class="line">    height: 40px;</span><br><span class="line">    margin: 10px;</span><br><span class="line">    border-radius: 25px;</span><br><span class="line">    float: left;</span><br><span class="line">    transition: background 0.4s;</span><br><span class="line">    -moz-transition: background 0.4s;    /* Firefox 4 */</span><br><span class="line">    -webkit-transition: background 0.4s;    /* Safari 和 Chrome */</span><br><span class="line">    -o-transition: background 0.4s;</span><br><span class="line">&#125;</span><br><span class="line">.-hoofoo-share-weibo:hover&#123;</span><br><span class="line">    background-color: #cf3f41;</span><br><span class="line">&#125;</span><br><span class="line">.-hoofoo-share-weixin:hover&#123;</span><br><span class="line">    background-color: #18a01a;</span><br><span class="line">&#125;</span><br><span class="line">.-hoofoo-share-qq:hover&#123;</span><br><span class="line">    background-color: #950c0c;</span><br><span class="line">&#125;</span><br><span class="line">.-hoofoo-share-twitter:hover&#123;</span><br><span class="line">    background-color: #2ab3e6;</span><br><span class="line">&#125;</span><br><span class="line">.-hoofoo-share-more:hover&#123;</span><br><span class="line">    background-color: #777;</span><br><span class="line">&#125;</span><br><span class="line">.-mob-share-weixin-qrcode-content&#123;</span><br><span class="line">    border-radius: 4px;</span><br><span class="line">    -webkit-box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);</span><br><span class="line">    -moz-box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);</span><br><span class="line">    -o-box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);</span><br><span class="line">    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);</span><br><span class="line">&#125;</span><br><span class="line">.-mob-share-weixin-qrcode&#123;</span><br><span class="line">    margin: 5% !important;</span><br><span class="line">    width: 90% !important;</span><br><span class="line">    height: auto !important;</span><br><span class="line">&#125;</span><br><span class="line">.-mob-share-weixin-qrcode-close &#123;</span><br><span class="line">    background-image: url(&apos;/lib/fancybox/source/fancybox_sprite.png&apos;) !important;//因为兼容问题把vendor改成了lib，根据自己的路径修改</span><br><span class="line">&#125;</span><br><span class="line">.-mob-share-weixin-qrcode-close &#123;</span><br><span class="line">    overflow: hidden;</span><br><span class="line">    line-height: 100px !important;</span><br><span class="line">    position: absolute !important;</span><br><span class="line">    top: -18px !important;</span><br><span class="line">    right: -18px !important;</span><br><span class="line">    width: 36px !important;</span><br><span class="line">    height: 36px !important;</span><br><span class="line">    cursor: pointer !important;</span><br><span class="line">    z-index: 8040 !important;</span><br><span class="line">&#125;</span><br><span class="line">/*Retina graphics!*/</span><br><span class="line">@media only screen and (-webkit-min-device-pixel-ratio: 1.5),</span><br><span class="line">       only screen and (min--moz-device-pixel-ratio: 1.5),</span><br><span class="line">       only screen and (min-device-pixel-ratio: 1.5)&#123;</span><br><span class="line">    .-mob-share-weixin-qrcode-close &#123;</span><br><span class="line">        background-image: url(&apos;/lib/fancybox/source/fancybox_sprite@2x.png&apos;) !important;//因为兼容问题把vendor改成了lib，根据自己的路径修改</span><br><span class="line">        background-size: 44px 152px !important; /*The size of the normal image, half the size of the hi-res image*/</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">.-mob-share-close&#123;</span><br><span class="line">    height: 4em !important;</span><br><span class="line">    font-size: 0.8em !important;</span><br><span class="line">    line-height: 4em !important;</span><br><span class="line">    background: #555 !important;</span><br><span class="line">    color: #fff !important;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Step6、同一目录下的 <code>third-party.styl</code> 中添加：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@import &quot;mob_share&quot;;</span><br></pre></td></tr></table></figure></p>
+<p>Step7、在<code>next/layout/_scripts/third-party/</code>里添加脚本文件<code>mob_share.swig</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;% if theme.mob_share.enable %&#125;</span><br><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">    //微信二维码点击背景关闭</span><br><span class="line">    $(&apos;body&apos;).delegate(&apos;.-mob-share-weixin-qrcode-bg&apos;,&apos;click&apos;, function()&#123;</span><br><span class="line">         $(&quot;.-mob-share-weixin-qrcode-close&quot;).trigger(&quot;click&quot;);</span><br><span class="line">    &#125;); </span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure>
+<p>Step8、在<code>next/layout/_layout.swig</code>的<code>body</code>标签结束前添加：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% include &apos;_scripts/third-party/mob_share.swig&apos; %&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="添加顶部加载条"><a href="#添加顶部加载条" class="headerlink" title="添加顶部加载条"></a>添加顶部加载条</h2><p>打开<code>/themes/next/layout/_partials/head.swig</code>文件，添加如下代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=&quot;//cdn.bootcss.com/pace/1.0.2/pace.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;link href=&quot;//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css&quot; rel=&quot;stylesheet&quot;&gt;</span><br></pre></td></tr></table></figure></p>
+<p>但是，默认的是粉色的，要改变颜色可以在<code>/themes/next/layout/_partials/head.swig</code>文件中添加如下代码（接在刚才link的后面）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">    .pace .pace-progress &#123;</span><br><span class="line">        background: #ff009e; /*进度条颜色*/</span><br><span class="line">        height: 3px;</span><br><span class="line">    &#125;</span><br><span class="line">    .pace .pace-progress-inner &#123;</span><br><span class="line">         box-shadow: 0 0 10px #ff009e, 0 0 5px #ff009e; /*阴影颜色*/</span><br><span class="line">    &#125;</span><br><span class="line">    .pace .pace-activity &#123;</span><br><span class="line">        border-top-color: #ff009e;    /*上边框颜色*/</span><br><span class="line">        border-left-color: #ff009e;    /*左边框颜色*/</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="文章加密访问"><a href="#文章加密访问" class="headerlink" title="文章加密访问"></a>文章加密访问</h2><p>打开<code>themes-&gt;next-&gt;layout-&gt;_partials-&gt;head.swig</code>文件,插入这样一段代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    (function()&#123;</span><br><span class="line">        if(&apos;&#123;&#123; page.password &#125;&#125;&apos;)&#123;</span><br><span class="line">            if (prompt(&apos;请输入文章密码&apos;) !== &apos;&#123;&#123; page.password &#125;&#125;&apos;)&#123;</span><br><span class="line">                alert(&apos;密码错误！&apos;);</span><br><span class="line">                history.back();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)();</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
+<p>然后在文章上写成类似这样：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: Hello World</span><br><span class="line">date: 2016/7/13 20:46:25</span><br><span class="line">categories:</span><br><span class="line">- Diary</span><br><span class="line">tags:</span><br><span class="line">  - Testing</span><br><span class="line">  - Another Tag</span><br><span class="line">password: 123456</span><br><span class="line">---</span><br></pre></td></tr></table></figure></p>
+<h2 id="博客更换Disqus评论"><a href="#博客更换Disqus评论" class="headerlink" title="博客更换Disqus评论"></a>博客更换Disqus评论</h2><p>由于多说即将关闭，本站启用Disqus。<br>既然Disqus已被墙，那么为了对没有梯子的同学标示友好，我们可以选择点击加载Disqus评论的方式，这个问题貌似也得到了主题作者的关注-&gt; <strong><em>(NexT5.2.0)[<a href="https://github.com/iissnan/hexo-theme-next/milestone/7]" target="_blank" rel="noopener">https://github.com/iissnan/hexo-theme-next/milestone/7]</a></em></strong><br>具体做法如下：<br>打开<code>themes/next/layout/_partials/comments.swig</code>，在文件内容 <code>&lt;div id=&quot;disqus_thread&quot;&gt;</code>前面加入下面内容：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div style=&quot;text-align:center;&quot;&gt;</span><br><span class="line">  &lt;button class=&quot;btn&quot; id=&quot;load-disqus&quot; onclick=&quot;disqus.load();&quot;&gt;加载 Disqus 评论&lt;/button&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
+<p>再打开<code>themes/next/layout/_scripts/third-party/comments/disqus.swig</code>，需要替换原本的 Disqus 的加载的内容，如果希望显示评论数量，就保留 run_disqus_script(‘count.js’) 这一行，这样页面载入时还会加载 disqus 的资源：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">run_disqus_script(&apos;count.js&apos;);</span><br><span class="line">&#123;% if page.comments %&#125;</span><br><span class="line">  run_disqus_script(&apos;embed.js&apos;);</span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure></p>
+<p>替换为下面的内容：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> disqus = &#123;</span><br><span class="line">  load : <span class="function"><span class="keyword">function</span> <span class="title">disqus</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">      <span class="keyword">if</span>(<span class="keyword">typeof</span> DISQUS !== <span class="string">'object'</span>) &#123;</span><br><span class="line">        (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> s = <span class="built_in">document</span>.createElement(<span class="string">'script'</span>); s.async = <span class="literal">true</span>;</span><br><span class="line">        s.type = <span class="string">'text/javascript'</span>;</span><br><span class="line">        s.src = <span class="string">'//'</span> + disqus_shortname + <span class="string">'.disqus.com/embed.js'</span>;</span><br><span class="line">        (<span class="built_in">document</span>.getElementsByTagName(<span class="string">'HEAD'</span>)[<span class="number">0</span>] || <span class="built_in">document</span>.getElementsByTagName(<span class="string">'BODY'</span>)[<span class="number">0</span>]).appendChild(s);</span><br><span class="line">        &#125;());</span><br><span class="line">        $(<span class="string">'#load-disqus'</span>).html(<span class="string">"评论加载中，请确保你有梯子，若评论长时间未加载则你可能翻墙失败..."</span>).fadeOut(<span class="number">9000</span>); <span class="comment">//加载后移除按钮</span></span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>前面的 <code>function run_disqus_script(disqus_script){}</code>这一段，不打算显示评论数量的话，可以一起删掉，不显示评论数量的话，那么点击加载按钮之前，网页是不会加载来自 Disqus 的资源的。</p>
+<h2 id="NexT启用Disqus-Proxy-不翻墙也能使用Disqus"><a href="#NexT启用Disqus-Proxy-不翻墙也能使用Disqus" class="headerlink" title="NexT启用Disqus-Proxy 不翻墙也能使用Disqus"></a>NexT启用Disqus-Proxy 不翻墙也能使用Disqus</h2><p><img src="https://cdn.yangbingdong.com/img/disqus-proxy/disqus-proxy.png" alt=""></p>
+<blockquote>
+<p>多说于2017.06.01停止了服务，不得不选择其他的第三方评论服务，试了一下国内的服务发现不是麻烦（例如需要备案）就是不靠谱或者界面不炫酷（装X嫌疑…）</p>
+<p>还是使用<strong><em><a href="https://disqus.com/" target="_blank" rel="noopener">Disqus</a></em></strong>吧…But，这个早就被<strong><em><a href="https://baike.baidu.com/item/great%20firewall/4843556?fr=aladdin&amp;fromid=18582731&amp;fromtitle=GFW" target="_blank" rel="noopener">GWF</a></em></strong>隔离了，虽然自己可以闪现过墙=.=，但游客不一定都会这个技能…<br>那么问题来了，怎么做一个公共的梯子实现人人翻墙？<br>在Gayhub全球最大同性交友网中发现，早就有大神做了这样一个服务，并选择了<em><a href="https://ycwalker.com/" target="_blank" rel="noopener">ciqulover</a></em>(在此感谢大神的鼎力相助)的<strong><em><a href="https://github.com/ciqulover/disqus-proxy" target="_blank" rel="noopener">Disque-Proxy</a></em></strong>项目作为梯子。<br>当然也还有其他的Disqus-Proxy -&gt; <strong><em><a href="https://github.com/fooleap/disqus-php-api" target="_blank" rel="noopener">fooleap</a></em></strong>、 <strong><em><a href="https://github.com/jiananshi/disqus-proxy" target="_blank" rel="noopener">jiananshi</a></em></strong></p>
+</blockquote>
+<h3 id="Flow"><a href="#Flow" class="headerlink" title="Flow"></a>Flow</h3><p>流程就没什么好说的了，如上图，在前端页面上测试 disqus 加载是否成功，如果成功则显示 disqus 的评论框，反之加载独立的评论框…<br>具体请看<strong><em><a href="https://ycwalker.com/2017/06/01/about-diqus-proxy/" target="_blank" rel="noopener">https://ycwalker.com/2017/06/01/about-diqus-proxy/</a></em></strong></p>
+<h3 id="Get-Api-secret"><a href="#Get-Api-secret" class="headerlink" title="Get Api-secret"></a>Get Api-secret</h3><p><code>api-secret</code> 需要你在 <strong><em><a href="https://disqus.com/api/applications/" target="_blank" rel="noopener">Disqus Api</a></em></strong> 的官方网站上开启 <strong>API</strong> 权限，申请成功后会得到这个秘钥。<br><img src="https://cdn.yangbingdong.com/img/disqus-proxy/disqus-api-applcation.png" alt=""></p>
+<p>并且需要在后台的 <code>Settings</code> =&gt; <code>Community</code> 里开启访客评论：<br><img src="https://cdn.yangbingdong.com/img/disqus-proxy/disqus-admin-setting.png" alt=""></p>
+<h3 id="Deploy-Disqus-Proxy"><a href="#Deploy-Disqus-Proxy" class="headerlink" title="Deploy Disqus-Proxy"></a>Deploy Disqus-Proxy</h3><p>首先你得有一台<strong>可以访问<a href="https://disqus.com/" target="_blank" rel="noopener">Disqus</a></strong>的VPS[^1]… 博主用的是<strong><em><a href="www.linode.com">Linode</a></em></strong></p>
+<p>Docker方式启动：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name disqus-proxy --restart=always -p 5509:5509 \</span><br><span class="line">-e API_SECRECT=your_serect \</span><br><span class="line">-e SHORT_NAME=your_short_name \</span><br><span class="line">ycwalker/disqus-proxy-server</span><br></pre></td></tr></table></figure>
+<p>更多方式请移步到 <strong><em><a href="https://github.com/ciqulover/disqus-proxy-server" target="_blank" rel="noopener">https://github.com/ciqulover/disqus-proxy-server</a></em></strong></p>
+<h3 id="NexT-Configuration"><a href="#NexT-Configuration" class="headerlink" title="NexT Configuration"></a>NexT Configuration</h3><h4 id="Copy-Static-File"><a href="#Copy-Static-File" class="headerlink" title="Copy Static File"></a>Copy Static File</h4><p>将<code>disqus-proxy</code>项目中<code>/build/static</code>文件复制到博客<code>../next/source/</code>下。<br><code>static</code>文件中应该包含<code>main.0d0338ae.js</code>和<code>main.0603c539.css</code>。</p>
+<h4 id="config-yml"><a href="#config-yml" class="headerlink" title="_config.yml"></a>_config.yml</h4><p>在<strong>主题配置文件</strong>中添加：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">disqus_proxy:</span></span><br><span class="line"><span class="attr">  enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="comment"># 如果 disqus 账号名没设置 那么 disqus_proxy 也不会生效</span></span><br><span class="line"><span class="attr">  username:</span> <span class="string">ookamiantd</span></span><br><span class="line">  <span class="comment"># 下面两项你需要更改为自己服务器的域名和端口</span></span><br><span class="line"><span class="attr">  server:</span> <span class="string">disqus-proxy.yangbingdong.com</span> </span><br><span class="line"><span class="attr">  port:</span> <span class="number">5509</span>  <span class="comment"># 端口号需要与后端设置一致</span></span><br><span class="line">  <span class="comment"># 头像路径设置</span></span><br><span class="line"><span class="attr">  defaultAvatar:</span> <span class="string">/images/avatar/avatar-default.jpg</span></span><br><span class="line"><span class="attr">  adminAvatar:</span> <span class="string">/images/avatar/avatar-admin.jpg</span></span><br><span class="line">  <span class="comment"># 脚本和 css 路径</span></span><br><span class="line"><span class="attr">  js:</span> <span class="string">/static/js/main.0d0338ae.js</span></span><br><span class="line"><span class="attr">  css:</span> <span class="string">/static/css/main.0603c539.css</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="comment-swig"><a href="#comment-swig" class="headerlink" title="comment.swig"></a>comment.swig</h4><p>修改<code>/next/layout/_partial/comment.swig</code>，在最后一个<code>&lt;/div&gt;</code>钱加上：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"disqus_proxy_thread"</span>&gt;&lt;/div&gt;</span><br><span class="line">      &lt;div id=<span class="string">"disqus_thread"</span>&gt;&lt;/div&gt;</span><br><span class="line">      &#123;% <span class="keyword">if</span> theme.disqus_proxy.enable %&#125;</span><br><span class="line">          &lt;script type=<span class="string">"text/javascript"</span>&gt;</span><br><span class="line">              <span class="built_in">window</span>.disqusProxy = &#123;</span><br><span class="line">                username: <span class="string">'&#123;&#123; theme.disqus_proxy.username &#125;&#125;'</span>,</span><br><span class="line">                server: <span class="string">'&#123;&#123; theme.disqus_proxy.server &#125;&#125;'</span>,</span><br><span class="line">                port: <span class="string">'&#123;&#123; theme.disqus_proxy.port &#125;&#125;'</span>,</span><br><span class="line">                defaultAvatar: <span class="string">'&#123;&#123; theme.disqus_proxy.defaultAvatar &#125;&#125;'</span>,</span><br><span class="line">                adminAvatar: <span class="string">'&#123;&#123; theme.disqus_proxy.adminAvatar &#125;&#125;'</span>,</span><br><span class="line">                identifier: <span class="string">'&#123;&#123; page.path &#125;&#125;'</span></span><br><span class="line">              &#125;;</span><br><span class="line">              <span class="built_in">window</span>.disqus_config = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">                <span class="keyword">this</span>.page.url = <span class="string">'&#123;&#123; page.permalink &#125;&#125;'</span>;</span><br><span class="line">                <span class="keyword">this</span>.page.identifier = <span class="string">'&#123;&#123; page.path &#125;&#125;'</span>;</span><br><span class="line">              &#125;;</span><br><span class="line">              <span class="built_in">window</span>.onload=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">                <span class="keyword">var</span> s = <span class="built_in">document</span>.createElement(<span class="string">'script'</span>);</span><br><span class="line">                s.src = <span class="string">"&#123;&#123; theme.disqus_proxy.js &#125;&#125;"</span>;</span><br><span class="line">                s.async = <span class="literal">true</span>;</span><br><span class="line">                <span class="built_in">document</span>.body.appendChild(s);</span><br><span class="line">              &#125;</span><br><span class="line">          &lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp">          &lt;link rel="stylesheet" href="&#123;&#123; theme.disqus_proxy.css &#125;&#125;"&gt;</span></span><br><span class="line"><span class="regexp">      &#123;% endif %&#125;</span></span><br></pre></td></tr></table></figure>
+<p>渲染效果：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"disqus_proxy_thread"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"disqus_thread"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">  <span class="built_in">window</span>.disqusProxy = &#123;</span></span><br><span class="line"><span class="javascript">    username: <span class="string">'ookamiantd'</span>,</span></span><br><span class="line"><span class="javascript">    server: <span class="string">'disqus-proxy.yangbingdong.com'</span>,</span></span><br><span class="line"><span class="javascript">    port: <span class="string">'5509'</span>,</span></span><br><span class="line"><span class="javascript">    defaultAvatar: <span class="string">'/images/avatar/avatar-default.jpg'</span>,</span></span><br><span class="line"><span class="javascript">    adminAvatar: <span class="string">'/images/avatar/avatar-admin.jpg'</span>,</span></span><br><span class="line"><span class="javascript">    identifier: <span class="string">'2017/disqus-proxy/'</span></span></span><br><span class="line"><span class="undefined">  &#125;;</span></span><br><span class="line"><span class="javascript">  <span class="built_in">window</span>.disqus_config = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">this</span>.page.url = <span class="string">'http://ookamiantd.top/2017/disqus-proxy/'</span>;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">this</span>.page.identifier = <span class="string">'2017/disqus-proxy/'</span>;</span></span><br><span class="line"><span class="undefined">  &#125;;</span></span><br><span class="line"><span class="javascript">  <span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> s = <span class="built_in">document</span>.createElement(<span class="string">'script'</span>);</span></span><br><span class="line"><span class="javascript">    s.src = <span class="string">"/static/js/main.0d0338ae.js"</span>;</span></span><br><span class="line"><span class="javascript">    s.async = <span class="literal">true</span>;</span></span><br><span class="line"><span class="javascript">    <span class="built_in">document</span>.body.appendChild(s);</span></span><br><span class="line"><span class="undefined">  &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"/static/css/main.0603c539.css"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="custom-styl"><a href="#custom-styl" class="headerlink" title="custom.styl"></a>custom.styl</h4><p>可能由于改过样式还是本来就不兼容，评论框一开始显示不出来，<em><a href="https://ycwalker.com/" target="_blank" rel="noopener">ciqulover</a></em>大神帮我加了个样式之后就好了。</p>
+<p>在<code>/next/source/css/_custom/custom.styl</code>中添加：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#disqus_proxy_thread</span> <span class="selector-class">.post</span>&#123;</span><br><span class="line">  <span class="attribute">opacity</span>: <span class="number">1</span> <span class="meta">!important</span>;</span><br><span class="line">  <span class="attribute">box-shadow</span>: none <span class="meta">!important</span>;</span><br><span class="line">  <span class="attribute">-webkit-box-shadow</span>: none <span class="meta">!important</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>博主也对评论框乱入了一些样式例如头像旋转…具体请看<strong><em><a href="/static/css/main.0603c539.css">main.0603c539.css</a></em></strong></p>
+<h3 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h3><p>博主使用了<code>hexo-all-minifier</code>进行静态文件压缩，不明原因导致那两个评论框的js和css压缩之后会报错，所以对压缩选项作设置，在<strong>站点配置文件</strong>中添加：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">html_minifier:</span></span><br><span class="line"><span class="attr">  enable:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  exclude:</span> </span><br><span class="line"></span><br><span class="line"><span class="attr">css_minifier:</span></span><br><span class="line"><span class="attr">  enable:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  exclude:</span> </span><br><span class="line"><span class="bullet">    -</span> <span class="string">'/home/ybd/GitRepo/blog/themes/next/source/static/css/main.0603c539.css'</span></span><br><span class="line"></span><br><span class="line"><span class="attr">js_minifier:</span></span><br><span class="line"><span class="attr">  enable:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  mangle:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  output:</span></span><br><span class="line"><span class="attr">  compress:</span></span><br><span class="line"><span class="attr">  exclude:</span> </span><br><span class="line"><span class="bullet">    -</span> <span class="string">'/home/ybd/GitRepo/blog/themes/next/source/static/js/*.*.js'</span></span><br><span class="line"></span><br><span class="line"><span class="attr">image_minifier:</span></span><br><span class="line"><span class="attr">  enable:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  interlaced:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">  multipass:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">  optimizationLevel:</span> <span class="number">2</span></span><br><span class="line"><span class="attr">  pngquant:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">  progressive:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="Show"><a href="#Show" class="headerlink" title="Show"></a>Show</h3><p>这是翻墙状态：<br><img src="https://cdn.yangbingdong.com/img/disqus-proxy/comment02.png" alt=""><br>这是<code>disqus_proxy</code>：<br><img src="https://cdn.yangbingdong.com/img/disqus-proxy/comment01.png" alt=""></p>
+<h2 id="修改文章页宽"><a href="#修改文章页宽" class="headerlink" title="修改文章页宽"></a>修改文章页宽</h2><p>打开<code>themes/next/source/css/_variables/base.styl</code>，找到以下字段并修改为合适的宽度：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$content-desktop-large = 1000px</span><br></pre></td></tr></table></figure></p>
+<h2 id="修改小型代码块颜色"><a href="#修改小型代码块颜色" class="headerlink" title="修改小型代码块颜色"></a>修改小型代码块颜色</h2><p>修改<code>\themes\next\source\css\ _variables\base.styl</code>文件，加入自定义颜色：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$black-deep   = #222</span><br><span class="line">$red          = #ff2a2a</span><br><span class="line">$blue-bright  = #87daff</span><br><span class="line">$blue         = #0684bd</span><br><span class="line">$blue-deep    = #262a30</span><br><span class="line">$orange       = #fc6423</span><br><span class="line">// 下面是我自定义的颜色</span><br><span class="line">$my-code-foreground = #dd0055  // 用``围出的代码块字体颜色</span><br><span class="line">$my-code-background = #eee  // 用``围出的代码块背景颜色</span><br></pre></td></tr></table></figure></p>
+<p>修改<code>$code-background</code>和<code>$code-foreground</code>的值：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// Code &amp; Code Blocks // 用``围出的代码块 // -------------------------------------------------- </span><br><span class="line">$code-font-family               = $font-family-monospace </span><br><span class="line">$code-font-size                 = 15px </span><br><span class="line">$code-background                = $my-code-background </span><br><span class="line">$code-foreground                = $my-code-foreground </span><br><span class="line">$code-border-radius             = 4px</span><br></pre></td></tr></table></figure></p>
+<h2 id="文章末尾追加版权信息"><a href="#文章末尾追加版权信息" class="headerlink" title="文章末尾追加版权信息"></a>文章末尾追加版权信息</h2><p>找到<code>themes/next/layout/_macro/post.swig</code>，在<code>footer</code>之前添加如下代码(添加之前确保已添加<strong><em><a href="#%E5%A5%BD%E7%8E%A9%E7%9A%84%E6%A0%B7%E5%BC%8F">样式</a></em></strong>)：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">	    &lt;p id=&quot;div-border-left-red&quot;&gt;</span><br><span class="line">	   &lt;b&gt;本文基于&lt;a target=&quot;_blank&quot; title=&quot;Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)&quot; href=&quot;http://creativecommons.org/licenses/by-sa/4.0/&quot;&gt; 知识共享署名-相同方式共享 4.0 &lt;/a&gt;国际许可协议发布&lt;/b&gt;&lt;br/&gt;</span><br><span class="line">	    &lt;span&gt;</span><br><span class="line">	    &lt;b&gt;本文地址：&lt;/b&gt;&lt;a href=&quot;&#123;&#123; url_for(page.path) &#125;&#125;&quot; title=&quot;&#123;&#123; page.title &#125;&#125;&quot;&gt;&#123;&#123; page.permalink &#125;&#125;&lt;/a&gt;&lt;br/&gt;&lt;b&gt;转载请注明出处，谢谢！&lt;/b&gt;</span><br><span class="line">	    &lt;/span&gt;</span><br><span class="line">	    &lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="添加文章结束标记"><a href="#添加文章结束标记" class="headerlink" title="添加文章结束标记"></a>添加文章结束标记</h2><p>同样在<code>themes/next/layout/_macro/post.swig</code>中，在<code>wechat-subscriber.swig</code>之前添加如下代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;div style=&quot;text-align:center;color: #ccc;font-size:14px;&quot;&gt;---------------- The End ----------------&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="添加热度"><a href="#添加热度" class="headerlink" title="添加热度"></a>添加热度</h2><p>在<code>/themes/hexo-theme-next/layout/_macro/post.swig</code>里面的下面的位置加上如下代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&#123;% if post.categories and post.categories.length %&#125;</span><br><span class="line">        &lt;span class=&quot;post-category&quot; &gt;</span><br><span class="line">        &lt;/span&gt;</span><br><span class="line">      &#123;% endif %&#125;</span><br><span class="line"></span><br><span class="line"> &lt;!-- 在下面的位置加上如下代码 --&gt;</span><br><span class="line">      &lt;span id=&quot;busuanzi_container_page_pv&quot;&gt;</span><br><span class="line">      &amp;nbsp; | &amp;nbsp; 热度&amp;nbsp; &lt;span id=&quot;busuanzi_value_page_pv&quot;&gt;&lt;/span&gt;°C</span><br><span class="line">      &lt;/span&gt;</span><br><span class="line">  &lt;!-- 在上面的位置加上如上代码 --&gt;    </span><br><span class="line">  </span><br><span class="line">      &#123;% if post.comments %&#125;</span><br><span class="line">        &#123;% if (theme.duoshuo and theme.duoshuo.shortname) or theme.duoshuo_shortname %&#125;</span><br><span class="line">          &lt;span class=&quot;post-comments-count&quot;&gt;</span><br><span class="line">            &amp;nbsp; | &amp;nbsp;</span><br><span class="line">            &lt;a href=&quot;&#123;&#123; url_for(post.path) &#125;&#125;#comments&quot; itemprop=&quot;discussionUrl&quot;&gt;</span><br><span class="line">              &lt;span class=&quot;post-comments-count ds-thread-count&quot; data-thread-key=&quot;&#123;&#123; post.path &#125;&#125;&quot; itemprop=&quot;commentsCount&quot;&gt;&lt;/span&gt;</span><br><span class="line">            &lt;/a&gt;</span><br><span class="line">          &lt;/span&gt;</span><br></pre></td></tr></table></figure></p>
+<p>但是这有一个<strong>缺陷</strong>。就是我们会发现在主页时显示的热度和进入博客后的热度不一样，那是因为在主页时他显示的是主页这个页面的阅读量，而不是博客的阅读量，所以我们需要改变一些：</p>
+<p>我们在<code>/themes/hexo-theme-next/layout/_macro/</code>目录下新建<code>post-article.swig</code>,把这些<code>post.swig</code>中的内容复制过去，而且加上上面的统计代码，然后在<code>/themes/hexo-theme-next/layout/post.swig</code>上面<code>% import &#39;_macro/post.swig&#39; as post_template %</code>中的<code>post.swig</code>改成<code>post-article.swig</code>，这样子就解决啦。就是在主页上的博客名字下面不会有阅读人数，进入博客才能看见</p>
+<h2 id="添加Fork-me-on-GitHub"><a href="#添加Fork-me-on-GitHub" class="headerlink" title="添加Fork me on GitHub"></a>添加Fork me on GitHub</h2><p>去网址<em><a href="https://github.com/blog/273-github-ribbons" target="_blank" rel="noopener">https://github.com/blog/273-github-ribbons</a></em>挑选自己喜欢的样式，并复制代码，添加到<code>themes\next\layout\_layout.swig</code>的<code>body</code>标签之内即可<br><strong>记得把里面的url换成自己的!</strong></p>
+<h2 id="把侧边栏头像变成圆形，并且鼠标停留在上面发生旋转效果"><a href="#把侧边栏头像变成圆形，并且鼠标停留在上面发生旋转效果" class="headerlink" title="把侧边栏头像变成圆形，并且鼠标停留在上面发生旋转效果"></a>把侧边栏头像变成圆形，并且鼠标停留在上面发生旋转效果</h2><p>﻿修改<code>themes\next\source\css\_common\components\sidebar\sidebar-author.styl</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">.site-author-image &#123;</span><br><span class="line"></span><br><span class="line">  display: block;</span><br><span class="line">  margin: 0 auto;</span><br><span class="line">  padding: $site-author-image-padding;</span><br><span class="line">  max-width: $site-author-image-width;</span><br><span class="line">  height: $site-author-image-height;</span><br><span class="line">  border: site-author-image-border-color;</span><br><span class="line"></span><br><span class="line">  /* start*/</span><br><span class="line">  border-radius: 50%</span><br><span class="line">  webkit-transition: 1.4s all;</span><br><span class="line">  moz-transition: 1.4s all;</span><br><span class="line">  ms-transition: 1.4s all;</span><br><span class="line">  transition: 1.4s all;</span><br><span class="line">  /* end */</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/* start */</span><br><span class="line">.site-author-image:hover &#123;</span><br><span class="line"></span><br><span class="line">  background-color: #55DAE1;</span><br><span class="line">  webkit-transform: rotate(360deg) scale(1.1);</span><br><span class="line">  moz-transform: rotate(360deg) scale(1.1);</span><br><span class="line">  ms-transform: rotate(360deg) scale(1.1);</span><br><span class="line">  transform: rotate(360deg) scale(1.1);</span><br><span class="line">&#125;</span><br><span class="line">/* end */</span><br></pre></td></tr></table></figure></p>
+<h2 id="修改链接文字样式"><a href="#修改链接文字样式" class="headerlink" title="修改链接文字样式"></a>修改链接文字样式</h2><p>打开<code>themes\next\source\css\_common\components\post\post.styl</code>添加以下代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">.post-body p a&#123;</span><br><span class="line"></span><br><span class="line"> color: #0593d3;</span><br><span class="line"> border-bottom: none;</span><br><span class="line"> &amp;:hover &#123;</span><br><span class="line">   color: #ff106c;</span><br><span class="line">   text-decoration: underline;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><code>themes/next/source/css/_common/components/post/post-title.styl</code>修改为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">.posts-expand .post-title-link &#123;</span><br><span class="line"></span><br><span class="line">  display: inline-block;</span><br><span class="line">  border-bottom: none;</span><br><span class="line">  line-height: 1.2;</span><br><span class="line">  vertical-align: top;</span><br><span class="line"></span><br><span class="line">  &amp;::before &#123;</span><br><span class="line">  ......</span><br></pre></td></tr></table></figure></p>
+<h2 id="为next主题的主页文章添加阴影效果"><a href="#为next主题的主页文章添加阴影效果" class="headerlink" title="为next主题的主页文章添加阴影效果"></a>为next主题的主页文章添加阴影效果</h2><p>打开<code>themes/next/source/css/_custom/custom.styl</code>文件添加：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.post &#123;</span><br><span class="line">  margin-top: 60px;</span><br><span class="line">  margin-bottom: 60px;</span><br><span class="line">  padding: 25px;</span><br><span class="line">  -webkit-box-shadow: 0 0 5px rgba(202, 203, 203, .5);</span><br><span class="line">  -moz-box-shadow: 0 0 5px rgba(202, 203, 204, .5);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="为next主题添加nest背景特效"><a href="#为next主题添加nest背景特效" class="headerlink" title="为next主题添加nest背景特效"></a>为next主题添加nest背景特效</h2><p>背景的几何线条是采用的<code>nest</code>效果，一个基于<code>html5 canvas</code>绘制的网页背景效果，非常赞！来自github的开源项目<code>canvas-nest</code></p>
+<h3 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h3><ul>
+<li>不依赖任何框架或者内库，比如不依赖jQuery，使用原生的javascript。</li>
+<li>非常小，只有1.66kb，如果开启gzip，可以更小。</li>
+<li>非常容易实现，配置简单，即使你不是web开发者，也能简单搞定。</li>
+</ul>
+<p>使用非常简单</p>
+<ul>
+<li><code>color</code>: 线条颜色, 默认: ‘0,0,0’ ；三个数字分别为(R,G,B)，注意用,分割</li>
+<li><code>opacity</code>: 线条透明度（0~1）, 默认: 0.5</li>
+<li><code>count</code>: 线条的总数量, 默认: 150</li>
+<li><code>zIndex</code>: 背景的z-index属性，css属性用于控制所在层的位置, 默认: -1</li>
+</ul>
+<p>eg :</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=&quot;text/javascript&quot; color=&quot;255,132,0&quot; opacity=&apos;0.6&apos; zIndex=&quot;-2&quot; count=&quot;99&quot; src=&quot;//cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>不足: CPU占用过高</p>
+<h3 id="如何添加"><a href="#如何添加" class="headerlink" title="如何添加?"></a>如何添加?</h3><h4 id="修改代码"><a href="#修改代码" class="headerlink" title="修改代码"></a>修改代码</h4><p>打开<code>next/layout/_layout.swig</code>，在<code>&lt;/body&gt;</code>之前添加如下代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;% if theme.canvas_nest %&#125;</span><br><span class="line"></span><br><span class="line">&lt;script type=&quot;text/javascript&quot; src=&quot;//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="修改主题配置文件"><a href="#修改主题配置文件" class="headerlink" title="修改主题配置文件"></a>修改主题配置文件</h4><p>打开<code>/next/_config.yml</code>，添加以下代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># --------------------------------------------------------------</span><br><span class="line"># background settings</span><br><span class="line"># --------------------------------------------------------------</span><br><span class="line"># add canvas-nest effect</span><br><span class="line"># see detail from https://github.com/hustcc/canvas-nest.js</span><br><span class="line">canvas_nest: true</span><br></pre></td></tr></table></figure></p>
+<p>至此，大功告成，运行hexo clean 和 hexo g hexo s之后就可以看到效果了</p>
+<h2 id="添加音乐"><a href="#添加音乐" class="headerlink" title="添加音乐"></a>添加音乐</h2><p>去往<em><a href="http://music.163.com/" target="_blank" rel="noopener">网易云音乐</a></em>搜索喜欢的音乐，点击生成外链播放器，复制代码直接放到博文末尾即可，<code>height</code>设为0可隐藏播放器，但仍然可以播放音乐，<code>auto</code>设成0可手动播放，默认是1自动播放，可把代码放到<code>themes/next/layout/_custom/sidebar.swig</code>文件里，播放器会显示在站点预览中</p>
+<h2 id="添加注脚"><a href="#添加注脚" class="headerlink" title="添加注脚"></a>添加注脚</h2><p>安装插件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-reference --save</span><br></pre></td></tr></table></figure></p>
+<p>用法如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">this is a basic footnote[/^1] ##用的时候把/去掉</span><br></pre></td></tr></table></figure></p>
+<p>在文章末尾添加：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[/^1]: basic footnote content ##用的时候把/去掉</span><br></pre></td></tr></table></figure></p>
+<p>eg:this is a basic footnote[^1]</p>
+<h2 id="自定义页面"><a href="#自定义页面" class="headerlink" title="自定义页面"></a>自定义页面</h2><p>执行<code>hexo new page &quot;guestbook&quot;</code>之后，那怎么在博客中加进去呢？<br>找到<code>\next\_config.yml</code>下的<code>memu</code>，把<code>guestbook</code>加进去：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">menu:</span><br><span class="line"> home: /</span><br><span class="line"> categories: /categories</span><br><span class="line"> #about: /about</span><br><span class="line"> archives: /archives</span><br><span class="line"> tags: /tags</span><br><span class="line"> guestbook: /guestbook</span><br></pre></td></tr></table></figure></p>
+<p>图标网站：<em><a href="http://fontawesome.io/icons/" target="_blank" rel="noopener">http://fontawesome.io/icons/</a></em></p>
+<p>在<code>/themes/hexo-theme-next/languages/zh-Hans.yml</code>的目录下（这里默认你使用的是简体中文，若是其他语言更改相应的<code>yml</code>就行），在<code>memu</code>下加一句即可：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">guestbook: 留言</span><br></pre></td></tr></table></figure></p>
+<h2 id="添加字数统计和阅读时间"><a href="#添加字数统计和阅读时间" class="headerlink" title="添加字数统计和阅读时间"></a>添加字数统计和阅读时间</h2><h3 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-wordcount --save</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>通过以上安装后，你可以在你的模板文件后者.md文件加入以下相关的标签实现本插件的功能<br>字数统计:WordCount<br>阅读时长预计:Min2Read<br>总字数统计: TotalCount</p>
+</blockquote>
+<h3 id="修改post-swig模板"><a href="#修改post-swig模板" class="headerlink" title="修改post.swig模板"></a>修改post.swig模板</h3><p>找到<code>themes\next\layout\_macro\post.swig</code>并打开插入以下代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">&#123;# LeanCould PageView #&#125;</span><br><span class="line">         &#123;% if theme.leancloud_visitors.enable %&#125;</span><br><span class="line">            &lt;span id=&quot;&#123;&#123; url_for(post.path) &#125;&#125;&quot; class=&quot;leancloud_visitors&quot; data-flag-title=&quot;&#123;&#123; post.title &#125;&#125;&quot;&gt;</span><br><span class="line">		 &amp;nbsp; | &amp;nbsp;</span><br><span class="line">              &lt;span class=&quot;post-meta-item-icon&quot;&gt;</span><br><span class="line">                &lt;i class=&quot;fa fa-eye&quot;&gt;&lt;/i&gt;</span><br><span class="line">              &lt;/span&gt;</span><br><span class="line">              &lt;span class=&quot;post-meta-item-text&quot;&gt;&#123;&#123;__(&apos;post.visitors&apos;)&#125;&#125; &lt;/span&gt;</span><br><span class="line">              &lt;span class=&quot;leancloud-visitors-count&quot;&gt;&lt;/span&gt;</span><br><span class="line">             &lt;/span&gt;</span><br><span class="line">         &#123;% endif %&#125;</span><br><span class="line"></span><br><span class="line">	  </span><br><span class="line">#以下部分为：字数统计、阅读时长插入代码</span><br><span class="line">         &lt;span class=&quot;post-time&quot;&gt;</span><br><span class="line">	   &amp;nbsp; | &amp;nbsp;</span><br><span class="line">           &lt;span class=&quot;post-meta-item-icon&quot;&gt;</span><br><span class="line">             &lt;i class=&quot;fa fa-calendar-o&quot;&gt;&lt;/i&gt;</span><br><span class="line">           &lt;/span&gt;</span><br><span class="line">           &lt;span class=&quot;post-meta-item-text&quot;&gt;字数统计:&lt;/span&gt;</span><br><span class="line">           &lt;span class=&quot;post-count&quot;&gt;&#123;&#123; wordcount(post.content) &#125;&#125;(字)&lt;/span&gt;</span><br><span class="line">           </span><br><span class="line">         &lt;/span&gt;</span><br><span class="line">	  </span><br><span class="line">      &lt;span class=&quot;post-time&quot;&gt;</span><br><span class="line">	   &amp;nbsp; | &amp;nbsp;</span><br><span class="line">           &lt;span class=&quot;post-meta-item-icon&quot;&gt;</span><br><span class="line">             &lt;i class=&quot;fa fa-calendar-o&quot;&gt;&lt;/i&gt;</span><br><span class="line">           &lt;/span&gt;</span><br><span class="line">           &lt;span class=&quot;post-meta-item-text&quot;&gt;阅读时长:&lt;/span&gt;</span><br><span class="line">           &lt;span class=&quot;post-count&quot;&gt;&#123;&#123; min2read(post.content) &#125;&#125;(分)&lt;/span&gt;</span><br><span class="line">           </span><br><span class="line">         &lt;/span&gt;</span><br><span class="line">#以上部分为：字数统计、阅读时长插入代码</span><br></pre></td></tr></table></figure></p>
+<h2 id="修改footer"><a href="#修改footer" class="headerlink" title="修改footer"></a>修改footer</h2><p>修改之后的样子大概是这样的：<br><img src="https://cdn.yangbingdong.com/img/build-hexo/result.png" alt=""></p>
+<p>1、找到 <code>\themes\next\layout\partials\</code>下面的<code>footer.swig</code>文件，打开会发现，如下图的语句：<br><img src="https://cdn.yangbingdong.com/img/build-hexo/footer.png" alt=""></p>
+<ul>
+<li><p>第一个框 是下面侧栏的“日期❤ XXX”<br>如果想像我一样加东西，一定要在双大括号外面写。如：<code>xxx</code>,当然你要是想改彻底可以变量都删掉，看个人意愿。</p>
+</li>
+<li><p>第二个，是图一当中 “由Hexo驱动” 的Hexo链接，先给删掉防止跳转，如果想跳转当然也可以自己写地址，至于中文一会处理。注意删除的时候格式不能错，只把<code>&lt;a&gt;...&lt;/a&gt;</code>标签这部分删除即可，留着两个单引号’’,否则会出错哦。</p>
+</li>
+<li><p>第三个框也是最后一个了，这个就是更改图一后半部分“主题-Next.XX”,这个比较爽直接将<a>..</a>都删掉，同样中文“主题”一会处理，删掉之后在上一行 ‘-’后面可以随意加上你想显示的东西，不要显示敏感信息哟，请自重。</p>
+</li>
+</ul>
+<p>2、接下来，处理剩余的中文信息。找到这个地方<code>\themes\next\languages\</code> 下面的语言文件zh-Hans.yml（这里以中文为例，有的习惯用英文的配置文件，道理一样，找对应位置即可）<br>打开之后，如图：<br><img src="https://cdn.yangbingdong.com/img/build-hexo/languages.png" alt=""></p>
+<h2 id="给博客添加吉祥物"><a href="#给博客添加吉祥物" class="headerlink" title="给博客添加吉祥物"></a>给博客添加吉祥物</h2><blockquote>
+<p>详细信息： <strong><em><a href="https://github.com/EYHN/hexo-helper-live2d/blob/master/README.zh-CN.md" target="_blank" rel="noopener">https://github.com/EYHN/hexo-helper-live2d/blob/master/README.zh-CN.md</a></em></strong></p>
+</blockquote>
+<p>效果图：</p>
+<p><img src="https://cdn.yangbingdong.com/img/build-hexo/hexo-helper-live2d.png" alt=""></p>
+<p>安装依赖：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install --save hexo-helper-live2d</span><br><span class="line">npm install --save live2d-widget-model-wanko</span><br></pre></td></tr></table></figure>
+<p><strong>站点配置</strong>添加：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"># hexo-helper-live2d配置，参考https://github.com/EYHN/hexo-helper-live2d/blob/master/README.zh-CN.md</span><br><span class="line">live2d:</span><br><span class="line">  enable: true</span><br><span class="line">  scriptFrom: local</span><br><span class="line">  pluginRootPath: live2dw/</span><br><span class="line">  pluginJsPath: lib/</span><br><span class="line">  pluginModelPath: assets/</span><br><span class="line">  tagMode: false</span><br><span class="line">  debug: false</span><br><span class="line">  model:</span><br><span class="line">    scale: 1</span><br><span class="line">    use: live2d-widget-model-wanko</span><br><span class="line">  display:</span><br><span class="line">    superSample: 2 # 超采样等级</span><br><span class="line">    width: 100 </span><br><span class="line">    height: 100</span><br><span class="line">    position: left # 位置</span><br><span class="line">  mobile:</span><br><span class="line">    show: false</span><br><span class="line">  react:</span><br><span class="line">    opacityDefault: 0.9 # 默认透明度</span><br><span class="line">    opacityOnHover: 0.5 # 鼠标移上透明度</span><br></pre></td></tr></table></figure>
+<h2 id="侧栏加入已运行的时间"><a href="#侧栏加入已运行的时间" class="headerlink" title="侧栏加入已运行的时间"></a>侧栏加入已运行的时间</h2><p><code>themes/next/layout/_custom</code>中添加<code>sidebar.swig</code>文件：</p>
+<figure class="highlight html"><figcaption><span>themes/next/layout/_custom</span><a href="https://reuixiy.github.io/technology/computer/computer-aided-art/2017/06/09/hexo-next-optimization.html" target="_blank" rel="noopener">链接</a></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"days"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">    <span class="function"><span class="keyword">function</span> <span class="title">show_date_time</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">window</span>.setTimeout(<span class="string">"show_date_time()"</span>, <span class="number">1000</span>);</span></span><br><span class="line"><span class="javascript">        BirthDay=<span class="keyword">new</span> <span class="built_in">Date</span>(<span class="string">"01/10/2017 12:34:56"</span>);</span></span><br><span class="line"><span class="javascript">        today=<span class="keyword">new</span> <span class="built_in">Date</span>();</span></span><br><span class="line"><span class="undefined">        timeold=(today.getTime()-BirthDay.getTime());</span></span><br><span class="line"><span class="undefined">        sectimeold=timeold/1000</span></span><br><span class="line"><span class="javascript">        secondsold=<span class="built_in">Math</span>.floor(sectimeold);</span></span><br><span class="line"><span class="undefined">        msPerDay=24*60*60*1000</span></span><br><span class="line"><span class="undefined">        e_daysold=timeold/msPerDay</span></span><br><span class="line"><span class="javascript">        daysold=<span class="built_in">Math</span>.floor(e_daysold);</span></span><br><span class="line"><span class="undefined">        e_hrsold=(e_daysold-daysold)*24;</span></span><br><span class="line"><span class="javascript">        hrsold=setzero(<span class="built_in">Math</span>.floor(e_hrsold));</span></span><br><span class="line"><span class="undefined">        e_minsold=(e_hrsold-hrsold)*60;</span></span><br><span class="line"><span class="javascript">        minsold=setzero(<span class="built_in">Math</span>.floor((e_hrsold-hrsold)*<span class="number">60</span>));</span></span><br><span class="line"><span class="javascript">        seconds=setzero(<span class="built_in">Math</span>.floor((e_minsold-minsold)*<span class="number">60</span>));</span></span><br><span class="line"><span class="javascript">        <span class="built_in">document</span>.getElementById(<span class="string">'days'</span>).innerHTML=<span class="string">"已运行"</span>+daysold+<span class="string">"天"</span>+hrsold+<span class="string">"小时"</span>+minsold+<span class="string">"分"</span>+seconds+<span class="string">"秒"</span>;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="javascript"><span class="function"><span class="keyword">function</span> <span class="title">setzero</span>(<span class="params">i</span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">if</span> (i&lt;<span class="number">10</span>)</span></span><br><span class="line"><span class="javascript">    &#123;i=<span class="string">"0"</span> + i&#125;;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">return</span> i;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined">show_date_time();</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在<code>themes/next/layout/_macro/sidebar.swig</code>中的<code>&lt;/section&gt;</code>之前添加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% include &apos;../_custom/sidebar.swig&apos; %&#125;</span><br></pre></td></tr></table></figure>
+<p>样式：</p>
+<figure class="highlight diff"><figcaption><span>themes/next/source/css/_custom/custom.styl</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// 自定义的侧栏时间样式</span><br><span class="line">#days &#123;</span><br><span class="line">    display: block;</span><br><span class="line">    color: #fffa74;</span><br><span class="line">    font-size: 14px;</span><br><span class="line">    margin-top: 15px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="更改标签云（tagcloud）的颜色"><a href="#更改标签云（tagcloud）的颜色" class="headerlink" title="更改标签云（tagcloud）的颜色"></a>更改标签云（tagcloud）的颜色</h2><p><code>themes/next/layout/page.swig</code>找到<code>tagcloud并替换</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123; tagcloud(&#123;min_font: 13, max_font: 31, amount: 1000, color: true, start_color: &apos;#9733EE&apos;, end_color: &apos;#FF512F&apos;&#125;) &#125;&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="设置动态title"><a href="#设置动态title" class="headerlink" title="设置动态title"></a>设置动态title</h2><p><code>themes/next/source/js/src</code>下创建<code>dytitle.js</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">var OriginTitile = document.title;</span><br><span class="line">var titleTime;</span><br><span class="line">document.addEventListener(&apos;visibilitychange&apos;, function () &#123;</span><br><span class="line">    if (document.hidden) &#123;</span><br><span class="line">        $(&apos;[rel=&quot;shortcut icon&quot;]&apos;).attr(&apos;href&apos;, &quot;/TEP.png&quot;);</span><br><span class="line">        document.title = &apos;w(ﾟДﾟ)w 出BUG啦！！！！&apos;;</span><br><span class="line">        clearTimeout(titleTime);</span><br><span class="line">    &#125;</span><br><span class="line">    else &#123;</span><br><span class="line">        $(&apos;[rel=&quot;shortcut icon&quot;]&apos;).attr(&apos;href&apos;, &quot;/favicon.png&quot;);</span><br><span class="line">        document.title = &apos;♪(^∇^*)又好了。。。 &apos; + OriginTitile;</span><br><span class="line">        titleTime = setTimeout(function () &#123;</span><br><span class="line">            document.title = OriginTitile;</span><br><span class="line">        &#125;, 2000);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>修改<code>themes/next/layout/layout.swing</code>,在 <code>&lt;/body&gt;</code> 之前添加：:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=&quot;text/javascript&quot; src=&quot;/js/src/dytitle.js&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="修改文章底部的那个带-号的标签"><a href="#修改文章底部的那个带-号的标签" class="headerlink" title="修改文章底部的那个带#号的标签"></a>修改文章底部的那个带#号的标签</h2><p>修改模板<code>/themes/next/layout/_macro/post.swig</code>，搜索 <code>rel=&quot;tag&quot;&gt;#</code>，将 # 换成<code>&lt;i class=&quot;fa fa-tag&quot;&gt;&lt;/i&gt;</code></p>
+<h1 id="元素微调自定义篇"><a href="#元素微调自定义篇" class="headerlink" title="元素微调自定义篇"></a>元素微调自定义篇</h1><p>那么如何把字体、页宽、按钮大小等等一些细节的东西调到自己喜欢的样式呢？<br>那就是通过浏览器元素定位，调到自己喜欢的样式，然后加到<code>themes/next/source/css/_custom/custom.styl</code>文件下面。</p>
+<h2 id="定位元素"><a href="#定位元素" class="headerlink" title="定位元素"></a>定位元素</h2><p>用谷歌或者火狐浏览器打开博客页面，按下F12进入调试<br>先点击定位按钮，然后选择元素，然后在定位出来的样式进行修改，调到自己喜欢的样子，就像这样↓<br><img src="https://cdn.yangbingdong.com/img/build-hexo/yemiantiaoshi.png" alt=""></p>
+<h2 id="添加到样式文件"><a href="#添加到样式文件" class="headerlink" title="添加到样式文件"></a>添加到样式文件</h2><p>打开<code>themes/next/source/css/_custom/custom.styl</code>，把调试好的样式加进去，保存后<code>Ctrl+F5</code>就能看到效果了，前提是在本地运行的，下面列出博主的一些自定义样式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br></pre></td><td class="code"><pre><span class="line">// Custom styles.</span><br><span class="line">// 页面头部背景</span><br><span class="line">.header &#123;  background:url(https://cdn.yangbingdong.com/img/header/header_background.jpg);&#125;</span><br><span class="line"></span><br><span class="line">// 子标题</span><br><span class="line">.site-subtitle&#123; font-size: 15px; color: white; &#125;</span><br><span class="line"></span><br><span class="line">// 标题</span><br><span class="line">.site-title &#123;</span><br><span class="line">    font-size: 40px;</span><br><span class="line">    font-weight: bold;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 标题背景</span><br><span class="line">.brand&#123;</span><br><span class="line">    background: transparent;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 菜单栏</span><br><span class="line">.menu &#123;</span><br><span class="line">	margin-top: 20px;</span><br><span class="line">	padding-left: 0;</span><br><span class="line">	text-align: center;</span><br><span class="line">	background: rgba(240, 240, 240, 0.5);</span><br><span class="line">	margin-left: auto;</span><br><span class="line">	margin-right: auto;</span><br><span class="line">	width: 530px;</span><br><span class="line">	border-radius: initial;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 菜单图表链接 以及 超链接样式</span><br><span class="line">a &#123;</span><br><span class="line">    color: rgba(0,0,0,0.8);</span><br><span class="line">&#125;</span><br><span class="line">a:hover &#123;</span><br><span class="line">    color: #ff106c;</span><br><span class="line">    border-bottom-color: #ff106c;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 菜单字体大小</span><br><span class="line">.menu .menu-item a &#123;</span><br><span class="line">    font-size: 14px;</span><br><span class="line">&#125;</span><br><span class="line">.menu .menu-item a:hover &#123;</span><br><span class="line">    border-bottom-color: #ff106c;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 文章背景框框</span><br><span class="line">.post &#123;</span><br><span class="line">    margin-top: 10px;</span><br><span class="line">    margin-bottom: 40px;</span><br><span class="line">    padding: 18px;</span><br><span class="line">    -webkit-box-shadow: 0 0 5px rgba(202, 203, 203, 0.8);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">// 站点描述</span><br><span class="line">.site-description &#123;</span><br><span class="line">    font-size: 16px;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 头部inner</span><br><span class="line">.header-inner &#123;</span><br><span class="line">    padding: 45px 0 25px;</span><br><span class="line">    width: 700px;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 作者名</span><br><span class="line">.site-author-name &#123;</span><br><span class="line">    font-family: &apos;Comic Sans MS&apos;, sans-serif;</span><br><span class="line">    font-size: 20px;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 文章之间的分割线</span><br><span class="line">.posts-expand .post-eof &#123;</span><br><span class="line">    margin: 40px auto 40px;</span><br><span class="line">    background: white;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 按钮样式</span><br><span class="line">.btn &#123;</span><br><span class="line">    margin-top: 20px;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// ``代码块样式</span><br><span class="line">code &#123;</span><br><span class="line">    color: #E6006B;</span><br><span class="line">    background: white;</span><br><span class="line">    border-radius: 3px;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 文章```代码块顶部样式</span><br><span class="line">.highlight figcaption &#123;</span><br><span class="line">    margin: 0em;</span><br><span class="line">    padding: 0.5em;</span><br><span class="line">    background: #eee;</span><br><span class="line">    border-bottom: 1px solid #e9e9e9;</span><br><span class="line">&#125;</span><br><span class="line">.highlight figcaption a &#123;</span><br><span class="line">    color: rgb(80, 115, 184);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 文章标题动态效果 next/source/css/_common/components/post/post-title.styl中.posts-expand .post-title-link确保`position: relative;`属性存在，如果需要标题呈现链接效果颜色，将`color`元素去除即可</span><br><span class="line">.posts-expand .post-title-link::before &#123;</span><br><span class="line">    background-image: linear-gradient(90deg, #a166ab 0%, #ef4e7b 25%, #f37055 50%, #ef4e7b 75%, #a166ab 100%);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 文章内标题样式（左边的竖线）</span><br><span class="line">.post-body h2, h3, h4, h5, h6 &#123;</span><br><span class="line">    border-left: 4px solid #657b83;</span><br><span class="line">    padding-left: 10px;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.post-body h1 &#123;</span><br><span class="line">    border-left: 5px solid #657b83;</span><br><span class="line">    padding-left: 10px;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">body &#123;</span><br><span class="line">    color: #444;</span><br><span class="line">    font-size: 16px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>但并不是所有的样式都能调，像页宽，多说评论的样式在<code>custom.styl</code>文件是无效的。</p>
+<h2 id="好玩的样式"><a href="#好玩的样式" class="headerlink" title="好玩的样式"></a>好玩的样式</h2><p>先在<code>themes/next/source/css/_custom/custom.styl</code>中添加以下样式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br></pre></td><td class="code"><pre><span class="line">// 下载样式</span><br><span class="line">a#download &#123;</span><br><span class="line">display: inline-block;</span><br><span class="line">padding: 0 10px;</span><br><span class="line">color: #000;</span><br><span class="line">background: transparent;</span><br><span class="line">border: 2px solid #000;</span><br><span class="line">border-radius: 2px;</span><br><span class="line">transition: all .5s ease;</span><br><span class="line">font-weight: bold;</span><br><span class="line">&amp;:hover &#123;</span><br><span class="line">background: #000;</span><br><span class="line">color: #fff;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">/ /颜色块-黄</span><br><span class="line">span#inline-yellow &#123;</span><br><span class="line">display:inline;</span><br><span class="line">padding:.2em .6em .3em;</span><br><span class="line">font-size:80%;</span><br><span class="line">font-weight:bold;</span><br><span class="line">line-height:1;</span><br><span class="line">color:#fff;</span><br><span class="line">text-align:center;</span><br><span class="line">white-space:nowrap;</span><br><span class="line">vertical-align:baseline;</span><br><span class="line">border-radius:0;</span><br><span class="line">background-color: #f0ad4e;</span><br><span class="line">&#125;</span><br><span class="line">// 颜色块-绿</span><br><span class="line">span#inline-green &#123;</span><br><span class="line">display:inline;</span><br><span class="line">padding:.2em .6em .3em;</span><br><span class="line">font-size:80%;</span><br><span class="line">font-weight:bold;</span><br><span class="line">line-height:1;</span><br><span class="line">color:#fff;</span><br><span class="line">text-align:center;</span><br><span class="line">white-space:nowrap;</span><br><span class="line">vertical-align:baseline;</span><br><span class="line">border-radius:0;</span><br><span class="line">background-color: #5cb85c;</span><br><span class="line">&#125;</span><br><span class="line">// 颜色块-蓝</span><br><span class="line">span#inline-blue &#123;</span><br><span class="line">display:inline;</span><br><span class="line">padding:.2em .6em .3em;</span><br><span class="line">font-size:80%;</span><br><span class="line">font-weight:bold;</span><br><span class="line">line-height:1;</span><br><span class="line">color:#fff;</span><br><span class="line">text-align:center;</span><br><span class="line">white-space:nowrap;</span><br><span class="line">vertical-align:baseline;</span><br><span class="line">border-radius:0;</span><br><span class="line">background-color: #2780e3;</span><br><span class="line">&#125;</span><br><span class="line">// 颜色块-紫</span><br><span class="line">span#inline-purple &#123;</span><br><span class="line">display:inline;</span><br><span class="line">padding:.2em .6em .3em;</span><br><span class="line">font-size:80%;</span><br><span class="line">font-weight:bold;</span><br><span class="line">line-height:1;</span><br><span class="line">color:#fff;</span><br><span class="line">text-align:center;</span><br><span class="line">white-space:nowrap;</span><br><span class="line">vertical-align:baseline;</span><br><span class="line">border-radius:0;</span><br><span class="line">background-color: #9954bb;</span><br><span class="line">&#125;</span><br><span class="line">// 左侧边框红色块级</span><br><span class="line">p#div-border-left-red &#123;</span><br><span class="line">display: block;</span><br><span class="line">padding: 10px;</span><br><span class="line">margin: 10px 0;</span><br><span class="line">border: 1px solid #ccc;</span><br><span class="line">border-left-width: 5px;</span><br><span class="line">border-radius: 3px;</span><br><span class="line">border-left-color: #df3e3e;</span><br><span class="line">&#125;</span><br><span class="line">// 左侧边框黄色块级</span><br><span class="line">p#div-border-left-yellow &#123;</span><br><span class="line">display: block;</span><br><span class="line">padding: 10px;</span><br><span class="line">margin: 10px 0;</span><br><span class="line">border: 1px solid #ccc;</span><br><span class="line">border-left-width: 5px;</span><br><span class="line">border-radius: 3px;</span><br><span class="line">border-left-color: #f0ad4e;</span><br><span class="line">&#125;</span><br><span class="line">// 左侧边框绿色块级</span><br><span class="line">p#div-border-left-green &#123;</span><br><span class="line">display: block;</span><br><span class="line">padding: 10px;</span><br><span class="line">margin: 10px 0;</span><br><span class="line">border: 1px solid #ccc;</span><br><span class="line">border-left-width: 5px;</span><br><span class="line">border-radius: 3px;</span><br><span class="line">border-left-color: #5cb85c;</span><br><span class="line">&#125;</span><br><span class="line">// 左侧边框蓝色块级</span><br><span class="line">p#div-border-left-blue &#123;</span><br><span class="line">display: block;</span><br><span class="line">padding: 10px;</span><br><span class="line">margin: 10px 0;</span><br><span class="line">border: 1px solid #ccc;</span><br><span class="line">border-left-width: 5px;</span><br><span class="line">border-radius: 3px;</span><br><span class="line">border-left-color: #2780e3;</span><br><span class="line">&#125;</span><br><span class="line">// 左侧边框紫色块级</span><br><span class="line">p#div-border-left-purple &#123;</span><br><span class="line">display: block;</span><br><span class="line">padding: 10px;</span><br><span class="line">margin: 10px 0;</span><br><span class="line">border: 1px solid #ccc;</span><br><span class="line">border-left-width: 5px;</span><br><span class="line">border-radius: 3px;</span><br><span class="line">border-left-color: #9954bb;</span><br><span class="line">&#125;</span><br><span class="line">// 右侧边框红色块级</span><br><span class="line">p#div-border-right-red &#123;</span><br><span class="line">display: block;</span><br><span class="line">padding: 10px;</span><br><span class="line">margin: 10px 0;</span><br><span class="line">border: 1px solid #ccc;</span><br><span class="line">border-right-width: 5px;</span><br><span class="line">border-radius: 3px;</span><br><span class="line">border-right-color: #df3e3e;</span><br><span class="line">&#125;</span><br><span class="line">// 右侧边框黄色块级</span><br><span class="line">p#div-border-right-yellow &#123;</span><br><span class="line">display: block;</span><br><span class="line">padding: 10px;</span><br><span class="line">margin: 10px 0;</span><br><span class="line">border: 1px solid #ccc;</span><br><span class="line">border-right-width: 5px;</span><br><span class="line">border-radius: 3px;</span><br><span class="line">border-right-color: #f0ad4e;</span><br><span class="line">&#125;</span><br><span class="line">// 右侧边框绿色块级</span><br><span class="line">p#div-border-right-green &#123;</span><br><span class="line">display: block;</span><br><span class="line">padding: 10px;</span><br><span class="line">margin: 10px 0;</span><br><span class="line">border: 1px solid #ccc;</span><br><span class="line">border-right-width: 5px;</span><br><span class="line">border-radius: 3px;</span><br><span class="line">border-right-color: #5cb85c;</span><br><span class="line">&#125;</span><br><span class="line">// 右侧边框蓝色块级</span><br><span class="line">p#div-border-right-blue &#123;</span><br><span class="line">display: block;</span><br><span class="line">padding: 10px;</span><br><span class="line">margin: 10px 0;</span><br><span class="line">border: 1px solid #ccc;</span><br><span class="line">border-right-width: 5px;</span><br><span class="line">border-radius: 3px;</span><br><span class="line">border-right-color: #2780e3;</span><br><span class="line">&#125;</span><br><span class="line">// 右侧边框紫色块级</span><br><span class="line">p#div-border-right-purple &#123;</span><br><span class="line">display: block;</span><br><span class="line">padding: 10px;</span><br><span class="line">margin: 10px 0;</span><br><span class="line">border: 1px solid #ccc;</span><br><span class="line">border-right-width: 5px;</span><br><span class="line">border-radius: 3px;</span><br><span class="line">border-right-color: #9954bb;</span><br><span class="line">&#125;</span><br><span class="line">// 上侧边框红色</span><br><span class="line">p#div-border-top-red &#123;</span><br><span class="line">display: block;</span><br><span class="line">padding: 10px;</span><br><span class="line">margin: 10px 0;</span><br><span class="line">border: 1px solid #ccc;</span><br><span class="line">border-top-width: 5px;</span><br><span class="line">border-radius: 3px;</span><br><span class="line">border-top-color: #df3e3e;</span><br><span class="line">&#125;</span><br><span class="line">// 上侧边框黄色</span><br><span class="line">p#div-border-top-yellow &#123;</span><br><span class="line">display: block;</span><br><span class="line">padding: 10px;</span><br><span class="line">margin: 10px 0;</span><br><span class="line">border: 1px solid #ccc;</span><br><span class="line">border-top-width: 5px;</span><br><span class="line">border-radius: 3px;</span><br><span class="line">border-top-color: #f0ad4e;</span><br><span class="line">&#125;</span><br><span class="line">// 上侧边框绿色</span><br><span class="line">p#div-border-top-green &#123;</span><br><span class="line">display: block;</span><br><span class="line">padding: 10px;</span><br><span class="line">margin: 10px 0;</span><br><span class="line">border: 1px solid #ccc;</span><br><span class="line">border-top-width: 5px;</span><br><span class="line">border-radius: 3px;</span><br><span class="line">border-top-color: #5cb85c;</span><br><span class="line">&#125;</span><br><span class="line">// 上侧边框蓝色</span><br><span class="line">p#div-border-top-blue &#123;</span><br><span class="line">display: block;</span><br><span class="line">padding: 10px;</span><br><span class="line">margin: 10px 0;</span><br><span class="line">border: 1px solid #ccc;</span><br><span class="line">border-top-width: 5px;</span><br><span class="line">border-radius: 3px;</span><br><span class="line">border-top-color: #2780e3;</span><br><span class="line">&#125;</span><br><span class="line">// 上侧边框紫色</span><br><span class="line">p#div-border-top-purple &#123;</span><br><span class="line">display: block;</span><br><span class="line">padding: 10px;</span><br><span class="line">margin: 10px 0;</span><br><span class="line">border: 1px solid #ccc;</span><br><span class="line">border-top-width: 5px;</span><br><span class="line">border-radius: 3px;</span><br><span class="line">border-top-color: #9954bb;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>用法如下</strong>：</p>
+<h3 id="文字增加背景色块"><a href="#文字增加背景色块" class="headerlink" title="文字增加背景色块"></a>文字增加背景色块</h3><p><span id="inline-blue">站点配置文件</span> ，<span id="inline-purple">主题配置文件</span><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;span id=&quot;inline-blue&quot;&gt;站点配置文件&lt;/span&gt;， </span><br><span class="line">&lt;span id=&quot;inline-purple&quot;&gt;主题配置文件&lt;/span&gt;</span><br></pre></td></tr></table></figure></p>
+<h3 id="引用边框变色"><a href="#引用边框变色" class="headerlink" title="引用边框变色"></a>引用边框变色</h3><p></p><p id="div-border-left-red">如果没有安装成功，那可能就是墙的原因。建议下载 <code>Node.js</code> 直接安装。</p><p></p>
+<p></p><p id="div-border-top-blue">关于更多基本操作和基础知识，请查阅 <a href="https://hexo.io/zh-cn/" target="_blank" rel="noopener">Hexo</a> 与 <a href="http://theme-next.iissnan.com/" target="_blank" rel="noopener">NexT</a> 官方文档.</p><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;p id=&quot;div-border-left-red&quot;&gt;如果没有安装成功，那可能就是墙的原因。建议下载 `Node.js` 直接安装。&lt;/p&gt;</span><br><span class="line">&lt;p id=&quot;div-border-top-blue&quot;&gt;关于更多基本操作和基础知识，请查阅 [Hexo](https://hexo.io/zh-cn/) 与 [NexT](http://theme-next.iissnan.com/) 官方文档.&lt;/p&gt;</span><br></pre></td></tr></table></figure><p></p>
+<h3 id="在文档中增加图标"><a href="#在文档中增加图标" class="headerlink" title="在文档中增加图标"></a>在文档中增加图标</h3><ul>
+<li><i class="fa fa-pencil"></i>支持Markdown<br><i>Hexo 支持 GitHub Flavored Markdown 的所有功能，甚至可以整合 Octopress 的大多数插件。</i></li>
+<li><i class="fa fa-cloud-upload"></i>一件部署<br><i>只需一条指令即可部署到Github Pages，或其他网站</i></li>
+<li><i class="fa fa-cog"></i>丰富的插件<br><i>Hexo 拥有强大的插件系统，安装插件可以让 Hexo 支持 Jade, CoffeeScript。</i></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">- &lt;i class=&quot;fa fa-pencil&quot;&gt;&lt;/i&gt;支持Markdown</span><br><span class="line">&lt;i&gt;Hexo 支持 GitHub Flavored Markdown 的所有功能，甚至可以整合 Octopress 的大多数插件。&lt;/i&gt;</span><br><span class="line">- &lt;i class=&quot;fa fa-cloud-upload&quot;&gt;&lt;/i&gt;一件部署</span><br><span class="line">&lt;i&gt;只需一条指令即可部署到Github Pages，或其他网站&lt;/i&gt;</span><br><span class="line">- &lt;i class=&quot;fa fa-cog&quot;&gt;&lt;/i&gt;丰富的插件</span><br><span class="line">&lt;i&gt;Hexo 拥有强大的插件系统，安装插件可以让 Hexo 支持 Jade, CoffeeScript。&lt;/i&gt;</span><br></pre></td></tr></table></figure>
+<p><i class="fa fa-github"></i><code>&lt;i class=&quot;fa fa-github&quot;&gt;&lt;/i&gt;</code><br><i class="fa fa-github fa-lg"></i><code>&lt;i class=&quot;fa fa-github fa-lg&quot;&gt;&lt;/i&gt;</code><br><i class="fa fa-github fa-2x"></i><code>&lt;i class=&quot;fa fa-github fa-2x&quot;&gt;&lt;/i&gt;</code></p>
+<p>采用的是<strong><em><a href="http://fontawesome.io/examples/" target="_blank" rel="noopener">Font Awesome</a></em></strong>的图标。</p>
+<h3 id="图形边框效果"><a href="#图形边框效果" class="headerlink" title="图形边框效果"></a>图形边框效果</h3><p><a id="download" href="https://git-scm.com/download/win" target="_blank" rel="noopener"><i class="fa fa-download"></i><span> Download Now</span><br></a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;a id=&quot;download&quot; href=&quot;https://git-scm.com/download/win&quot;&gt;&lt;i class=&quot;fa fa-download&quot;&gt;&lt;/i&gt;&lt;span&gt; Download Now&lt;/span&gt;</span><br><span class="line">&lt;/a&gt;</span><br></pre></td></tr></table></figure></p>
+<p>这也是调用了<strong><em><a href="http://fontawesome.io/examples/" target="_blank" rel="noopener">Font Awesome</a></em></strong>的方法。</p>
+<h2 id="代码高亮相关"><a href="#代码高亮相关" class="headerlink" title="代码高亮相关"></a>代码高亮相关</h2><p>先看一则代码</p>
+<figure class="highlight diff"><figcaption><span>Hello World示例</span><a href="http://yangbingdong.com" target="_blank" rel="noopener">这是链接</a></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line"><span class="addition">+		System.out.println("Hello World!");</span></span><br><span class="line"><span class="deletion">-		System.out.println("Hello World!");</span></span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>正确姿势，代码片段开头：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[language] [title] [url] [link-text]</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>[language]</code> 是代码语言的名称，用来设置代码块颜色高亮，非必须；</li>
+<li><code>[title]</code> 是顶部左边的说明，非必须；</li>
+<li><code>[url]</code> 是顶部右边的超链接地址，非必须；</li>
+<li><code>[link text]</code> 如它的字面意思，超链接的名称，非必须。</li>
+</ul>
+<p>这 4 项应该是根据空格来分隔，而不是<code>[]</code>，故请不要加<code>[]</code>。除非如果你想写后面两个，但不想写前面两个，那么就必须加<code>[]</code>了，要这样写：<code>[] [] [url] [link text]</code>。</p>
+<p>首先关于代码块颜色高亮，高亮的模式可以在<strong>主题配置文件</strong>中设置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># Code Highlight theme</span><br><span class="line"># Available value:</span><br><span class="line">#    normal | night | night eighties | night blue | night bright</span><br><span class="line"># https://github.com/chriskempson/tomorrow-theme</span><br><span class="line"></span><br><span class="line">highlight_theme: normal</span><br></pre></td></tr></table></figure>
+<p>要颜色正确高亮，代码语言的名称肯定要写对，各种支持语言的名称可以查看<a href="https://almostover.ru/2016-07/hexo-highlight-code-styles/" target="_blank" rel="noopener">这篇文章</a>。也可以在站点配置文件<code>_config.yml</code>中设置自动高亮：</p>
+<figure class="highlight diff"><figcaption><span>blog/_config.yml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">highlight:</span><br><span class="line">  enable: true</span><br><span class="line">  line_number: true</span><br><span class="line"># 代码自动高亮</span><br><span class="line"><span class="deletion">-  auto_detect: false</span></span><br><span class="line"><span class="addition">+  auto_detect: true</span></span><br></pre></td></tr></table></figure>
+<p>上边的diff是通过在<code>[language]</code>填写diff，然后在相应代码前面加上<code>-</code>和<code>+</code></p>
+<p>顶部的文字样式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// 文章```代码块顶部样式</span><br><span class="line">.highlight figcaption &#123;</span><br><span class="line">    margin: 0em;</span><br><span class="line">    padding: 0.5em;</span><br><span class="line">    background: #eee;</span><br><span class="line">    border-bottom: 1px solid #e9e9e9;</span><br><span class="line">&#125;</span><br><span class="line">.highlight figcaption a &#123;</span><br><span class="line">    color: rgb(80, 115, 184);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="站点加速篇"><a href="#站点加速篇" class="headerlink" title="站点加速篇"></a>站点加速篇</h1><h2 id="更改默认Google字体库"><a href="#更改默认Google字体库" class="headerlink" title="更改默认Google字体库"></a>更改默认Google字体库</h2><p>访问系统总是会耗费一大部分的时间在加载<code>google</code>字体库上，而且经常加载不成功。</p>
+<p>方法一：用国内的CDN库来替代主题中的<code>google</code>字体库，到<code>主题配置文件</code>中设置默认字体库：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">host: fonts.useso.com</span><br></pre></td></tr></table></figure></p>
+<p>方法二：关掉字体库的引用，默认加载本地字体库，到<code>主题配置文件</code>设置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">font:</span><br><span class="line">  enable: false</span><br></pre></td></tr></table></figure></p>
+<h2 id="使用云盘存放图片资源"><a href="#使用云盘存放图片资源" class="headerlink" title="使用云盘存放图片资源"></a>使用云盘存放图片资源</h2><p>由于Github的服务器在海外，那么如果把图片也放到Github显然是不科学的，而且Github的存储空间也有局限，那么在这里博主推荐使用<em><a href="http://www.qiniu.com/" target="_blank" rel="noopener">七牛云储存</a></em><br>具体怎么做在之前的基础篇已经介绍过了，详情请看→<em><a href="/2017/build-blog-hexo-base/#%E6%96%B9%E5%BC%8F%E4%B8%89">传送门</a></em></p>
+<h2 id="压缩代码"><a href="#压缩代码" class="headerlink" title="压缩代码"></a>压缩代码</h2><p>安装插件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-all-minifier --save</span><br></pre></td></tr></table></figure></p>
+<p>之后执行<code>hexo g</code>就会自动压缩<br>但这有一个<strong>缺点</strong>，就是本地运行也就是执行<code>hexo s</code>之后浏览器打开本地项目会很慢，原因是每次点击一个链接它就会重新压缩一次，所以建议本地调试的时候把项目根目录下的<code>package.json</code>中的<code>&quot;hexo-all-minifier&quot;: &quot;0.0.14&quot;</code>先删掉再调试,或者改成注释：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&quot;dependencies&quot;: &#123;</span><br><span class="line">    .</span><br><span class="line">	.</span><br><span class="line">	.</span><br><span class="line">    &quot;hexo-server&quot;: &quot;^0.2.0&quot;,</span><br><span class="line">    &quot;hexo-wordcount&quot;: &quot;^2.0.1&quot;,</span><br><span class="line">    &quot;this-is-compress-plugin&quot;: &#123;</span><br><span class="line">      &quot;hexo-all-minifier&quot;: &quot;0.0.14&quot;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>其实也没必要压缩代码，牺牲了性能，每次生成静态文件都太慢了，得不偿失的感觉</p>
+<h1 id="SEO-搜索引擎优化-篇"><a href="#SEO-搜索引擎优化-篇" class="headerlink" title="SEO(搜索引擎优化)篇"></a>SEO(搜索引擎优化)篇</h1><h2 id="网站验证"><a href="#网站验证" class="headerlink" title="网站验证"></a>网站验证</h2><p>以下是几个搜索引擎的提交入口：</p>
+<ul>
+<li><strong><em><a href="http://zhanzhang.baidu.com/linksubmit/url" target="_blank" rel="noopener">百度提交入口</a></em></strong></li>
+<li><strong><em><a href="https://www.google.com/webmasters/tools/home?hl=zh-CN" target="_blank" rel="noopener">Google提交入口</a></em></strong></li>
+<li><strong><em><a href="http://info.so.360.cn/site_submit.html" target="_blank" rel="noopener">360提交入口</a></em></strong></li>
+</ul>
+<p>以百度为例，谷歌的太简单就不说了：<br>打开<em><a href="http://zhanzhang.baidu.com/linksubmit/url" target="_blank" rel="noopener">百度站长</a></em>验证网站<br><strong>方式一：文件验证</strong></p>
+<ul>
+<li>登录百度站长选择添加网站，使用方式为文件验证</li>
+<li>将下载的文件放到<code>source</code>文件下</li>
+<li>由于hexo自动会对html文件进行渲染，所以在<code>站点配置文件</code>中找到<code>skip_render:</code></li>
+<li>在后面添加文件名字，如有多个用<code>[a.html,b.html]</code>，eg:<code>skip_render:[baidu_verify_tdOGHi8IQG.html, baidu_verify_vcJkI72f1e.html]</code></li>
+<li><p>重新渲染文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo d -g</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然后可以点击百度站长的验证按钮了</p>
+</li>
+</ul>
+<p><strong>方式二：CNAME验证</strong></p>
+<ol>
+<li>去站长添加网站选择CNAME验证</li>
+<li>把地址解析到zz.baidu.com</li>
+<li>完成验证</li>
+</ol>
+<p>就像这样↓<br><img src="https://cdn.yangbingdong.com/img/build-hexo/DNSjiexi.png" alt=""></p>
+<p><img src="https://cdn.yangbingdong.com/img/build-hexo/baiduyanzheng.png" alt=""></p>
+<h2 id="添加并提交sitemap"><a href="#添加并提交sitemap" class="headerlink" title="添加并提交sitemap"></a>添加并提交sitemap</h2><p>安装hexo的<code>sitemap</code>网站地图生成插件:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-generator-sitemap --save</span><br><span class="line">npm install hexo-generator-baidu-sitemap --save</span><br></pre></td></tr></table></figure></p>
+<p>在<code>站点配置文件</code>中添加如下代码。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># hexo sitemap</span><br><span class="line">sitemap:</span><br><span class="line">  path: sitemap.xml</span><br><span class="line"></span><br><span class="line">baidusitemap:</span><br><span class="line">  path: baidusitemap.xml</span><br></pre></td></tr></table></figure></p>
+<p>配置成功后，会生成<code>sitemap.xml</code>和<code>baidusitemap.xml</code>，前者适合提交给<strong>谷歌搜素引擎</strong>，后者适合提交<strong>百度搜索引擎</strong>。<br>百度sitemap提交如下↓<br><img src="https://cdn.yangbingdong.com/img/build-hexo/sitemap.png" alt=""></p>
+<p>验证成功之后就可以开始推送了，这里说一下，Google的收录真的快的不要不要的，第二天就能搜得到，百度就不想说了，不知道要等到猴年马月<br><img src="https://cdn.yangbingdong.com/img/build-hexo/GoogleSearch.png" alt=""></p>
+<h2 id="主动推送"><a href="#主动推送" class="headerlink" title="主动推送"></a>主动推送</h2><p>安装主动推送插件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">﻿npm install hexo-baidu-url-submit --save</span><br></pre></td></tr></table></figure></p>
+<p>在根目录下，把以下内容配置到<code>站点配置文件</code>中:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">baidu_url_submit:</span><br><span class="line">  count: 3 ## 比如3，代表提交最新的三个链接</span><br><span class="line">  host: www.henvyluk.com ## 在百度站长平台中注册的域名</span><br><span class="line">  token: your_token ## 请注意这是您的秘钥，请不要发布在公众仓库里!</span><br><span class="line">  path: baidu_urls.txt ## 文本文档的地址，新链接会保存在此文本文档里</span><br></pre></td></tr></table></figure></p>
+<p>至于上面提到的<code>your_token</code>可在百度站长如下位置找到↓<br><img src="https://cdn.yangbingdong.com/img/build-hexo/baidutoken.png" alt=""><br>其次，记得查看<code>站点配置文件</code>中url的值， 必须包含是百度站长平台注册的域名（一般有www）， 比如:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">url: http://www.ookamiantd.top</span><br><span class="line">root: /</span><br><span class="line">permalink: :year/:month/:day/:title/</span><br></pre></td></tr></table></figure></p>
+<p>接下来添加一个新的<code>deploy</code>的类型：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># Deployment</span><br><span class="line">## Docs: https://hexo.io/docs/deployment.html</span><br><span class="line">deploy:</span><br><span class="line">- type: baidu_url_submitter</span><br><span class="line">- type: git</span><br><span class="line">  repo:</span><br><span class="line">    github: git@github.com:masteranthoneyd/masteranthoneyd.github.io.git,master</span><br><span class="line">    coding: git@git.coding.net:ookamiantd/ookamiantd.git,master</span><br></pre></td></tr></table></figure></p>
+<p>执行<code>hexo deploy</code>的时候，新的连接就会被推送了。这里讲一下原理：</p>
+<ul>
+<li>新链接的产生，<code>hexo generate</code>会产生一个文本文件，里面包含最新的链接</li>
+<li>新链接的提交，<code>hexo deploy</code>会从上述文件中读取链接，提交至百度搜索引擎</li>
+</ul>
+<h2 id="自动推送"><a href="#自动推送" class="headerlink" title="自动推送"></a>自动推送</h2><p>把next<code>主题配置文件</code>中的<code>baidu_push</code>设置为<code>true</code>，就可以了。</p>
+<h2 id="添加蜘蛛协议"><a href="#添加蜘蛛协议" class="headerlink" title="添加蜘蛛协议"></a>添加蜘蛛协议</h2><p>在<code>/source/</code>目录下新建一个<code>robots.txt</code>文件，添加下面的一段代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#hexo robots.txt</span><br><span class="line">User-agent: *</span><br><span class="line"></span><br><span class="line">Allow: /</span><br><span class="line">Allow: /archives/</span><br><span class="line"></span><br><span class="line">Disallow: /vendors/</span><br><span class="line">Disallow: /js/</span><br><span class="line">Disallow: /css/</span><br><span class="line">Disallow: /fonts/</span><br><span class="line">Disallow: /vendors/</span><br><span class="line">Disallow: /fancybox/</span><br><span class="line"></span><br><span class="line">Sitemap: http://blog.tangxiaozhu.com/search.xml</span><br><span class="line">Sitemap: http://blog.tangxiaozhu.com/sitemap.xml</span><br><span class="line">Sitemap: http://blog.tangxiaozhu.com/baidusitemap.xml</span><br></pre></td></tr></table></figure></p>
+<p>然后到百度站长更新一下，就像这样↓<br><img src="https://cdn.yangbingdong.com/img/build-hexo/robots.png" alt=""></p>
+<h2 id="修改文章链接"><a href="#修改文章链接" class="headerlink" title="修改文章链接"></a>修改文章链接</h2><p>hexo默认的文章链接形式为<code>domain/year/month/day/postname</code>，默认就是一个四级<code>url</code>，并且可能造成<code>url</code>过长，对搜索引擎是十分不友好的，我们可以改成<code>domain/postname</code>的形式。编辑<code>站点配置文件</code>文件，修改其中的<code>permalink</code>字段为<code>permalink: :title.html</code>即可。</p>
+<h2 id="更改首页标题格式为「关键词-网站名称-网站描述」"><a href="#更改首页标题格式为「关键词-网站名称-网站描述」" class="headerlink" title="更改首页标题格式为「关键词-网站名称 - 网站描述」"></a>更改首页标题格式为「关键词-网站名称 - 网站描述」</h2><p>打开<code>\themes\next\layout\index.swig</code>文件，找到这行代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% block title %&#125; &#123;&#123; config.title &#125;&#125; &#123;% endblock %&#125;</span><br></pre></td></tr></table></figure></p>
+<p>把它改成：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% block title %&#125;</span><br><span class="line"> &#123;&#123; theme.keywords &#125;&#125; - &#123;&#123; config.title &#125;&#125; - &#123;&#123; theme.description &#125;&#125;</span><br><span class="line">&#123;% endblock %&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="自动给所有外部链接添加nofollow"><a href="#自动给所有外部链接添加nofollow" class="headerlink" title="自动给所有外部链接添加nofollow"></a>自动给所有外部链接添加nofollow</h2><p>安装<code>hexo-autonofollow</code>，在站点的根目录下执行以下命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-autonofollow --save</span><br></pre></td></tr></table></figure></p>
+<p>编辑<strong>站点配置文件</strong>，新增以下内容到任意位置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">nofollow:</span><br><span class="line">  enable: true</span><br><span class="line">  exclude:</span><br><span class="line">  - exclude1.com</span><br><span class="line">  - exclude2.com</span><br></pre></td></tr></table></figure></p>
+<h1 id="多PC同步源码篇"><a href="#多PC同步源码篇" class="headerlink" title="多PC同步源码篇"></a>多PC同步源码篇</h1><p>1.准备工作：公司电脑和家里电脑配置git ssh密钥连接</p>
+<p>2.上传blog到git：此项建议先在blog进度最新的PC上进行，否则会有版本冲突，解决也比较麻烦。在PC上建立git ssh密钥连接和建立新库respo在此略过：    </p>
+<ul>
+<li>编辑<code>.gitignore</code>文件：<code>.gitignore</code>文件作用是声明不被git记录的文件，blog根目录下的<code>.gitignore</code>是hexo初始化是创建的，可以直接编辑，建议<code>.gitignore</code>文件包括以下内容：      </li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.DS_Store      </span><br><span class="line">Thumbs.db      </span><br><span class="line">db.json      </span><br><span class="line">*.log      </span><br><span class="line">node_modules/      </span><br><span class="line">public/      </span><br><span class="line">.deploy*/</span><br></pre></td></tr></table></figure>
+<p><code>public</code>内的文件可以根据<code>source</code>文件夹内容自动生成的，不需要备份。其他日志、压缩、数据库等文件也都是调试等使用，也不需要备份。</p>
+<p>初始化仓库：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git init    </span><br><span class="line">git remote add origin &lt;server&gt;</span><br></pre></td></tr></table></figure></p>
+<p><code>server</code>是仓库的在线目录地址，可以从git上直接复制过来，<code>origin</code>是本地分支，<code>remote add</code>会将本地仓库映射到托管服务器的仓库上。</p>
+<p>添加本地文件到仓库并同步到git上：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add . #添加blog目录下所有文件，注意有个&apos;.&apos;(.gitignore里面声明的文件不在此内)    </span><br><span class="line">git commit -m &quot;hexo source first add&quot; #添加更新说明    </span><br><span class="line">git push -u origin master  #推送更新到git上</span><br></pre></td></tr></table></figure></p>
+<p>至此，git库上备份已完成。</p>
+<p>3.将git的内容同步到另一台电脑：假设之前将公司电脑中的blog源码内容备份到了git上，现在家里电脑准备同步源码内容。<strong>注意</strong>，在同步前也要事先建好hexo的环境，不然同步后本地服务器运行时会出现无法运行错误。在建好的环境的主目录运行以下命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git init  #将目录添加到版本控制系统中    </span><br><span class="line">git remote add origin &lt;server&gt;  #同上    </span><br><span class="line">git fetch --all  #将git上所有文件拉取到本地    </span><br><span class="line">git reset --hard origin/master  #强制将本地内容指向刚刚同步git云端内容</span><br></pre></td></tr></table></figure></p>
+<p><code>reset</code>对所拉取的文件不做任何处理，此处不用<code>pull</code>是因为本地尚有许多文件，使用<code>pull</code>会有一些<strong>版本冲突</strong>，解决起来也麻烦，而本地的文件都是初始化生成的文件，较拉取的库里面的文件而言基本无用，所以直接丢弃。</p>
+<p>4.家里电脑生成完文章并部署到服务器上后，此时需要将新的blog源码文件更新到git托管库上，不然公司电脑上无法获取最新的文章。在本地文件中运行以下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add . #将所有更新的本地文件添加到版本控制系统中</span><br></pre></td></tr></table></figure>
+<p>此时可以使用<code>git status</code>查看本地文件的状态。然后对更改添加说明更推送到git托管库上：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git commit -m &apos;更新信息说明&apos;  </span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
+<p>至此，家里电脑更新的备份完成。在公司电脑上使用时，只需先运行:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull</span><br></pre></td></tr></table></figure></p>
+<p>获取的源码即为最新文件</p>
+<h1 id="插件总结篇"><a href="#插件总结篇" class="headerlink" title="插件总结篇"></a>插件总结篇</h1><h2 id="部署插件"><a href="#部署插件" class="headerlink" title="部署插件"></a>部署插件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+<h2 id="rss"><a href="#rss" class="headerlink" title="rss"></a>rss</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-generator-feed --save</span><br></pre></td></tr></table></figure>
+<h2 id="Algolia"><a href="#Algolia" class="headerlink" title="Algolia"></a>Algolia</h2><p>此处有两个版本</p>
+<p><strong>第一</strong>（以<code>0.2.0</code>为例）：</p>
+<p>在站点找到<code>package.json</code>， 把添加一行<code>&quot;hexo-algolia&quot;: &quot;^0.2.0&quot;</code>，然后：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-algolia --save</span><br></pre></td></tr></table></figure>
+<p>这个为旧版的algolia，优点是全文索引，缺点是字数太多会索引失败</p>
+<p><strong>第二</strong>：直接安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-algolia --save hexo algolia</span><br></pre></td></tr></table></figure>
+<p>此处安装的应该是<code>1.0.0</code>之后的版本了，优点是没有字数限制了（因为没有了全文索引），只会索引文章开头的部分字段。但是需要在官网注册新key并且设置环境变量，方法：<strong><em><a href="https://github.com/iissnan/theme-next-docs/issues/162" target="_blank" rel="noopener">https://github.com/iissnan/theme-next-docs/issues/162</a></em></strong></p>
+<h2 id="sitemap"><a href="#sitemap" class="headerlink" title="sitemap"></a>sitemap</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-generator-sitemap --save</span><br><span class="line">npm install hexo-generator-baidu-sitemap --save</span><br></pre></td></tr></table></figure>
+<h2 id="百度主动推送"><a href="#百度主动推送" class="headerlink" title="百度主动推送"></a>百度主动推送</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-baidu-url-submit --save</span><br></pre></td></tr></table></figure>
+<h2 id="分页插件"><a href="#分页插件" class="headerlink" title="分页插件"></a>分页插件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-generator-index --save</span><br><span class="line">npm install hexo-generator-archive --save</span><br><span class="line">npm install hexo-generator-category --save</span><br><span class="line">npm install hexo-generator-tag --save</span><br></pre></td></tr></table></figure>
+<p>站点配置文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">index_generator:</span><br><span class="line">  per_page: 6</span><br><span class="line"></span><br><span class="line">archive_generator:</span><br><span class="line">  per_page: 10 ##归档页面默认20篇文章标题</span><br><span class="line">  yearly: true  ##生成年视图</span><br><span class="line">  monthly: true ##生成月视图</span><br><span class="line"></span><br><span class="line">tag_generator:</span><br><span class="line">  per_page: 10</span><br></pre></td></tr></table></figure></p>
+<h2 id="压缩插件"><a href="#压缩插件" class="headerlink" title="压缩插件"></a>压缩插件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-all-minifier --save</span><br></pre></td></tr></table></figure>
+<h2 id="七牛admin插件"><a href="#七牛admin插件" class="headerlink" title="七牛admin插件"></a>七牛admin插件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install --save hexo-admin-qiniu</span><br><span class="line">hexo server -d</span><br><span class="line">open http://localhost:4000/admin/</span><br></pre></td></tr></table></figure>
+<p>站点配置文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">admin:</span><br><span class="line">  qiniuCfg:</span><br><span class="line">      imageslim: true  # 启动图片瘦身，仅华东区bucket可以使用</span><br><span class="line">      AccessKey: &apos;your qiniu AK&apos;</span><br><span class="line">      SecretKey: &apos;your qiniu SK&apos;</span><br><span class="line">      BucketName: &apos;your BK Name&apos;</span><br><span class="line">      bucketHost: &apos;you BK Host&apos;</span><br></pre></td></tr></table></figure></p>
+<h2 id="注脚插件"><a href="#注脚插件" class="headerlink" title="注脚插件"></a>注脚插件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-reference --save</span><br></pre></td></tr></table></figure>
+<h2 id="字数与阅读时间插件"><a href="#字数与阅读时间插件" class="headerlink" title="字数与阅读时间插件"></a>字数与阅读时间插件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-wordcount --save</span><br></pre></td></tr></table></figure>
+<h1 id="主题升级备份"><a href="#主题升级备份" class="headerlink" title="主题升级备份"></a>主题升级备份</h1><p>对于升级主题，我们需要重新配置主题配置文件，那么每次升级都要这么干吗？超麻烦！</p>
+<p>NexT作者给我们的建议就是使用<strong><em><a href="https://hexo.io/docs/data-files.html" target="_blank" rel="noopener">Data Files</a></em></strong>，具体详情请戳进 <strong><em><a href="https://github.com/iissnan/hexo-theme-next/issues/328" target="_blank" rel="noopener">Theme configurations using Hexo data files            #328</a></em></strong></p>
+<h1 id="图片链接全局替换"><a href="#图片链接全局替换" class="headerlink" title="图片链接全局替换"></a>图片链接全局替换</h1><p>由于七牛的测试域名已回收，无奈只能备案换成自己的域名。本案后在七牛添加CDN，确认可以访问后，利用<code>sed</code>进行全局替换：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -i &quot;s/http:\/\/img.yangbingdong.com/https:\/\/cdn.yangbingdong.com/g&quot; ./*</span><br></pre></td></tr></table></figure>
+<h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><p>一路摸爬滚打下来也挺折腾的，不过确实满满的成就感，学到了很多<br>同时还要感谢很多很多的大神们的文章，有一些都忘了收藏记录下来，由衷地感谢</p>
+<blockquote>
+<p><strong>参考</strong><br><strong><em><a href="http://codepub.cn/2015/04/06/Github-Pages-personal-blog-from-Octopress-to-Hexo/" target="_blank" rel="noopener">http://codepub.cn/2015/04/06/Github-Pages-personal-blog-from-Octopress-to-Hexo/</a></em></strong><br><strong><em><a href="http://codepub.cn/2016/03/20/Hexo-blog-theme-switching-from-Jacman-to-NexT-Mist/" target="_blank" rel="noopener">http://codepub.cn/2016/03/20/Hexo-blog-theme-switching-from-Jacman-to-NexT-Mist/</a></em></strong><br><strong><em><a href="http://www.shellsec.com/news/34054.html" target="_blank" rel="noopener">http://www.shellsec.com/news/34054.html</a></em></strong><br><strong><em><a href="https://www.0101tx.com/pages/hexonextsanf.html" target="_blank" rel="noopener">https://www.0101tx.com/pages/hexonextsanf.html</a></em></strong><br><strong><em><a href="https://reuixiy.github.io/technology/computer/computer-aided-art/2017/06/09/hexo-next-optimization.html" target="_blank" rel="noopener">https://reuixiy.github.io/technology/computer/computer-aided-art/2017/06/09/hexo-next-optimization.html</a></em></strong></p>
+</blockquote>
+<p>[^1]: basic footnote content</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Hexo/" rel="tag"># Hexo</a>
+          
+            <a href="/tags/Node-js/" rel="tag"># Node.js</a>
+          
+            <a href="/tags/Github/" rel="tag"># Github</a>
+          
+            <a href="/tags/Coding/" rel="tag"># Coding</a>
+          
+            <a href="/tags/Git/" rel="tag"># Git</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/20/ubuntu-dev-environment-to-build/" rel="next" title="Ubuntu的Java开发环境基本搭建">
+                <i class="fa fa-chevron-left"></i> Ubuntu的Java开发环境基本搭建
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/07/java-dev-ten-mistake-and-some-advice/" rel="prev" title="Java开发人员最常犯的10个错误以及35个代码性能优化小结">
+                Java开发人员最常犯的10个错误以及35个代码性能优化小结 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">杨凯</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解决Hexo命令fs-SyncWriteStream问题"><span class="nav-number">2.</span> <span class="nav-text">解决Hexo命令fs.SyncWriteStream问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#高度定制优化篇"><span class="nav-number">3.</span> <span class="nav-text">高度定制优化篇</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#集成Mod分享组件"><span class="nav-number">3.1.</span> <span class="nav-text">集成Mod分享组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加顶部加载条"><span class="nav-number">3.2.</span> <span class="nav-text">添加顶部加载条</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文章加密访问"><span class="nav-number">3.3.</span> <span class="nav-text">文章加密访问</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#博客更换Disqus评论"><span class="nav-number">3.4.</span> <span class="nav-text">博客更换Disqus评论</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NexT启用Disqus-Proxy-不翻墙也能使用Disqus"><span class="nav-number">3.5.</span> <span class="nav-text">NexT启用Disqus-Proxy 不翻墙也能使用Disqus</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Flow"><span class="nav-number">3.5.1.</span> <span class="nav-text">Flow</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Get-Api-secret"><span class="nav-number">3.5.2.</span> <span class="nav-text">Get Api-secret</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-Disqus-Proxy"><span class="nav-number">3.5.3.</span> <span class="nav-text">Deploy Disqus-Proxy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NexT-Configuration"><span class="nav-number">3.5.4.</span> <span class="nav-text">NexT Configuration</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Copy-Static-File"><span class="nav-number">3.5.4.1.</span> <span class="nav-text">Copy Static File</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#config-yml"><span class="nav-number">3.5.4.2.</span> <span class="nav-text">_config.yml</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#comment-swig"><span class="nav-number">3.5.4.3.</span> <span class="nav-text">comment.swig</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#custom-styl"><span class="nav-number">3.5.4.4.</span> <span class="nav-text">custom.styl</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Problem"><span class="nav-number">3.5.5.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Show"><span class="nav-number">3.5.6.</span> <span class="nav-text">Show</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改文章页宽"><span class="nav-number">3.6.</span> <span class="nav-text">修改文章页宽</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改小型代码块颜色"><span class="nav-number">3.7.</span> <span class="nav-text">修改小型代码块颜色</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文章末尾追加版权信息"><span class="nav-number">3.8.</span> <span class="nav-text">文章末尾追加版权信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加文章结束标记"><span class="nav-number">3.9.</span> <span class="nav-text">添加文章结束标记</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加热度"><span class="nav-number">3.10.</span> <span class="nav-text">添加热度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加Fork-me-on-GitHub"><span class="nav-number">3.11.</span> <span class="nav-text">添加Fork me on GitHub</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#把侧边栏头像变成圆形，并且鼠标停留在上面发生旋转效果"><span class="nav-number">3.12.</span> <span class="nav-text">把侧边栏头像变成圆形，并且鼠标停留在上面发生旋转效果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改链接文字样式"><span class="nav-number">3.13.</span> <span class="nav-text">修改链接文字样式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为next主题的主页文章添加阴影效果"><span class="nav-number">3.14.</span> <span class="nav-text">为next主题的主页文章添加阴影效果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为next主题添加nest背景特效"><span class="nav-number">3.15.</span> <span class="nav-text">为next主题添加nest背景特效</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#特性"><span class="nav-number">3.15.1.</span> <span class="nav-text">特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何添加"><span class="nav-number">3.15.2.</span> <span class="nav-text">如何添加?</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#修改代码"><span class="nav-number">3.15.2.1.</span> <span class="nav-text">修改代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#修改主题配置文件"><span class="nav-number">3.15.2.2.</span> <span class="nav-text">修改主题配置文件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加音乐"><span class="nav-number">3.16.</span> <span class="nav-text">添加音乐</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加注脚"><span class="nav-number">3.17.</span> <span class="nav-text">添加注脚</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义页面"><span class="nav-number">3.18.</span> <span class="nav-text">自定义页面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加字数统计和阅读时间"><span class="nav-number">3.19.</span> <span class="nav-text">添加字数统计和阅读时间</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装插件"><span class="nav-number">3.19.1.</span> <span class="nav-text">安装插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改post-swig模板"><span class="nav-number">3.19.2.</span> <span class="nav-text">修改post.swig模板</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改footer"><span class="nav-number">3.20.</span> <span class="nav-text">修改footer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#给博客添加吉祥物"><span class="nav-number">3.21.</span> <span class="nav-text">给博客添加吉祥物</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#侧栏加入已运行的时间"><span class="nav-number">3.22.</span> <span class="nav-text">侧栏加入已运行的时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更改标签云（tagcloud）的颜色"><span class="nav-number">3.23.</span> <span class="nav-text">更改标签云（tagcloud）的颜色</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置动态title"><span class="nav-number">3.24.</span> <span class="nav-text">设置动态title</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改文章底部的那个带-号的标签"><span class="nav-number">3.25.</span> <span class="nav-text">修改文章底部的那个带#号的标签</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#元素微调自定义篇"><span class="nav-number">4.</span> <span class="nav-text">元素微调自定义篇</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定位元素"><span class="nav-number">4.1.</span> <span class="nav-text">定位元素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加到样式文件"><span class="nav-number">4.2.</span> <span class="nav-text">添加到样式文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#好玩的样式"><span class="nav-number">4.3.</span> <span class="nav-text">好玩的样式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#文字增加背景色块"><span class="nav-number">4.3.1.</span> <span class="nav-text">文字增加背景色块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引用边框变色"><span class="nav-number">4.3.2.</span> <span class="nav-text">引用边框变色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在文档中增加图标"><span class="nav-number">4.3.3.</span> <span class="nav-text">在文档中增加图标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图形边框效果"><span class="nav-number">4.3.4.</span> <span class="nav-text">图形边框效果</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码高亮相关"><span class="nav-number">4.4.</span> <span class="nav-text">代码高亮相关</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#站点加速篇"><span class="nav-number">5.</span> <span class="nav-text">站点加速篇</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#更改默认Google字体库"><span class="nav-number">5.1.</span> <span class="nav-text">更改默认Google字体库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用云盘存放图片资源"><span class="nav-number">5.2.</span> <span class="nav-text">使用云盘存放图片资源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#压缩代码"><span class="nav-number">5.3.</span> <span class="nav-text">压缩代码</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SEO-搜索引擎优化-篇"><span class="nav-number">6.</span> <span class="nav-text">SEO(搜索引擎优化)篇</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#网站验证"><span class="nav-number">6.1.</span> <span class="nav-text">网站验证</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加并提交sitemap"><span class="nav-number">6.2.</span> <span class="nav-text">添加并提交sitemap</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主动推送"><span class="nav-number">6.3.</span> <span class="nav-text">主动推送</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自动推送"><span class="nav-number">6.4.</span> <span class="nav-text">自动推送</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加蜘蛛协议"><span class="nav-number">6.5.</span> <span class="nav-text">添加蜘蛛协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改文章链接"><span class="nav-number">6.6.</span> <span class="nav-text">修改文章链接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更改首页标题格式为「关键词-网站名称-网站描述」"><span class="nav-number">6.7.</span> <span class="nav-text">更改首页标题格式为「关键词-网站名称 - 网站描述」</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自动给所有外部链接添加nofollow"><span class="nav-number">6.8.</span> <span class="nav-text">自动给所有外部链接添加nofollow</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多PC同步源码篇"><span class="nav-number">7.</span> <span class="nav-text">多PC同步源码篇</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#插件总结篇"><span class="nav-number">8.</span> <span class="nav-text">插件总结篇</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#部署插件"><span class="nav-number">8.1.</span> <span class="nav-text">部署插件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rss"><span class="nav-number">8.2.</span> <span class="nav-text">rss</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Algolia"><span class="nav-number">8.3.</span> <span class="nav-text">Algolia</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sitemap"><span class="nav-number">8.4.</span> <span class="nav-text">sitemap</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#百度主动推送"><span class="nav-number">8.5.</span> <span class="nav-text">百度主动推送</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分页插件"><span class="nav-number">8.6.</span> <span class="nav-text">分页插件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#压缩插件"><span class="nav-number">8.7.</span> <span class="nav-text">压缩插件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#七牛admin插件"><span class="nav-number">8.8.</span> <span class="nav-text">七牛admin插件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注脚插件"><span class="nav-number">8.9.</span> <span class="nav-text">注脚插件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字数与阅读时间插件"><span class="nav-number">8.10.</span> <span class="nav-text">字数与阅读时间插件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#主题升级备份"><span class="nav-number">9.</span> <span class="nav-text">主题升级备份</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#图片链接全局替换"><span class="nav-number">10.</span> <span class="nav-text">图片链接全局替换</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最后"><span class="nav-number">11.</span> <span class="nav-text">最后</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">杨凯</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

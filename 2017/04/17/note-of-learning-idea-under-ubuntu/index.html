@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Ubuntu,IDE,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Preface 公司里的大牛们用的IDE基本都是IDEA近墨者黑，早就听闻IntelliJ IDEA这个大名，只不过当初比较菜鸟还不会用(…虽然现在也还是个菜鸟=.=)，再不用就要被OUT了此篇把在Ubuntu下使用IDEA的学习经验记录下来(网上还是比较少资料解决Ubuntu下IDEA的问题Orz)，以便老了记性不好可以看一看…">
+<meta name="keywords" content="Ubuntu,IDE">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ubuntu下使用IntelliJ IDEA的正确姿势">
+<meta property="og:url" content="http://yoursite.com/2017/04/17/note-of-learning-idea-under-ubuntu/index.html">
+<meta property="og:site_name" content="如风过境">
+<meta property="og:description" content="Preface 公司里的大牛们用的IDE基本都是IDEA近墨者黑，早就听闻IntelliJ IDEA这个大名，只不过当初比较菜鸟还不会用(…虽然现在也还是个菜鸟=.=)，再不用就要被OUT了此篇把在Ubuntu下使用IDEA的学习经验记录下来(网上还是比较少资料解决Ubuntu下IDEA的问题Orz)，以便老了记性不好可以看一看…">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/idea2.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/idea-setting-path.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/license-server.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/idea-setting.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/version-control-change.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/one-line-methods.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/idea-font.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/idea-vm-setting.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/code-comlpetion.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/import-optimizing.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/system-setting01.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/postfix-completion.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/ger-serializtion.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/dorp-function.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/show-memory.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/menory.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/code-optimize.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/code-style-method-chain.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/auto-compile.png">
+<meta property="og:image" content="http://yangbingdong.com/img/learning-idea-under-ubuntu/idea-close-module-jdk.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/lombok/installLombok01.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/lombok/installLombok02.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/annotation-support.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/docker-integration01.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/docker-integration02.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/docker-integration03.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/zookeeper-plugin1.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/zookeeper-plugin2.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/gson-format01.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/gson-format02.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/gson-format03.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/free-mybatis.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/find-bug.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/maven-helper01.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/maven-helper02.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/maven-helper03.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/maven-helper04.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/idea-stackoverflow.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/nyan-progress-bar.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/background-image-plus.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/plugin-enso.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/activate-power-mode.gif">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/vmoption1.jpg">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/vmoption2.jpg">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/idea-setting-keyboard.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/idea-sougou-conflict.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/shurufa.png">
+<meta property="og:updated_time" content="2018-12-09T10:09:00.050Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ubuntu下使用IntelliJ IDEA的正确姿势">
+<meta name="twitter:description" content="Preface 公司里的大牛们用的IDE基本都是IDEA近墨者黑，早就听闻IntelliJ IDEA这个大名，只不过当初比较菜鸟还不会用(…虽然现在也还是个菜鸟=.=)，再不用就要被OUT了此篇把在Ubuntu下使用IDEA的学习经验记录下来(网上还是比较少资料解决Ubuntu下IDEA的问题Orz)，以便老了记性不好可以看一看…">
+<meta name="twitter:image" content="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/idea2.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/04/17/note-of-learning-idea-under-ubuntu/">
+
+
+
+
+
+  <title>Ubuntu下使用IntelliJ IDEA的正确姿势 | 如风过境</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">如风过境</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/17/note-of-learning-idea-under-ubuntu/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="杨凯">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="如风过境">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Ubuntu下使用IntelliJ IDEA的正确姿势</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-17T18:00:00+08:00">
+                2017-04-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/IDE/" itemprop="url" rel="index">
+                    <span itemprop="name">IDE</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/idea2.png" alt=""></p>
+<h1 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h1><blockquote>
+<p>公司里的大牛们用的IDE基本都是IDEA<del>近墨者黑</del>，早就听闻IntelliJ IDEA这个大名，只不过当初比较菜鸟还不会用(…虽然现在也还是个菜鸟=.=)，再不用就要被OUT了<br>此篇把在Ubuntu下使用IDEA的学习经验记录下来(网上还是比较少资料解决Ubuntu下IDEA的问题Orz)，以便老了记性不好可以看一看…</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h1><p>博主采用<strong><em><a href="https://www.jetbrains.com/toolbox/app/" target="_blank" rel="noopener">Toolbox App</a></em></strong> 方式安装。<br>这样的好处是我们不用关心更新问题，每次有新版本它都会提示，我们是需要点一下<code>Install</code>就可以了，不需要关心升级后的配置。<br>还有一个好处是可以管理其他的IntelliJ软件（虽然博主只用他们的IDEA = =）…<br>安装的时候注意<strong>配置安装路径</strong>：<br><img src="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/idea-setting-path.png" alt=""></p>
+<h1 id="License"><a href="#License" class="headerlink" title="License"></a>License</h1><h2 id="2018-1-5以前版本"><a href="#2018-1-5以前版本" class="headerlink" title="2018.1.5以前版本"></a>2018.1.5以前版本</h2><p>注册码可以自己读娘，或者使用授权服务器</p>
+<p>博主用的是基于docker的授权服务器：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker pull ilanyu/golang-reverseproxy</span><br><span class="line">docker run -d -p 6666:8888 ilanyu/golang-reverseproxy</span><br></pre></td></tr></table></figure>
+<p><img src="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/license-server.png" alt=""></p>
+<p>也可以自己搭建一个基于docker的服务 = =</p>
+<p><a href="https://github.com/masteranthoneyd/docker-jetlicense" target="_blank" rel="noopener"><strong><em>https://github.com/masteranthoneyd/docker-jetlicense</em></strong></a></p>
+<p>部署到VPS上，nginx反向代理：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">server &#123;  </span><br><span class="line">    listen 80;  </span><br><span class="line">    server_name 域名;  </span><br><span class="line"></span><br><span class="line">    location / &#123;  </span><br><span class="line">        proxy_set_header X-Real-IP $remote_addr;  </span><br><span class="line">        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;  </span><br><span class="line">        proxy_set_header Host $http_host;  </span><br><span class="line">        proxy_set_header X-NginX-Proxy true;  </span><br><span class="line">        proxy_pass http://127.0.0.1:端口/;  </span><br><span class="line">        proxy_redirect off;  </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>重启nginx：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx -s reload</span><br></pre></td></tr></table></figure>
+<h2 id="2018-2版本"><a href="#2018-2版本" class="headerlink" title="2018.2版本"></a>2018.2版本</h2><blockquote>
+<p><strong><em><a href="https://rover12421.com/" target="_blank" rel="noopener">rover大神</a></em></strong></p>
+</blockquote>
+<h1 id="Personal-Setting"><a href="#Personal-Setting" class="headerlink" title="Personal Setting"></a>Personal Setting</h1><p>博主的常用配置：<br>一般会选择打开项目时最外层的窗口打开<code>setting</code>，对全局生效。<br><img src="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/idea-setting.png" alt=""></p>
+<h2 id="文件修改后，设置左边目录出现颜色变化"><a href="#文件修改后，设置左边目录出现颜色变化" class="headerlink" title="文件修改后，设置左边目录出现颜色变化"></a>文件修改后，设置左边目录出现颜色变化</h2><p><img src="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/version-control-change.png" alt=""></p>
+<h2 id="如果只有一行方法的代码默认要展开，去掉这个勾"><a href="#如果只有一行方法的代码默认要展开，去掉这个勾" class="headerlink" title="如果只有一行方法的代码默认要展开，去掉这个勾"></a>如果只有一行方法的代码默认要展开，去掉这个勾</h2><p><img src="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/one-line-methods.png" alt=""></p>
+<h2 id="修改字体和字号"><a href="#修改字体和字号" class="headerlink" title="修改字体和字号"></a>修改字体和字号</h2><p>Ubuntu下默认的字体还是让人看了有点<del>不爽</del>，而且使用Ubuntu默认的字体工具栏可能会出现乱码。<br>下面三个地方，分别是窗口字体，代码字体和控制台字体：<br><img src="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/idea-font.png" alt=""></p>
+<h2 id="修改VM参数"><a href="#修改VM参数" class="headerlink" title="修改VM参数"></a>修改VM参数</h2><p><img src="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/idea-vm-setting.png" alt=""><br>通过<code>Toolbox</code>可以简单地设置VM参数，博主16G内存的主机的VM参数设置为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-Xms512m</span><br><span class="line">-Xmx1500m</span><br><span class="line">-XX:ReservedCodeCacheSize=500m</span><br></pre></td></tr></table></figure></p>
+<h2 id="设置代码不区分大小写"><a href="#设置代码不区分大小写" class="headerlink" title="设置代码不区分大小写"></a>设置代码不区分大小写</h2><p><img src="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/code-comlpetion.png" alt=""></p>
+<h2 id="禁止-import"><a href="#禁止-import" class="headerlink" title="禁止 import *"></a>禁止 import *</h2><p>IDEA默认检测到有5个相同包就会自动<code>import *</code>，其实没必要，需要哪个就<code>import</code>哪个。<br><img src="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/import-optimizing.png" alt=""></p>
+<h2 id="设置不自动打开上一次最后关闭的项目"><a href="#设置不自动打开上一次最后关闭的项目" class="headerlink" title="设置不自动打开上一次最后关闭的项目"></a>设置不自动打开上一次最后关闭的项目</h2><p><img src="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/system-setting01.png" alt=""></p>
+<h2 id="Postfix-Completion"><a href="#Postfix-Completion" class="headerlink" title="Postfix Completion"></a>Postfix Completion</h2><p>这个本来就是默认开启的<br><img src="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/postfix-completion.png" alt=""></p>
+<h2 id="可生成SreializableID"><a href="#可生成SreializableID" class="headerlink" title="可生成SreializableID"></a>可生成SreializableID</h2><p>在 <code>setting&gt;Editor&gt;Inspections&gt;Java&gt;Serializtion Issues&gt;</code>:<br><img src="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/ger-serializtion.png" alt=""><br>钩上之后在需要生成的类上<code>Alt+Enter</code>就会出现了。</p>
+<h2 id="关闭代码拖拽功能"><a href="#关闭代码拖拽功能" class="headerlink" title="关闭代码拖拽功能"></a>关闭代码拖拽功能</h2><p>一不小心手抖就改了代码…禁用！<br><img src="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/dorp-function.png" alt=""></p>
+<h2 id="显示内存使用情况"><a href="#显示内存使用情况" class="headerlink" title="显示内存使用情况"></a>显示内存使用情况</h2><p><img src="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/show-memory.png" alt=""><br>点击内存信息展示的那个条可以进行部分的内存回收<br><img src="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/menory.png" alt=""></p>
+<h2 id="优化-Java-注释"><a href="#优化-Java-注释" class="headerlink" title="优化 Java 注释"></a>优化 Java 注释</h2><p><img src="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/code-optimize.png" alt=""></p>
+<h2 id="优化方法链"><a href="#优化方法链" class="headerlink" title="优化方法链"></a>优化方法链</h2><p>在Java8中特别是使用Stream API，ex：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list.stream().filter(func).distinct().skip(num).limit(num).map(func).peek(func).collect(func);</span><br></pre></td></tr></table></figure></p>
+<p>写成一行太长了！！<br>勾上这个选项idea将自动帮我们优化：<br><img src="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/code-style-method-chain.png" alt=""></p>
+<p>会变成这样</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">list = list.stream()</span><br><span class="line">		   .filter(func)</span><br><span class="line">		   .distinct()</span><br><span class="line">		   .....</span><br></pre></td></tr></table></figure>
+<h2 id="多线程自动编译"><a href="#多线程自动编译" class="headerlink" title="多线程自动编译"></a>多线程自动编译</h2><p><img src="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/auto-compile.png" alt=""></p>
+<h2 id="设置统一编译jdk版本（关闭module-JDK）"><a href="#设置统一编译jdk版本（关闭module-JDK）" class="headerlink" title="设置统一编译jdk版本（关闭module JDK）"></a>设置统一编译jdk版本（关闭module JDK）</h2><p><img src="http://yangbingdong.com/img/learning-idea-under-ubuntu/idea-close-module-jdk.png" alt=""></p>
+<h1 id="Keyboard-shortcuts"><a href="#Keyboard-shortcuts" class="headerlink" title="Keyboard shortcuts"></a>Keyboard shortcuts</h1><blockquote>
+<p>JetBrains官方快捷键手册： <em><a href="https://resources.jetbrains.com/storage/products/intellij-idea/docs/IntelliJIDEA_ReferenceCard.pdf" target="_blank" rel="noopener">https://resources.jetbrains.com/storage/products/intellij-idea/docs/IntelliJIDEA_ReferenceCard.pdf</a></em></p>
+</blockquote>
+<p>个人感觉Ubuntu下使用IDEA最大的一个不爽就是<strong>快捷键</strong>了，<del>想屎的感觉有木有</del>，各种没反应，原来是快捷键冲突，本来想改成Eclipse的风格，但想了想好像不太合适。<br>快捷键风格可以在<code>setting</code> -&gt; <code>Keymap</code> 里面这是，博主使用安装时候idea默认配置的<code>Default for XWin</code>。<br>先来大致分各类（纯属个人看法= =）：</p>
+<h2 id="导航（一般都可以在Navigate里面找到）"><a href="#导航（一般都可以在Navigate里面找到）" class="headerlink" title="导航（一般都可以在Navigate里面找到）"></a>导航（一般都可以在Navigate里面找到）</h2><table>
+<thead>
+<tr>
+<th style="text-align:left">Keyboard shortcut</th>
+<th style="text-align:left">Declaration</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Ctrl+N</strong></td>
+<td style="text-align:left">查找Java类</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Ctrl+Shift+N</strong></td>
+<td style="text-align:left">查找非Java文件</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Ctrl+Shift+Alt+N</strong></td>
+<td style="text-align:left">查找类中的方法或变量</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Double Shift</strong></td>
+<td style="text-align:left">查找所有</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Ctrl+Alt+Left/Right</strong></td>
+<td style="text-align:left">跳到光标的上/下一个位置</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>F2/Shift+F2</strong></td>
+<td style="text-align:left">光标移动到下/上一个错误</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Ctrl+Shift+Backspace</strong></td>
+<td style="text-align:left">跳到上一个编辑处</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Ctrl+Alt+B</strong></td>
+<td style="text-align:left">跳到实现类/方法</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Ctrl+U</strong></td>
+<td style="text-align:left">跳到父类/方法</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Alt+Up/Down</strong></td>
+<td style="text-align:left">光标移动到上/下一个方法</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Ctrl+F12</strong></td>
+<td style="text-align:left">搜索当前文件方法</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Ctrl+H/Ctrl+Shift+H</strong></td>
+<td style="text-align:left">显示类/方法层级</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>F11/Shift+F11</strong></td>
+<td style="text-align:left">当前行设置书签/显示所有书签</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Ctrl+Shift+Backspace</strong></td>
+<td style="text-align:left">跳到上一个编辑处</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Ctrl+G</strong></td>
+<td style="text-align:left">跳到指定行</td>
+</tr>
+</tbody>
+</table>
+<h2 id="查找-替换（一般在Edit的find里面）"><a href="#查找-替换（一般在Edit的find里面）" class="headerlink" title="查找/替换（一般在Edit的find里面）"></a>查找/替换（一般在Edit的find里面）</h2><table>
+<thead>
+<tr>
+<th style="text-align:left">Keyboard shortcut</th>
+<th style="text-align:left">Declaration</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Ctrl+F</strong></td>
+<td style="text-align:left">文件内查找</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Ctrl+R</strong></td>
+<td style="text-align:left">文件内替换</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>F3/Shift+F3</strong></td>
+<td style="text-align:left">查找下/上一个</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Ctrl+Shift+F</strong></td>
+<td style="text-align:left">目录内查找</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Ctrl+Shift+R</strong></td>
+<td style="text-align:left">目录内替换</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Ctrl+F7</strong></td>
+<td style="text-align:left">查找当前文件中的使用处</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Alt+F7</strong></td>
+<td style="text-align:left">查找被使用处</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Ctrl+Alt+F7</strong></td>
+<td style="text-align:left">显示被使用处</td>
+</tr>
+</tbody>
+</table>
+<h2 id="编辑"><a href="#编辑" class="headerlink" title="编辑"></a>编辑</h2><table>
+<thead>
+<tr>
+<th>Keyboard shortcut</th>
+<th>Declaration</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Ctrl+D/Ctrl+Y</strong></td>
+<td>重复代码,未选择代码时重复当前行/删除当前行</td>
+</tr>
+<tr>
+<td><strong>Ctrl+Shift+Enter</strong></td>
+<td>补全语句</td>
+</tr>
+<tr>
+<td><strong>Ctrl+P</strong></td>
+<td>显示方法参数</td>
+</tr>
+<tr>
+<td><strong>Ctrl+Q</strong></td>
+<td>显示注释文档</td>
+</tr>
+<tr>
+<td><strong>Alt+Insert</strong></td>
+<td>生成代码,生成 Getter、Setter、构造器等</td>
+</tr>
+<tr>
+<td><strong>Ctrl+O/Ctrl+I</strong></td>
+<td>重写父类方法/实现接口方法</td>
+</tr>
+<tr>
+<td><strong>Ctrl+W</strong></td>
+<td>选择代码块,连续按会增加选择外层的代码块</td>
+</tr>
+<tr>
+<td><strong>Ctrl+Shift+W</strong></td>
+<td>与“Ctrl+W”相反,减少选择代码块</td>
+</tr>
+<tr>
+<td><strong>Ctrl+Alt+L</strong></td>
+<td>格式化代码</td>
+</tr>
+<tr>
+<td><strong>Ctrl+Alt+O</strong></td>
+<td>优化 Imports</td>
+</tr>
+<tr>
+<td><strong>Ctrl+Shift+J</strong></td>
+<td>合并多行为一行</td>
+</tr>
+<tr>
+<td><strong>Ctrl+Shift+U</strong></td>
+<td>对选中内容进行大小写切换</td>
+</tr>
+<tr>
+<td><strong>Ctrl+Shift+]/[</strong></td>
+<td>选中到代码块的开始/结束</td>
+</tr>
+<tr>
+<td><strong>Ctrl+Delete/Ctrl+Backspace</strong></td>
+<td>删除从光标所在位置到单词结束/开头处</td>
+</tr>
+<tr>
+<td><strong>Ctrl+F4</strong></td>
+<td>关闭当前编辑页</td>
+</tr>
+<tr>
+<td><strong>Alt+J/Ctrl+Alt+Shift+J</strong></td>
+<td>匹配下一个/全部与当前选中相同的代码</td>
+</tr>
+<tr>
+<td><strong>Alt+Shift+J</strong></td>
+<td>“Alt+J”的反选</td>
+</tr>
+<tr>
+<td><strong>Alt+Shift+Insert,然后Shift+Up/Down</strong></td>
+<td>同时编辑多行(退出此<code>Column</code>模式也是“Alt+Shift+Insert”)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h2><table>
+<thead>
+<tr>
+<th>Keyboard shortcut</th>
+<th>Declaration</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>F8/F7</strong></td>
+<td>单步调试,不进入函数内部/进入函数内部</td>
+</tr>
+<tr>
+<td><strong>Shift+F8</strong></td>
+<td>跳出函数</td>
+</tr>
+<tr>
+<td><strong>Alt+F9</strong></td>
+<td>运行到断点</td>
+</tr>
+<tr>
+<td><strong>Alt+F8</strong></td>
+<td>执行表达式查看结果</td>
+</tr>
+<tr>
+<td><strong>F9</strong></td>
+<td>继续执行,进入下一个断点或执行完程序</td>
+</tr>
+<tr>
+<td><strong>Ctrl+Shift+F8</strong></td>
+<td>查看断点</td>
+</tr>
+</tbody>
+</table>
+<h2 id="重构"><a href="#重构" class="headerlink" title="重构"></a>重构</h2><table>
+<thead>
+<tr>
+<th>Keyboard shortcut</th>
+<th>Declaration</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>F6</strong></td>
+<td>移动类</td>
+</tr>
+<tr>
+<td><strong>Alt+Delete</strong></td>
+<td>安全删除,删除前会提示调用处</td>
+</tr>
+<tr>
+<td><strong>Shift+F6</strong></td>
+<td>重命名</td>
+</tr>
+<tr>
+<td><strong>Ctrl+F6</strong></td>
+<td>重构方法参数、Exception 等</td>
+</tr>
+<tr>
+<td><strong>Ctrl+Alt+M</strong></td>
+<td>提取为新方法</td>
+</tr>
+<tr>
+<td><strong>Ctrl+Alt+V</strong></td>
+<td>提取为新变量</td>
+</tr>
+<tr>
+<td><strong>Ctrl+Alt+F</strong></td>
+<td>提取为对象新属性</td>
+</tr>
+<tr>
+<td><strong>Ctrl+Alt+C</strong></td>
+<td>提取为新静态常量</td>
+</tr>
+<tr>
+<td><strong>Ctrl+Alt+P</strong></td>
+<td>提取为方法参数</td>
+</tr>
+<tr>
+<td><strong>Ctrl+Shift+Alt+P</strong></td>
+<td>提取为函数式参数</td>
+</tr>
+<tr>
+<td><strong>Ctrl+Alt+Shift+T</strong></td>
+<td>重构一切</td>
+</tr>
+</tbody>
+</table>
+<h1 id="Plugin"><a href="#Plugin" class="headerlink" title="Plugin"></a>Plugin</h1><h2 id="Lombok"><a href="#Lombok" class="headerlink" title="Lombok"></a>Lombok</h2><p>1.首先在IDEA里面安装使用lombok编写简略风格代码的插件，<br>打开IDEA的Settings面板，并选择Plugins选项，然后点击 “Browse repositories..”<br><img src="https://cdn.yangbingdong.com/img/lombok/installLombok01.png" alt=""><br>在输入框输入”lombok”，得到搜索结果，选择第二个，点击安装，然后安装提示重启IDEA，安装成功;<br><img src="https://cdn.yangbingdong.com/img/lombok/installLombok02.png" alt=""></p>
+<p> 还需要在IDEA中开启支持：</p>
+<p><img src="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/annotation-support.png" alt=""></p>
+<p>2.在自己的项目里添加lombok的编译支持(maven项目),在pom文件里面添加如下<br>indenpence</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.16.18<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>3.然后就可以尽情在自己项目里面编写简略风格的Java代码咯<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.lombok;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> lombok.Data;</span><br><span class="line"><span class="keyword">import</span> lombok.EqualsAndHashCode;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@EqualsAndHashCode</span>(callSuper = <span class="keyword">false</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    String name;</span><br><span class="line">    <span class="keyword">int</span> sex;</span><br><span class="line">    Integer age;</span><br><span class="line">    String address;</span><br><span class="line"></span><br><span class="line">    List&lt;String&gt; books;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//使用Student类对象</span></span><br><span class="line">Student student = <span class="keyword">new</span> Student();</span><br><span class="line">student.setName(name);</span><br><span class="line">student.setAge(age);</span><br><span class="line">student.setAddress(address);</span><br><span class="line">student.setBooks(Arrays.asList(books));</span><br></pre></td></tr></table></figure></p>
+<p>4.常用注解</p>
+<ul>
+<li><p><code>@Getter</code> and <code>@Setter</code>：生成<code>getter</code> / <code>setter</code>方法，默认生成的方法是public的，如果要修改方法修饰符可以设置<strong>AccessLevel</strong>的值，例如：<code>@Getter(access = AccessLevel.PROTECTED)</code></p>
+</li>
+<li><p><code>@ToString</code>：生成toString()方法，可以这样设置不包含哪些字段<code>@ToString(exclude = &quot;id&quot;)</code> / <code>@ToString(exclude = {&quot;id&quot;,&quot;name&quot;})</code>，如果继承的有父类的话，可以设置<strong>callSuper</strong> 让其调用父类的toString()方法，例如：<code>@ToString(callSuper = true)</code></p>
+</li>
+<li><p><code>@NoArgsConstructor</code>, <code>@RequiredArgsConstructor</code>, <code>@AllArgsConstructor</code>：<code>@NoArgsConstructor</code>生成一个无参构造方法。当类中有final字段没有被初始化时，编译器会报错，此时可用<code>@NoArgsConstructor(force = true)</code>，然后就会为没有初始化的<code>final</code>字段设置默认值 <code>0</code> / <code>false</code> / <code>null</code>。对于具有约束的字段（例如<code>@NonNul</code>l字段），不会生成检查或分配，因此请注意，正确初始化这些字段之前，这些约束无效。<code>@RequiredArgsConstructor</code>会生成构造方法（可能带参数也可能不带参数），如果带参数，这参数只能是以final修饰的未经初始化的字段，或者是以<code>@NonNull</code>注解的未经初始化的字段<code>@RequiredArgsConstructor(staticName = &quot;of&quot;)</code>会生成一个<code>of()</code>的静态方法，并把构造方法设置为私有。<code>@AllArgsConstructor</code> 生成一个全参数的构造方法。</p>
+</li>
+<li><p><code>@Data</code>：<code>@Data</code> 包含了<code>@ToString</code>，<code>@EqualsAndHashCode</code>，<code>@Getter</code> / <code>@Setter</code>和<code>@RequiredArgsConstructor</code>的功能。</p>
+</li>
+<li><p><code>@Accessors</code>：主要用于控制生成的<code>getter</code>和<code>setter</code>，此注解有三个参数：<code>fluent boolean</code>值，默认为<code>false</code>。此字段主要为控制生成的<code>getter</code>和<code>setter</code>方法前面是否带<code>get/set</code>；<code>chain boolean</code>值，默认<code>false</code>。如果设置为<code>true</code>，<code>setter</code>返回的是此对象，方便链式调用方法<code>prefix</code> 设置前缀 例如：<code>@Accessors(prefix = &quot;abc&quot;) private String abcAge</code>  当生成<code>get</code>/<code>set</code>方法时，会把此前缀去掉。</p>
+</li>
+<li><p><code>@Synchronized</code>：给方法加上同步锁。</p>
+</li>
+<li><p><code>@Builder</code>：<code>@Builder</code>注释为你的类生成复杂的构建器<code>API</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Person.builder().name(&quot;Adam Savage&quot;).city(&quot;San Francisco&quot;).job(&quot;Mythbusters&quot;).job(&quot;Unchained Reaction&quot;).build();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>@NonNull</code>：如其名，不能为空，否则抛出<code>NullPointException</code></p>
+</li>
+<li><p><code>Log</code>类：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">@CommonsLog</span><br><span class="line">Creates private static final org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(LogExample.class);</span><br><span class="line">@JBossLog</span><br><span class="line">Creates private static final org.jboss.logging.Logger log = org.jboss.logging.Logger.getLogger(LogExample.class);</span><br><span class="line">@Log</span><br><span class="line">Creates private static final java.util.logging.Logger log = java.util.logging.Logger.getLogger(LogExample.class.getName());</span><br><span class="line">@Log4j</span><br><span class="line">Creates private static final org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(LogExample.class);</span><br><span class="line">@Log4j2</span><br><span class="line">Creates private static final org.apache.logging.log4j.Logger log = org.apache.logging.log4j.LogManager.getLogger(LogExample.class);</span><br><span class="line">@Slf4j</span><br><span class="line">Creates private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(LogExample.class);</span><br><span class="line">@XSlf4j</span><br><span class="line">Creates private static final org.slf4j.ext.XLogger log = org.slf4j.ext.XLoggerFactory.getXLogger(LogExample.class);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><code>Lombok</code>的功能不仅如此，更详细请看<strong><em><a href="https://projectlombok.org/features/all" target="_blank" rel="noopener">features</a></em></strong></p>
+<h2 id="Docker-Integration"><a href="#Docker-Integration" class="headerlink" title="Docker Integration"></a>Docker Integration</h2><p>可以通过IDEA链接Docker API，前提是开启了Docker API</p>
+<p><img src="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/docker-integration01.png" alt=""></p>
+<p><img src="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/docker-integration02.png" alt=""></p>
+<p><img src="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/docker-integration03.png" alt=""></p>
+<h2 id="Zookeeper"><a href="#Zookeeper" class="headerlink" title="Zookeeper"></a>Zookeeper</h2><p>Zookeeper UI，支持删除操作</p>
+<p><img src="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/zookeeper-plugin1.png" alt=""></p>
+<p><img src="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/zookeeper-plugin2.png" alt=""></p>
+<h2 id="GsonFormat"><a href="#GsonFormat" class="headerlink" title="GsonFormat"></a>GsonFormat</h2><p>复制一段JSON格式字符串</p>
+<p><img src="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/gson-format01.png" alt=""></p>
+<p><img src="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/gson-format02.png" alt=""></p>
+<p><img src="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/gson-format03.png" alt=""></p>
+<h2 id="Mybatis-插件"><a href="#Mybatis-插件" class="headerlink" title="Mybatis 插件"></a>Mybatis 插件</h2><p>可以直接从Mapper文件跳转到xml：</p>
+<p><img src="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/free-mybatis.png" alt=""></p>
+<h2 id="Ali规约插件-P3C"><a href="#Ali规约插件-P3C" class="headerlink" title="Ali规约插件 P3C"></a>Ali规约插件 P3C</h2><p>插件地址：<strong><em><a href="https://github.com/alibaba/p3c" target="_blank" rel="noopener">https://github.com/alibaba/p3c</a></em></strong><br>文档：<strong><em><a href="https://github.com/alibaba/p3c/blob/master/idea-plugin/README_cn.md" target="_blank" rel="noopener">https://github.com/alibaba/p3c/blob/master/idea-plugin/README_cn.md</a></em></strong></p>
+<h2 id="FindBugs"><a href="#FindBugs" class="headerlink" title="FindBugs"></a>FindBugs</h2><p><img src="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/find-bug.png" alt=""><br>装完之后右键最下面会多出一个<code>FindBugs</code>的选项</p>
+<h2 id="Maven-Helper"><a href="#Maven-Helper" class="headerlink" title="Maven Helper"></a>Maven Helper</h2><p>这个主要可以分析maven依赖冲突。</p>
+<p>安装之后，打开<code>pom.xml</code>文件，会看到多了一个Dependency Analyzer的面板，点击可以进入分析面板：</p>
+<p><img src="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/maven-helper01.png" alt=""></p>
+<p><img src="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/maven-helper02.png" alt=""></p>
+<p>另外，右键项目也会多两个Maven的bar：</p>
+<p><img src="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/maven-helper03.png" alt=""></p>
+<h2 id="Statistic"><a href="#Statistic" class="headerlink" title="Statistic"></a>Statistic</h2><p>这个插件可以统计代码数量：</p>
+<p><img src="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/maven-helper04.png" alt=""></p>
+<h2 id="Stackoverflow"><a href="#Stackoverflow" class="headerlink" title="Stackoverflow"></a>Stackoverflow</h2><p>看名字就知道这个是干嘛的啦，在plugin repostories直接搜索stackoverflow就找得到</p>
+<p>重启后随便选中内容右键就可以看到</p>
+<p><img src="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/idea-stackoverflow.png" alt=""></p>
+<h2 id="Nyan-progress-bar"><a href="#Nyan-progress-bar" class="headerlink" title="Nyan progress bar"></a>Nyan progress bar</h2><p>这个是彩虹版的进度条…</p>
+<p><img src="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/nyan-progress-bar.png" alt=""></p>
+<h2 id="Background-Image-Plus"><a href="#Background-Image-Plus" class="headerlink" title="Background Image Plus"></a>Background Image Plus</h2><p>这是一个设置背景图的插件</p>
+<p><img src="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/background-image-plus.png" alt=""></p>
+<h2 id="Enso"><a href="#Enso" class="headerlink" title="Enso"></a>Enso</h2><p>它可以将测试名转化成一个句子，一目了然地显示测试的内容。这意味着当你在注视任何类的时候， Enso 都会展示其说明文档。</p>
+<p><img src="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/plugin-enso.png" alt=""></p>
+<h2 id="activate-power-mode-或-Power-mode"><a href="#activate-power-mode-或-Power-mode" class="headerlink" title="activate-power-mode 或 Power mode ||"></a>activate-power-mode 或 Power mode ||</h2><p>这个抖动的窗口老年人实在受不了…</p>
+<p><img src="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/activate-power-mode.gif" alt=""></p>
+<h1 id="VM-Options"><a href="#VM-Options" class="headerlink" title="VM Options"></a>VM Options</h1><p>可以通过ToolBox或IDEA选项里面设置</p>
+<p><img src="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/vmoption1.jpg" alt=""></p>
+<p><img src="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/vmoption2.jpg" alt=""></p>
+<p>优化参数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">-server</span><br><span class="line">-Xms2048m</span><br><span class="line">-Xmx2048m</span><br><span class="line">-Xmn1024m</span><br><span class="line">-XX:MetaspaceSize=256m</span><br><span class="line">-XX:MaxMetaspaceSize=2048m</span><br><span class="line">-XX:ReservedCodeCacheSize=512m</span><br><span class="line">-XX:+UseG1GC</span><br><span class="line">-XX:-UseParNewGC</span><br><span class="line">-XX:-UseConcMarkSweepGC</span><br><span class="line">-XX:SoftRefLRUPolicyMSPerMB=200</span><br><span class="line">-XX:+UseCompressedOops</span><br><span class="line">-ea</span><br><span class="line">-Dsun.io.useCanonCaches=false</span><br><span class="line">-Djava.net.preferIPv4Stack=true</span><br><span class="line">-XX:+HeapDumpOnOutOfMemoryError</span><br><span class="line">-XX:-OmitStackTraceInFastThrow</span><br><span class="line">-Dsun.awt.keepWorkingSetOnMinimize=true</span><br><span class="line">-Dide.no.platform.update=true</span><br><span class="line">-Djdk.http.auth.tunneling.disabledSchemes=&quot;&quot;</span><br><span class="line">-javaagent:/home/ybd/data/application/jetbrains/JetbrainsCrack.jar</span><br><span class="line">-XX:MaxJavaStackTraceDepth=10000</span><br></pre></td></tr></table></figure>
+<p><strong>部分参数说明</strong>：</p>
+<p><code>-Xms2048m</code>: 初始时内存大小，至少为<code>Xmx</code>的二分之一</p>
+<p><code>-Xmx2048m</code>: 最大内存大小，若总内存小于2GB，至少为总内存的四分之一；若总内存大于2GB，设为1-4GB</p>
+<p><code>-XX:+UseG1GC -XX:-UseParNewGC -XX:-UseConcMarkSweepGC</code>: 设置使用G1垃圾收集器 </p>
+<p><code>-server</code>: JVM以server的方式运行，启动速度慢，运行速度快</p>
+<p><code>-Dsun.awt.keepWorkingSetOnMinimize=true</code>: 让IDEA最小化后阻止JVM对其进行修剪</p>
+<h1 id="Conflict-of-keyboard-shortcuts"><a href="#Conflict-of-keyboard-shortcuts" class="headerlink" title="Conflict of keyboard shortcuts"></a>Conflict of keyboard shortcuts</h1><p>快捷键有冲突，创建脚本并执行：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash  </span></span><br><span class="line">gsettings <span class="built_in">set</span> org.gnome.desktop.wm.keybindings toggle-shaded <span class="string">"[]"</span> </span><br><span class="line">gsettings <span class="built_in">set</span> org.gnome.settings-daemon.plugins.media-keys screensaver <span class="string">"[]"</span></span><br><span class="line">gsettings <span class="built_in">set</span> org.gnome.desktop.wm.keybindings switch-to-workspace-left <span class="string">"[]"</span> </span><br><span class="line">gsettings <span class="built_in">set</span> org.gnome.desktop.wm.keybindings switch-to-workspace-right <span class="string">"[]"</span></span><br><span class="line">gsettings <span class="built_in">set</span> org.gnome.desktop.wm.keybindings begin-move <span class="string">"[]"</span></span><br></pre></td></tr></table></figure></p>
+<p>如果是习惯Windows下的快捷键，那么可以<strong>禁用TTY</strong>（IDEA Ctrl+Alt+F1-6冲突）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">FILE_NAME=/usr/share/X11/xorg.conf.d/50-novtswitch.conf &amp;&amp;\</span><br><span class="line">sudo touch $&#123;FILE_NAME&#125; &amp;&amp; \</span><br><span class="line">sudo tee $&#123;FILE_NAME&#125; &lt;&lt; EOF</span><br><span class="line"> Section &quot;ServerFlags&quot;</span><br><span class="line">Option &quot;DontVTSwitch&quot; &quot;true&quot;</span><br><span class="line">EndSection</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+<p><strong>目前发现的快捷键冲突：</strong><br>1、<code>Ctrl+Alt+方向</code>，直接到系统设置里面改：<br><img src="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/idea-setting-keyboard.png" alt=""></p>
+<p>2、安装了搜狗之后，按<code>Ctrl+Alt+B</code>会启动虚拟键盘，所以在输入法里面打开Fcitx设置，在附加组件里面，点击高级，再把虚拟键盘的选项去掉：<br><img src="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/idea-sougou-conflict.png" alt=""><br>然后注销或重启电脑。</p>
+<p>3、<code>Ctrl+Alt+S</code>，这个在键盘设置里面找了很久，原来这玩意在输入法设置里面，点开输入法全局配置，把<strong>显示高级选项</strong>钩上，就会看到很多快捷键，我都把它们干掉了。<br><img src="https://cdn.yangbingdong.com/img/learning-idea-under-ubuntu/shurufa.png" alt=""></p>
+<h1 id="Finally"><a href="#Finally" class="headerlink" title="Finally"></a>Finally</h1><blockquote>
+<p>IDEA真的智能到没朋友…<br>如果喜欢IDEA这款软件，并且有经济能力的，请付费购买~</p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Ubuntu/" rel="tag"># Ubuntu</a>
+          
+            <a href="/tags/IDE/" rel="tag"># IDE</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/09/jvm-knowledge-collect-01/" rel="next" title="JVM知识杂汇">
+                <i class="fa fa-chevron-left"></i> JVM知识杂汇
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/18/java-call-by-value/" rel="prev" title="Java基本数据类型传递与引用传递的那点事">
+                Java基本数据类型传递与引用传递的那点事 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">杨凯</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Preface"><span class="nav-number">1.</span> <span class="nav-text">Preface</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Install"><span class="nav-number">2.</span> <span class="nav-text">Install</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#License"><span class="nav-number">3.</span> <span class="nav-text">License</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2018-1-5以前版本"><span class="nav-number">3.1.</span> <span class="nav-text">2018.1.5以前版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2018-2版本"><span class="nav-number">3.2.</span> <span class="nav-text">2018.2版本</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Personal-Setting"><span class="nav-number">4.</span> <span class="nav-text">Personal Setting</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#文件修改后，设置左边目录出现颜色变化"><span class="nav-number">4.1.</span> <span class="nav-text">文件修改后，设置左边目录出现颜色变化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如果只有一行方法的代码默认要展开，去掉这个勾"><span class="nav-number">4.2.</span> <span class="nav-text">如果只有一行方法的代码默认要展开，去掉这个勾</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改字体和字号"><span class="nav-number">4.3.</span> <span class="nav-text">修改字体和字号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改VM参数"><span class="nav-number">4.4.</span> <span class="nav-text">修改VM参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置代码不区分大小写"><span class="nav-number">4.5.</span> <span class="nav-text">设置代码不区分大小写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#禁止-import"><span class="nav-number">4.6.</span> <span class="nav-text">禁止 import *</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置不自动打开上一次最后关闭的项目"><span class="nav-number">4.7.</span> <span class="nav-text">设置不自动打开上一次最后关闭的项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Postfix-Completion"><span class="nav-number">4.8.</span> <span class="nav-text">Postfix Completion</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可生成SreializableID"><span class="nav-number">4.9.</span> <span class="nav-text">可生成SreializableID</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关闭代码拖拽功能"><span class="nav-number">4.10.</span> <span class="nav-text">关闭代码拖拽功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#显示内存使用情况"><span class="nav-number">4.11.</span> <span class="nav-text">显示内存使用情况</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优化-Java-注释"><span class="nav-number">4.12.</span> <span class="nav-text">优化 Java 注释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优化方法链"><span class="nav-number">4.13.</span> <span class="nav-text">优化方法链</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多线程自动编译"><span class="nav-number">4.14.</span> <span class="nav-text">多线程自动编译</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置统一编译jdk版本（关闭module-JDK）"><span class="nav-number">4.15.</span> <span class="nav-text">设置统一编译jdk版本（关闭module JDK）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Keyboard-shortcuts"><span class="nav-number">5.</span> <span class="nav-text">Keyboard shortcuts</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#导航（一般都可以在Navigate里面找到）"><span class="nav-number">5.1.</span> <span class="nav-text">导航（一般都可以在Navigate里面找到）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查找-替换（一般在Edit的find里面）"><span class="nav-number">5.2.</span> <span class="nav-text">查找/替换（一般在Edit的find里面）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编辑"><span class="nav-number">5.3.</span> <span class="nav-text">编辑</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调试"><span class="nav-number">5.4.</span> <span class="nav-text">调试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重构"><span class="nav-number">5.5.</span> <span class="nav-text">重构</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Plugin"><span class="nav-number">6.</span> <span class="nav-text">Plugin</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Lombok"><span class="nav-number">6.1.</span> <span class="nav-text">Lombok</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker-Integration"><span class="nav-number">6.2.</span> <span class="nav-text">Docker Integration</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Zookeeper"><span class="nav-number">6.3.</span> <span class="nav-text">Zookeeper</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GsonFormat"><span class="nav-number">6.4.</span> <span class="nav-text">GsonFormat</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mybatis-插件"><span class="nav-number">6.5.</span> <span class="nav-text">Mybatis 插件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ali规约插件-P3C"><span class="nav-number">6.6.</span> <span class="nav-text">Ali规约插件 P3C</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FindBugs"><span class="nav-number">6.7.</span> <span class="nav-text">FindBugs</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Maven-Helper"><span class="nav-number">6.8.</span> <span class="nav-text">Maven Helper</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Statistic"><span class="nav-number">6.9.</span> <span class="nav-text">Statistic</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Stackoverflow"><span class="nav-number">6.10.</span> <span class="nav-text">Stackoverflow</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Nyan-progress-bar"><span class="nav-number">6.11.</span> <span class="nav-text">Nyan progress bar</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Background-Image-Plus"><span class="nav-number">6.12.</span> <span class="nav-text">Background Image Plus</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Enso"><span class="nav-number">6.13.</span> <span class="nav-text">Enso</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#activate-power-mode-或-Power-mode"><span class="nav-number">6.14.</span> <span class="nav-text">activate-power-mode 或 Power mode ||</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#VM-Options"><span class="nav-number">7.</span> <span class="nav-text">VM Options</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Conflict-of-keyboard-shortcuts"><span class="nav-number">8.</span> <span class="nav-text">Conflict of keyboard shortcuts</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Finally"><span class="nav-number">9.</span> <span class="nav-text">Finally</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">杨凯</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

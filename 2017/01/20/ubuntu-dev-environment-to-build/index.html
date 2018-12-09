@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Ubuntu,IDE,JDK,Tomcat,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言最近公司的电脑由于不明原因老是奔溃，重装过两次，在家里也比较喜欢折腾系统，为了不用每次都度娘谷歌，记录下来，一条龙走过。博主是搞爪哇开发的，那么以下搭建针对的是爪哇环境开发">
+<meta name="keywords" content="Ubuntu,IDE,JDK,Tomcat">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ubuntu的Java开发环境基本搭建">
+<meta property="og:url" content="http://yoursite.com/2017/01/20/ubuntu-dev-environment-to-build/index.html">
+<meta property="og:site_name" content="如风过境">
+<meta property="og:description" content="前言最近公司的电脑由于不明原因老是奔溃，重装过两次，在家里也比较喜欢折腾系统，为了不用每次都度娘谷歌，记录下来，一条龙走过。博主是搞爪哇开发的，那么以下搭建针对的是爪哇环境开发">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/javaDevEnv/maxresdefault.jpg">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/javaDevEnv/javaVersion.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/javaDevEnv/scala-download.jpg">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/javaDevEnv/source-scala.jpg">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/javaDevEnv/idea.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/javaDevEnv/mysqlStartup.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/javaDevEnv/mysql-problom.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/mysql-related-learning/mycli.gif">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/javaDevEnv/navicat-patch.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/javaDevEnv/navicat12.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/mongodb/mongodb-version.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/javaDevEnv/rabbitmq.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/javaDevEnv/ngrok_p1.jpg">
+<meta property="og:updated_time" content="2018-12-09T10:09:00.064Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ubuntu的Java开发环境基本搭建">
+<meta name="twitter:description" content="前言最近公司的电脑由于不明原因老是奔溃，重装过两次，在家里也比较喜欢折腾系统，为了不用每次都度娘谷歌，记录下来，一条龙走过。博主是搞爪哇开发的，那么以下搭建针对的是爪哇环境开发">
+<meta name="twitter:image" content="https://cdn.yangbingdong.com/img/javaDevEnv/maxresdefault.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/01/20/ubuntu-dev-environment-to-build/">
+
+
+
+
+
+  <title>Ubuntu的Java开发环境基本搭建 | 如风过境</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">如风过境</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/20/ubuntu-dev-environment-to-build/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="杨凯">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="如风过境">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Ubuntu的Java开发环境基本搭建</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-20T11:31:22+08:00">
+                2017-01-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/OperatingSystem/" itemprop="url" rel="index">
+                    <span itemprop="name">OperatingSystem</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/OperatingSystem/Ubuntu/" itemprop="url" rel="index">
+                    <span itemprop="name">Ubuntu</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="https://cdn.yangbingdong.com/img/javaDevEnv/maxresdefault.jpg" alt=""></p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近公司的电脑由于不明原因老是奔溃，重装过两次，在家里也比较喜欢折腾系统，为了不用每次都度娘谷歌，记录下来，一条龙走过。博主是搞爪哇开发的，那么以下搭建针对的是爪哇环境开发</p>
+<a id="more"></a>
+<h1 id="安装JDK以及配置环境变量"><a href="#安装JDK以及配置环境变量" class="headerlink" title="安装JDK以及配置环境变量"></a>安装JDK以及配置环境变量</h1><h2 id="通过Apt安装"><a href="#通过Apt安装" class="headerlink" title="通过Apt安装"></a>通过Apt安装</h2><blockquote>
+<p><strong><em><a href="https://linuxconfig.org/how-to-install-java-on-ubuntu-18-04-bionic-beaver-linux" target="_blank" rel="noopener">https://linuxconfig.org/how-to-install-java-on-ubuntu-18-04-bionic-beaver-linux</a></em></strong></p>
+</blockquote>
+<h3 id="OpenJDK"><a href="#OpenJDK" class="headerlink" title="OpenJDK"></a>OpenJDK</h3><p>JDK8:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install openjdk-8-jdk</span><br></pre></td></tr></table></figure>
+<p>JDK9:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install openjdk-9-jdk</span><br></pre></td></tr></table></figure>
+<p>JDK11:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install openjdk-11-jdk</span><br></pre></td></tr></table></figure>
+<h3 id="OracleJDK"><a href="#OracleJDK" class="headerlink" title="OracleJDK"></a>OracleJDK</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository ppa:webupd8team/java &amp;&amp; sudo apt update</span><br></pre></td></tr></table></figure>
+<p>JDK8:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install oracle-java8-set-default</span><br></pre></td></tr></table></figure>
+<p>JDK9:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install oracle-java9-set-default</span><br></pre></td></tr></table></figure>
+<h2 id="手动安装"><a href="#手动安装" class="headerlink" title="手动安装"></a>手动安装</h2><h3 id="安装JDK"><a href="#安装JDK" class="headerlink" title="安装JDK"></a>安装JDK</h3><p>安装之前当然是老规矩地下载<code>jdk</code>：<em><a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html" target="_blank" rel="noopener">Oracle JDK官方下载</a></em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 把jdk的文件移动到 /usr/local/ 目录下</span><br><span class="line">sudo mv ~/jdk*.tar.gz /usr/local/</span><br><span class="line"># 解压文件</span><br><span class="line">cd /usr/local/</span><br><span class="line"># sudo tar -zxvf jdk-8u101-linux-x64.tar.gz</span><br><span class="line"># 创建软链接</span><br><span class="line">sudo ln -s jdk1.8.0_101 jdk</span><br></pre></td></tr></table></figure>
+<p><strong><em>如需更换<code>jdk</code>，删除旧版本的软链接，重新创建软链接指向新版即可</em></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo rm -rf jdk</span><br><span class="line">sudo ln -s jdk* jdk</span><br></pre></td></tr></table></figure>
+<h3 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h3><ul>
+<li>放到 <code>/usr/local</code> 里面的程序，建议使用系统变量。</li>
+<li>用户变量<br>  <code>~/.profile</code> 文件是用户的私有配置文件<br>  <code>~/.bashrc</code>  是在bash里面使用的私有配置文件，优先级在 <code>.profile</code> 文件之后</li>
+<li>系统变量<br>  <code>/etc/profile</code> 文件是系统的公用配置文件<br>  <code>/etc/bash.bashrc</code> 是<code>bash</code>专用的配置文件，优先级在 <code>profile</code> 文件之后</li>
+<li>系统变量的配置，不建议修改前面说到的两个文件，而是建议在 <strong><em><code>/etc/profile.d/</code></em></strong> 目录下，创建一个 <code>.sh</code> 结尾 的文件。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vi /etc/profile.d/jdk.sh</span><br></pre></td></tr></table></figure>
+<p><strong><em>环境变量的配置内容如下：</em></strong></p>
+<ol>
+<li><p>设置一个名为<code>JAVA_HOME</code>的变量，并且使用<code>export</code>命令导出为环境变量, 如果不使用 <code>export</code> ，仅在当前<code>shell</code>里面有效</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=/usr/local/jdk</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>PATH</code>不需要<code>export</code>，因为早在其他的地方，已经<code>export</code>过了！，<code>\$JAVA_HOME</code> 表示引用前面配置的 <code>JAVA_HOME</code> 变量，分隔符一定是冒号，<strong>Windows</strong>是分号,最后再引用原来的<code>PATH</code>的值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PATH=$JAVA_HOME/bin:$PATH</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置以后，可以重新登录让配置生效，也可以使用<code>source</code>临时加载配置文件。使用<code>source</code>命令加载的配置，仅在当前<code>shell</code>有效，关闭以后失效。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source /etc/profile.d/jdk.sh</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看<code>jdk</code>是否安装成功，一下两条命令成功则安装成功</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">java -version</span><br><span class="line">javac -version</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><img src="https://cdn.yangbingdong.com/img/javaDevEnv/javaVersion.png" alt=""></p>
+<h1 id="安装Scala环境"><a href="#安装Scala环境" class="headerlink" title="安装Scala环境"></a>安装Scala环境</h1><p>更上面安装JDK类似</p>
+<p>1、去 <em><a href="http://www.scala-lang.org/download/" target="_blank" rel="noopener">官网</a></em> 下载最新地SDK</p>
+<p><img src="https://cdn.yangbingdong.com/img/javaDevEnv/scala-download.jpg" alt=""></p>
+<p>2、解压到 <code>/usr/local</code> 目录，并创建软链接为 <code>scala</code> </p>
+<p>3、在 <code>/etc/profile.d</code> 目录下创建 <code>scala.sh</code> ，输入以下信息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export SCALA_HOME=/usr/local/scala</span><br><span class="line">PATH=$PATH:$SCALA_HOME/bin</span><br></pre></td></tr></table></figure>
+<p>4、查看是否安装成功<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">source /etc/profile.d/scala.sh</span><br><span class="line">scala -version</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://cdn.yangbingdong.com/img/javaDevEnv/source-scala.jpg" alt=""></p>
+<h1 id="安装IDE"><a href="#安装IDE" class="headerlink" title="安装IDE"></a>安装IDE</h1><h2 id="Eclipse"><a href="#Eclipse" class="headerlink" title="Eclipse"></a>Eclipse</h2><p>直接在 <em><a href="https://www.eclipse.org/" target="_blank" rel="noopener">Eclipse官方网站</a></em> 下载相关版本Eclipse<br>解压<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo tar zxvf eclipse-jee-mars-2-linux-gtk-x86_64.tar.gz -C ~/IDE</span><br></pre></td></tr></table></figure></p>
+<p>创建快捷方式<br>1. 在终端中执行如下命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo gedit /usr/share/applications/eclipse.desktop</span><br></pre></td></tr></table></figure></p>
+<p>2. 粘贴并保存如下内容(注意更改相应的名字和目录)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[Desktop Entry] </span><br><span class="line">Name=Eclipse Mars.2 </span><br><span class="line">Type=Application </span><br><span class="line">Exec=/home/ybd/IDE/eclipse </span><br><span class="line">Terminal=false </span><br><span class="line">Icon=/home/ybd/IDE/icon.xpm </span><br><span class="line">Comment=Integrated Development Environment </span><br><span class="line">NoDisplay=false </span><br><span class="line">Categories=Development;IDE; </span><br><span class="line">Name[en]=Eclipse Mars.2</span><br></pre></td></tr></table></figure></p>
+<p><strong>通用设置</strong><br><code>window → preferences →</code></p>
+<ul>
+<li>设置字体：general → appearance → color and font → basic → text font</li>
+<li>编辑器背景颜色：general →  editors → text editors → background color → <code>RGB:85,123,208</code>,<code>#C7EDCC</code></li>
+<li>工作空间字符编码：general → workspace </li>
+<li>作者签名：java → code style → code templates → types  签名快捷键：<code>alt + shift + j</code></li>
+</ul>
+<h2 id="MyEclipse"><a href="#MyEclipse" class="headerlink" title="MyEclipse"></a>MyEclipse</h2><p>MyEclipse安装请看：<strong><em><a href="/2017/ubuntu-myeclipse-crack/">Ubuntu16.04下MyEclipse安装与破解</a></em></strong></p>
+<h2 id="IntelliJ-IDEA"><a href="#IntelliJ-IDEA" class="headerlink" title="IntelliJ IDEA"></a>IntelliJ IDEA</h2><p>之前听说过IDE[^1]，都是大公司用的，并没有用过<br>日后再研究补上<br>官网：<em><a href="http://www.jetbrains.com/idea/" target="_blank" rel="noopener">http://www.jetbrains.com/idea/</a></em></p>
+<p>新公司好多大牛，用的都是IDEA，于是乎“近墨者黑”，那么既然有机会跟大牛接触，我也开始真正意义上的学习IDEA了</p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>进过查阅，我选择官方的盒子下载：<strong><em><a href="http://www.jetbrains.com/toolbox/app/?fromMenu" target="_blank" rel="noopener">http://www.jetbrains.com/toolbox/app/?fromMenu</a></em></strong><br>优点是可以自动更新<br><img src="https://cdn.yangbingdong.com/img/javaDevEnv/idea.png" alt=""></p>
+<h3 id="激活"><a href="#激活" class="headerlink" title="激活"></a>激活</h3><p>博主使用授权服务器，可以自己搭建，详情请看 <strong><em><a href="/2017/note-of-learning-idea-under-ubuntu/#License">这里</a></em></strong></p>
+<h3 id="部署Tomcat"><a href="#部署Tomcat" class="headerlink" title="部署Tomcat"></a>部署Tomcat</h3><p>若是服务器版切换root用户解压到 <code>/opt/</code> 或者 <code>/usr/local/</code> 下<br>直接运行tomcat目录下<code>bin/start.sh</code>即可开启，前提是配置好<code>JDK</code></p>
+<p>桌面版个人使用就解压到<code>/home/{user}</code>目录下就可以了</p>
+<h1 id="安装MySQL以及GUI工具"><a href="#安装MySQL以及GUI工具" class="headerlink" title="安装MySQL以及GUI工具"></a>安装MySQL以及GUI工具</h1><h2 id="基于Docker安装"><a href="#基于Docker安装" class="headerlink" title="基于Docker安装"></a>基于Docker安装</h2><h3 id="拉取镜像"><a href="#拉取镜像" class="headerlink" title="拉取镜像"></a>拉取镜像</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull mysql:5.7</span><br></pre></td></tr></table></figure>
+<h3 id="运行实例"><a href="#运行实例" class="headerlink" title="运行实例"></a>运行实例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">MYSQL=/home/ybd/data/docker/mysql &amp;&amp; \</span><br><span class="line">docker run --name=mysql -p 3306:3306  \</span><br><span class="line">-v $MYSQL/data:/var/lib/mysql \</span><br><span class="line">-e MYSQL_ROOT_PASSWORD=root -d mysql \</span><br><span class="line">--character-set-server=utf8mb4 \</span><br><span class="line">--collation-server=utf8mb4_unicode_ci \</span><br><span class="line">--sql-mode=STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION \</span><br><span class="line">--lower-case-table-names=1</span><br></pre></td></tr></table></figure>
+<h3 id="终端链接"><a href="#终端链接" class="headerlink" title="终端链接"></a>终端链接</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install mysql-client</span><br><span class="line"></span><br><span class="line">// 链接</span><br><span class="line">mysql -h 127.0.0.1 -P 3306 -u root -p</span><br></pre></td></tr></table></figure>
+<p><img src="https://cdn.yangbingdong.com/img/javaDevEnv/mysqlStartup.png" alt=""></p>
+<h2 id="手动折腾安装"><a href="#手动折腾安装" class="headerlink" title="手动折腾安装"></a>手动折腾安装</h2><p><strong><em>以<code>mysql5.7</code>以上版本为例 –&gt; <code>mysql-5.7.10-linux-glibc2.5-x86_64.tar.gz</code></em></strong></p>
+<h3 id="必须要先安装依赖的libaio才能正常按照mysql"><a href="#必须要先安装依赖的libaio才能正常按照mysql" class="headerlink" title="必须要先安装依赖的libaio才能正常按照mysql"></a>必须要先安装依赖的libaio才能正常按照mysql</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install libaio-dev</span><br></pre></td></tr></table></figure>
+<h3 id="创建用户组以及用户"><a href="#创建用户组以及用户" class="headerlink" title="创建用户组以及用户"></a>创建用户组以及用户</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo groupadd mysql</span><br><span class="line">sudo useradd -r -g mysql -s /bin/false mysql</span><br></pre></td></tr></table></figure>
+<h3 id="尽量把mysql安装到-usr-local目录下面"><a href="#尽量把mysql安装到-usr-local目录下面" class="headerlink" title="尽量把mysql安装到/usr/local目录下面"></a>尽量把mysql安装到/usr/local目录下面</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local</span><br><span class="line">sudo cp /home/data/software/DataBase/mysql/mysql-5.7.10-linux-glibc2.5-x86_64.tar.gz ./</span><br><span class="line">&lt;-- 解压缩安装包 --&gt;</span><br><span class="line">sudo tar zxvf mysql-5.7.10-linux-glibc2.5-x86_64.tar.gz</span><br><span class="line">&lt;-- 创建软连接 --&gt;</span><br><span class="line">sudo ln -s mysql-5.7.10-linux-glibc2.5-x86_64 mysql</span><br></pre></td></tr></table></figure>
+<h3 id="创建必须的目录和进行授权"><a href="#创建必须的目录和进行授权" class="headerlink" title="创建必须的目录和进行授权"></a>创建必须的目录和进行授权</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cd mysql</span><br><span class="line">sudo mkdir mysql-files</span><br><span class="line">sudo chmod 770 mysql-files</span><br><span class="line">sudo chown -R mysql .</span><br><span class="line">sudo chgrp -R mysql .</span><br></pre></td></tr></table></figure>
+<h3 id="执行安装脚本"><a href="#执行安装脚本" class="headerlink" title="执行安装脚本"></a>执行安装脚本</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo bin/mysqld --initialize --user=mysql   </span><br><span class="line">sudo bin/mysql_ssl_rsa_setup</span><br></pre></td></tr></table></figure>
+<p>在初始化的时候，一定要仔细看屏幕，最后大概有一行:<code>[Note] A temporary password is generated for root@localhost: kklNBwkei1.t</code><br>注意这是<code>root</code>的临时密码,记录下来以便后面修改密码！</p>
+<h3 id="重新对一些主要的目录进行授权，确保安全性"><a href="#重新对一些主要的目录进行授权，确保安全性" class="headerlink" title="重新对一些主要的目录进行授权，确保安全性"></a>重新对一些主要的目录进行授权，确保安全性</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo chown -R root .</span><br><span class="line">sudo chown -R mysql data mysql-files</span><br></pre></td></tr></table></figure>
+<h3 id="从默认的模板创建配置文件，需要在文件中增加-skip-grant-tables-，以便启动mysql以后修改root用户的密码"><a href="#从默认的模板创建配置文件，需要在文件中增加-skip-grant-tables-，以便启动mysql以后修改root用户的密码" class="headerlink" title="从默认的模板创建配置文件，需要在文件中增加 skip-grant-tables ，以便启动mysql以后修改root用户的密码"></a>从默认的模板创建配置文件，需要在文件中增加 skip-grant-tables ，以便启动mysql以后修改root用户的密码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo cp support-files/my-default.cnf ./my.cnf</span><br></pre></td></tr></table></figure>
+<h3 id="测试启动，修改密码"><a href="#测试启动，修改密码" class="headerlink" title="测试启动，修改密码"></a>测试启动，修改密码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 后台启动mysql</span><br><span class="line">sudo bin/mysqld_safe --user=mysql &amp;  </span><br><span class="line"># 启动</span><br><span class="line">./bin/mysql -u root -p</span><br></pre></td></tr></table></figure>
+<h4 id="方式一"><a href="#方式一" class="headerlink" title="方式一"></a>方式一</h4><p>因为前面修改了<code>my.cnf</code>文件，增加了 <code>skip-grant-tables</code> 参数，所以不需要用户名即可登陆<br>进去后立即修改<code>root</code>用户的密码，密码的字段是 <code>authentication_string</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update mysql.user set authentication_string=password(&apos;root&apos;) where user=&apos;root&apos;;</span><br></pre></td></tr></table></figure></p>
+<p>修改密码后，再把<code>my.cnf</code>里面的 <code>skip-grant-tables</code> 去掉</p>
+<h4 id="方式二"><a href="#方式二" class="headerlink" title="方式二"></a>方式二</h4><p>修改密码也可以使用安装到时候提示到<strong>随机密码</strong>进行登录，然后使用下面到命令修改密码。<br>建议用下面的方式设置数据库的密码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alter user user() identified by &apos;root&apos;;</span><br></pre></td></tr></table></figure></p>
+<h3 id="复制启动脚本到合适的位置"><a href="#复制启动脚本到合适的位置" class="headerlink" title="复制启动脚本到合适的位置"></a>复制启动脚本到合适的位置</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo cp support-files/mysql.server /etc/init.d/mysql</span><br></pre></td></tr></table></figure>
+<h3 id="Optional-增加自动启动"><a href="#Optional-增加自动启动" class="headerlink" title="(Optional)增加自动启动"></a>(Optional)增加自动启动</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo update-rc.d -f mysql defaults</span><br></pre></td></tr></table></figure>
+<h3 id="增加mysql命令的路径到PATH环境变量"><a href="#增加mysql命令的路径到PATH环境变量" class="headerlink" title="增加mysql命令的路径到PATH环境变量"></a>增加<code>mysql</code>命令的路径到<code>PATH</code>环境变量</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo touch /etc/profile.d/mysql.sh</span><br><span class="line">sudo chmod 777 /etc/profile.d/mysql.sh</span><br><span class="line">sudo echo &quot;PATH=/usr/local/mysql/bin:\$PATH&quot; &gt; /etc/profile.d/mysql.sh</span><br><span class="line">sudo chmod 644 /etc/profile.d/mysql.sh</span><br></pre></td></tr></table></figure>
+<p><strong><em><font color="red">到此，mysql的安装基本完成</font></em></strong></p>
+<h3 id="修复乱码以及忽略大小写，找到MySQL文件里的my-cnf在末尾添加"><a href="#修复乱码以及忽略大小写，找到MySQL文件里的my-cnf在末尾添加" class="headerlink" title="修复乱码以及忽略大小写，找到MySQL文件里的my.cnf在末尾添加"></a>修复乱码以及忽略大小写，找到MySQL文件里的<code>my.cnf</code>在末尾添加</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">lower_case_table_names=1</span><br><span class="line">character_set_server=utf8</span><br></pre></td></tr></table></figure>
+<h3 id="查看以及修改MySQL字符编码"><a href="#查看以及修改MySQL字符编码" class="headerlink" title="查看以及修改MySQL字符编码"></a>查看以及修改MySQL字符编码</h3><h4 id="查看"><a href="#查看" class="headerlink" title="查看"></a>查看</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables like &apos;collation_%&apos;;</span><br><span class="line"></span><br><span class="line">mysql&gt; show variables like &apos;character_set_%&apos;;</span><br></pre></td></tr></table></figure>
+<h4 id="修改"><a href="#修改" class="headerlink" title="修改"></a>修改</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; set character_set_client=utf8;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; set character_set_connection=utf8;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; set character_set_database=utf8;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; set character_set_results=utf8;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; set character_set_server=utf8;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; set character_set_system=utf8;</span><br><span class="line">Query OK, 0 rows affected (0.01 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; set collation_connection=utf8_general_ci;</span><br><span class="line">Query OK, 0 rows affected (0.01 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; set collation_database=utf8mb4_general_ci;</span><br><span class="line">Query OK, 0 rows affected (0.01 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; set collation_server=utf8mb4_general_ci;</span><br><span class="line">Query OK, 0 rows affected (0.01 sec)</span><br></pre></td></tr></table></figure>
+<h3 id="如果登录mysql出现以下错误"><a href="#如果登录mysql出现以下错误" class="headerlink" title="如果登录mysql出现以下错误"></a>如果登录mysql出现以下错误</h3><p><img src="https://cdn.yangbingdong.com/img/javaDevEnv/mysql-problom.png" alt=""><br><strong>则可能配置未加载或服务未启动，请重启系统，然后启动mysql服务</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service mysql start</span><br></pre></td></tr></table></figure></p>
+<p>结束<code>mysql</code>服务<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service mysql stop</span><br></pre></td></tr></table></figure></p>
+<h3 id="开启远程链接"><a href="#开启远程链接" class="headerlink" title="开启远程链接"></a>开启远程链接</h3><p>链接mysql后：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">use mysql</span><br><span class="line"></span><br><span class="line">// 下面两个root分别是帐号密码</span><br><span class="line">GRANT ALL PRIVILEGES ON *.* TO &apos;root&apos;@&apos;%&apos; IDENTIFIED BY &apos;root&apos; WITH GRANT OPTION;</span><br><span class="line">// 刷新特权</span><br><span class="line">flush privileges;</span><br><span class="line">// 查看修改是否成功</span><br><span class="line">select host,user from user;</span><br></pre></td></tr></table></figure></p>
+<h2 id="Mysql-GUI"><a href="#Mysql-GUI" class="headerlink" title="Mysql GUI"></a>Mysql GUI</h2><h3 id="传统终端客户端"><a href="#传统终端客户端" class="headerlink" title="传统终端客户端"></a>传统终端客户端</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install mysql-client</span><br><span class="line"></span><br><span class="line">// 链接</span><br><span class="line">mysql -h 127.0.0.1 -P 3306 -u root -p</span><br></pre></td></tr></table></figure>
+<h3 id="智能补全命令客户端"><a href="#智能补全命令客户端" class="headerlink" title="智能补全命令客户端"></a>智能补全命令客户端</h3><p>这个一个智能补全并且高亮语法的终端客户端 <strong><em><a href="https://github.com/dbcli/mycli" target="_blank" rel="noopener">mycli</a></em></strong></p>
+<p><img src="https://cdn.yangbingdong.com/img/mysql-related-learning/mycli.gif" alt=""></p>
+<p>安装：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install mycli</span><br></pre></td></tr></table></figure>
+<p>使用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">$ mycli --help</span><br><span class="line">Usage: mycli [OPTIONS] [DATABASE]</span><br><span class="line"></span><br><span class="line">  A MySQL terminal client with auto-completion and syntax highlighting.</span><br><span class="line"></span><br><span class="line">  Examples:</span><br><span class="line">    - mycli my_database</span><br><span class="line">    - mycli -u my_user -h my_host.com my_database</span><br><span class="line">    - mycli mysql://my_user@my_host.com:3306/my_database</span><br><span class="line"></span><br><span class="line">Options:</span><br><span class="line">  -h, --host TEXT               Host address of the database.</span><br><span class="line">  -P, --port INTEGER            Port number to use for connection. Honors</span><br><span class="line">                                $MYSQL_TCP_PORT.</span><br><span class="line">  -u, --user TEXT               User name to connect to the database.</span><br><span class="line">  -S, --socket TEXT             The socket file to use for connection.</span><br><span class="line">  -p, --password TEXT           Password to connect to the database.</span><br><span class="line">  --pass TEXT                   Password to connect to the database.</span><br><span class="line">  --ssl-ca PATH                 CA file in PEM format.</span><br><span class="line">  --ssl-capath TEXT             CA directory.</span><br><span class="line">  --ssl-cert PATH               X509 cert in PEM format.</span><br><span class="line">  --ssl-key PATH                X509 key in PEM format.</span><br><span class="line">  --ssl-cipher TEXT             SSL cipher to use.</span><br><span class="line">  --ssl-verify-server-cert      Verify server&apos;s &quot;Common Name&quot; in its cert</span><br><span class="line">                                against hostname used when connecting. This</span><br><span class="line">                                option is disabled by default.</span><br><span class="line">  -v, --version                 Output mycli&apos;s version.</span><br><span class="line">  -D, --database TEXT           Database to use.</span><br><span class="line">  -R, --prompt TEXT             Prompt format (Default: &quot;\t \u@\h:\d&gt; &quot;).</span><br><span class="line">  -l, --logfile FILENAME        Log every query and its results to a file.</span><br><span class="line">  --defaults-group-suffix TEXT  Read MySQL config groups with the specified</span><br><span class="line">                                suffix.</span><br><span class="line">  --defaults-file PATH          Only read MySQL options from the given file.</span><br><span class="line">  --myclirc PATH                Location of myclirc file.</span><br><span class="line">  --auto-vertical-output        Automatically switch to vertical output mode</span><br><span class="line">                                if the result is wider than the terminal</span><br><span class="line">                                width.</span><br><span class="line">  -t, --table                   Display batch output in table format.</span><br><span class="line">  --csv                         Display batch output in CSV format.</span><br><span class="line">  --warn / --no-warn            Warn before running a destructive query.</span><br><span class="line">  --local-infile BOOLEAN        Enable/disable LOAD DATA LOCAL INFILE.</span><br><span class="line">  --login-path TEXT             Read this path from the login file.</span><br><span class="line">  -e, --execute TEXT            Execute command and quit.</span><br><span class="line">  --help                        Show this message and exit.</span><br></pre></td></tr></table></figure>
+<h3 id="Navicat-Premium"><a href="#Navicat-Premium" class="headerlink" title="Navicat Premium"></a>Navicat Premium</h3><h4 id="破解"><a href="#破解" class="headerlink" title="破解"></a>破解</h4><ol>
+<li><p>到<em><a href="https://www.navicat.com/download" target="_blank" rel="noopener">官网</a></em>下载对应系统版本，这里选择linux版本，并解压</p>
+</li>
+<li><p>到<em><a href="https://github.com/DoubleLabyrinth/navicat-keygen/releases" target="_blank" rel="noopener">Github</a></em>下载注册机，并解压</p>
+<p>CHS - &gt; Navicat简体中文版。<br>CHT - &gt; Navicat繁体中文版。<br>ENG - &gt; Navicat英文版</p>
+</li>
+<li><p>安装wine</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository ppa:ubuntu-wine/ppa</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install wine1.8</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>进入注册机解压目录，在此目录下打开命令窗口输入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wine navicat-patcher.exe &lt;navicat.exe path&gt;</span><br></pre></td></tr></table></figure>
+<p><code>&lt;navicat.exe path&gt;</code>就是<code>navicat.exe</code>的路径，最好是完整的。</p>
+<p>可能会出现N个error日志信息不用鸟他 能正常success就行<br>之后在当前目录下会生成对应的私钥文件<code>RegPrivateKey.pem</code></p>
+</li>
+<li><p>接着再用<code>navicat-keygen.exe</code>生成注册码，使用命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wine navicat-keygen.exe  RegPrivateKey.pem</span><br></pre></td></tr></table></figure>
+<p>先填名字和组织名称，之后会生成一个序列号，并要求填入请求码。</p>
+<p><strong>打开navicat，然后断网</strong></p>
+</li>
+<li><p>在注册界面填入序列号，然后激活。这时会提示要手动激活，ok就选这个<br>接下来会有请求码，复制然后贴入控制台，就可以得到注册码了。</p>
+</li>
+</ol>
+<p><img src="https://cdn.yangbingdong.com/img/javaDevEnv/navicat-patch.png" alt=""></p>
+<p><img src="https://cdn.yangbingdong.com/img/javaDevEnv/navicat12.png" alt=""></p>
+<h4 id="创建快捷方式"><a href="#创建快捷方式" class="headerlink" title="创建快捷方式"></a>创建快捷方式</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/share/applications/</span><br><span class="line">sudo touch navicat.desktop</span><br><span class="line">sudo vi navicat.desktop</span><br></pre></td></tr></table></figure>
+<p>加入以下内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[Desktop Entry]</span><br><span class="line">Encoding=UTF-8</span><br><span class="line">Name=Navicat</span><br><span class="line">Comment=The Smarter Way to manage dadabase</span><br><span class="line">Exec=/bin/sh &quot;/home/ybd/Data/soft/application/navicat112_mysql_en_x64/start_navicat&quot;</span><br><span class="line">Icon=/home/ybd/Data/soft/application/navicat112_mysql_en_x64/Navicat/navicat.png</span><br><span class="line">Categories=Application;Database;MySQL;navicat</span><br><span class="line">Version=1.0</span><br><span class="line">Type=Application</span><br><span class="line">Terminal=0</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>参考：<strong><em><a href="https://www.52pojie.cn/thread-705020-1-1.html" target="_blank" rel="noopener">https://www.52pojie.cn/thread-705020-1-1.html</a></em></strong></p>
+</blockquote>
+<h4 id="后台运行"><a href="#后台运行" class="headerlink" title="后台运行"></a>后台运行</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup /home/ybd/data/application/navicat/navicat120_premium_en_x64/start_navicat &gt; /dev/null 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
+<h1 id="安装Redis"><a href="#安装Redis" class="headerlink" title="安装Redis"></a>安装Redis</h1><p><strong><em><a href="/2018/redis-relate-note.html">请看这里</a></em></strong></p>
+<h1 id="安装Maven"><a href="#安装Maven" class="headerlink" title="安装Maven"></a>安装Maven</h1><h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p>官网下载或者<strong><em><a href="http://mirror.bit.edu.cn/apache/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz" target="_blank" rel="noopener">点击镜像获取</a></em></strong></p>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>1、下载解压到自己的指定的目录后，将命令放到<code>/bin</code>下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ln -s /自定义目录/apache-maven-3.3.9/bin/mvn /bin/mvn</span><br></pre></td></tr></table></figure></p>
+<p>2、添加环境变量<br>老规矩，在<code>/etc/profile.d</code>下创建一个<code>maven.sh</code>的文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo touch /etc/profile.d/maven.sh</span><br><span class="line">sudo vi /etc/profile.d/maven.sh</span><br></pre></td></tr></table></figure></p>
+<p>输入以下内容：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export M2_HOME=/自定义目录/apache-maven-3.3.9</span><br><span class="line">export PATH=$&#123;M2_HOME&#125;/bin:$PATH</span><br></pre></td></tr></table></figure></p>
+<p>然后<code>source</code>一下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source /etc/profile.d/maven.sh</span><br></pre></td></tr></table></figure></p>
+<p>查看是否配置成功：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn -v</span><br></pre></td></tr></table></figure></p>
+<p>输入内容如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Apache Maven 3.3.9 (bb52d8502b132ec0a5a3f4c09453c07478323dc5; 2015-11-11T00:41:47+08:00)</span><br><span class="line">Maven home: /home/ybd/Data/application/maven/apache-maven-3.3.9</span><br><span class="line">Java version: 1.8.0_65, vendor: Oracle Corporation</span><br><span class="line">Java home: /usr/local/jdk1.8.0_65/jre</span><br><span class="line">Default locale: zh_CN, platform encoding: UTF-8</span><br><span class="line">OS name: &quot;linux&quot;, version: &quot;4.4.0-67-generic&quot;, arch: &quot;amd64&quot;, family: &quot;unix&quot;</span><br></pre></td></tr></table></figure></p>
+<h2 id="淘宝镜像"><a href="#淘宝镜像" class="headerlink" title="淘宝镜像"></a>淘宝镜像</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;mirrors&gt;</span><br><span class="line">	&lt;mirror&gt;</span><br><span class="line">	  &lt;id&gt;alimaven&lt;/id&gt;</span><br><span class="line">	  &lt;name&gt;aliyun maven&lt;/name&gt;</span><br><span class="line">	  &lt;url&gt;http://maven.aliyun.com/nexus/content/groups/public/&lt;/url&gt;</span><br><span class="line">	  &lt;mirrorOf&gt;central&lt;/mirrorOf&gt; </span><br><span class="line">	&lt;/mirror&gt;</span><br><span class="line">&lt;/mirrors&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="MongoDB"><a href="#MongoDB" class="headerlink" title="MongoDB"></a>MongoDB</h1><h2 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0C49F3730359A14518585931BC711F9BA15703C6</span><br><span class="line"></span><br><span class="line">#下面命令针对ubuntu16.04版本，在其他ubuntu版本系统请查看MongoDB官网</span><br><span class="line">echo &quot;deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.4 multiverse&quot; | sudo tee /etc/apt/sources.list.d/mongodb-org-3.4.list</span><br><span class="line"></span><br><span class="line">sudo apt-get update</span><br><span class="line"></span><br><span class="line">sudo apt-get install -y mongodb-org</span><br></pre></td></tr></table></figure>
+<p>安装完成后查看版本：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongo -version</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://cdn.yangbingdong.com/img/mongodb/mongodb-version.png" alt=""></p>
+<p>启动、重新启动和关闭mongodb命令:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo service mongod start</span><br><span class="line">sudo service mongod stop</span><br><span class="line">sudo service mongod restart</span><br></pre></td></tr></table></figure></p>
+<p>查看是否启动成功:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo cat /var/log/mongodb/mongod.log</span><br></pre></td></tr></table></figure></p>
+<p>在 <code>mongod.log</code> 日志中若出现如下信息，说明启动成功:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[initandlisten] waiting for connections on port 27017</span><br></pre></td></tr></table></figure></p>
+<h2 id="MongoDB-卸载"><a href="#MongoDB-卸载" class="headerlink" title="MongoDB 卸载"></a>MongoDB 卸载</h2><p>删除 mongodb 包<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get purge mongodb-org*</span><br></pre></td></tr></table></figure></p>
+<p>删除 MongoDB 数据库和日志文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo rm -r /var/log/mongodb</span><br><span class="line">sudo rm -r /var/lib/mongodb</span><br></pre></td></tr></table></figure></p>
+<h2 id="MongoDB-使用"><a href="#MongoDB-使用" class="headerlink" title="MongoDB 使用"></a>MongoDB 使用</h2><p>shell命令模式<br>输入<code>mongo</code>进入shell命令模式，默认连接的数据库是test数据库，命令如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">➜  ~ mongo</span><br></pre></td></tr></table></figure></p>
+<p>常用操作命令：</p>
+<p><code>show dbs</code>：显示数据库列表<br><code>show collections</code>：显示当前数据库中的集合（类似关系数据库中的表table）<br><code>show users</code>：显示所有用户<br><code>use yourDB</code>：切换当前数据库至yourDB<br><code>db.help()</code> ：显示数据库操作命令<br><code>db.yourCollection.help()</code> ：显示集合操作命令，yourCollection是集合名</p>
+<p>官方文档：<strong><em><a href="https://docs.mongodb.com/master/tutorial/install-mongodb-on-ubuntu/" target="_blank" rel="noopener">https://docs.mongodb.com/master/tutorial/install-mongodb-on-ubuntu/</a></em></strong></p>
+<h2 id="GUI客户端"><a href="#GUI客户端" class="headerlink" title="GUI客户端"></a>GUI客户端</h2><p><strong><em><a href="https://www.mongodb.com/download-center#community" target="_blank" rel="noopener">Robomongo</a></em></strong></p>
+<h1 id="RabbitMQ"><a href="#RabbitMQ" class="headerlink" title="RabbitMQ"></a>RabbitMQ</h1><p>选择Docker安装。。。不折腾了。。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker pull rabbitmq:3-management</span><br><span class="line">docker run -d --name rabbitmq -p 5673:5672 -p 15673:15672 --restart=always rabbitmq:3-management</span><br></pre></td></tr></table></figure>
+<p>(注意版本，是<code>management</code>)</p>
+<p>浏览器打开<code>localhost:15673</code>，默认帐号密码都是<code>guest</code></p>
+<p><img src="https://cdn.yangbingdong.com/img/javaDevEnv/rabbitmq.png" alt=""></p>
+<p>集群：<a href="https://www.jianshu.com/p/624871c646b9" target="_blank" rel="noopener">https://www.jianshu.com/p/624871c646b9</a></p>
+<h1 id="Kafka-amp-Zookeeper集群"><a href="#Kafka-amp-Zookeeper集群" class="headerlink" title="Kafka&amp;Zookeeper集群"></a>Kafka&amp;Zookeeper集群</h1><p><code>docker-compose.yml</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line">version: &apos;3&apos;</span><br><span class="line">services:</span><br><span class="line">  kafka1:</span><br><span class="line">    image: wurstmeister/kafka:1.0.0</span><br><span class="line">    depends_on:</span><br><span class="line">      - zoo1</span><br><span class="line">      - zoo2</span><br><span class="line">      - zoo3</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;9092:9092&quot;</span><br><span class="line">    environment:</span><br><span class="line">      KAFKA_LOG_DIRS: /kafka</span><br><span class="line">      KAFKA_BROKER_ID: 1</span><br><span class="line">      KAFKA_CREATE_TOPICS: test:6:1</span><br><span class="line">      KAFKA_ADVERTISED_HOST_NAME: 192.168.6.113</span><br><span class="line">      KAFKA_ADVERTISED_PORT: 9092</span><br><span class="line">      KAFKA_ZOOKEEPER_CONNECT: zoo1:2181,zoo2:2181,zoo3:2181</span><br><span class="line"></span><br><span class="line">  kafka2:</span><br><span class="line">    image: wurstmeister/kafka:1.0.0</span><br><span class="line">    depends_on:</span><br><span class="line">      - zoo1</span><br><span class="line">      - zoo2</span><br><span class="line">      - zoo3</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;9093:9092&quot;</span><br><span class="line">    environment:</span><br><span class="line">      KAFKA_LOG_DIRS: /kafka</span><br><span class="line">      KAFKA_BROKER_ID: 2</span><br><span class="line">      KAFKA_ADVERTISED_HOST_NAME: 192.168.6.113</span><br><span class="line">      KAFKA_ADVERTISED_PORT: 9093</span><br><span class="line">      KAFKA_ZOOKEEPER_CONNECT: zoo1:2181,zoo2:2181,zoo3:2181</span><br><span class="line"></span><br><span class="line">  kafka3:</span><br><span class="line">    image: wurstmeister/kafka:1.0.0</span><br><span class="line">    depends_on:</span><br><span class="line">      - zoo1</span><br><span class="line">      - zoo2</span><br><span class="line">      - zoo3</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;9094:9092&quot;</span><br><span class="line">    environment:</span><br><span class="line">      KAFKA_LOG_DIRS: /kafka</span><br><span class="line">      KAFKA_BROKER_ID: 3</span><br><span class="line">      KAFKA_ADVERTISED_HOST_NAME: 192.168.6.113</span><br><span class="line">      KAFKA_ADVERTISED_PORT: 9094</span><br><span class="line">      KAFKA_ZOOKEEPER_CONNECT: zoo1:2181,zoo2:2181,zoo3:2181</span><br><span class="line"></span><br><span class="line">  zoo1:</span><br><span class="line">    image: zookeeper:latest</span><br><span class="line">    environment:</span><br><span class="line">      ZOO_MY_ID: 1</span><br><span class="line">      SERVERS: zoo1,zoo2,zoo3</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;2181:2181&quot;</span><br><span class="line">      - &quot;2888&quot;</span><br><span class="line">      - &quot;3888&quot;</span><br><span class="line"></span><br><span class="line">  zoo2:</span><br><span class="line">    image: zookeeper:latest</span><br><span class="line">    environment:</span><br><span class="line">      ZOO_MY_ID: 2</span><br><span class="line">      SERVERS: zoo1,zoo2,zoo3</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;2182:2181&quot;</span><br><span class="line">      - &quot;2888&quot;</span><br><span class="line">      - &quot;3888&quot;</span><br><span class="line"></span><br><span class="line">  zoo3:</span><br><span class="line">    image: zookeeper:latest</span><br><span class="line">    environment:</span><br><span class="line">      ZOO_MY_ID: 3</span><br><span class="line">      SERVERS: zoo1,zoo2,zoo3</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;2183:2181&quot;</span><br><span class="line">      - &quot;2888&quot;</span><br><span class="line">      - &quot;3888&quot;</span><br></pre></td></tr></table></figure>
+<p>启动：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure></p>
+<p>测试：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#创建主题</span><br><span class="line">docker exec -it $&#123;CONTAINER_ID&#125; /opt/kafka/bin/kafka-topics.sh --create --zookeeper zoo1:2181 --replication-factor 1 --partitions 1 --topic test</span><br><span class="line"></span><br><span class="line">#查看topic列表</span><br><span class="line">docker exec -it $&#123;CONTAINER_ID&#125; /opt/kafka/bin/kafka-topics.sh --list --zookeeper zoo1:2181</span><br><span class="line"></span><br><span class="line">#生产者</span><br><span class="line">docker exec -it $&#123;CONTAINER_ID&#125; /opt/kafka/bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test</span><br><span class="line"></span><br><span class="line">#消费者</span><br><span class="line">docker exec -it $&#123;CONTAINER_ID&#125; /opt/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test --from-beginning</span><br></pre></td></tr></table></figure>
+<h1 id="搭建ngrok配置"><a href="#搭建ngrok配置" class="headerlink" title="搭建ngrok配置"></a>搭建ngrok配置</h1><p><img src="https://cdn.yangbingdong.com/img/javaDevEnv/ngrok_p1.jpg" alt=""></p>
+<blockquote>
+<p>ngrok 是一个反向代理，通过在公共的端点和本地运行的 Web 服务器之间建立一个安全的通道。ngrok 可捕获和分析所有通道上的流量，便于后期分析和重放。可以被使用来进行微信借口的本地调试。在ngrok被墙之后，我们需要通过ngrok开源的源码自行搭建ngrok服务。</p>
+</blockquote>
+<p>参考地址：<strong><em><a href="http://blog.csdn.net/cloume/article/details/51209493" target="_blank" rel="noopener">Ubuntu下配置安装ngrok</a></em></strong><br>搞了一上午，服务运行起来了，客户端也运行起来了，浏览器就是访问不到！！<br>不知道是不是因为个人电脑没有域名所以才访问不到，日后再深究。<br>无奈，还好互联网开源精神无处不在，某大神搭建的ngrok：<br><strong><em><a href="http://www.qydev.com/" target="_blank" rel="noopener">http://www.qydev.com/</a></em></strong><br>客户端和教程都在里面哦。</p>
+<p><strong>Update:</strong>Ngrok已搭建成功～ ，记录于<strong><em><a href="/2017/self-hosted-build-ngrok-server/">self-hosted-build-ngrok-server</a></em></strong></p>
+<p id="div-border-left-purple"><strong>其他tunnel的代理服务器</strong>：<br><strong><em><a href="http://natapp.cn" target="_blank" rel="noopener">natapp.cn</a></em></strong><br><strong><em><a href="http://www.ngrok.cc" target="_blank" rel="noopener">www.ngrok.cc</a></em></strong><br></p>
+
+
+<p>[^1]: IDEA 全称IntelliJ IDEA，是java语言开发的集成环境，IntelliJ在业界被公认为最好的java开发工具之一，尤其在智能代码助手、代码自动提示、重构、J2EE支持、Ant、JUnit、CVS整合、代码审查、 创新的GUI设计等方面的功能可以说是超常的。IDEA是JetBrains公司的产品，这家公司总部位于捷克共和国的首都布拉格，开发人员以严谨著称的东欧程序员为主</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Ubuntu/" rel="tag"># Ubuntu</a>
+          
+            <a href="/tags/IDE/" rel="tag"># IDE</a>
+          
+            <a href="/tags/JDK/" rel="tag"># JDK</a>
+          
+            <a href="/tags/Tomcat/" rel="tag"># Tomcat</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/18/note-of-learning-git/" rel="next" title="Git学习笔记">
+                <i class="fa fa-chevron-left"></i> Git学习笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/02/21/build-blog-hexo-advanced/" rel="prev" title="基于Hexo搭建个人博客——进阶篇(从入门到入土)">
+                基于Hexo搭建个人博客——进阶篇(从入门到入土) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">杨凯</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装JDK以及配置环境变量"><span class="nav-number">2.</span> <span class="nav-text">安装JDK以及配置环境变量</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#通过Apt安装"><span class="nav-number">2.1.</span> <span class="nav-text">通过Apt安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#OpenJDK"><span class="nav-number">2.1.1.</span> <span class="nav-text">OpenJDK</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OracleJDK"><span class="nav-number">2.1.2.</span> <span class="nav-text">OracleJDK</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#手动安装"><span class="nav-number">2.2.</span> <span class="nav-text">手动安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装JDK"><span class="nav-number">2.2.1.</span> <span class="nav-text">安装JDK</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置环境变量"><span class="nav-number">2.2.2.</span> <span class="nav-text">配置环境变量</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装Scala环境"><span class="nav-number">3.</span> <span class="nav-text">安装Scala环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装IDE"><span class="nav-number">4.</span> <span class="nav-text">安装IDE</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Eclipse"><span class="nav-number">4.1.</span> <span class="nav-text">Eclipse</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MyEclipse"><span class="nav-number">4.2.</span> <span class="nav-text">MyEclipse</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IntelliJ-IDEA"><span class="nav-number">4.3.</span> <span class="nav-text">IntelliJ IDEA</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">4.3.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#激活"><span class="nav-number">4.3.2.</span> <span class="nav-text">激活</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#部署Tomcat"><span class="nav-number">4.3.3.</span> <span class="nav-text">部署Tomcat</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装MySQL以及GUI工具"><span class="nav-number">5.</span> <span class="nav-text">安装MySQL以及GUI工具</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基于Docker安装"><span class="nav-number">5.1.</span> <span class="nav-text">基于Docker安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#拉取镜像"><span class="nav-number">5.1.1.</span> <span class="nav-text">拉取镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行实例"><span class="nav-number">5.1.2.</span> <span class="nav-text">运行实例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#终端链接"><span class="nav-number">5.1.3.</span> <span class="nav-text">终端链接</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#手动折腾安装"><span class="nav-number">5.2.</span> <span class="nav-text">手动折腾安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#必须要先安装依赖的libaio才能正常按照mysql"><span class="nav-number">5.2.1.</span> <span class="nav-text">必须要先安装依赖的libaio才能正常按照mysql</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建用户组以及用户"><span class="nav-number">5.2.2.</span> <span class="nav-text">创建用户组以及用户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#尽量把mysql安装到-usr-local目录下面"><span class="nav-number">5.2.3.</span> <span class="nav-text">尽量把mysql安装到/usr/local目录下面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建必须的目录和进行授权"><span class="nav-number">5.2.4.</span> <span class="nav-text">创建必须的目录和进行授权</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#执行安装脚本"><span class="nav-number">5.2.5.</span> <span class="nav-text">执行安装脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重新对一些主要的目录进行授权，确保安全性"><span class="nav-number">5.2.6.</span> <span class="nav-text">重新对一些主要的目录进行授权，确保安全性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从默认的模板创建配置文件，需要在文件中增加-skip-grant-tables-，以便启动mysql以后修改root用户的密码"><span class="nav-number">5.2.7.</span> <span class="nav-text">从默认的模板创建配置文件，需要在文件中增加 skip-grant-tables ，以便启动mysql以后修改root用户的密码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试启动，修改密码"><span class="nav-number">5.2.8.</span> <span class="nav-text">测试启动，修改密码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#方式一"><span class="nav-number">5.2.8.1.</span> <span class="nav-text">方式一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方式二"><span class="nav-number">5.2.8.2.</span> <span class="nav-text">方式二</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复制启动脚本到合适的位置"><span class="nav-number">5.2.9.</span> <span class="nav-text">复制启动脚本到合适的位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Optional-增加自动启动"><span class="nav-number">5.2.10.</span> <span class="nav-text">(Optional)增加自动启动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#增加mysql命令的路径到PATH环境变量"><span class="nav-number">5.2.11.</span> <span class="nav-text">增加mysql命令的路径到PATH环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修复乱码以及忽略大小写，找到MySQL文件里的my-cnf在末尾添加"><span class="nav-number">5.2.12.</span> <span class="nav-text">修复乱码以及忽略大小写，找到MySQL文件里的my.cnf在末尾添加</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看以及修改MySQL字符编码"><span class="nav-number">5.2.13.</span> <span class="nav-text">查看以及修改MySQL字符编码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#查看"><span class="nav-number">5.2.13.1.</span> <span class="nav-text">查看</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#修改"><span class="nav-number">5.2.13.2.</span> <span class="nav-text">修改</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如果登录mysql出现以下错误"><span class="nav-number">5.2.14.</span> <span class="nav-text">如果登录mysql出现以下错误</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开启远程链接"><span class="nav-number">5.2.15.</span> <span class="nav-text">开启远程链接</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mysql-GUI"><span class="nav-number">5.3.</span> <span class="nav-text">Mysql GUI</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#传统终端客户端"><span class="nav-number">5.3.1.</span> <span class="nav-text">传统终端客户端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#智能补全命令客户端"><span class="nav-number">5.3.2.</span> <span class="nav-text">智能补全命令客户端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Navicat-Premium"><span class="nav-number">5.3.3.</span> <span class="nav-text">Navicat Premium</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#破解"><span class="nav-number">5.3.3.1.</span> <span class="nav-text">破解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建快捷方式"><span class="nav-number">5.3.3.2.</span> <span class="nav-text">创建快捷方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#后台运行"><span class="nav-number">5.3.3.3.</span> <span class="nav-text">后台运行</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装Redis"><span class="nav-number">6.</span> <span class="nav-text">安装Redis</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装Maven"><span class="nav-number">7.</span> <span class="nav-text">安装Maven</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#下载"><span class="nav-number">7.1.</span> <span class="nav-text">下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置"><span class="nav-number">7.2.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#淘宝镜像"><span class="nav-number">7.3.</span> <span class="nav-text">淘宝镜像</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MongoDB"><span class="nav-number">8.</span> <span class="nav-text">MongoDB</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-1"><span class="nav-number">8.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MongoDB-卸载"><span class="nav-number">8.2.</span> <span class="nav-text">MongoDB 卸载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MongoDB-使用"><span class="nav-number">8.3.</span> <span class="nav-text">MongoDB 使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GUI客户端"><span class="nav-number">8.4.</span> <span class="nav-text">GUI客户端</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RabbitMQ"><span class="nav-number">9.</span> <span class="nav-text">RabbitMQ</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Kafka-amp-Zookeeper集群"><span class="nav-number">10.</span> <span class="nav-text">Kafka&amp;Zookeeper集群</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#搭建ngrok配置"><span class="nav-number">11.</span> <span class="nav-text">搭建ngrok配置</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">杨凯</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

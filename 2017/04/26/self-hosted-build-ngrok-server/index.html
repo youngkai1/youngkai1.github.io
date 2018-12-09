@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="VPS,Ngrok,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言 Ngrok可以干嘛？我们经常会有 “把本机开发中的 web 项目给朋友看一下” 或 “测试一下支付宝、微信的支付功能” 这种临时需求，为此专门购买个域名然后在 VPS或云主机 上部署一遍就有点太浪费了。那么这时候，Ngrok就是个很好的东西，它可以实现我们的这种需求。而且 Ngrok 官网本身还提供了公共服务，只需要注册一个帐号，运行它的客户端，就可以快速把内网映射出去。不过这么好的服务，">
+<meta name="keywords" content="VPS,Ngrok">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VPS自搭建Ngrok内网穿透服务">
+<meta property="og:url" content="http://yoursite.com/2017/04/26/self-hosted-build-ngrok-server/index.html">
+<meta property="og:site_name" content="如风过境">
+<meta property="og:description" content="前言 Ngrok可以干嘛？我们经常会有 “把本机开发中的 web 项目给朋友看一下” 或 “测试一下支付宝、微信的支付功能” 这种临时需求，为此专门购买个域名然后在 VPS或云主机 上部署一遍就有点太浪费了。那么这时候，Ngrok就是个很好的东西，它可以实现我们的这种需求。而且 Ngrok 官网本身还提供了公共服务，只需要注册一个帐号，运行它的客户端，就可以快速把内网映射出去。不过这么好的服务，">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://cdn.yangbingdong.com/ngrok.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/DNSPod.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/ngrok-server-startup.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/ngrok-client-startup01.png">
+<meta property="og:updated_time" content="2018-12-09T10:09:00.053Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="VPS自搭建Ngrok内网穿透服务">
+<meta name="twitter:description" content="前言 Ngrok可以干嘛？我们经常会有 “把本机开发中的 web 项目给朋友看一下” 或 “测试一下支付宝、微信的支付功能” 这种临时需求，为此专门购买个域名然后在 VPS或云主机 上部署一遍就有点太浪费了。那么这时候，Ngrok就是个很好的东西，它可以实现我们的这种需求。而且 Ngrok 官网本身还提供了公共服务，只需要注册一个帐号，运行它的客户端，就可以快速把内网映射出去。不过这么好的服务，">
+<meta name="twitter:image" content="https://cdn.yangbingdong.com/ngrok.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/04/26/self-hosted-build-ngrok-server/">
+
+
+
+
+
+  <title>VPS自搭建Ngrok内网穿透服务 | 如风过境</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">如风过境</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/26/self-hosted-build-ngrok-server/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="杨凯">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="如风过境">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">VPS自搭建Ngrok内网穿透服务</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-26T18:44:20+08:00">
+                2017-04-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/VPS/" itemprop="url" rel="index">
+                    <span itemprop="name">VPS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="https://cdn.yangbingdong.com/ngrok.png" alt=""></p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
+<p>Ngrok可以干嘛？我们经常会有 “把本机开发中的 web 项目给朋友看一下” 或 “测试一下支付宝、微信的支付功能” 这种临时需求，为此<strong>专门</strong>购买个域名然后在 VPS或云主机 上<strong>部署一遍</strong>就有点太<strong>浪费</strong>了。那么这时候，<strong>Ngrok</strong>就是个很好的东西，它可以实现我们的这种需求。而且 Ngrok 官网本身还提供了公共服务，只需要注册一个帐号，运行它的客户端，就可以快速把内网映射出去。不过这么好的服务，没多久就被<strong>墙</strong>了~幸好Ngrok是<strong>开源</strong>的，那么我们可以自己搭建一个Ngrok！</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="域名泛解析"><a href="#域名泛解析" class="headerlink" title="域名泛解析"></a>域名泛解析</h1><p>因为内网穿透需要用到多级域名，这里，博主的这个域名是在<strong><em><a href="https://www.namesilo.com/" target="_blank" rel="noopener">Namesilo</a></em></strong>购买的，然后转到DNSPod解析：<br><img src="https://cdn.yangbingdong.com/DNSPod.png" alt=""><br>如图所示，我搞买的域名是<code>yangbingdong.com</code>,将<code>ngrok.yangbingdong.com</code>通过<code>A</code>记录解析导VPS的ip地址，再将<code>*.ngrok.yangbingdong.com</code>通过<code>CNAME</code>解析导<code>ngrok.yangbingdong.com</code>，完成泛解析。</p>
+<h1 id="服务端安装"><a href="#服务端安装" class="headerlink" title="服务端安装"></a>服务端安装</h1><h2 id="安装GO环境"><a href="#安装GO环境" class="headerlink" title="安装GO环境"></a>安装GO环境</h2><blockquote>
+<p>这里博主选择通过下载最新版解压安装。</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">apt-get update</span><br><span class="line">apt-get -y install build-essential mercurial git</span><br><span class="line">wget https://storage.googleapis.com/golang/go1.8.1.linux-amd64.tar.gz</span><br><span class="line">tar -C /usr/local -xzf go1.8.1.linux-amd64.tar.gz</span><br><span class="line">mkdir $HOME/go</span><br><span class="line">echo 'export GOROOT=/usr/local/go' &gt;&gt; /etc/profile.d/go.sh</span><br><span class="line">echo 'export GOPATH=$HOME/go' &gt;&gt; /etc/profile.d/go.sh</span><br><span class="line">echo 'export PATH=$PATH:$GOROOT/bin:$GOPATH/bin' &gt;&gt; /etc/profile.d/go.sh</span><br><span class="line">source /etc/profile.d/go.sh</span><br></pre></td></tr></table></figure>
+<h2 id="安装Ngrok"><a href="#安装Ngrok" class="headerlink" title="安装Ngrok"></a>安装Ngrok</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/src/</span><br><span class="line">git clone https://github.com/tutumcloud/ngrok.git ngrok</span><br><span class="line">export GOPATH=/usr/local/src/ngrok/</span><br></pre></td></tr></table></figure>
+<p>生成自签名SSL证书，ngrok为ssl加密连接：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">cd ngrok</span><br><span class="line">NGROK_DOMAIN="ngrok.yangbingdong.com"</span><br><span class="line">openssl genrsa -out rootCA.key 2048</span><br><span class="line">openssl req -x509 -new -nodes -key rootCA.key -subj "/CN=$NGROK_DOMAIN" -days 5000 -out rootCA.pem</span><br><span class="line">openssl genrsa -out device.key 2048</span><br><span class="line">openssl req -new -key device.key -subj "/CN=$NGROK_DOMAIN" -out device.csr</span><br><span class="line">openssl x509 -req -in device.csr -CA rootCA.pem -CAkey rootCA.key -CAcreateserial -out device.crt -days 5000</span><br><span class="line">cp rootCA.pem assets/client/tls/ngrokroot.crt</span><br><span class="line">cp device.crt assets/server/tls/snakeoil.crt </span><br><span class="line">cp device.key assets/server/tls/snakeoil.key</span><br><span class="line">GOOS=linux GOARCH=amd64</span><br><span class="line">make clean</span><br><span class="line">make release-server release-client</span><br></pre></td></tr></table></figure></p>
+<p>注意：<strong>上面的<code>ngrok.yangbingdong.com</code>换成自己的域名</strong>。</p>
+<ul>
+<li>如果是32位系统,<code>GOARCH=386</code>; 如果是64为系统，<code>GOARCH=amd64</code></li>
+<li>如果要编译linux,<code>GOOS=linux</code>;如果要编译window,<code>GOOS=windows</code></li>
+</ul>
+<h2 id="启动server"><a href="#启动server" class="headerlink" title="启动server"></a>启动server</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/src/ngrok/bin &amp;&amp; ./ngrokd -domain="ngrok.yangbingdong.com" -httpAddr=":8002" -httpsAddr=":8003" -tunnelAddr=":4000"</span><br></pre></td></tr></table></figure>
+<p><strong><code>ngrok.yangbingdong.com</code>换成自己的域名</strong>。其他端口可自己配置。<br>顺利的话，可以正常编译，在<code>bin</code>下面可以看到「ngrokd」和「ngrok」，其中「ngrokd」是服务端执行程序，「ngrok」是客户端执行程序<br><img src="https://cdn.yangbingdong.com/ngrok-server-startup.png" alt=""></p>
+<h2 id="后台运行："><a href="#后台运行：" class="headerlink" title="后台运行："></a>后台运行：</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/src/ngrok/bin &amp;&amp; nohup ./ngrokd -domain="ngrok.yangbingdong.com" -httpAddr=":8002" -httpsAddr=":8003" -tunnelAddr=":4000"  &gt; /dev/null 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">apt-get install screen</span><br><span class="line">screen -S 任意名字（例如：keepngork）</span><br><span class="line">然后运行ngrok启动命令</span><br><span class="line">最后按快捷键</span><br><span class="line">ctrl+A+D</span><br><span class="line">既可以保持ngrok后台运行</span><br></pre></td></tr></table></figure>
+<h2 id="设置开机启动"><a href="#设置开机启动" class="headerlink" title="设置开机启动"></a>设置开机启动</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/init.d/ngrok_start:</span><br><span class="line">cd /usr/local/src/ngrok/bin</span><br><span class="line">./ngrokd -domain="ngrok.yangbingdong.com" -httpAddr=":8002" -httpsAddr=":8003" -tunnelAddr=":4000"</span><br><span class="line"></span><br><span class="line">chmod 755 /etc/init.d/ngrok_start</span><br></pre></td></tr></table></figure>
+<h1 id="客户端使用"><a href="#客户端使用" class="headerlink" title="客户端使用"></a>客户端使用</h1><h2 id="下载客户端"><a href="#下载客户端" class="headerlink" title="下载客户端"></a>下载客户端</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp -P 26850 root@12.34.56.78:/usr/local/src/ngrok/bin/ngrok ~/</span><br></pre></td></tr></table></figure>
+<p><strong>将<code>12.34.56.78</code>换成自己的VPS ip</strong>。</p>
+<h2 id="启动客户端"><a href="#启动客户端" class="headerlink" title="启动客户端"></a>启动客户端</h2><p>写一个简单的配置文件，随意命名如 ngrok.cfg：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">server_addr: ngrok.yangbingdong.com:4000</span><br><span class="line">trust_host_root_certs: false</span><br></pre></td></tr></table></figure></p>
+<p>然后启动：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./ngrok -subdomain ybd -config=ngrok.cfg 8080</span><br></pre></td></tr></table></figure></p>
+<p>其中<code>ybd</code>是自定义的域名前缀，<code>ngrok.cfg</code>是上面创建的配置文件，<code>8080</code>是本地需要映射到外网的端口。<br>没有意外的话访问<code>ybd.ngrok.yangbingdong.com:8002</code>就会映射到本机的<code>8080</code>端口了。<br><img src="https://cdn.yangbingdong.com/ngrok-client-startup01.png" alt=""></p>
+<p>控制台：</p>
+<p>就是上图的<code>Web Interface</code>，通过这个界面可以看到远端转发过来的 http 详情，包括完整的 request/response 信息，相当于附带了一个抓包工具。</p>
+<p>另外，Ngrok支持多种协议，启动的时候可以指定通过<code>-proto</code>指定协议，例如：</p>
+<p><strong>http协议</strong>：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./ngrok -subdomain ybd -config=ngrok.cfg -proto=http 8080</span><br></pre></td></tr></table></figure>
+<p><strong>tcp协议</strong>：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./ngrok -subdomain ybd -config=ngrok.cfg -proto=tcp 8080</span><br></pre></td></tr></table></figure>
+<p>应该会看到：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ngrok                                               (Ctrl+C to quit)</span><br><span class="line"></span><br><span class="line">Tunnel Status                 online</span><br><span class="line">Version                       1.7/1.7</span><br><span class="line">Forwarding                    tcp://ybd.ngrok.yangbingdong.com:8002-&gt; 127.0.0.1:8080</span><br><span class="line">Web Interface                 127.0.0.1:4040</span><br><span class="line"><span class="meta">#</span><span class="bash"> Conn                        0</span></span><br><span class="line">Avg Conn Time                 0.00ms</span><br></pre></td></tr></table></figure>
+<h1 id="Nginx添加server"><a href="#Nginx添加server" class="headerlink" title="Nginx添加server"></a>Nginx添加server</h1><p>虽然可以访问，但是带着端口就让人不舒服，80端口又被Nginx占用，那么可以用过Nginx反向代理Ngrok。<br>Nginx的配置一般在<code>/etc/nginx/conf.d</code>或者<code>/usr/local/nginx/conf.d</code>里面：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">#ngrok.yangbingdong.com.conf</span><br><span class="line">upstream ngrok &#123;</span><br><span class="line">    server 127.0.0.1:8002;</span><br><span class="line">    keepalive 64;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name *.ngrok.yangbingdong.com;</span><br><span class="line">    access_log /var/log/nginx/ngrok_access.log;</span><br><span class="line">    proxy_set_header &quot;Host&quot; $host:8002;</span><br><span class="line">    location / &#123;</span><br><span class="line">		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">        proxy_set_header Host $host:8002;</span><br><span class="line">        proxy_pass_header Server;</span><br><span class="line">        proxy_redirect off;</span><br><span class="line">        proxy_pass  http://ngrok;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    access_log off;</span><br><span class="line">    log_not_found off;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>重启Nginx：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx -s reload</span><br></pre></td></tr></table></figure></p>
+<h1 id="维护脚本"><a href="#维护脚本" class="headerlink" title="维护脚本"></a>维护脚本</h1><p>在网上看到的某大神写的维护脚本：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">wget https://gist.githubusercontent.com/IvanChou/1be8b15b1b41bf0ce2e9d939866bbfec/raw/1a2445599fe7fd706505a6e103a9dc60b4d3a0ed/ngrokd -O ngrokd</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">#修改 脚本中的配置</span></span></span><br><span class="line">vi ngrokd</span><br><span class="line"></span><br><span class="line">chomd +x ngrokd</span><br><span class="line">sudo mv ngrokd /etc/init.d/ngrokd</span><br></pre></td></tr></table></figure>
+<h1 id="常见错误"><a href="#常见错误" class="headerlink" title="常见错误"></a>常见错误</h1><p>在ngrok目录下执行如下命令，编译ngrokd<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ make release-server</span><br><span class="line"></span><br><span class="line">出现如下错误：</span><br><span class="line">GOOS=&quot;&quot; GOARCH=&quot;&quot; go get github.com/jteeuwen/go-bindata/go-bindata</span><br><span class="line">bin/go-bindata -nomemcopy -pkg=assets -tags=release \</span><br><span class="line">        -debug=false \</span><br><span class="line">        -o=src/ngrok/client/assets/assets_release.go \</span><br><span class="line">        assets/client/…</span><br><span class="line">make: bin/go-bindata: Command not found</span><br><span class="line">make: *** [client-assets] Error 127</span><br><span class="line">go-bindata被安装到了$GOBIN下了，go编译器找不到了。修正方法是将$GOBIN/go-bindata拷贝到当前ngrok/bin下。</span><br><span class="line"></span><br><span class="line">$cp /home/ubuntu/.bin/go14/bin/go-bindata ./bin</span><br></pre></td></tr></table></figure></p>
+<h1 id="遇到的问题：source与"><a href="#遇到的问题：source与" class="headerlink" title="遇到的问题：source与./"></a>遇到的问题：source与./</h1><p>写了一个Ngrok的<strong><em><a href="https://github.com/masteranthoneyd/about-shell/blob/master/ngrok-installation.sh" target="_blank" rel="noopener">安装脚本</a></em></strong>，然后<code>chmod +x ngrok-installation.sh</code>赋权，再<code>./ngrok-installation.sh</code>执行。<br>但是遇到了一个奇怪的问题：在脚本里面设置了环境变量并source让其生效，然而出现的结果是由于<strong>没有加载</strong>到环境变量导致找不到命令，百思不得解，Google了一把，发现了原因：</p>
+<blockquote>
+<p><code>source</code>命令与<code>shell scripts</code>的区别是：<br>我们在test.sh设置了AA环境变量，它只在fork出来的这个子shell中生效，子shell只能继承父shell的环境变量，而不能修改父shell的环境变量，所以test.sh结束后，父进程的环境就覆盖回去。<br>source在当前bash环境下执行命令，而scripts是启动一个子shell来执行命令。这样如果把设置环境变量（或alias等等）的命令写进scripts中，就只会影响子shell,无法改变当前的BASH,所以通过文件（命令列）设置环境变量时，要用source 命令。</p>
+</blockquote>
+<p>然后直接<code>source ngrok-installation.sh</code>，安装成功！</p>
+<h1 id="Docker搭建Ngrok"><a href="#Docker搭建Ngrok" class="headerlink" title="Docker搭建Ngrok"></a>Docker搭建Ngrok</h1><blockquote>
+<p>安装Docker请看<strong><em><a href="/2017/docker-learning/">这里</a></em></strong></p>
+</blockquote>
+<h2 id="构建镜像"><a href="#构建镜像" class="headerlink" title="构建镜像"></a>构建镜像</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/hteen/docker-ngrok.git</span><br><span class="line">cd docker-ngrok</span><br><span class="line">docker build -t hteen/ngrok .</span><br></pre></td></tr></table></figure>
+<h2 id="运行镜像"><a href="#运行镜像" class="headerlink" title="运行镜像"></a>运行镜像</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker run -idt --name ngrok-server \</span><br><span class="line">-p 8082:80 -p 4432:443 -p 4443:4443 \</span><br><span class="line">-v /root/docker/ngrok/data:/myfiles \</span><br><span class="line">-e DOMAIN=&apos;ngrok.yangbingdong.com&apos; hteen/ngrok /bin/sh /server.sh</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>-p</code>: 80端口为http端口，433端口为https端口，4443端口为tunnel端口</li>
+<li><code>-v</code>: 生成的各种配置文件和客户端都在里面</li>
+<li><code>-e</code>: 泛化的域名</li>
+</ul>
+<p>稍等片刻，会在挂在的目录（<code>/root/docker/ngrok/data</code>）下面生成对应的配置文件以及客户端</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">bin/ngrokd                  服务端</span><br><span class="line">bin/ngrok                   linux客户端</span><br><span class="line">bin/darwin_amd64/ngrok      osx客户端</span><br><span class="line">bin/windows_amd64/ngrok.exe windows客户端</span><br></pre></td></tr></table></figure>
+<h2 id="Nginx-Conf"><a href="#Nginx-Conf" class="headerlink" title="Nginx Conf"></a>Nginx Conf</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">     listen       80;</span><br><span class="line">     server_name  *.ngrok.yangbingdong.com;</span><br><span class="line">     location / &#123;</span><br><span class="line">             proxy_redirect off;</span><br><span class="line">             proxy_set_header Host $host;</span><br><span class="line">             proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">             proxy_pass http://172.17.0.1:8082;</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br><span class="line"> server &#123;</span><br><span class="line">     listen       443;</span><br><span class="line">     server_name  *.ngrok.yangbingdong.com;</span><br><span class="line">     location / &#123;</span><br><span class="line">             proxy_redirect off;</span><br><span class="line">             proxy_set_header Host $host;</span><br><span class="line">             proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">             proxy_pass http://172.17.0.1:4432;</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>172.17.0.1</code>为内网ip</li>
+</ul>
+<p><strong>注意</strong>：大概每个星期会产生100M的日志文件。<br>查年docker日志文件位置<code>docker inspect &lt;id&gt; | grep LogPath</code><br>查看大小<code>ls -lh /var/lib/docker/containers/&lt;id&gt;/&lt;id&gt;-json.log</code></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/VPS/" rel="tag"># VPS</a>
+          
+            <a href="/tags/Ngrok/" rel="tag"># Ngrok</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/24/nginx-noob-guide/" rel="next" title="NGINX初学指南(安装与简单配置)">
+                <i class="fa fa-chevron-left"></i> NGINX初学指南(安装与简单配置)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/03/java-8-tutorial/" rel="prev" title="Java8 Noob Tutorial">
+                Java8 Noob Tutorial <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">杨凯</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#域名泛解析"><span class="nav-number">2.</span> <span class="nav-text">域名泛解析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#服务端安装"><span class="nav-number">3.</span> <span class="nav-text">服务端安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装GO环境"><span class="nav-number">3.1.</span> <span class="nav-text">安装GO环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Ngrok"><span class="nav-number">3.2.</span> <span class="nav-text">安装Ngrok</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动server"><span class="nav-number">3.3.</span> <span class="nav-text">启动server</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后台运行："><span class="nav-number">3.4.</span> <span class="nav-text">后台运行：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置开机启动"><span class="nav-number">3.5.</span> <span class="nav-text">设置开机启动</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#客户端使用"><span class="nav-number">4.</span> <span class="nav-text">客户端使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#下载客户端"><span class="nav-number">4.1.</span> <span class="nav-text">下载客户端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动客户端"><span class="nav-number">4.2.</span> <span class="nav-text">启动客户端</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Nginx添加server"><span class="nav-number">5.</span> <span class="nav-text">Nginx添加server</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#维护脚本"><span class="nav-number">6.</span> <span class="nav-text">维护脚本</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常见错误"><span class="nav-number">7.</span> <span class="nav-text">常见错误</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#遇到的问题：source与"><span class="nav-number">8.</span> <span class="nav-text">遇到的问题：source与./</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Docker搭建Ngrok"><span class="nav-number">9.</span> <span class="nav-text">Docker搭建Ngrok</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#构建镜像"><span class="nav-number">9.1.</span> <span class="nav-text">构建镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行镜像"><span class="nav-number">9.2.</span> <span class="nav-text">运行镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Nginx-Conf"><span class="nav-number">9.3.</span> <span class="nav-text">Nginx Conf</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">杨凯</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

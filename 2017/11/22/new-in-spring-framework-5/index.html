@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java,Spring5,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Preface Spring 5 于 2017 年 9 月发布了通用版本 (GA)，它标志着自 2013 年 12 月以来第一个主要 Spring Framework 版本。它提供了一些人们期待已久的改进，还采用了一种全新的编程范例，以反应式宣言中陈述的反应式原则为基础。 这个版本是很长时间以来最令人兴奋的 Spring Framework 版本。Spring 5 兼容 Java™8 和 JDK">
+<meta name="keywords" content="Java,Spring5">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring5新特征与WebFlux反应式编程">
+<meta property="og:url" content="http://yoursite.com/2017/11/22/new-in-spring-framework-5/index.html">
+<meta property="og:site_name" content="如风过境">
+<meta property="og:description" content="Preface Spring 5 于 2017 年 9 月发布了通用版本 (GA)，它标志着自 2013 年 12 月以来第一个主要 Spring Framework 版本。它提供了一些人们期待已久的改进，还采用了一种全新的编程范例，以反应式宣言中陈述的反应式原则为基础。 这个版本是很长时间以来最令人兴奋的 Spring Framework 版本。Spring 5 兼容 Java™8 和 JDK">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/spring-framework-5/spring-framework-5.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/spring-framework-5/spring-webflux-reactive-mongodb-rest-api-example.png">
+<meta property="og:updated_time" content="2018-12-09T10:09:00.045Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring5新特征与WebFlux反应式编程">
+<meta name="twitter:description" content="Preface Spring 5 于 2017 年 9 月发布了通用版本 (GA)，它标志着自 2013 年 12 月以来第一个主要 Spring Framework 版本。它提供了一些人们期待已久的改进，还采用了一种全新的编程范例，以反应式宣言中陈述的反应式原则为基础。 这个版本是很长时间以来最令人兴奋的 Spring Framework 版本。Spring 5 兼容 Java™8 和 JDK">
+<meta name="twitter:image" content="https://cdn.yangbingdong.com/img/spring-framework-5/spring-framework-5.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/11/22/new-in-spring-framework-5/">
+
+
+
+
+
+  <title>Spring5新特征与WebFlux反应式编程 | 如风过境</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">如风过境</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/22/new-in-spring-framework-5/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="杨凯">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="如风过境">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Spring5新特征与WebFlux反应式编程</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-22T07:35:38+08:00">
+                2017-11-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Programming/" itemprop="url" rel="index">
+                    <span itemprop="name">Programming</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Programming/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="https://cdn.yangbingdong.com/img/spring-framework-5/spring-framework-5.png" alt=""></p>
+<h1 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h1><blockquote>
+<p>Spring 5 于 2017 年 9 月发布了通用版本 (<code>GA</code>)，它标志着自 2013 年 12 月以来第一个主要 Spring Framework 版本。它提供了一些人们期待已久的改进，还采用了一种全新的编程范例，以<strong><em><a href="http://www.reactivemanifesto.org/" target="_blank" rel="noopener">反应式宣言</a></em></strong>中陈述的反应式原则为基础。</p>
+<p>这个版本是很长时间以来最令人兴奋的 Spring Framework 版本。Spring 5 兼容 <code>Java™8</code> 和 <code>JDK 9</code>，它集成了<strong>反应式流</strong>，以便提供一种颠覆性方法来实现端点和 Web 应用程序开发。</p>
+<p>诚然，反应式编程不仅是此版本的主题，还是令许多开发人员激动不已的重大特性。人们对能够针对负载波动进行无缝扩展的灾备和响应式服务的需求在不断增加，Spring 5 很好地满足了这一需求。</p>
+<p>本文将全面介绍 Spring 5。我将介绍 Java SE 8 和 Java EE 7 API 的基准升级、Spring 5 的新反应式编程模型、<a href="https://www.ibm.com/developerworks/library/wa-http2-under-the-hood/index.html" target="_blank" rel="noopener">HTTP/2</a> 支持，以及 Spring 通过 <code>Kotlin</code> 对函数式编程的全面支持。我还会简要介绍测试和性能增强，最后介绍对 Spring 核心和容器的一般性修订。</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="Spring-Framework-5-中的新特性"><a href="#Spring-Framework-5-中的新特性" class="headerlink" title="Spring Framework 5 中的新特性"></a>Spring Framework 5 中的新特性</h1><h2 id="升级到-Java-SE-8-和-Java-EE-7"><a href="#升级到-Java-SE-8-和-Java-EE-7" class="headerlink" title="升级到 Java SE 8 和 Java EE 7"></a>升级到 Java SE 8 和 Java EE 7</h2><p>直到现在，Spring Framework 仍支持一些弃用的 Java 版本，但 Spring 5 已从旧包袱中解放出来。为了充分利用 Java 8 特性，它的代码库已进行了改进，而且该框架要求将 Java 8 作为<strong>最低的 JDK 版本</strong>。</p>
+<p>Spring 5 在类路径（和模块路径）上完全兼容 Java 9，而且它通过了 JDK 9 测试套件的测试。对 Java 9 爱好者而言，这是一条好消息，因为在 Java 9 发布后，Spring 能立即使用它。</p>
+<p>在 <code>API</code> 级别上，Spring 5 兼容 Java EE 8 技术，满足对 <code>Servlet 4.0</code>、<code>Bean Validation 2.0</code> 和全新的 <code>JSON Binding API</code> 的需求。对 Java EE API 的最低要求为 <code>V7</code>，该版本引入了针对 <code>Servlet</code>、<code>JPA</code> 和 <code>Bean Validation API</code> 的次要版本。</p>
+<h2 id="反应式编程模型"><a href="#反应式编程模型" class="headerlink" title="反应式编程模型"></a>反应式编程模型</h2><p>Spring 5 最令人兴奋的新特性是它的<strong>反应式编程模型</strong>。Spring 5 Framework 基于一种反应式基础而构建，而且是<strong>完全异步和非阻塞的</strong>。只需少量的线程，新的事件循环执行模型就可以垂直扩展。</p>
+<p>该框架采用反应式流来提供在反应式组件中传播负压的机制。<strong>负压</strong>是一个<strong>确保来自多个生产者的数据不会让使用者不堪重负的概念</strong>。</p>
+<p><code>Spring WebFlux</code> 是 Spring 5 的反应式核心，它为开发人员提供了两种为 Spring Web 编程而设计的编程模型：一种基于<strong>注解的模型</strong>和 <strong>Functional Web Framework</strong> (<code>WebFlux.fn</code>)。</p>
+<p>基于注解的模型是 Spring WebMVC 的现代替代方案，该模型基于反应式基础而构建，而 Functional Web Framework 是基于<code>@Controller</code> 注解的编程模型的替代方案。这些模型都通过同一种反应式基础来运行，后者调整非阻塞 HTTP 来适应反应式流 API。</p>
+<h2 id="使用注解进行编程"><a href="#使用注解进行编程" class="headerlink" title="使用注解进行编程"></a>使用注解进行编程</h2><p>WebMVC 程序员应该对 Spring 5 的基于注解的编程模型非常熟悉。Spring 5 调整了 WebMVC 的 <code>@Controller</code> 编程模型，采用了相同的注解。</p>
+<p>在清单 1 中，<code>BookController</code> 类提供了两个方法，分别响应针对某个图书列表的 HTTP 请求，以及针对具有给定 <code>id</code> 的图书的 HTTP 请求。请注意 resource 方法返回的对象（<code>Mono</code> 和 <code>Flux</code>）。这些对象是实现<strong><em><a href="http://www.reactive-streams.org/" target="_blank" rel="noopener">反应式流</a></em></strong>规范中的 <code>Publisher</code> 接口的反应式类型。它们的职责是处理数据流。<code>Mono</code> 对象处理一个<strong>仅含 1 个元素的流</strong>，而 <code>Flux</code> 表示一个<strong>包含 N 个元素的流</strong>。</p>
+<p><strong>清单 1. 反应式控制器</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">@RestController</span><br><span class="line">public class BookController &#123;</span><br><span class="line"> </span><br><span class="line">    @GetMapping(&quot;/book&quot;)</span><br><span class="line">    Flux&lt;Book&gt; list() &#123;</span><br><span class="line">        return this.repository.findAll();</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    @GetMapping(&quot;/book/&#123;id&#125;&quot;)</span><br><span class="line">    Mono&lt;Book&gt; findById(@PathVariable String id) &#123;</span><br><span class="line">        return this.repository.findOne(id);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    // Plumbing code omitted for brevity</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这是针对 Spring Web 编程的注解。现在我们使用函数式 Web 框架来解决同一个问题。</p>
+<h2 id="函数式编程"><a href="#函数式编程" class="headerlink" title="函数式编程"></a>函数式编程</h2><p>Spring 5 的新函数式方法将请求委托给处理函数，这些函数接受一个服务器请求实例并返回一种反应式类型。清单 2 演示了这一过程，其中 <code>listBook</code> 和 <code>getBook</code> 方法类似于清单 1 中的功能。</p>
+<p><strong>清单 2. 清单 2.BookHandler 函数类</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">public class BookHandler &#123;</span><br><span class="line"> </span><br><span class="line">    public Mono&lt;ServerResponse&gt; listBooks(ServerRequest request) &#123;</span><br><span class="line">        return ServerResponse.ok()</span><br><span class="line">            .contentType(APPLICATION_JSON)</span><br><span class="line">            .body(repository.allPeople(), Book.class);</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    public Mono&lt;ServerResponse&gt; getBook(ServerRequest request) &#123;</span><br><span class="line">        return repository.getBook(request.pathVariable(&quot;id&quot;))</span><br><span class="line">            .then(book -&gt; ServerResponse.ok()</span><br><span class="line">            .contentType(APPLICATION_JSON)</span><br><span class="line">            .body(fromObject(book)))</span><br><span class="line">            .otherwiseIfEmpty(ServerResponse.notFound().build());</span><br><span class="line">    &#125;</span><br><span class="line">    // Plumbing code omitted for brevity</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>通过路由函数来匹配 HTTP 请求谓词与媒体类型，将客户端请求路由到处理函数。清单 3 展示了图书资源端点 URI 将调用委托给合适的处理函数：</p>
+<p><strong>清单 3. Router 函数</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">BookHandler handler = new BookHandler();</span><br><span class="line"> </span><br><span class="line">RouterFunction&lt;ServerResponse&gt; personRoute =</span><br><span class="line">    route(</span><br><span class="line">        GET(&quot;/books/&#123;id&#125;&quot;)</span><br><span class="line">        .and(accept(APPLICATION_JSON)), handler::getBook)</span><br><span class="line">        .andRoute(</span><br><span class="line">    GET(&quot;/books&quot;)</span><br><span class="line">        .and(accept(APPLICATION_JSON)), handler::listBooks);</span><br></pre></td></tr></table></figure></p>
+<p>这些示例背后的数据存储库也支持完整的反应式体验，该体验是通过 Spring Data 对反应式 <code>Couchbase</code>、<code>Reactive MongoDB</code> 和 <code>Cassandra</code> 的支持来实现的。</p>
+<h2 id="使用-REST-端点执行反应式编程"><a href="#使用-REST-端点执行反应式编程" class="headerlink" title="使用 REST 端点执行反应式编程"></a>使用 REST 端点执行反应式编程</h2><p>新的编程模型脱离了传统的 Spring WebMVC 模型，引入了一些很不错的新特性。</p>
+<p>举例来说，WebFlux 模块为 <code>RestTemplate</code> 提供了一种完全非阻塞、反应式的替代方案，名为 <code>WebClient</code>。清单 4 创建了一个 <code>WebClient</code>，并调用 <code>books</code> 端点来请求一本给定 <code>id</code> 为 <code>1234</code> 的图书。</p>
+<p><strong>清单 4. 通过 WebClient 调用 REST 端点</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Mono&lt;Book&gt; book = WebClient.create(&quot;http://localhost:8080&quot;)</span><br><span class="line">      .get()</span><br><span class="line">      .url(&quot;/books/&#123;id&#125;&quot;, 1234)</span><br><span class="line">      .accept(APPLICATION_JSON)</span><br><span class="line">      .exchange(request)</span><br><span class="line">      .then(response -&gt; response.bodyToMono(Book.class));</span><br></pre></td></tr></table></figure></p>
+<h2 id="HTTP-2-支持"><a href="#HTTP-2-支持" class="headerlink" title="HTTP/2 支持"></a>HTTP/2 支持</h2><p><strong>HTTP/2 幕后原理：</strong>要了解 HTTP/2 如何提高传输性能，减少延迟，并帮助提高应用程序吞吐量，从而提供经过改进的丰富 Web 体验，请查阅<em><a href="https://www.ibm.com/developerworks/cn/web/wa-http2-under-the-hood/index.html" target="_blank" rel="noopener">https://www.ibm.com/developerworks/cn/web/wa-http2-under-the-hood/index.html</a></em>。</p>
+<p>Spring Framework 5.0 将提供专门的 <em><a href="https://www.ibm.com/developerworks/cn/web/wa-http2-under-the-hood/index.html" target="_blank" rel="noopener">HTTP/2 特性</a></em> 支持，还支持人们期望出现在 JDK 9 中的新 HTTP 客户端。尽管 HTTP/2 的服务器推送功能已通过 Jetty servlet 引擎的 <code>ServerPushFilter</code> 类向 Spring 开发人员公开了很长一段时间，但如果发现 Spring 5 中开箱即用地提供了 <em><a href="https://www.ibm.com/developerworks/cn/web/wa-http2-under-the-hood/index.html" target="_blank" rel="noopener">HTTP/2</a></em> 性能增强，Web 优化者们一定会为此欢呼雀跃。</p>
+<p>Java EE Servlet 规范预计将于 2017 年第 4 季度发布，Servlet 4.0 支持将在 Spring 5.1 中提供。到那时，<em><a href="https://www.ibm.com/developerworks/cn/web/wa-http2-under-the-hood/index.html" target="_blank" rel="noopener">HTTP/2 特性</a></em> 将由 Tomcat 9.0、Jetty 9.3 和 Undertow 1.4 原生提供。</p>
+<p>Kotlin 和 Spring WebFlux</p>
+<p><code>Kotlin</code> 是一种来自 <em><a href="https://blog.jetbrains.com/kotlin/" target="_blank" rel="noopener">JetBrains</a></em> 的面向对象的语言，它支持函数式编程。它的主要优势之一是与 Java 有非常高的互操作性。通过引入对 <code>Kotlin</code> 的专门支持，Spring 在 V5 中全面吸纳了这一优势。它的函数式编程风格与 Spring WebFlux 模块完美匹配，它的新路由 DSL 利用了函数式 Web 框架以及干净且符合语言习惯的代码。可以像清单 5 中这样简单地表达端点路由：</p>
+<p><strong>清单 5. Kotlin 的用于定义端点的路由 DSL</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">@Bean</span><br><span class="line">fun apiRouter() = router &#123;</span><br><span class="line">    (accept(APPLICATION_JSON) and &quot;/api&quot;).nest &#123;</span><br><span class="line">        &quot;/book&quot;.nest &#123;</span><br><span class="line">            GET(&quot;/&quot;, bookHandler::findAll)</span><br><span class="line">            GET(&quot;/&#123;id&#125;&quot;, bookHandler::findOne)</span><br><span class="line">        &#125;</span><br><span class="line">        &quot;/video&quot;.nest &#123;</span><br><span class="line">            GET(&quot;/&quot;, videoHandler::findAll)</span><br><span class="line">            GET(&quot;/&#123;genre&#125;&quot;, videoHandler::findByGenre)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用 <code>Kotlin 1.1.4+</code> 时，还添加了对 Kotlin 的不可变类的支持（通过带默认值的可选参数），以及对完全支持 <code>null</code> 的 API 的支持。</p>
+<h2 id="使用-Lambda-表达式注册-bean"><a href="#使用-Lambda-表达式注册-bean" class="headerlink" title="使用 Lambda 表达式注册 bean"></a>使用 Lambda 表达式注册 bean</h2><p>作为传统 XML 和 JavaConfig 的替代方案，现在可以使用 lambda 表达式注册 Spring bean，使 bean 可以实际注册为提供者。清单 6 使用 lambda 表达式注册了一个 <code>Book</code> bean。</p>
+<p><strong>清单 6. 将 Bean 注册为提供者</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">GenericApplicationContext context = new GenericApplicationContext();</span><br><span class="line">context.registerBean(Book.class, () -&gt; new </span><br><span class="line">              Book(context.getBean(Author.class))</span><br><span class="line">        );</span><br></pre></td></tr></table></figure></p>
+<h2 id="Spring-WebMVC-支持最新的-API"><a href="#Spring-WebMVC-支持最新的-API" class="headerlink" title="Spring WebMVC 支持最新的 API"></a>Spring WebMVC 支持最新的 API</h2><p>全新的 WebFlux 模块提供了许多新的、令人兴奋的功能，但 Spring 5 也迎合了愿意继续使用 Spring MVC 的开发人员的需求。Spring 5 中更新了模型-视图-控制器框架，以兼容 WebFlux 和最新版的 <em><a href="https://github.com/FasterXML/jackson/wiki/Jackson-Release-2.9" target="_blank" rel="noopener">Jackson 2.9</a></em> 和 <em><a href="https://github.com/google/protobuf/releases?after=v3.0.0-alpha-3" target="_blank" rel="noopener">Protobuf 3.0</a></em>，甚至包括对新的 <em><a href="http://json-b.net/" target="_blank" rel="noopener">Java EE 8 JSON-Binding API</a></em> 的支持。</p>
+<p>除了 <em><a href="https://www.ibm.com/developerworks/cn/web/wa-http2-under-the-hood/index.html" target="_blank" rel="noopener">HTTP/2 特性</a></em> 的基础服务器实现之外，Spring WebMVC 还通过 MVC 控制器方法的一个参数来支持 Servlet 4.0 的 <code>PushBuilder</code>。最后，WebMVC 全面支持 Reactor 3.1 的 <code>Flux</code> 和 <code>Mono</code> 对象，以及 <a href="https://github.com/ReactiveX/RxJava/wiki" target="_blank" rel="noopener">RxJava</a> 1.3 和 2.1，它们被视为来自 MVC 控制器方法的返回值。这项支持的最终目的是支持 Spring Data 中的新的反应式 <code>WebClient</code> 和反应式存储库。</p>
+<h2 id="使用-JUnit-5-执行条件和并发测试"><a href="#使用-JUnit-5-执行条件和并发测试" class="headerlink" title="使用 JUnit 5 执行条件和并发测试"></a>使用 JUnit 5 执行条件和并发测试</h2><p><strong>JUnit 和 Spring 5</strong>：Spring 5 全面接纳了函数式范例，并支持 JUnit 5 及其新的函数式测试风格。还提供了对 JUnit 4 的向后兼容性，以确保不会破坏旧代码。</p>
+<p>Spring 5 的测试套件通过多种方式得到了增强，但最明显的是它对 <em><a href="http://junit.org/junit5/" target="_blank" rel="noopener">JUnit 5</a></em> 的支持。现在可以在您的单元测试中利用 Java 8 中提供的函数式编程特性。清单 7 演示了这一支持：</p>
+<p><strong>清单 7.JUnit 5 全面接纳了 Java 8 流和 lambda 表达式</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">void givenStreamOfInts_SumShouldBeMoreThanFive() &#123;</span><br><span class="line">    assertTrue(Stream.of(20, 40, 50)</span><br><span class="line">      .stream()</span><br><span class="line">      .mapToInt(i -&gt; i)</span><br><span class="line">      .sum() &gt; 110, () -&gt; &quot;Total should be more than 100&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>迁移到 JUnit 5：</strong>如果您对升级到 JUnit 5 持观望态度，Steve Perry 的<em><a href="https://www.ibm.com/developerworks/cn/views/global/libraryview.jsp?sort_by=&amp;show_abstract=true&amp;show_all=&amp;search_flag=&amp;contentarea_by=%E6%89%80%E6%9C%89%E4%B8%93%E5%8C%BA&amp;search_by=JUnit+5+%E7%AE%80%E4%BB%8B&amp;product_by=-1&amp;topic_by=-1&amp;type_by=%E6%89%80%E6%9C%89%E7%B1%BB%E5%88%AB&amp;ibm-search=%E6%90%9C%E7%B4%A2" target="_blank" rel="noopener">分两部分的深入剖析教程</a></em> 将说服您冒险尝试。</p>
+<p>Spring 5 继承了 <em><a href="https://www.ibm.com/developerworks/cn/java/j-introducing-junit5-part1-jupiter-api/index.html" target="_blank" rel="noopener">JUnit 5</a></em> 在 Spring TestContext Framework 内实现多个扩展 API 的灵活性。举例而言，开发人员可以使用 JUnit 5 的条件测试执行注解 <code>@EnabledIf</code> 和 <code>@DisabledIf</code> 来自动计算一个 <em><a href="https://docs.spring.io/spring/docs/current/spring-framework-reference/html/expressions.html" target="_blank" rel="noopener">SpEL</a></em> (Spring Expression Language) 表达式，并适当地启用或禁用测试。借助这些注解，Spring 5 支持以前很难实现的复杂的条件测试方案。Spring TextContext Framework 现在能够并发执行测试。</p>
+<h2 id="使用-Spring-WebFlux-执行集成测试"><a href="#使用-Spring-WebFlux-执行集成测试" class="headerlink" title="使用 Spring WebFlux 执行集成测试"></a>使用 Spring WebFlux 执行集成测试</h2><p>Spring Test 现在包含一个 <code>WebTestClient</code>，后者支持对 Spring WebFlux 服务器端点执行集成测试。<code>WebTestClient</code> 使用模拟请求和响应来避免耗尽服务器资源，并能直接绑定到 WebFlux 服务器基础架构。</p>
+<p><code>WebTestClient</code> 可绑定到真实的服务器，或者使用控制器或函数。在清单 8 中，<code>WebTestClient</code> 被绑定到 localhost：</p>
+<p><strong>清单 8. 绑定到 localhost 的 <code>WebTestClient</code></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">WebTestClient testClient = WebTestClient</span><br><span class="line">  .bindToServer()</span><br><span class="line">  .baseUrl(&quot;http://localhost:8080&quot;)</span><br><span class="line">  .build();</span><br></pre></td></tr></table></figure>
+<p><strong>清单 9. 将 <code>WebTestClient</code> 绑定到 <code>RouterFunction</code></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">RouterFunction bookRouter = RouterFunctions.route(</span><br><span class="line">  RequestPredicates.GET(&quot;/books&quot;),</span><br><span class="line">  request -&gt; ServerResponse.ok().build()</span><br><span class="line">);</span><br><span class="line">  </span><br><span class="line">WebTestClient</span><br><span class="line">  .bindToRouterFunction(bookRouter)</span><br><span class="line">  .build().get().uri(&quot;/books&quot;)</span><br><span class="line">  .exchange()</span><br><span class="line">  .expectStatus().isOk()</span><br><span class="line">  .expectBody().isEmpty();</span><br></pre></td></tr></table></figure>
+<h2 id="包清理和弃用"><a href="#包清理和弃用" class="headerlink" title="包清理和弃用"></a>包清理和弃用</h2><p>Spring 5 中止了对一些过时 API 的支持。遭此厄运的还有 Hibernate 3 和 4，为了支持 Hibernate 5，它们遭到了弃用。另外，对 Portlet、Velocity、JasperReports、XMLBeans、JDO 和 Guava 的支持也已中止。</p>
+<p>包级别上的清理工作仍在继续：Spring 5 不再支持 <code>beans.factory.access</code>、<code>jdbc.support.nativejdbc</code>、<code>mock.staticmock</code>（来自 spring-aspects 模块）或 <code>web.view.tiles2M</code>。Tiles 3 现在是 Spring 的最低要求。</p>
+<h2 id="对-Spring-核心和容器的一般更新"><a href="#对-Spring-核心和容器的一般更新" class="headerlink" title="对 Spring 核心和容器的一般更新"></a>对 Spring 核心和容器的一般更新</h2><p>Spring Framework 5 改进了扫描和识别组件的方法，使大型项目的性能得到提升。目前，扫描是在编译时执行的，而且向 <em><a href="https://jira.spring.io/browse/SPR-11890" target="_blank" rel="noopener">META-INF/spring.components</a></em> 文件中的索引文件添加了组件坐标。该索引是通过一个为项目定义的特定于平台的应用程序构建任务来生成的。</p>
+<p>标有来自 <em><a href="https://docs.oracle.com/javase/8/docs/api/overview-summary.html" target="_blank" rel="noopener">javax 包</a></em> 的注解的组件会添加到索引中，任何带 <code>@Index</code> 注解的类或接口都会添加到索引中。Spring 的传统类路径扫描方式没有删除，而是保留为一种后备选择。有许多针对大型代码库的明显性能优势，而托管许多 Spring 项目的服务器也会缩短启动时间。</p>
+<p>Spring 5 还添加了对 <code>@Nullable</code> 的支持，后者可用于指示可选的注入点。使用者现在必须准备接受 null 值。此外，还可以使用此注解来标记可以为 null 的参数、字段和返回值。<code>@Nullable</code> 主要用于 IntelliJ IDEA 等 IDE，但也可用于 Eclipse 和 FindBugs，它使得在编译时处理 null 值变得更方便，而无需在运行时发送 <code>NullPointerExceptions</code>。</p>
+<p>Spring Logging 还提升了性能，自带开箱即用的 Commons Logging 桥接器。现在已通过<code>资源抽象</code>支持防御性编程，为 <code>getFile</code>访问提供了 <code>isFile</code> 指示器。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>Spring 5 的首要特性是新的反应式编程模型，这代表着对提供可无缝扩展、基于 Spring 的响应式服务的重大保障。随着人们对 Spring 5 的采用，开发人员有望看到反应式编程将会成为使用 Java 语言的 Web 和企业应用程序开发的未来发展道路。</p>
+<p>未来的 Spring Framework 版本将继续反映这一承诺，因为 Spring Security、Spring Data 和 Spring Integration 有望采用反应式编程的特征和优势。</p>
+<p>总之，Spring 5 代表着一次大受 Spring 开发人员欢迎的范例转变，同时也为其他框架指出了一条发展之路。</p>
+<h1 id="使用-Spring-5-的-WebFlux-开发反应式-Web-应用"><a href="#使用-Spring-5-的-WebFlux-开发反应式-Web-应用" class="headerlink" title="使用 Spring 5 的 WebFlux 开发反应式 Web 应用"></a>使用 Spring 5 的 WebFlux 开发反应式 Web 应用</h1><p><img src="https://cdn.yangbingdong.com/img/spring-framework-5/spring-webflux-reactive-mongodb-rest-api-example.png" alt=""></p>
+<h2 id="WebFlux-简介"><a href="#WebFlux-简介" class="headerlink" title="WebFlux 简介"></a>WebFlux 简介</h2><p>WebFlux 模块的名称是 <code>spring-webflux</code>，名称中的 <code>Flux</code> 来源于 <code>Reactor</code> 中的类 <code>Flux</code>。该模块中包含了对<strong>反应式 HTTP</strong>、<strong>服务器推送事件</strong>和 <strong><code>WebSocket</code> 的客户端和服务器端的支持</strong>。对于开发人员来说，比较重要的是服务器端的开发，这也是本文的重点。在服务器端，WebFlux 支持<strong>两种</strong>不同的编程模型：第一种是 Spring MVC 中使用的<strong>基于 Java 注解的方式</strong>；第二种是基于 Java 8 的 lambda 表达式的<strong>函数式编程模型</strong>。这两种编程模型<strong>只是在代码编写方式上存在不同</strong>。它们运行在同样的反应式底层架构之上，因此在<strong>运行时是相同的</strong>。WebFlux 需要底层提供运行时的支持，WebFlux 可以运行在支持 Servlet 3.1 非阻塞 IO API 的 Servlet 容器上，或是其他异步运行时环境，如 <code>Netty</code> 和 <code>Undertow</code>。</p>
+<p>最方便的创建 WebFlux 应用的方式是使用 Spring Boot 提供的<strong>应用模板</strong>。直接访问 Spring Initializ 网站（<em><a href="http://start.spring.io/" target="_blank" rel="noopener">http://start.spring.io/</a></em> ），选择创建一个 Maven 或 Gradle 项目。Spring Boot 的版本选择 <code>2.0.0 M2</code>（或更高）。在添加的依赖中，选择 <code>Reactive Web</code>。最后输入应用所在的分组和名称，点击进行下载即可。需要注意的是，只有在选择了 <code>Spring Boot 2.0.0 M2</code> 之后，依赖中才可以选择 <code>Reactive Web</code>。下载完成之后可以导入到 IDE 中进行编辑。</p>
+<p>本文从三个方面对 WebFlux 进行介绍。首先是使用经典的基于 Java 注解的编程模型来进行开发，其次是使用 WebFlux 新增的函数式编程模型来进行开发，最后介绍 WebFlux 应用的测试。通过这样循序渐进的方式让读者了解 WebFlux 应用开发的细节。</p>
+<h2 id="Java-注解编程模型"><a href="#Java-注解编程模型" class="headerlink" title="Java 注解编程模型"></a>Java 注解编程模型</h2><p>基于 Java 注解的编程模型，对于使用过 Spring MVC 的开发人员来说是再熟悉不过的。在 WebFlux 应用中使用同样的模式，容易理解和上手。我们先从最经典的 Hello World 的示例开始说明。代码清单 1 中的 <code>BasicController</code> 是 REST API 的控制器，通过<code>@RestController</code> 注解来声明。在 <code>BasicController</code> 中声明了一个 URI 为<code>/hello_world</code> 的映射。其对应的方法 <code>sayHelloWorld()</code>的返回值是 <code>Mono&lt;String&gt;</code>类型，其中包含的字符串<code>&quot;Hello World&quot;</code>会作为 HTTP 的响应内容。</p>
+<p><strong>清单 1. Hello World 示例</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@RestController</span><br><span class="line">public class BasicController &#123;</span><br><span class="line">    @GetMapping(&quot;/hello_world&quot;)</span><br><span class="line">    public Mono&lt;String&gt; sayHelloWorld() &#123;</span><br><span class="line">        return Mono.just(&quot;Hello World&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>从代码清单 1 中可以看到，使用 WebFlux 与 Spring MVC 的<strong>不同在于</strong>，WebFlux 所使用的类型是与反应式编程相关的 <code>Flux</code> 和 <code>Mono</code> 等，而<strong>不是简单的对象</strong>。对于简单的 Hello World 示例来说，这两者之间并没有什么太大的差别。<strong>对于复杂的应用来说，反应式编程和负压的优势会体现出来，可以带来整体的性能的提升</strong>。</p>
+<h3 id="REST-API"><a href="#REST-API" class="headerlink" title="REST API"></a>REST API</h3><p>简单的 Hello World 示例并不足以说明 WebFlux 的用法。在下面的小节中，本文将介绍其他具体的实例。先从 REST API 开始说起。REST API 在 Web 服务器端应用中占据了很大的一部分。我们通过一个具体的实例来说明如何使用 WebFlux 来开发 REST API。</p>
+<p>该 REST API 用来对用户数据进行基本的 <code>CRUD</code> 操作。作为<strong>领域对象</strong>的 User 类中包含了 id、name 和 email 等三个基本的属性。为了对 User 类进行操作，我们需要提供服务类 <code>UserService</code>，如代码清单 2 所示。类 <code>UserService</code> 使用一个 <code>Map</code> 来<strong>保存</strong>所有用户的信息，并不是一个持久化的实现。这对于示例应用来说已经足够了。类 <code>UserService</code> 中的方法都以 <code>Flux</code> 或 <code>Mono</code> 对象作为返回值，这也是 <strong>WebFlux 应用的特征</strong>。在方法 <code>getById()</code>中，如果找不到 ID 对应的 User 对象，会返回一个包含了 <code>ResourceNotFoundException</code> 异常通知的 <code>Mono</code> 对象。方法 <code>getById()</code>和 <code>createOrUpdate()</code>都可以接受 <code>String</code> 或 <code>Flux</code> 类型的参数。<code>Flux</code> 类型的参数表示的是有多个对象需要处理。这里使用 <code>doOnNext()</code>来对其中的每个对象进行处理。</p>
+<p><strong>清单 2. UserService</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">@Service</span><br><span class="line">class UserService &#123;</span><br><span class="line">    private final Map&lt;String, User&gt; data = new ConcurrentHashMap&lt;&gt;();</span><br><span class="line"> </span><br><span class="line">    Flux&lt;User&gt; list() &#123;</span><br><span class="line">        return Flux.fromIterable(this.data.values());</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    Flux&lt;User&gt; getById(final Flux&lt;String&gt; ids) &#123;</span><br><span class="line">        return ids.flatMap(id -&gt; Mono.justOrEmpty(this.data.get(id)));</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    Mono&lt;User&gt; getById(final String id) &#123;</span><br><span class="line">        return Mono.justOrEmpty(this.data.get(id))</span><br><span class="line">                .switchIfEmpty(Mono.error(new ResourceNotFoundException()));</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    Flux&lt;User&gt; createOrUpdate(final Flux&lt;User&gt; users) &#123;</span><br><span class="line">        return users.doOnNext(user -&gt; this.data.put(user.getId(), user));</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    Mono&lt;User&gt; createOrUpdate(final User user) &#123;</span><br><span class="line">        this.data.put(user.getId(), user);</span><br><span class="line">        return Mono.just(user);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    Mono&lt;User&gt; delete(final String id) &#123;</span><br><span class="line">        return Mono.justOrEmpty(this.data.remove(id));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>代码清单 3 中的类 <code>UserController</code> 是具体的 Spring MVC 控制器类。它使用类 <code>UserService</code> 来完成具体的功能。类 <code>UserController</code> 中使用了注解<code>@ExceptionHandler</code> 来添加了 <code>ResourceNotFoundException</code> 异常的处理方法，并返回 <code>404</code> 错误。类 <code>UserController</code> 中的方法都很简单，只是简单地代理给 <code>UserService</code> 中的对应方法。</p>
+<p><strong>清单 3. UserController</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">@RestController</span><br><span class="line">@RequestMapping(&quot;/user&quot;)</span><br><span class="line">public class UserController &#123;</span><br><span class="line">    private final UserService userService;</span><br><span class="line"> </span><br><span class="line">    @Autowired</span><br><span class="line">    public UserController(final UserService userService) &#123;</span><br><span class="line">        this.userService = userService;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = &quot;Resource not found&quot;)</span><br><span class="line">    @ExceptionHandler(ResourceNotFoundException.class)</span><br><span class="line">    public void notFound() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    @GetMapping(&quot;&quot;)</span><br><span class="line">    public Flux&lt;User&gt; list() &#123;</span><br><span class="line">        return this.userService.list();</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    @GetMapping(&quot;/&#123;id&#125;&quot;)</span><br><span class="line">    public Mono&lt;User&gt;getById(@PathVariable(&quot;id&quot;) final String id) &#123;</span><br><span class="line">        return this.userService.getById(id);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    @PostMapping(&quot;&quot;)</span><br><span class="line">    public Flux&lt;User&gt; create(@RequestBody final Flux&lt;User&gt;  users) &#123;</span><br><span class="line">        return this.userService.createOrUpdate(users);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    @PutMapping(&quot;/&#123;id&#125;&quot;)</span><br><span class="line">    public Mono&lt;User&gt;  update(@PathVariable(&quot;id&quot;) final String id, @RequestBody final User user) &#123;</span><br><span class="line">        Objects.requireNonNull(user);</span><br><span class="line">        user.setId(id);</span><br><span class="line">        return this.userService.createOrUpdate(user);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    @DeleteMapping(&quot;/&#123;id&#125;&quot;)</span><br><span class="line">    public Mono&lt;User&gt;  delete(@PathVariable(&quot;id&quot;) final String id) &#123;</span><br><span class="line">        return this.userService.delete(id);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="服务器推送事件"><a href="#服务器推送事件" class="headerlink" title="服务器推送事件"></a>服务器推送事件</h3><p>服务器推送事件（Server-Sent Events，SSE）允许服务器端不断地推送数据到客户端。相对于 WebSocket 而言，服务器推送事件<strong>只支持服务器端到客户端的单向数据传递</strong>。虽然功能较弱，但优势在于 SSE 在已有的 HTTP 协议上使用简单易懂的文本格式来表示传输的数据。作为 W3C 的推荐规范，SSE 在浏览器端的支持也比较广泛，除了 IE 之外的其他浏览器都提供了支持。在 IE 上也可以使用 polyfill 库来提供支持。在服务器端来说，SSE 是一个不断产生新数据的流，非常适合于用反应式流来表示。在 WebFlux 中创建 SSE 的服务器端是非常简单的。只需要返回的对象的类型是 <code>Flux&lt;ServerSentEvent&gt;</code>，就会被自动按照 SSE 规范要求的格式来发送响应。</p>
+<p>代码清单 4 中的 <code>SseController</code> 是一个使用 SSE 的控制器的示例。其中的方法 <code>randomNumbers()</code>表示的是每隔一秒产生一个随机数的 SSE 端点。我们可以使用类 <code>ServerSentEvent.Builder</code> 来创建 <code>ServerSentEvent</code> 对象。这里我们指定了事件名称 <code>random</code>，以及每个事件的标识符和数据。事件的标识符是一个递增的整数，而数据则是产生的随机数。</p>
+<p><strong>清单 4. 服务器推送事件示例</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">@RestController</span><br><span class="line">@RequestMapping(&quot;/sse&quot;)</span><br><span class="line">public class SseController &#123;</span><br><span class="line">    @GetMapping(&quot;/randomNumbers&quot;)</span><br><span class="line">    public Flux&lt;ServerSentEvent&lt;Integer&gt;&gt; randomNumbers() &#123;</span><br><span class="line">        return Flux.interval(Duration.ofSeconds(1))</span><br><span class="line">                .map(seq -&gt; Tuples.of(seq, ThreadLocalRandom.current().nextInt()))</span><br><span class="line">                .map(data -&gt; ServerSentEvent.&lt;Integer&gt;builder()</span><br><span class="line">                        .event(&quot;random&quot;)</span><br><span class="line">                        .id(Long.toString(data.getT1()))</span><br><span class="line">                        .data(data.getT2())</span><br><span class="line">                        .build());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在测试 SSE 时，我们只需要使用 curl 来访问即可。代码清单 5 给出了调用 curl <a href="http://localhost:8080/sse/randomNumbers" target="_blank" rel="noopener">http://localhost:8080/sse/randomNumbers</a> 的结果。</p>
+<p><strong>清单 5. SSE 服务器端发送的响应</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">id:0</span><br><span class="line">event:random</span><br><span class="line">data:751025203</span><br><span class="line"> </span><br><span class="line">id:1</span><br><span class="line">event:random</span><br><span class="line">data:-1591883873</span><br><span class="line"> </span><br><span class="line">id:2</span><br><span class="line">event:random</span><br><span class="line">data:-1899224227</span><br></pre></td></tr></table></figure>
+<h3 id="WebSocket"><a href="#WebSocket" class="headerlink" title="WebSocket"></a>WebSocket</h3><p>WebSocket 支持客户端与服务器端的双向通讯。当客户端与服务器端之间的交互方式比较复杂时，可以使用 WebSocket。WebSocket 在主流的浏览器上都得到了支持。WebFlux 也对创建 WebSocket 服务器端提供了支持。在服务器端，我们需要实现接口 <code>org.springframework.web.reactive.socket.WebSocketHandler</code> 来处理 WebSocket 通讯。接口 <code>WebSocketHandler</code> 的方法 <code>handle</code> 的参数是接口 <code>WebSocketSession</code> 的对象，可以用来获取客户端信息、接送消息和发送消息。代码清单 6 中的 <code>EchoHandler</code> 对于每个接收的消息，会发送一个添加了”<code>ECHO -&gt;</code> “前缀的响应消息。<code>WebSocketSession</code> 的 <code>receive</code> 方法的返回值是一个 <code>Flux&lt;WebSocketMessage&gt;</code>对象，表示的是接收到的消息流。而 <code>send</code> 方法的参数是一个 <code>Publisher&lt;WebSocketMessage&gt;</code>对象，表示要发送的消息流。在 <code>handle</code> 方法，使用 <code>map</code> 操作对 <code>receive</code> 方法得到的 <code>Flux&lt;WebSocketMessage&gt;</code>中包含的消息继续处理，然后直接由 <code>send</code> 方法来发送。</p>
+<p><strong>清单 6. WebSocket 的 EchoHandler 示例</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@Component</span><br><span class="line">public class EchoHandler implements WebSocketHandler &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public Mono&lt;Void&gt; handle(final WebSocketSession session) &#123;</span><br><span class="line">        return session.send(</span><br><span class="line">                session.receive()</span><br><span class="line">                        .map(msg -&gt; session.textMessage(&quot;ECHO -&gt; &quot; + msg.getPayloadAsText())));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在创建了 WebSocket 的处理器 <code>EchoHandler</code> 之后，下一步需要把它注册到 WebFlux 中。我们首先需要创建一个类 <code>WebSocketHandlerAdapter</code> 的对象，该对象负责把 <code>WebSocketHandler</code> 关联到 WebFlux 中。代码清单 7 中给出了相应的 Spring 配置。其中的 <code>HandlerMapping</code> 类型的 bean 把 <code>EchoHandler</code> 映射到路径 <code>/echo</code>。</p>
+<p><strong>清单 7. 注册 EchoHandler</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">public class WebSocketConfiguration &#123;</span><br><span class="line"> </span><br><span class="line">    @Autowired</span><br><span class="line">    @Bean</span><br><span class="line">    public HandlerMapping webSocketMapping(final EchoHandler echoHandler) &#123;</span><br><span class="line">        final Map&lt;String, WebSocketHandler&gt; map = new HashMap&lt;&gt;(1);</span><br><span class="line">        map.put(&quot;/echo&quot;, echoHandler);</span><br><span class="line"> </span><br><span class="line">        final SimpleUrlHandlerMapping mapping = new SimpleUrlHandlerMapping();</span><br><span class="line">        mapping.setOrder(Ordered.HIGHEST_PRECEDENCE);</span><br><span class="line">        mapping.setUrlMap(map);</span><br><span class="line">        return mapping;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    @Bean</span><br><span class="line">    public WebSocketHandlerAdapter handlerAdapter() &#123;</span><br><span class="line">        return new WebSocketHandlerAdapter();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行应用之后，可以使用工具来测试该 WebSocket 服务。打开工具页面 <em><a href="https://www.websocket.org/echo.html" target="_blank" rel="noopener">https://www.websocket.org/echo.html</a></em>，然后连接到 <em>ws://localhost:8080/echo</em>，可以发送消息并查看服务器端返回的结果。</p>
+<h2 id="函数式编程模型"><a href="#函数式编程模型" class="headerlink" title="函数式编程模型"></a>函数式编程模型</h2><p>在上节中介绍了基于 Java 注解的编程模型，WebFlux 还支持基于 lambda 表达式的函数式编程模型。与基于 Java 注解的编程模型相比，函数式编程模型的抽象层次更低，代码编写更灵活，可以满足一些对动态性要求更高的场景。不过在编写时的代码复杂度也较高，学习曲线也较陡。开发人员可以根据实际的需要来选择合适的编程模型。目前 Spring Boot 不支持在一个应用中同时使用两种不同的编程模式。</p>
+<p>为了说明函数式编程模型的用法，我们使用 <code>Spring Initializ</code> 来创建一个新的 WebFlux 项目。在函数式编程模型中，每个请求是由一个函数来处理的， 通过接口 <code>org.springframework.web.reactive.function.server.HandlerFunction</code> 来表示。<code>HandlerFunction</code> 是一个函数式接口，其中只有一个方法 <code>Mono&lt;T extends ServerResponse&gt; handle(ServerRequest request)</code>，因此可以用 labmda 表达式来实现该接口。接口 <code>ServerRequest</code> 表示的是一个 HTTP 请求。通过该接口可以获取到请求的相关信息，如请求路径、HTTP 头、查询参数和请求内容等。方法 <code>handle</code> 的返回值是一个 <code>Mono&lt;T extends ServerResponse&gt;</code>对象。接口 <code>ServerResponse</code> 用来表示 HTTP 响应。<code>ServerResponse</code> 中包含了很多静态方法来创建不同 HTTP 状态码的响应对象。本节中通过一个简单的计算器来展示函数式编程模型的用法。代码清单 8 中给出了处理不同请求的类 <code>CalculatorHandler</code>，其中包含的方法 <code>add</code>、<code>subtract</code>、<code>multiply</code> 和 <code>divide</code> 都是接口 <code>HandlerFunction</code> 的实现。这些方法分别对应加、减、乘、除四种运算。每种运算都是从 HTTP 请求中获取到两个作为操作数的整数，再把运算的结果返回。</p>
+<p><strong>清单 8. 处理请求的类 CalculatorHandler</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">@Component</span><br><span class="line">public class CalculatorHandler &#123;</span><br><span class="line"> </span><br><span class="line">    public Mono&lt;ServerResponse&gt; add(final ServerRequest request) &#123;</span><br><span class="line">        return calculate(request, (v1, v2) -&gt; v1 + v2);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    public Mono&lt;ServerResponse&gt; subtract(final ServerRequest request) &#123;</span><br><span class="line">        return calculate(request, (v1, v2) -&gt; v1 - v2);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    public Mono&lt;ServerResponse&gt;  multiply(final ServerRequest request) &#123;</span><br><span class="line">        return calculate(request, (v1, v2) -&gt; v1 * v2);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    public Mono&lt;ServerResponse&gt; divide(final ServerRequest request) &#123;</span><br><span class="line">        return calculate(request, (v1, v2) -&gt; v1 / v2);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    private Mono&lt;ServerResponse&gt; calculate(final ServerRequest request,</span><br><span class="line">                                           final BiFunction&lt;Integer, Integer, Integer&gt; calculateFunc) &#123;</span><br><span class="line">        final Tuple2&lt;Integer, Integer&gt; operands = extractOperands(request);</span><br><span class="line">        return ServerResponse</span><br><span class="line">                .ok()</span><br><span class="line">                .body(Mono.just(calculateFunc.apply(operands.getT1(), operands.getT2())), Integer.class);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    private Tuple2&lt;Integer, Integer&gt; extractOperands(final ServerRequest request) &#123;</span><br><span class="line">        return Tuples.of(parseOperand(request, &quot;v1&quot;), parseOperand(request, &quot;v2&quot;));</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    private int parseOperand(final ServerRequest request, final String param) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            return Integer.parseInt(request.queryParam(param).orElse(&quot;0&quot;));</span><br><span class="line">        &#125; catch (final NumberFormatException e) &#123;</span><br><span class="line">            return 0;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在创建了处理请求的 <code>HandlerFunction</code> 之后，下一步是为这些 <code>HandlerFunction</code> 提供路由信息，也就是这些 <code>HandlerFunction</code> 被调用的条件。这是通过函数式接口 <code>org.springframework.web.reactive.function.server.RouterFunction</code> 来完成的。接口 <code>RouterFunction</code> 的方法 <code>Mono&lt;HandlerFunction&lt;T extends ServerResponse&gt;&gt; route(ServerRequest request)</code>对每个 <code>ServerRequest</code>，都返回对应的 0 个或 1 个 <code>HandlerFunction</code> 对象，以 <code>Mono&lt;HandlerFunction&gt;</code>来表示。当找到对应的 <code>HandlerFunction</code> 时，该 <code>HandlerFunction</code> 被调用来处理该 <code>ServerRequest</code>，并把得到的 <code>ServerResponse</code> 返回。在使用 WebFlux 的 Spring Boot 应用中，只需要创建 <code>RouterFunction</code> 类型的 <code>bean</code>，就会被自动注册来处理请求并调用相应的 <code>HandlerFunction</code>。</p>
+<p>代码清单 9 给了示例相关的配置类 <code>Config</code>。方法 <code>RouterFunctions.route</code> 用来根据 <code>Predicate</code> 是否匹配来确定 <code>HandlerFunction</code> 是否被应用。<code>RequestPredicates</code> 中包含了很多静态方法来创建常用的基于不同匹配规则的 <code>Predicate</code>。如 <code>RequestPredicates.path</code> 用来根据 HTTP 请求的路径来进行匹配。此处我们检查请求的路径是<code>/calculator</code>。在清单 9 中，我们首先使用 <code>ServerRequest</code> 的 <code>queryParam</code> 方法来获取到查询参数 <code>operator</code> 的值，然后通过反射 API 在类 <code>CalculatorHandler</code> 中找到与查询参数 <code>operator</code> 的值名称相同的方法来确定要调用的 <code>HandlerFunction</code> 的实现，最后调用查找到的方法来处理该请求。如果找不到查询参数 <code>operator</code> 或是 <code>operator</code> 的值不在识别的列表中，服务器端返回 <code>400</code> 错误；如果反射 API 的方法调用中出现错误，服务器端返回 <code>500</code> 错误。</p>
+<p><strong>清单 9. 注册 RouterFunction</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">public class Config &#123;</span><br><span class="line"> </span><br><span class="line">    @Bean</span><br><span class="line">    @Autowired</span><br><span class="line">    public RouterFunction&lt;ServerResponse&gt;routerFunction(final CalculatorHandler calculatorHandler) &#123;</span><br><span class="line">        return RouterFunctions.route(RequestPredicates.path(&quot;/calculator&quot;), request -&gt;</span><br><span class="line">                request.queryParam(&quot;operator&quot;).map(operator -&gt;</span><br><span class="line">                        Mono.justOrEmpty(ReflectionUtils.findMethod(CalculatorHandler.class, operator, ServerRequest.class))</span><br><span class="line">                                .flatMap(method -&gt; (Mono&lt;ServerResponse&gt;) ReflectionUtils.invokeMethod(method, calculatorHandler, request))</span><br><span class="line">                                .switchIfEmpty(ServerResponse.badRequest().build())</span><br><span class="line">                                .onErrorResume(ex -&gt; ServerResponse.status(HttpStatus.INTERNAL_SERVER_ERROR).build()))</span><br><span class="line">                        .orElse(ServerResponse.badRequest().build()));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h2><p>除了服务器端实现之外，WebFlux 也提供了反应式客户端，可以访问 HTTP、SSE 和 WebSocket 服务器端。</p>
+<h3 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h3><p>对于 HTTP 和 SSE，可以使用 WebFlux 模块中的类 o<code>rg.springframework.web.reactive.function.client.WebClient</code>。代码清单 10 中的 <code>RESTClient</code> 用来访问前面小节中创建的 REST API。首先使用 <code>WebClient.create</code> 方法来创建一个新的 <code>WebClient</code> 对象，然后使用方法 <code>post</code> 来创建一个 <code>POST</code> 请求，并使用方法 <code>body</code> 来设置 <code>POST</code> 请求的内容。方法 <code>exchange</code> 的作用是发送请求并得到以 <code>Mono&lt;ServerResponse&gt;</code>表示的 HTTP 响应。最后对得到的响应进行处理并输出结果。<code>ServerResponse</code> 的 <code>bodyToMono</code> 方法把响应内容转换成类 <code>User</code> 的对象，最终得到的结果是 <code>Mono&lt;User&gt;</code>对象。调用 <code>createdUser.block</code> 方法的作用是等待请求完成并得到所产生的类 User 的对象。</p>
+<p><strong>清单 10. 使用 WebClient 访问 REST API</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public class RESTClient &#123;</span><br><span class="line">    public static void main(final String[] args) &#123;</span><br><span class="line">        final User user = new User();</span><br><span class="line">        user.setName(&quot;Test&quot;);</span><br><span class="line">        user.setEmail(&quot;test@example.org&quot;);</span><br><span class="line">        final WebClient client = WebClient.create(&quot;http://localhost:8080/user&quot;);</span><br><span class="line">        final Monol&lt;User&gt; createdUser = client.post()</span><br><span class="line">                .uri(&quot;&quot;)</span><br><span class="line">                .accept(MediaType.APPLICATION_JSON)</span><br><span class="line">                .body(Mono.just(user), User.class)</span><br><span class="line">                .exchange()</span><br><span class="line">                .flatMap(response -&gt; response.bodyToMono(User.class));</span><br><span class="line">        System.out.println(createdUser.block());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="SSE"><a href="#SSE" class="headerlink" title="SSE"></a>SSE</h3><p><code>WebClient</code> 还可以用同样的方式来访问 SSE 服务，如代码清单 11 所示。这里我们访问的是在之前的小节中创建的生成随机数的 SSE 服务。使用 <code>WebClient</code> 访问 SSE 在发送请求部分与访问 REST API 是相同的，所不同的地方在于对 HTTP 响应的处理。由于 SSE 服务的响应是一个消息流，我们需要使用 <code>flatMapMany</code> 把 <code>Mono&lt;ServerResponse&gt;</code>转换成一个 <code>Flux&lt;ServerSentEvent&gt;</code>对象，这是通过方法 <code>BodyExtractors.toFlux</code> 来完成的，其中的参数 <code>new ParameterizedTypeReference&lt;ServerSentEvent&lt;String&gt;&gt;() {}</code>表明了响应消息流中的内容是 <code>ServerSentEvent</code> 对象。由于 SSE 服务器会不断地发送消息，这里我们只是通过 <code>buffer</code> 方法来获取前 10 条消息并输出。</p>
+<p><strong>清单 11. 使用 WebClient 访问 SSE 服务</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">public class SSEClient &#123;</span><br><span class="line">    public static void main(final String[] args) &#123;</span><br><span class="line">        final WebClient client = WebClient.create();</span><br><span class="line">        client.get()</span><br><span class="line">                .uri(&quot;http://localhost:8080/sse/randomNumbers&quot;)</span><br><span class="line">                .accept(MediaType.TEXT_EVENT_STREAM)</span><br><span class="line">                .exchange()</span><br><span class="line">                .flatMapMany(response -&gt; response.body(BodyExtractors.toFlux(new ParameterizedTypeReference&lt;ServerSentEvent&lt;String&gt;&gt;() &#123;</span><br><span class="line">                &#125;)))</span><br><span class="line">                .filter(sse -&gt; Objects.nonNull(sse.data()))</span><br><span class="line">                .map(ServerSentEvent::data)</span><br><span class="line">                .buffer(10)</span><br><span class="line">                .doOnNext(System.out::println)</span><br><span class="line">                .blockFirst();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="WebSocket-1"><a href="#WebSocket-1" class="headerlink" title="WebSocket"></a>WebSocket</h3><p>访问 WebSocket 不能使用 <code>WebClient</code>，而应该使用<strong>专门</strong>的 <code>WebSocketClient</code> 客户端。Spring Boot 的 WebFlux 模板中默认使用的是 <code>Reactor Netty</code> 库。<code>Reactor Netty</code> 库提供了 <code>WebSocketClient</code> 的实现。在代码清单 12 中，我们访问的是上面小节中创建的 WebSocket 服务。<code>WebSocketClient</code> 的 <code>execute</code> 方法与 WebSocket 服务器建立连接，并执行给定的 <code>WebSocketHandler</code> 对象。该 <code>WebSocketHandler</code> 对象与代码清单 6 中的作用是一样的，只不过它是工<strong>作于客户端</strong>，而不是服务器端。在 <code>WebSocketHandler</code> 的实现中，首先通过 <code>WebSocketSession</code> 的 <code>send</code> 方法来发送字符串 <code>Hello</code> 到服务器端，然后通过 <code>receive</code> 方法来等待服务器端的响应并输出。方法 <code>take(1)</code>的作用是表明客户端只获取服务器端发送的第一条消息。</p>
+<p><strong>清单 12. 使用 WebSocketClient 访问 WebSocket</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public class WSClient &#123;</span><br><span class="line">    public static void main(final String[] args) &#123;</span><br><span class="line">        final WebSocketClient client = new ReactorNettyWebSocketClient();</span><br><span class="line">        client.execute(URI.create(&quot;ws://localhost:8080/echo&quot;), session -&gt;</span><br><span class="line">                session.send(Flux.just(session.textMessage(&quot;Hello&quot;)))</span><br><span class="line">                        .thenMany(session.receive().take(1).map(WebSocketMessage::getPayloadAsText))</span><br><span class="line">                        .doOnNext(System.out::println)</span><br><span class="line">                        .then())</span><br><span class="line">                .block(Duration.ofMillis(5000));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>在 <code>spring-test</code> 模块中也添加了对 WebFlux 的支持。通过类 <code>org.springframework.test.web.reactive.server.WebTestClient</code> 可以测试 WebFlux 服务器。进行测试时既可以通过 <code>mock</code> 的方式来进行，也可以对实际运行的服务器进行集成测试。代码清单 13 通过一个集成测试来测试 <code>UserController</code> 中的创建用户的功能。方法 <code>WebTestClient.bindToServer</code> 绑定到一个运行的服务器并设置了基础 URL。发送 HTTP 请求的方式与代码清单 10 相同，不同的是 <code>exchange</code> 方法的返回值是 <code>ResponseSpec</code> 对象，其中包含了 <code>expectStatus</code> 和 <code>expectBody</code> 等方法来<strong>验证</strong> <code>HTTP</code> 响应的状态码和内容。方法 <code>jsonPath</code> 可以根据 JSON 对象中的路径来进行验证。</p>
+<p><strong>清单 13. 测试 UserController</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">public class UserControllerTest &#123;</span><br><span class="line">    private final WebTestClient client = WebTestClient.bindToServer().baseUrl(&quot;http://localhost:8080&quot;).build();</span><br><span class="line"> </span><br><span class="line">    @Test</span><br><span class="line">    public void testCreateUser() throws Exception &#123;</span><br><span class="line">        final User user = new User();</span><br><span class="line">        user.setName(&quot;Test&quot;);</span><br><span class="line">        user.setEmail(&quot;test@example.org&quot;);</span><br><span class="line">        client.post().uri(&quot;/user&quot;)</span><br><span class="line">                .contentType(MediaType.APPLICATION_JSON)</span><br><span class="line">                .body(Mono.just(user), User.class)</span><br><span class="line">                .exchange()</span><br><span class="line">                .expectStatus().isOk()</span><br><span class="line">                .expectBody().jsonPath(&quot;name&quot;).isEqualTo(&quot;Test&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="小结-1"><a href="#小结-1" class="headerlink" title="小结"></a>小结</h2><p>反应式编程范式为开发高性能 Web 应用带来了新的机会和挑战。Spring 5 中的 WebFlux 模块可以作为开发反应式 Web 应用的基础。由于 Spring 框架的流行，WebFlux 会成为开发 Web 应用的重要趋势之一。本文对 Spring 5 中的 WebFlux 模块进行了详细的介绍，包括如何用 WebFlux 开发 HTTP、SSE 和 WebSocket 服务器端应用，以及作为客户端来访问 HTTP、SSE 和 WebSocket 服务。对于 WebFlux 的基于 Java 注解和函数式编程等两种模型都进行了介绍。最后介绍了如何测试 WebFlux 应用。</p>
+<h1 id="End"><a href="#End" class="headerlink" title="End"></a>End</h1><blockquote>
+<p>原文链接: </p>
+<p><strong><em><a href="https://www.ibm.com/developerworks/cn/java/spring5-webflux-reactive/index.html" target="_blank" rel="noopener">https://www.ibm.com/developerworks/cn/java/spring5-webflux-reactive/index.html</a></em></strong></p>
+<p><strong><em><a href="https://www.ibm.com/developerworks/cn/java/j-whats-new-in-spring-framework-5-theedom/index.html" target="_blank" rel="noopener">https://www.ibm.com/developerworks/cn/java/j-whats-new-in-spring-framework-5-theedom/index.html</a></em></strong></p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/Spring5/" rel="tag"># Spring5</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/18/design-pattern-uml-and-six-principle/" rel="next" title="设计模式原则与UML类图">
+                <i class="fa fa-chevron-left"></i> 设计模式原则与UML类图
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/11/30/with-reactor-response-encode/" rel="prev" title="使用 Reactor 进行反应式编程">
+                使用 Reactor 进行反应式编程 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">杨凯</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Preface"><span class="nav-number">1.</span> <span class="nav-text">Preface</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring-Framework-5-中的新特性"><span class="nav-number">2.</span> <span class="nav-text">Spring Framework 5 中的新特性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#升级到-Java-SE-8-和-Java-EE-7"><span class="nav-number">2.1.</span> <span class="nav-text">升级到 Java SE 8 和 Java EE 7</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#反应式编程模型"><span class="nav-number">2.2.</span> <span class="nav-text">反应式编程模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用注解进行编程"><span class="nav-number">2.3.</span> <span class="nav-text">使用注解进行编程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数式编程"><span class="nav-number">2.4.</span> <span class="nav-text">函数式编程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-REST-端点执行反应式编程"><span class="nav-number">2.5.</span> <span class="nav-text">使用 REST 端点执行反应式编程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP-2-支持"><span class="nav-number">2.6.</span> <span class="nav-text">HTTP/2 支持</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-Lambda-表达式注册-bean"><span class="nav-number">2.7.</span> <span class="nav-text">使用 Lambda 表达式注册 bean</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring-WebMVC-支持最新的-API"><span class="nav-number">2.8.</span> <span class="nav-text">Spring WebMVC 支持最新的 API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-JUnit-5-执行条件和并发测试"><span class="nav-number">2.9.</span> <span class="nav-text">使用 JUnit 5 执行条件和并发测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-Spring-WebFlux-执行集成测试"><span class="nav-number">2.10.</span> <span class="nav-text">使用 Spring WebFlux 执行集成测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#包清理和弃用"><span class="nav-number">2.11.</span> <span class="nav-text">包清理和弃用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对-Spring-核心和容器的一般更新"><span class="nav-number">2.12.</span> <span class="nav-text">对 Spring 核心和容器的一般更新</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">2.13.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用-Spring-5-的-WebFlux-开发反应式-Web-应用"><span class="nav-number">3.</span> <span class="nav-text">使用 Spring 5 的 WebFlux 开发反应式 Web 应用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#WebFlux-简介"><span class="nav-number">3.1.</span> <span class="nav-text">WebFlux 简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java-注解编程模型"><span class="nav-number">3.2.</span> <span class="nav-text">Java 注解编程模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#REST-API"><span class="nav-number">3.2.1.</span> <span class="nav-text">REST API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务器推送事件"><span class="nav-number">3.2.2.</span> <span class="nav-text">服务器推送事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WebSocket"><span class="nav-number">3.2.3.</span> <span class="nav-text">WebSocket</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数式编程模型"><span class="nav-number">3.3.</span> <span class="nav-text">函数式编程模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#客户端"><span class="nav-number">3.4.</span> <span class="nav-text">客户端</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP"><span class="nav-number">3.4.1.</span> <span class="nav-text">HTTP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SSE"><span class="nav-number">3.4.2.</span> <span class="nav-text">SSE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WebSocket-1"><span class="nav-number">3.4.3.</span> <span class="nav-text">WebSocket</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试"><span class="nav-number">3.5.</span> <span class="nav-text">测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结-1"><span class="nav-number">3.6.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#End"><span class="nav-number">4.</span> <span class="nav-text">End</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">杨凯</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

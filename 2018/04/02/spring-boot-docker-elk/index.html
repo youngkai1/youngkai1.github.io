@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java,Spring Boot,Spring,Docker,Elasticsearch,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Preface 微服务架构下，微服务在带来良好的设计和架构理念的同时，也带来了运维上的额外复杂性，尤其是在服务部署和服务监控上。单体应用是集中式的，就一个单体跑在一起，部署和管理的时候非常简单，而微服务是一个网状分布的，有很多服务需要维护和管理，对它进行部署和维护的时候则比较复杂。集成Docker之后，我们可以很方便地部署以及编排服务，ELK的集中式日志管理可以让我们很方便地聚合Docker日志">
+<meta name="keywords" content="Java,Spring Boot,Spring,Docker,Elasticsearch">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring Boot应用集成Docker并结合Log4j2、Kafka、ELK管理Docker日志">
+<meta property="og:url" content="http://yoursite.com/2018/04/02/spring-boot-docker-elk/index.html">
+<meta property="og:site_name" content="如风过境">
+<meta property="og:description" content="Preface 微服务架构下，微服务在带来良好的设计和架构理念的同时，也带来了运维上的额外复杂性，尤其是在服务部署和服务监控上。单体应用是集中式的，就一个单体跑在一起，部署和管理的时候非常简单，而微服务是一个网状分布的，有很多服务需要维护和管理，对它进行部署和维护的时候则比较复杂。集成Docker之后，我们可以很方便地部署以及编排服务，ELK的集中式日志管理可以让我们很方便地聚合Docker日志">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/spring-cloud-docker-integration/java-docker.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/spring-boot-learning/log4j2-performance.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/spring-cloud-docker-integration/portainer.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/spring-cloud-docker-integration/harbor.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/spring-cloud-docker-integration/duplicate01.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/spring-cloud-docker-integration/duplicate02.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/docker-logs-collect/elk-arch1.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/docker-logs-collect/luyten.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/docker-logs-collect/jar-archive.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/kibana-license.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/docker-logs-collect/kibana02.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/docker-logs-collect/kibana-full-plugin-button.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/docker-logs-collect/kibana-admin-setting.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/docker-logs-collect/kibana-page-size.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/docker-logs-collect/kibana-timezone.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/docker-logs-collect/apm.png">
+<meta property="og:updated_time" content="2018-12-09T10:09:00.055Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring Boot应用集成Docker并结合Log4j2、Kafka、ELK管理Docker日志">
+<meta name="twitter:description" content="Preface 微服务架构下，微服务在带来良好的设计和架构理念的同时，也带来了运维上的额外复杂性，尤其是在服务部署和服务监控上。单体应用是集中式的，就一个单体跑在一起，部署和管理的时候非常简单，而微服务是一个网状分布的，有很多服务需要维护和管理，对它进行部署和维护的时候则比较复杂。集成Docker之后，我们可以很方便地部署以及编排服务，ELK的集中式日志管理可以让我们很方便地聚合Docker日志">
+<meta name="twitter:image" content="https://cdn.yangbingdong.com/img/spring-cloud-docker-integration/java-docker.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/04/02/spring-boot-docker-elk/">
+
+
+
+
+
+  <title>Spring Boot应用集成Docker并结合Log4j2、Kafka、ELK管理Docker日志 | 如风过境</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">如风过境</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/02/spring-boot-docker-elk/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="杨凯">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="如风过境">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Spring Boot应用集成Docker并结合Log4j2、Kafka、ELK管理Docker日志</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-02T13:00:19+08:00">
+                2018-04-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Programming/" itemprop="url" rel="index">
+                    <span itemprop="name">Programming</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Programming/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Programming/Java/Spring-Boot/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Boot</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="https://cdn.yangbingdong.com/img/spring-cloud-docker-integration/java-docker.png" alt=""></p>
+<h1 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h1><blockquote>
+<p>微服务架构下，微服务在带来良好的设计和架构理念的同时，也带来了运维上的额外复杂性，尤其是在服务部署和服务监控上。单体应用是集中式的，就一个单体跑在一起，部署和管理的时候非常简单，而微服务是一个网状分布的，有很多服务需要维护和管理，对它进行部署和维护的时候则比较复杂。集成Docker之后，我们可以很方便地部署以及编排服务，ELK的集中式日志管理可以让我们很方便地聚合Docker日志。</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="Log4j2-Related"><a href="#Log4j2-Related" class="headerlink" title="Log4j2 Related"></a>Log4j2 Related</h1><h2 id="使用Log4j2"><a href="#使用Log4j2" class="headerlink" title="使用Log4j2"></a>使用Log4j2</h2><p>下面是 Log4j2  官方性能测试结果：</p>
+<p><img src="https://cdn.yangbingdong.com/img/spring-boot-learning/log4j2-performance.png" alt=""></p>
+<h3 id="Maven配置"><a href="#Maven配置" class="headerlink" title="Maven配置"></a>Maven配置</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- Spring Boot 依赖--&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter&lt;/artifactId&gt;</span><br><span class="line">    &lt;!-- 去除 logback 依赖 --&gt;</span><br><span class="line">    &lt;exclusions&gt;</span><br><span class="line">        &lt;exclusion&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-boot-starter-logging&lt;/artifactId&gt;</span><br><span class="line">        &lt;/exclusion&gt;</span><br><span class="line">    &lt;/exclusions&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 日志 Log4j2 --&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-log4j2&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- Log4j2 异步支持 --&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.lmax&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;disruptor&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;3.3.8&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>注意</strong>：</p>
+<ul>
+<li>需要单独把<code>spring-boot-starter</code>里面的<code>logging</code>去除再引入<code>spring-boot-starter-web</code>，否则后面引入的<code>starter</code>模块带有的<code>logging</code>不会自动去除</li>
+<li><code>Disruptor</code>需要<strong>3.3.8</strong>以及以上版本</li>
+</ul>
+<h3 id="开启全局异步以及Disruptor参数设置"><a href="#开启全局异步以及Disruptor参数设置" class="headerlink" title="开启全局异步以及Disruptor参数设置"></a>开启全局异步以及Disruptor参数设置</h3><blockquote>
+<p>官方说明： <strong><em><a href="https://logging.apache.org/log4j/2.x/manual/async.html#AllAsync" target="_blank" rel="noopener">https://logging.apache.org/log4j/2.x/manual/async.html#AllAsync</a></em></strong></p>
+</blockquote>
+<p>添加<code>Disruptor</code>依赖后只需要添加启动参数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-Dlog4j2.contextSelector=org.apache.logging.log4j.core.async.AsyncLoggerContextSelector</span><br></pre></td></tr></table></figure>
+<p>也可以在程序启动时添加系统参数。</p>
+<blockquote>
+<p>若想知道Disruptor是否生效，可以在<code>AsyncLogger#logMessage</code>中断点</p>
+</blockquote>
+<p>加大队列参数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-DAsyncLogger.RingBufferSize=262144</span><br><span class="line">-DAsyncLoggerConfig.RingBufferSize=262144</span><br></pre></td></tr></table></figure>
+<p>设置队列满了时的处理策略：丢弃，否则默认blocking，异步就与同步无异了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-Dlog4j2.AsyncQueueFullPolicy=Discard</span><br></pre></td></tr></table></figure>
+<h3 id="application-yml简单配置"><a href="#application-yml简单配置" class="headerlink" title="application.yml简单配置"></a>application.yml简单配置</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">logging:</span><br><span class="line">  config: classpath:log4j2.xml # 指定log4j2配置文件的路径，默认就是这个</span><br><span class="line">  pattern:</span><br><span class="line">    console: &quot;%clr&#123;%d&#123;yyyy-MM-dd HH:mm:ss.SSS&#125;&#125;&#123;faint&#125; | %clr&#123;%5p&#125; | %clr&#123;%15.15t&#125;&#123;faint&#125; | %clr&#123;%-50.50c&#123;1.&#125;&#125;&#123;cyan&#125; | %5L | %clr&#123;%M&#125;&#123;magenta&#125; | %msg%n%xwEx&quot; # 控制台日志输出格式</span><br></pre></td></tr></table></figure>
+<h3 id="log4j2-xml完整配置"><a href="#log4j2-xml完整配置" class="headerlink" title="log4j2.xml完整配置"></a>log4j2.xml完整配置</h3><p>上面是简单的打印，生产环境需要采用以下xml的配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;configuration status=&quot;OFF&quot; monitorInterval=&quot;30&quot;&gt;</span><br><span class="line">    &lt;properties&gt;</span><br><span class="line">        &lt;Property name=&quot;UNKNOWN&quot; value=&quot;????&quot;/&gt;</span><br><span class="line">        &lt;Property name=&quot;KAFKA_SERVERS&quot; value=&quot;$&#123;spring:ybd.kafka.bootstrap&#125;&quot;/&gt;</span><br><span class="line">        &lt;Property name=&quot;SERVER_NAME&quot; value=&quot;$&#123;spring:spring.application.name&#125;&quot;/&gt;</span><br><span class="line">        &lt;Property name=&quot;LOG_PATTERN&quot; value=&quot;%d&#123;yyyy-MM-dd HH:mm:ss.SSS&#125; | $&#123;SERVER_NAME&#125; | %5p | %X&#123;IP&#125; | %X&#123;UA&#125; | %t -&gt; %c&#123;1&#125;#%M:%L | %msg%n%xwEx&quot;/&gt;</span><br><span class="line">    &lt;/properties&gt;</span><br><span class="line"></span><br><span class="line">    &lt;Appenders&gt;</span><br><span class="line">        &lt;Console name=&quot;console&quot; target=&quot;SYSTEM_OUT&quot;&gt;</span><br><span class="line">            &lt;ThresholdFilter level=&quot;info&quot; onMatch=&quot;ACCEPT&quot; onMismatch=&quot;DENY&quot;/&gt;</span><br><span class="line">            &lt;PatternLayout pattern=&quot;$&#123;LOG_PATTERN&#125;&quot; charset=&quot;UTF-8&quot;/&gt;</span><br><span class="line">        &lt;/Console&gt;</span><br><span class="line"></span><br><span class="line">        &lt;Kafka name=&quot;kafka&quot; topic=&quot;log-collect&quot; ignoreExceptions=&quot;false&quot;&gt;</span><br><span class="line">            &lt;ThresholdFilter level=&quot;INFO&quot; onMatch=&quot;ACCEPT&quot; onMismatch=&quot;DENY&quot;/&gt;</span><br><span class="line">            &lt;PatternLayout pattern=&quot;$&#123;LOG_PATTERN&#125;&quot; charset=&quot;UTF-8&quot;/&gt;</span><br><span class="line">            &lt;Property name=&quot;bootstrap.servers&quot;&gt;$&#123;KAFKA_SERVERS&#125;&lt;/Property&gt;</span><br><span class="line">            &lt;Property name=&quot;request.timeout.ms&quot;&gt;5000&lt;/Property&gt;</span><br><span class="line">            &lt;Property name=&quot;transaction.timeout.ms&quot;&gt;5000&lt;/Property&gt;</span><br><span class="line">            &lt;Property name=&quot;max.block.ms&quot;&gt;3000&lt;/Property&gt;</span><br><span class="line">        &lt;/Kafka&gt;</span><br><span class="line"></span><br><span class="line">        &lt;RollingFile name=&quot;failoverKafkaLog&quot; fileName=&quot;./failoverKafka/$&#123;SERVER_NAME&#125;.log&quot;</span><br><span class="line">                     filePattern=&quot;./failoverKafka/$&#123;SERVER_NAME&#125;.%d&#123;yyyy-MM-dd&#125;.log&quot;&gt;</span><br><span class="line">            &lt;ThresholdFilter level=&quot;INFO&quot; onMatch=&quot;ACCEPT&quot; onMismatch=&quot;DENY&quot;/&gt;</span><br><span class="line">            &lt;PatternLayout&gt;</span><br><span class="line">                &lt;Pattern&gt;$&#123;LOG_PATTERN&#125;&lt;/Pattern&gt;</span><br><span class="line">            &lt;/PatternLayout&gt;</span><br><span class="line">            &lt;Policies&gt;</span><br><span class="line">                &lt;TimeBasedTriggeringPolicy /&gt;</span><br><span class="line">            &lt;/Policies&gt;</span><br><span class="line">        &lt;/RollingFile&gt;</span><br><span class="line"></span><br><span class="line">        &lt;Failover name=&quot;failover&quot; primary=&quot;kafka&quot; retryIntervalSeconds=&quot;300&quot;&gt;</span><br><span class="line">            &lt;Failovers&gt;</span><br><span class="line">                &lt;AppenderRef ref=&quot;failoverKafkaLog&quot;/&gt;</span><br><span class="line">            &lt;/Failovers&gt;</span><br><span class="line">        &lt;/Failover&gt;</span><br><span class="line">    &lt;/Appenders&gt;</span><br><span class="line"></span><br><span class="line">    &lt;Loggers&gt;</span><br><span class="line">        &lt;Root level=&quot;INFO&quot; includeLocation=&quot;true&quot;&gt;</span><br><span class="line">            &lt;AppenderRef ref=&quot;failover&quot;/&gt;</span><br><span class="line">            &lt;AppenderRef ref=&quot;console&quot;/&gt;</span><br><span class="line">        &lt;/Root&gt;</span><br><span class="line">    &lt;/Loggers&gt;</span><br><span class="line"></span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>bootstrap.servers</code>是kafka的地址，接入Docker network之后可以配置成<code>kafka:9092</code></li>
+<li><code>topic</code>要与Logstash中配置的一致</li>
+<li>启用了全局异步需要将<code>includeLocation</code>设为<code>true</code>才能打印路径之类的信息</li>
+<li>Kafka地址通过<code>${spring:ybd.kafka.bootstrap}</code>读取配置文件获取，这个需要自己拓展Log4j，具体请看下面的获取Application配置</li>
+<li><code>LOG_PATTERN</code>中的<code>%X{IP}</code>、<code>%X{UA}</code>，通过<code>MDC.put(key, value)</code>放进去，同时在<code>&lt;Root&gt;</code>中设置<code>includeLocation=&quot;true&quot;</code>才能获取<code>%t</code>、<code>%c</code>等信息</li>
+<li><code>KafkaAppender</code>结合<code>FailoverAppender</code>确保当Kafka Crash时，日志触发Failover，写到文件中，不阻塞程序，进而保证了吞吐。<code>retryIntervalSeconds</code>的默认值是1分钟，是通过异常来切换的，所以可以适量加大间隔。</li>
+<li><code>KafkaAppender</code> <code>ignoreExceptions</code> 必须设置为<code>false</code>，否则无法触发Failover</li>
+<li><code>KafkaAppender</code> <code>max.block.ms</code>默认是1分钟，当Kafka宕机时，尝试写Kafka需要1分钟才能返回Exception，之后才会触发Failover，当请求量大时，log4j2 队列很快就会打满，之后写日志就Blocking，严重影响到主服务响应</li>
+<li>日志的格式采用<code>&quot; | &quot;</code>作为分割符方便后面Logstash进行切分字段</li>
+</ul>
+<h3 id="也可以使用log4j2-yml"><a href="#也可以使用log4j2-yml" class="headerlink" title="也可以使用log4j2.yml"></a>也可以使用log4j2.yml</h3><p>需要引入依赖以识别：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 加上这个才能辨认到log4j2.yml文件 --&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.fasterxml.jackson.dataformat&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;jackson-dataformat-yaml&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<p><code>log4j2.yml</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">Configuration:</span><br><span class="line">  status: &quot;OFF&quot;</span><br><span class="line">  monitorInterval: 10</span><br><span class="line"></span><br><span class="line">  Properties:</span><br><span class="line">    Property:</span><br><span class="line">      - name: log.level.console</span><br><span class="line">        value: debug</span><br><span class="line">      - name: PID</span><br><span class="line">        value: ????</span><br><span class="line">      - name: LOG_PATTERN</span><br><span class="line">        value: &quot;%clr&#123;%d&#123;yyyy-MM-dd HH:mm:ss.SSS&#125;&#125;&#123;faint&#125; | %clr&#123;%5p&#125; | %clr&#123;$&#123;sys:PID&#125;&#125;&#123;magenta&#125; | %clr&#123;%15.15t&#125;&#123;faint&#125; | %clr&#123;%-50.50c&#123;1.&#125;&#125;&#123;cyan&#125; | %5L | %clr&#123;%M&#125;&#123;magenta&#125; | %msg%n%xwEx&quot;</span><br><span class="line"></span><br><span class="line">  Appenders:</span><br><span class="line">    Console:  #输出到控制台</span><br><span class="line">      name: CONSOLE</span><br><span class="line">      target: SYSTEM_OUT</span><br><span class="line">      ThresholdFilter:</span><br><span class="line">        level: $&#123;sys:log.level.console&#125; # “sys:”表示：如果VM参数中没指定这个变量值，则使用本文件中定义的缺省全局变量值</span><br><span class="line">        onMatch: ACCEPT</span><br><span class="line">        onMismatch: DENY</span><br><span class="line">      PatternLayout:</span><br><span class="line">        pattern: $&#123;LOG_PATTERN&#125;</span><br><span class="line">        charset: UTF-8</span><br><span class="line">  Loggers:</span><br><span class="line">    Root:</span><br><span class="line">      level: info</span><br><span class="line">      includeLocation: true</span><br><span class="line">      AppenderRef:</span><br><span class="line">        - ref: CONSOLE</span><br><span class="line">    AsyncRoot:</span><br><span class="line">      level: info</span><br><span class="line">      includeLocation: true</span><br><span class="line">      AppenderRef:</span><br><span class="line">        - ref: CONSOLE</span><br></pre></td></tr></table></figure>
+<p>更多配置请参照：<em><a href="http://logging.apache.org/log4j/2.x/manual/layouts.html" target="_blank" rel="noopener">http://logging.apache.org/log4j/2.x/manual/layouts.html</a></em></p>
+<h2 id="日志配置文件中获取Application配置"><a href="#日志配置文件中获取Application配置" class="headerlink" title="日志配置文件中获取Application配置"></a>日志配置文件中获取Application配置</h2><h3 id="Logback"><a href="#Logback" class="headerlink" title="Logback"></a>Logback</h3><p>方法1: 使用<code>logback-spring.xml</code>，因为<code>logback.xml</code>加载早于<code>application.properties</code>，所以如果你在<code>logback.xml</code>使用了变量时，而恰好这个变量是写在<code>application.properties</code>时，那么就会获取不到，只要改成<code>logback-spring.xml</code>就可以解决。</p>
+<p>方法2: 使用<code>&lt;springProperty&gt;</code>标签，例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;springProperty scope=&quot;context&quot; name=&quot;LOG_HOME&quot; source=&quot;logback.file&quot;/&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="Log4j2"><a href="#Log4j2" class="headerlink" title="Log4j2"></a>Log4j2</h3><p>只能写一个Lookup：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * @author ybd</span><br><span class="line"> * @date 18-5-11</span><br><span class="line"> * @contact yangbingdong1994@gmail.com</span><br><span class="line"> */</span><br><span class="line">@Plugin(name = LOOK_UP_PREFIX, category = StrLookup.CATEGORY)</span><br><span class="line">public class SpringEnvironmentLookup extends AbstractLookup &#123;</span><br><span class="line">	public static final String LOOK_UP_PREFIX = &quot;spring&quot;;</span><br><span class="line">	private static LinkedHashMap profileYmlData;</span><br><span class="line">	private static LinkedHashMap metaYmlData;</span><br><span class="line">	private static boolean profileExist;</span><br><span class="line">	private static Map&lt;String, String&gt; map = new HashMap&lt;&gt;(16);</span><br><span class="line">	private static final String PROFILE_PREFIX = &quot;application&quot;;</span><br><span class="line">	private static final String PROFILE_SUFFIX = &quot;.yml&quot;;</span><br><span class="line">	private static final String META_PROFILE = PROFILE_PREFIX + PROFILE_SUFFIX;</span><br><span class="line">	private static final String SPRING_PROFILES_ACTIVE = &quot;spring.profiles.active&quot;;</span><br><span class="line"></span><br><span class="line">	static &#123;</span><br><span class="line">		try &#123;</span><br><span class="line">			metaYmlData = new Yaml().loadAs(new ClassPathResource(META_PROFILE).getInputStream(), LinkedHashMap.class);</span><br><span class="line">			Properties properties = System.getProperties();</span><br><span class="line">			String active = properties.getProperty(SPRING_PROFILES_ACTIVE);</span><br><span class="line">			if (isBlank(active)) &#123;</span><br><span class="line">				active = getValueFromData(SPRING_PROFILES_ACTIVE, metaYmlData);</span><br><span class="line">			&#125;</span><br><span class="line">			if (isNotBlank(active)) &#123;</span><br><span class="line">				String configName = PROFILE_PREFIX + &quot;-&quot; + active + PROFILE_SUFFIX;</span><br><span class="line">				ClassPathResource classPathResource = new ClassPathResource(configName);</span><br><span class="line">				profileExist = classPathResource.exists();</span><br><span class="line">				if (profileExist) &#123;</span><br><span class="line">					profileYmlData = new Yaml().loadAs(classPathResource.getInputStream(), LinkedHashMap.class);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; catch (Exception e) &#123;</span><br><span class="line">			e.printStackTrace();</span><br><span class="line">			throw new RuntimeException(&quot;SpringEnvironmentLookup initialize fail&quot;);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	public String lookup(LogEvent event, String key) &#123;</span><br><span class="line">		return map.computeIfAbsent(key, SpringEnvironmentLookup::resolveYmlMapByKey);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	private static String resolveYmlMapByKey(String key) &#123;</span><br><span class="line">		Assert.isTrue(isNotBlank(key), &quot;key can not be blank!&quot;);</span><br><span class="line">		String[] keyChain = key.split(&quot;\\.&quot;);</span><br><span class="line">		String value = null;</span><br><span class="line">		if (profileExist) &#123;</span><br><span class="line">			value = getValueFromData(key, profileYmlData);</span><br><span class="line">		&#125;</span><br><span class="line">		if (isBlank(value)) &#123;</span><br><span class="line">			value = getValueFromData(key, metaYmlData);</span><br><span class="line">		&#125;</span><br><span class="line">		return value;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	private static String getValueFromData(String key, LinkedHashMap dataMap) &#123;</span><br><span class="line">		String[] keyChain = key.split(&quot;\\.&quot;);</span><br><span class="line">		int length = keyChain.length;</span><br><span class="line">		if (length == 1) &#123;</span><br><span class="line">			return getFinalValue(key, dataMap);</span><br><span class="line">		&#125;</span><br><span class="line">		String k;</span><br><span class="line">		LinkedHashMap[] mapChain = new LinkedHashMap[length];</span><br><span class="line">		mapChain[0] = dataMap;</span><br><span class="line">		for (int i = 0; i &lt; length; i++) &#123;</span><br><span class="line">			if (i == length - 1) &#123;</span><br><span class="line">				return getFinalValue(keyChain[i], mapChain[i]);</span><br><span class="line">			&#125;</span><br><span class="line">			k = keyChain[i];</span><br><span class="line">			Object o = mapChain[i].get(k);</span><br><span class="line">			if (Objects.isNull(o)) &#123;</span><br><span class="line">				return &quot;&quot;;</span><br><span class="line">			&#125;</span><br><span class="line">			if (o instanceof LinkedHashMap) &#123;</span><br><span class="line">				mapChain[i + 1] = (LinkedHashMap) o;</span><br><span class="line">			&#125; else &#123;</span><br><span class="line">				throw new IllegalArgumentException();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		return &quot;&quot;;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	private static String getFinalValue(String k, LinkedHashMap ymlData) &#123;</span><br><span class="line">		return defaultIfNull((String) ymlData.get(k), &quot;&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后在<code>log4j2.xml</code>中这样使用 <code>${spring:spring.application.name}</code></p>
+<h2 id="自定义字段"><a href="#自定义字段" class="headerlink" title="自定义字段"></a>自定义字段</h2><p>可以利用<code>MDC</code>实现当前线程自定义字段</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MDC.put(&quot;IP&quot;, IpUtil.getIpAddr(request));</span><br></pre></td></tr></table></figure>
+<p><code>log4j2.xml</code>中这样获取<code>%X{IP}</code></p>
+<h1 id="Spring-Boot-Docker-Integration"><a href="#Spring-Boot-Docker-Integration" class="headerlink" title="Spring Boot Docker Integration"></a>Spring Boot Docker Integration</h1><h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><ul>
+<li>Docker</li>
+<li>IDE（使用IDEA）</li>
+<li>Maven环境</li>
+<li>Docker私有仓库，可以使用Harbor(<strong><em><a href="/2018/docker-visual-management-and-orchestrate-tools/#Harbor">Ubuntu中安装Harbor</a></em></strong>)</li>
+</ul>
+<p>集成Docker需要的插件<code>docker-maven-plugin</code>：<em><a href="https://github.com/spotify/docker-maven-plugin" target="_blank" rel="noopener">https://github.com/spotify/docker-maven-plugin</a></em></p>
+<h2 id="安全认证配置"><a href="#安全认证配置" class="headerlink" title="安全认证配置"></a>安全认证配置</h2><blockquote>
+<p>当我们 push 镜像到 Docker 仓库中时，不管是共有还是私有，经常会需要安全认证，登录完成之后才可以进行操作。当然，我们可以通过命令行 <code>docker login -u user_name -p password docker_registry_host</code> 登录，但是对于自动化流程来说，就不是很方便了。使用 docker-maven-plugin 插件我们可以很容易实现安全认证。</p>
+</blockquote>
+<h3 id="普通配置"><a href="#普通配置" class="headerlink" title="普通配置"></a>普通配置</h3><p><code>settings.xml</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;server&gt;</span><br><span class="line">    &lt;id&gt;docker-registry&lt;/id&gt;</span><br><span class="line">    &lt;username&gt;admin&lt;/username&gt;</span><br><span class="line">    &lt;password&gt;12345678&lt;/password&gt;</span><br><span class="line">    &lt;configuration&gt;</span><br><span class="line">        &lt;email&gt;yangbingdong1994@gmail.com&lt;/email&gt;</span><br><span class="line">    &lt;/configuration&gt;</span><br><span class="line">&lt;/server&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="Maven-密码加密配置"><a href="#Maven-密码加密配置" class="headerlink" title="Maven 密码加密配置"></a>Maven 密码加密配置</h3><p><code>settings.xml</code>配置私有库的访问：</p>
+<p>首先使用你的私有仓库访问密码生成主密码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn --encrypt-master-password &lt;password&gt;</span><br></pre></td></tr></table></figure>
+<p>其次在<code>settings.xml</code>文件的同级目录创建<code>settings-security.xml</code>文件，将主密码写入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;settingsSecurity&gt;</span><br><span class="line">  &lt;master&gt;&#123;Ns0JM49fW9gHMTZ44n*****************=&#125;&lt;/master&gt;</span><br><span class="line">&lt;/settingsSecurity&gt;</span><br></pre></td></tr></table></figure>
+<p>最后使用你的私有仓库访问密码生成服务密码，将生成的密码写入到<code>settings.xml</code>的<code>&lt;services&gt;</code>中（可能会提示目录不存在，解决方法是创建一个<code>.m2</code>目录并把<code>settings-security.xml</code>复制进去）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mvn --encrypt-password &lt;password&gt;</span><br><span class="line">&#123;D9YIyWYvtYsHayLjIenj***********=&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;server&gt;</span><br><span class="line">    &lt;id&gt;docker-registry&lt;/id&gt;</span><br><span class="line">    &lt;username&gt;admin&lt;/username&gt;</span><br><span class="line">    &lt;password&gt;&#123;gKLNhblk/SQHBMooM******************=&#125;&lt;/password&gt;</span><br><span class="line">    &lt;configuration&gt;</span><br><span class="line">        &lt;email&gt;yangbingdong1994@gmail.com&lt;/email&gt;</span><br><span class="line">    &lt;/configuration&gt;</span><br><span class="line">&lt;/server&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="构建基础镜像"><a href="#构建基础镜像" class="headerlink" title="构建基础镜像"></a>构建基础镜像</h2><p>Dockerfile：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">FROM frolvlad/alpine-oraclejdk8:slim</span><br><span class="line">MAINTAINER ybd &lt;yangbingdong1994@gmail.com&gt;</span><br><span class="line">ARG TZ </span><br><span class="line">ARG HTTP_PROXY</span><br><span class="line">ENV TZ=$&#123;TZ:-&quot;Asia/Shanghai&quot;&#125; http_proxy=$&#123;HTTP_PROXY&#125; https_proxy=$&#123;HTTP_PROXY&#125;</span><br><span class="line">RUN apk update &amp;&amp; \</span><br><span class="line">    apk add --no-cache &amp;&amp; \</span><br><span class="line">    apk add curl bash tree tzdata &amp;&amp; \</span><br><span class="line">    ln -snf /usr/share/zoneinfo/$TZ /etc/localtime &amp;&amp; \</span><br><span class="line">    echo $TZ &gt; /etc/timezone </span><br><span class="line">ENV http_proxy=</span><br><span class="line">ENV https_proxy=</span><br></pre></td></tr></table></figure>
+<p>构建：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build --build-arg HTTP_PROXY=192.168.6.113:8118 -t yangbingdong/docker-oraclejdk8 .</span><br></pre></td></tr></table></figure>
+<p>其中<code>HTTP_PROXY</code>是http代理，通过<code>--build-arg</code>参数传入，注意<strong>不能</strong>是<code>127.0.0.1</code>或<code>localhost</code>。</p>
+<h2 id="开始集成"><a href="#开始集成" class="headerlink" title="开始集成"></a>开始集成</h2><h3 id="编写Dockerfile"><a href="#编写Dockerfile" class="headerlink" title="编写Dockerfile"></a>编写Dockerfile</h3><p>在<code>src/main</code>下面新建<code>docker</code>文件夹，并创建<code>Dockerfile</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">FROM yangbingdong/docker-oraclejdk8:latest</span><br><span class="line">MAINTAINER yangbingdong &lt;yangbingdong1994@gmail.com&gt;</span><br><span class="line">ENV PROJECT_NAME=&quot;@project.build.finalName@.@project.packaging@&quot; JAVA_OPTS=&quot;&quot;</span><br><span class="line">ADD $PROJECT_NAME app.jar</span><br><span class="line">RUN sh -c &apos;touch /app.jar&apos;</span><br><span class="line">ENTRYPOINT exec java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -DLog4jContextSelector=org.apache.logging.log4j.core.async.AsyncLoggerContextSelector -Dspring.profiles.active=$&#123;ACTIVE:-docker&#125; -jar /app.jar</span><br></pre></td></tr></table></figure>
+<ul>
+<li>通过<code>@@</code>动态获取打包后的项目名（需要插件，下面会介绍）</li>
+<li><code>Dspring.profiles.active=${ACTIVE:-docker}</code>可以通过docker启动命令<code>-e ACTIVE=docker</code>参数修改配置</li>
+</ul>
+<h4 id="注意PID"><a href="#注意PID" class="headerlink" title="注意PID"></a>注意PID</h4><p>如果需要Java程序监听到<code>sigterm</code>信号，那么Java程序的<code>PID</code>必须是1，可以使用<code>ENTRYPOINT exec java -jar ...</code>这种方式实现。 </p>
+<h3 id="pom文件添加构建Docker镜像的相关插件"><a href="#pom文件添加构建Docker镜像的相关插件" class="headerlink" title="pom文件添加构建Docker镜像的相关插件"></a>pom文件添加构建Docker镜像的相关插件</h3><blockquote>
+<p>继承<code>spring-boot-starter-parent</code>，除了<code>docker-maven-plugin</code>，下面的3个插件都不用填写版本号，因为parent中已经定义版本号</p>
+</blockquote>
+<h4 id="spring-boot-maven-plugin"><a href="#spring-boot-maven-plugin" class="headerlink" title="spring-boot-maven-plugin"></a>spring-boot-maven-plugin</h4><p>这个不用多介绍了，打包Spring Boot Jar包的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;plugin&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">    &lt;executions&gt;</span><br><span class="line">        &lt;execution&gt;</span><br><span class="line">            &lt;goals&gt;</span><br><span class="line">                &lt;goal&gt;repackage&lt;/goal&gt;</span><br><span class="line">            &lt;/goals&gt;</span><br><span class="line">        &lt;/execution&gt;</span><br><span class="line">    &lt;/executions&gt;</span><br><span class="line">&lt;/plugin&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="maven-resources-plugin"><a href="#maven-resources-plugin" class="headerlink" title="maven-resources-plugin"></a>maven-resources-plugin</h4><p>resources插件，使用<code>@变量@</code>形式获取Maven变量到Dockerfile中（同时拷贝构建的Jar包到Dockerfile同一目录中，这种方式是方便手动构建镜像）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">&lt;plugin&gt;</span><br><span class="line">    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;maven-resources-plugin&lt;/artifactId&gt;</span><br><span class="line">    &lt;executions&gt;</span><br><span class="line">        &lt;execution&gt;</span><br><span class="line">            &lt;id&gt;prepare-dockerfile&lt;/id&gt;</span><br><span class="line">            &lt;phase&gt;validate&lt;/phase&gt;</span><br><span class="line">            &lt;goals&gt;</span><br><span class="line">                &lt;goal&gt;copy-resources&lt;/goal&gt;</span><br><span class="line">            &lt;/goals&gt;</span><br><span class="line">            &lt;configuration&gt;</span><br><span class="line">            &lt;!-- 编译后Dockerfile的输出位置 --&gt;</span><br><span class="line">                &lt;outputDirectory&gt;$&#123;dockerfile.compiled.position&#125;&lt;/outputDirectory&gt;</span><br><span class="line">                &lt;resources&gt;</span><br><span class="line">                	&lt;!-- Dockerfile位置 --&gt;</span><br><span class="line">                    &lt;resource&gt;</span><br><span class="line">                        &lt;directory&gt;$&#123;project.basedir&#125;/src/main/docker&lt;/directory&gt;</span><br><span class="line">                        &lt;filtering&gt;true&lt;/filtering&gt;</span><br><span class="line">                    &lt;/resource&gt;</span><br><span class="line">                &lt;/resources&gt;</span><br><span class="line">            &lt;/configuration&gt;</span><br><span class="line">        &lt;/execution&gt;</span><br><span class="line">        &lt;!-- 将Jar复制到target的docker目录中，因为真正的Dockerfile也是在里面，方便使用docker build命令构建Docker镜像 --&gt;</span><br><span class="line">        &lt;execution&gt;</span><br><span class="line">            &lt;id&gt;copy-jar&lt;/id&gt;</span><br><span class="line">            &lt;phase&gt;package&lt;/phase&gt;</span><br><span class="line">            &lt;goals&gt;</span><br><span class="line">                &lt;goal&gt;copy-resources&lt;/goal&gt;</span><br><span class="line">            &lt;/goals&gt;</span><br><span class="line">            &lt;configuration&gt;</span><br><span class="line">                &lt;outputDirectory&gt;$&#123;dockerfile.compiled.position&#125;&lt;/outputDirectory&gt;</span><br><span class="line">                &lt;resources&gt;</span><br><span class="line">                    &lt;resource&gt;</span><br><span class="line">                        &lt;directory&gt;$&#123;project.build.directory&#125;&lt;/directory&gt;</span><br><span class="line">                        &lt;includes&gt;</span><br><span class="line">                            &lt;include&gt;*.jar&lt;/include&gt;</span><br><span class="line">                        &lt;/includes&gt;</span><br><span class="line">                    &lt;/resource&gt;</span><br><span class="line">                &lt;/resources&gt;</span><br><span class="line">            &lt;/configuration&gt;</span><br><span class="line">        &lt;/execution&gt;</span><br><span class="line">    &lt;/executions&gt;</span><br><span class="line">&lt;/plugin&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="build-helper-maven-plugin"><a href="#build-helper-maven-plugin" class="headerlink" title="build-helper-maven-plugin"></a>build-helper-maven-plugin</h4><p>这个是为了给镜像添加基于时间戳的版本号，maven也有自带的获取时间戳的变量<code>maven.build.timestamp.format</code> + <code>maven.build.timestamp</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;maven.build.timestamp.format&gt;yyyy-MM-dd_HH-mm-ss&lt;maven.build.timestamp.format&gt;</span><br><span class="line"></span><br><span class="line"># 获取时间戳</span><br><span class="line">$&#123;maven.build.timestamp&#125;</span><br></pre></td></tr></table></figure>
+<p>但是这个时区是<code>UTC</code>，接近于格林尼治标准时间，所以出来的时间会比但前的时间慢8个小时。</p>
+<p>如果要使用<code>GMT+8</code>，就需要<code>build-helper-maven-plugin</code>插件，当然也有其他的实现方式，这里不做展开。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;build&gt;</span><br><span class="line">    &lt;plugins&gt;</span><br><span class="line">        &lt;plugin&gt;</span><br><span class="line">            &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;build-helper-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">            &lt;executions&gt;</span><br><span class="line">                &lt;execution&gt;</span><br><span class="line">                    &lt;id&gt;timestamp-property&lt;/id&gt;</span><br><span class="line">                    &lt;goals&gt;</span><br><span class="line">                        &lt;goal&gt;timestamp-property&lt;/goal&gt;</span><br><span class="line">                    &lt;/goals&gt;</span><br><span class="line">                    &lt;configuration&gt;</span><br><span class="line">                    	&lt;!-- 其他地方可通过$&#123;timestamp&#125;获取时间戳 --&gt;</span><br><span class="line">                        &lt;name&gt;timestamp&lt;/name&gt;</span><br><span class="line">                        &lt;pattern&gt;yyyyMMddHHmm&lt;/pattern&gt;</span><br><span class="line">                        &lt;timeZone&gt;GMT+8&lt;/timeZone&gt;</span><br><span class="line">                    &lt;/configuration&gt;</span><br><span class="line">                &lt;/execution&gt;</span><br><span class="line">            &lt;/executions&gt;</span><br><span class="line">        &lt;/plugin&gt;</span><br><span class="line">    &lt;/plugins&gt;</span><br><span class="line">&lt;/build&gt;</span><br></pre></td></tr></table></figure>
+<p>然后可以在pom中使用<code>${timestamp}</code>获取时间戳。</p>
+<p>当然，也可以使用<strong>另外一种方式实现</strong>，打包前<code>export</code>一个格式化日期的环境变量，<code>pom.xml</code>中获取这个变量：</p>
+<ul>
+<li><code>export DOCKER_IMAGE_TAGE_DATE=yyyy-MM-dd_HH-mm</code></li>
+<li><code>mvn help:system</code>可查看所有环境变量</li>
+<li>所有的环境变量都可以用以<code>env.</code>开头的Maven属性引用: <code>${env.DOCKER_IMAGE_TAGE_DATE}</code></li>
+</ul>
+<h4 id="docker-maven-plugin"><a href="#docker-maven-plugin" class="headerlink" title="docker-maven-plugin"></a>docker-maven-plugin</h4><p>这也是集成并构建Docker镜像的关键</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">&lt;plugin&gt;</span><br><span class="line">    &lt;groupId&gt;com.spotify&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;docker-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;$&#123;docker-maven-plugin.version&#125;&lt;/version&gt;</span><br><span class="line">    &lt;!--  --&gt;</span><br><span class="line">    &lt;!-- 绑定打包阶段执行Docker镜像操作 --&gt;</span><br><span class="line">    &lt;executions&gt;</span><br><span class="line">        &lt;execution&gt;</span><br><span class="line">            &lt;!-- 打包阶段构建镜像 --&gt;</span><br><span class="line">            &lt;phase&gt;package&lt;/phase&gt;</span><br><span class="line">            &lt;goals&gt;</span><br><span class="line">                &lt;goal&gt;build&lt;/goal&gt;</span><br><span class="line">            &lt;/goals&gt;</span><br><span class="line">        &lt;/execution&gt;</span><br><span class="line">        &lt;execution&gt;</span><br><span class="line">            &lt;!-- 部署阶段Push镜像 --&gt;</span><br><span class="line">            &lt;id&gt;push-image&lt;/id&gt;</span><br><span class="line">            &lt;phase&gt;deploy&lt;/phase&gt;</span><br><span class="line">            &lt;goals&gt;</span><br><span class="line">                &lt;goal&gt;push&lt;/goal&gt;</span><br><span class="line">            &lt;/goals&gt;</span><br><span class="line">            &lt;!-- Push指定镜像 --&gt;</span><br><span class="line">            &lt;configuration&gt;</span><br><span class="line">                &lt;!--&lt;imageName&gt;$&#123;docker.registry.url&#125;/$&#123;docker.registry.name&#125;/$&#123;project.artifactId&#125;:$&#123;docker-latest-tag&#125;&lt;/imageName&gt;--&gt;</span><br><span class="line">                &lt;!--suppress UnresolvedMavenProperty --&gt;</span><br><span class="line">                &lt;imageName&gt;$&#123;docker.registry.url&#125;/$&#123;docker.registry.name&#125;/$&#123;project.artifactId&#125;:$&#123;timestamp&#125;&lt;/imageName&gt;</span><br><span class="line">            &lt;/configuration&gt;</span><br><span class="line">        &lt;/execution&gt;</span><br><span class="line">    &lt;/executions&gt;</span><br><span class="line">    &lt;configuration&gt;</span><br><span class="line">        &lt;!-- 是否跳过所有构建Docker镜像阶段 --&gt;</span><br><span class="line">        &lt;skipDocker&gt;$&#123;docker.skip.build&#125;&lt;/skipDocker&gt;</span><br><span class="line">        &lt;!-- 是否跳过Push阶段 --&gt;</span><br><span class="line">        &lt;skipDockerPush&gt;$&#123;docker.skip.push&#125;&lt;/skipDockerPush&gt;</span><br><span class="line">        &lt;forceTags&gt;true&lt;/forceTags&gt;</span><br><span class="line">        &lt;!-- 最大重试次数 --&gt;</span><br><span class="line">        &lt;retryPushCount&gt;2&lt;/retryPushCount&gt;</span><br><span class="line">        &lt;imageTags&gt;</span><br><span class="line">            &lt;!-- 使用时间戳版本号 --&gt;</span><br><span class="line">            &lt;!--suppress UnresolvedMavenProperty --&gt;</span><br><span class="line">            &lt;imageTag&gt;$&#123;timestamp&#125;&lt;/imageTag&gt;</span><br><span class="line">        &lt;/imageTags&gt;</span><br><span class="line">        &lt;!-- 配置镜像名称，遵循Docker的命名规范： springio/image --&gt;&lt;imageName&gt;$&#123;docker.registry.url&#125;/$&#123;docker.registry.name&#125;/$&#123;project.artifactId&#125;&lt;/imageName&gt;</span><br><span class="line">        &lt;!-- Dockerfile位置，由于配置了编译时动态获取Maven变量，真正的Dockerfile位于位于编译后位置 --&gt;</span><br><span class="line">        &lt;dockerDirectory&gt;$&#123;dockerfile.compiled.position&#125;&lt;/dockerDirectory&gt;</span><br><span class="line">        &lt;resources&gt;</span><br><span class="line">            &lt;resource&gt;</span><br><span class="line">                &lt;targetPath&gt;/&lt;/targetPath&gt;</span><br><span class="line">                &lt;directory&gt;$&#123;project.build.directory&#125;&lt;/directory&gt;</span><br><span class="line">                &lt;include&gt;$&#123;project.build.finalName&#125;.jar&lt;/include&gt;</span><br><span class="line">            &lt;/resource&gt;</span><br><span class="line">        &lt;/resources&gt;</span><br><span class="line">        &lt;!-- 被推送服务器的配置ID，与setting中的一直 --&gt;</span><br><span class="line">        &lt;serverId&gt;docker-registry&lt;/serverId&gt;</span><br><span class="line">        &lt;!--&lt;registryUrl&gt;$&#123;docker.registry.url&#125;&lt;/registryUrl&gt;--&gt;</span><br><span class="line">    &lt;/configuration&gt;</span><br><span class="line">&lt;/plugin&gt;</span><br></pre></td></tr></table></figure>
+<p>主要<code>properties</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;properties&gt;</span><br><span class="line">    &lt;!-- ########## Docker 相关变量 ########## --&gt;</span><br><span class="line">    &lt;docker-maven-plugin.version&gt;1.0.0&lt;/docker-maven-plugin.version&gt;</span><br><span class="line">    &lt;!-- resource插件编译Dockerfile后的位置--&gt;</span><br><span class="line">    &lt;dockerfile.compiled.position&gt;$&#123;project.build.directory&#125;/docker&lt;/dockerfile.compiled.position&gt;</span><br><span class="line">    &lt;docker.skip.build&gt;false&lt;/docker.skip.build&gt;</span><br><span class="line">    &lt;docker.skip.push&gt;false&lt;/docker.push.image&gt;</span><br><span class="line">    &lt;docker.registry.url&gt;192.168.0.202:8080&lt;/docker.registry.url&gt;</span><br><span class="line">    &lt;docker.registry.name&gt;dev-images&lt;/docker.registry.name&gt;</span><br><span class="line">    &lt;docker-latest-tag&gt;latest&lt;/docker-latest-tag&gt;</span><br><span class="line">&lt;/properties&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>说明</strong>：</p>
+<ul>
+<li>这里的<code>serverId</code>要与maven <code>setting.xml</code>里面的一样</li>
+</ul>
+<ul>
+<li>Dockerfile构建文件在<code>src/main/docker</code>中</li>
+<li>如果Dockerfile文件需要maven构建参数（比如需要构建后的打包文件名等），则使用<code>@@</code>占位符（如<a href="mailto:`@project.build.finalName" target="_blank" rel="noopener">`@project.build.finalName</a>@<code>）原因是Sping Boot 的pom将resource插件的占位符由</code>${}<code>改为</code>@@<code>，非继承Spring Boot 的pom文件，则使用</code>${}`占位符</li>
+<li>如果不需要动态生成Dockerfile文件，则可以将Dockerfile资源拷贝部分放入<code>docker-maven-plugin</code>插件的<code>&lt;resources&gt;</code>配置里</li>
+<li><strong><code>spring-boot-maven-plugin</code>插件一定要在其他构建插件之上，否则打包文件会有问题。</strong></li>
+</ul>
+<p><code>docker-maven-plugin</code> 插件还提供了很多很实用的配置，稍微列举几个参数吧。</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;forceTags&gt;true&lt;/forceTags&gt;</code></td>
+<td>build 时强制覆盖 tag，配合 imageTags 使用</td>
+<td>false</td>
+</tr>
+<tr>
+<td><code>&lt;noCache&gt;true&lt;/noCache&gt;</code></td>
+<td>build 时，指定 –no-cache 不使用缓存</td>
+<td>false</td>
+</tr>
+<tr>
+<td><code>&lt;pullOnBuild&gt;true&lt;/pullOnBuild&gt;</code></td>
+<td>build 时，指定 –pull=true 每次都重新拉取基础镜像</td>
+<td>false</td>
+</tr>
+<tr>
+<td><code>&lt;pushImage&gt;true&lt;/pushImage&gt;</code></td>
+<td>build 完成后 push 镜像</td>
+<td>false</td>
+</tr>
+<tr>
+<td><code>&lt;pushImageTag&gt;true&lt;/pushImageTag&gt;</code></td>
+<td>build 完成后，push 指定 tag 的镜像，配合 imageTags 使用</td>
+<td>false</td>
+</tr>
+<tr>
+<td><code>&lt;retryPushCount&gt;5&lt;/retryPushCount&gt;</code></td>
+<td>push 镜像失败，重试次数</td>
+<td>5</td>
+</tr>
+<tr>
+<td><code>&lt;retryPushTimeout&gt;10&lt;/retryPushTimeout&gt;</code></td>
+<td>push 镜像失败，重试时间</td>
+<td>10s</td>
+</tr>
+<tr>
+<td><code>&lt;rm&gt;true&lt;/rm&gt;</code></td>
+<td>build 时，指定 –rm=true 即 build 完成后删除中间容器</td>
+<td>false</td>
+</tr>
+<tr>
+<td><code>&lt;useGitCommitId&gt;true&lt;/useGitCommitId&gt;</code></td>
+<td>build 时，使用最近的 git commit id 前7位作为tag，例如：image:b50b604，前提是不配置 newName</td>
+<td>false</td>
+</tr>
+</tbody>
+</table>
+<p>更多参数可查看插件中的定义。</p>
+<h3 id="命令构建"><a href="#命令构建" class="headerlink" title="命令构建"></a>命令构建</h3><p>如果<code>&lt;skipDockerPush&gt;false&lt;/skipDockerPush&gt;</code>则install阶段将不提交Docker镜像，只有maven的<code>deploy</code>阶段才提交。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn clean install</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">[INFO] --- spring-boot-maven-plugin:1.5.9.RELEASE:repackage (default) @ eureka-center-server ---</span><br><span class="line">[INFO] </span><br><span class="line">[INFO] --- docker-maven-plugin:1.0.0:build (default) @ eureka-center-server ---</span><br><span class="line">[INFO] Using authentication suppliers: [ConfigFileRegistryAuthSupplier, NoOpRegistryAuthSupplier]</span><br><span class="line">[WARNING] Ignoring run because dockerDirectory is set</span><br><span class="line">[INFO] Copying /home/ybd/data/git-repo/bitbucket/ms-iba/eureka-center-server/target/eureka-center-server-0.0.1-SNAPSHOT.jar -&gt; /home/ybd/data/git-repo/bitbucket/ms-iba/eureka-center-server/target/docker/eureka-center-server-0.0.1-SNAPSHOT.jar</span><br><span class="line">[INFO] Copying /home/ybd/data/git-repo/bitbucket/ms-iba/eureka-center-server/target/docker/eureka-center-server-0.0.1-SNAPSHOT.jar -&gt; /home/ybd/data/git-repo/bitbucket/ms-iba/eureka-center-server/target/docker/eureka-center-server-0.0.1-SNAPSHOT.jar</span><br><span class="line">[INFO] Copying /home/ybd/data/git-repo/bitbucket/ms-iba/eureka-center-server/target/docker/Dockerfile -&gt; /home/ybd/data/git-repo/bitbucket/ms-iba/eureka-center-server/target/docker/Dockerfile</span><br><span class="line">[INFO] Building image 192.168.6.113:8888/discover-server/eureka-center-server</span><br><span class="line">Step 1/7 : FROM frolvlad/alpine-oraclejdk8:slim</span><br><span class="line"></span><br><span class="line"> ---&gt; 491f45037124</span><br><span class="line">Step 2/7 : MAINTAINER ybd &lt;yangbingdong1994@gmail.com&gt;</span><br><span class="line"></span><br><span class="line"> ---&gt; Using cache</span><br><span class="line"> ---&gt; 016c2033bd32</span><br><span class="line">Step 3/7 : VOLUME /tmp</span><br><span class="line"></span><br><span class="line"> ---&gt; Using cache</span><br><span class="line"> ---&gt; d2a287b6ed52</span><br><span class="line">Step 4/7 : ENV PROJECT_NAME=&quot;eureka-center-server-0.0.1-SNAPSHOT.jar&quot; JAVA_OPTS=&quot;&quot;</span><br><span class="line"></span><br><span class="line"> ---&gt; Using cache</span><br><span class="line"> ---&gt; 34565a7de714</span><br><span class="line">Step 5/7 : ADD $PROJECT_NAME app.jar</span><br><span class="line"></span><br><span class="line"> ---&gt; 64d9055ce969</span><br><span class="line">Step 6/7 : RUN sh -c &apos;touch /app.jar&apos;</span><br><span class="line"></span><br><span class="line"> ---&gt; Running in 66f4eb550a57</span><br><span class="line">Removing intermediate container 66f4eb550a57</span><br><span class="line"> ---&gt; 93486965cad9</span><br><span class="line">Step 7/7 : CMD [&quot;sh&quot;, &quot;-c&quot;, &quot;java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -Dspring.profiles.active=$&#123;ACTIVE:-docker&#125;  -jar /app.jar&quot;]</span><br><span class="line"></span><br><span class="line"> ---&gt; Running in 8b42c471791f</span><br><span class="line">Removing intermediate container 8b42c471791f</span><br><span class="line"> ---&gt; 2eb3dbbab6c5</span><br><span class="line">ProgressMessage&#123;id=null, status=null, stream=null, error=null, progress=null, progressDetail=null&#125;</span><br><span class="line">Successfully built 2eb3dbbab6c5</span><br><span class="line">Successfully tagged 192.168.6.113:8888/discover-server/eureka-center-server:latest</span><br><span class="line">[INFO] Built 192.168.6.113:8888/discover-server/eureka-center-server</span><br><span class="line">[INFO] Tagging 192.168.6.113:8888/discover-server/eureka-center-server with 0.0.1-SNAPSHOT</span><br><span class="line">[INFO] Tagging 192.168.6.113:8888/discover-server/eureka-center-server with latest</span><br><span class="line">[INFO] Pushing 192.168.6.113:8888/discover-server/eureka-center-server</span><br><span class="line">The push refers to repository [192.168.6.113:8888/discover-server/eureka-center-server]</span><br><span class="line">40566d372b69: Pushed </span><br><span class="line">40566d372b69: Layer already exists </span><br><span class="line">4fd38f0d6712: Layer already exists </span><br><span class="line">d7cd646c41bd: Layer already exists </span><br><span class="line">ced237d13962: Layer already exists </span><br><span class="line">2aebd096e0e2: Layer already exists </span><br><span class="line">null: null </span><br><span class="line">null: null </span><br><span class="line">[INFO] </span><br><span class="line">[INFO] --- maven-install-plugin:2.4:install (default-install) @ eureka-center-server ---</span><br><span class="line">[INFO] Installing /home/ybd/data/git-repo/bitbucket/ms-iba/eureka-center-server/target/eureka-center-server-0.0.1-SNAPSHOT.jar to /home/ybd/data/application/maven/maven-repo/com/iba/server/eureka-center-server/0.0.1-SNAPSHOT/eureka-center-server-0.0.1-SNAPSHOT.jar</span><br><span class="line">[INFO] Installing /home/ybd/data/git-repo/bitbucket/ms-iba/eureka-center-server/pom.xml to /home/ybd/data/application/maven/maven-repo/com/iba/server/eureka-center-server/0.0.1-SNAPSHOT/eureka-center-server-0.0.1-SNAPSHOT.pom</span><br><span class="line">[INFO] ------------------------------------------------------------------------</span><br><span class="line">[INFO] BUILD SUCCESS</span><br><span class="line">[INFO] ------------------------------------------------------------------------</span><br><span class="line">[INFO] Total time: 15.962 s</span><br><span class="line">[INFO] Finished at: 2017-12-25T13:33:39+08:00</span><br><span class="line">[INFO] Final Memory: 55M/591M</span><br><span class="line">[INFO] ------------------------------------------------------------------------</span><br></pre></td></tr></table></figure>
+<p>可以看到本地以及私有仓库都多了一个镜像：</p>
+<p><img src="https://cdn.yangbingdong.com/img/spring-cloud-docker-integration/portainer.png" alt=""></p>
+<p><img src="https://cdn.yangbingdong.com/img/spring-cloud-docker-integration/harbor.png" alt=""></p>
+<p><strong>此处有个疑问</strong>，很明显看得出来这里上传了两个一样大小的包，不知道是不是同一个jar包，但id又不一样：</p>
+<p><img src="https://cdn.yangbingdong.com/img/spring-cloud-docker-integration/duplicate01.png" alt=""></p>
+<p><img src="https://cdn.yangbingdong.com/img/spring-cloud-docker-integration/duplicate02.png" alt=""></p>
+<h3 id="运行Docker"><a href="#运行Docker" class="headerlink" title="运行Docker"></a>运行Docker</h3><p>运行程序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --name some-server -e ACTIVE=docker -p 8080:8080 -d [IMAGE]</span><br></pre></td></tr></table></figure>
+<h3 id="添加运行时JVM参数"><a href="#添加运行时JVM参数" class="headerlink" title="添加运行时JVM参数"></a>添加运行时JVM参数</h3><p>只需要在Docker启动命令中加上<code>-e &quot;JAVA_OPTS=-Xmx128m&quot;</code>即可</p>
+<h2 id="Docker-Swarm环境下获取ClientIp"><a href="#Docker-Swarm环境下获取ClientIp" class="headerlink" title="Docker Swarm环境下获取ClientIp"></a>Docker Swarm环境下获取ClientIp</h2><p>在Docker Swarm环境中，服务中获取到的ClientIp永远是<code>10.255.0.X</code>这样的Ip，搜索了一大圈，最终的解决方安是通过Nginx转发中添加参数，后端再获取。</p>
+<p>在<code>location</code>中添加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">proxy_set_header    X-Forwarded-For  $proxy_add_x_forwarded_for;</span><br></pre></td></tr></table></figure>
+<p>后端获取第一个Ip。</p>
+<h2 id="Demo地址"><a href="#Demo地址" class="headerlink" title="Demo地址"></a>Demo地址</h2><p><strong><em><a href="https://github.com/masteranthoneyd/spring-boot-learning/tree/master/spring-boot-docker" target="_blank" rel="noopener">https://github.com/masteranthoneyd/spring-boot-learning/tree/master/spring-boot-docker</a></em></strong></p>
+<h1 id="Kafka、ELK-collect-logs"><a href="#Kafka、ELK-collect-logs" class="headerlink" title="Kafka、ELK collect logs"></a>Kafka、ELK collect logs</h1><p><img src="https://cdn.yangbingdong.com/img/docker-logs-collect/elk-arch1.png" alt=""></p>
+<p>传统的应用可以将日志存到日志中，但集成Docker之后，日志怎么处理？放到容器的某个目录然后挂在出来？这样也可以，但这样就相当于给容器与外界绑定了一个状态，弹性伸缩怎么办？个人还是觉得通过队列与ELK管理Docker日志比较合理，而且Log4j2<strong>原生支持Kafka的Appender</strong>。</p>
+<h2 id="镜像准备"><a href="#镜像准备" class="headerlink" title="镜像准备"></a>镜像准备</h2><p>Docker Hub中的ELK镜像并不是最新版本的，我们需要到官方的网站获取最新的镜像：<strong><em><a href="https://www.docker.elastic.co" target="_blank" rel="noopener">https://www.docker.elastic.co</a></em></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker pull zookeeper</span><br><span class="line">docker pull wurstmeister/kafka:1.1.0</span><br><span class="line">docker pull docker.elastic.co/elasticsearch/elasticsearch:6.3.0</span><br><span class="line">docker pull docker.elastic.co/kibana/kibana:6.3.0</span><br><span class="line">docker pull docker.elastic.co/logstash/logstash:6.3.0</span><br></pre></td></tr></table></figure>
+<p>注意ELK版本最好保持一致</p>
+<h2 id="启动Kafka与Zookeeper"><a href="#启动Kafka与Zookeeper" class="headerlink" title="启动Kafka与Zookeeper"></a>启动Kafka与Zookeeper</h2><p>这里直接使用docker-compose（需要先创建外部网络）:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">version: &apos;3.4&apos;</span><br><span class="line">services:</span><br><span class="line">  zoo:</span><br><span class="line">    image: zookeeper:latest</span><br><span class="line">    ports:</span><br><span class="line">    - &quot;2181:2181&quot;</span><br><span class="line">    restart: always</span><br><span class="line">    networks:</span><br><span class="line">      backend:</span><br><span class="line">        aliases:</span><br><span class="line">        - zoo</span><br><span class="line"></span><br><span class="line">  kafka:</span><br><span class="line">    image: wurstmeister/kafka:1.1.0</span><br><span class="line">    ports:</span><br><span class="line">    - &quot;9092:9092&quot;</span><br><span class="line">    environment:</span><br><span class="line">    - KAFKA_PORT=9092</span><br><span class="line">    - KAFKA_ADVERTISED_HOST_NAME=192.168.6.113</span><br><span class="line">    - KAFKA_ZOOKEEPER_CONNECT=zoo:2181</span><br><span class="line">    - KAFKA_ADVERTISED_PORT=9092</span><br><span class="line">    volumes:</span><br><span class="line">    - /var/run/docker.sock:/var/run/docker.sock</span><br><span class="line">    depends_on:</span><br><span class="line">    - zoo</span><br><span class="line">    restart: always</span><br><span class="line">    networks:</span><br><span class="line">      backend:</span><br><span class="line">        aliases:</span><br><span class="line">        - kafka</span><br><span class="line"></span><br><span class="line">networks:</span><br><span class="line">  backend:</span><br><span class="line">    external:</span><br><span class="line">      name: backend</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>KAFKA_ADVERTISED_HOST_NAME</code>是内网IP，本地调试用，Docker环境下换成<code>kafka</code>（与别名<code>aliases的值保持一致</code>），其他Docker应用可通过<code>kafka:9092</code>这个域名访问到Kafka。</li>
+</ul>
+<h2 id="ELK配置以及启动"><a href="#ELK配置以及启动" class="headerlink" title="ELK配置以及启动"></a>ELK配置以及启动</h2><h3 id="X-Pack-破解"><a href="#X-Pack-破解" class="headerlink" title="X-Pack 破解"></a>X-Pack 破解</h3><h4 id="复制Jar包"><a href="#复制Jar包" class="headerlink" title="复制Jar包"></a>复制Jar包</h4><p>先启动一个Elasticsearch的容器，将Jar包copy出来：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export CONTAINER_NAME=elk_elk-elasticsearch_1</span><br><span class="line">docker cp $&#123;CONTAINER_NAME&#125;:/usr/share/elasticsearch/modules/x-pack-core/x-pack-core-6.4.0.jar ./</span><br><span class="line">docker cp $&#123;CONTAINER_NAME&#125;:/usr/share/elasticsearch/lib ./lib</span><br></pre></td></tr></table></figure>
+<h4 id="反编译并修改源码"><a href="#反编译并修改源码" class="headerlink" title="反编译并修改源码"></a>反编译并修改源码</h4><p>找到下面两个类：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">org.elasticsearch.license.LicenseVerifier.class org.elasticsearch.xpack.core.XPackBuild.class</span><br></pre></td></tr></table></figure></p>
+<p>使用 <strong><em><a href="https://github.com/deathmarine/Luyten" target="_blank" rel="noopener">Luyten</a></em></strong> 进行反编译</p>
+<p><img src="https://cdn.yangbingdong.com/img/docker-logs-collect/luyten.png" alt=""></p>
+<p>将两个类复制IDEA（<strong>需要引入上面copy出来的lib以及<code>x-pack-core-6.4.0.jar</code>本身</strong>），修改为如下样子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">package org.elasticsearch.license;</span><br><span class="line"></span><br><span class="line">public class LicenseVerifier</span><br><span class="line">&#123;</span><br><span class="line">	public static boolean verifyLicense(final License license, final byte[] publicKeyData) &#123;</span><br><span class="line">		return true;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public static boolean verifyLicense(final License license) &#123;</span><br><span class="line">		return true;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">package org.elasticsearch.xpack.core;</span><br><span class="line"></span><br><span class="line">import org.elasticsearch.common.SuppressForbidden;</span><br><span class="line">import org.elasticsearch.common.io.PathUtils;</span><br><span class="line"></span><br><span class="line">import java.net.URISyntaxException;</span><br><span class="line">import java.net.URL;</span><br><span class="line">import java.nio.file.Path;</span><br><span class="line"></span><br><span class="line">public class XPackBuild</span><br><span class="line">&#123;</span><br><span class="line">	public static final XPackBuild CURRENT;</span><br><span class="line">	private String shortHash;</span><br><span class="line">	private String date;</span><br><span class="line"></span><br><span class="line">	@SuppressForbidden(reason = &quot;looks up path of xpack.jar directly&quot;)</span><br><span class="line">	static Path getElasticsearchCodebase() &#123;</span><br><span class="line">		final URL url = XPackBuild.class.getProtectionDomain().getCodeSource().getLocation();</span><br><span class="line">		try &#123;</span><br><span class="line">			return PathUtils.get(url.toURI());</span><br><span class="line">		&#125;</span><br><span class="line">		catch (URISyntaxException bogus) &#123;</span><br><span class="line">			throw new RuntimeException(bogus);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	XPackBuild(final String shortHash, final String date) &#123;</span><br><span class="line">		this.shortHash = shortHash;</span><br><span class="line">		this.date = date;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public String shortHash() &#123;</span><br><span class="line">		return this.shortHash;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public String date() &#123;</span><br><span class="line">		return this.date;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	static &#123;</span><br><span class="line">		final Path path = getElasticsearchCodebase();</span><br><span class="line">		String shortHash = null;</span><br><span class="line">		String date = null;</span><br><span class="line">		Label_0157: &#123;  // 将try-catch去掉</span><br><span class="line">			shortHash = &quot;Unknown&quot;;</span><br><span class="line">			date = &quot;Unknown&quot;;</span><br><span class="line">		&#125;</span><br><span class="line">		CURRENT = new XPackBuild(shortHash, date);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>再编译放回jar包中:</p>
+<p><img src="https://cdn.yangbingdong.com/img/docker-logs-collect/jar-archive.png" alt=""></p>
+<h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><h4 id="Elasticsearch"><a href="#Elasticsearch" class="headerlink" title="Elasticsearch"></a>Elasticsearch</h4><p><code>elasticsearch.yml</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cluster.name: &quot;docker-cluster&quot;</span><br><span class="line">network.host: 0.0.0.0</span><br><span class="line">discovery.zen.minimum_master_nodes: 1</span><br><span class="line">xpack.security.enabled: false # 不启用密码登陆</span><br><span class="line">xpack.monitoring.collection.enabled: true</span><br></pre></td></tr></table></figure>
+<h4 id="Logstash"><a href="#Logstash" class="headerlink" title="Logstash"></a>Logstash</h4><p><code>logstash.conf</code>配置文件(<strong>注意下面的topics要与上面log4j2.xml中的一样</strong>):</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line">input &#123;</span><br><span class="line">    kafka &#123;</span><br><span class="line">        bootstrap_servers =&gt; [&quot;kafka:9092&quot;]</span><br><span class="line">        auto_offset_reset =&gt; &quot;latest&quot;</span><br><span class="line">        consumer_threads =&gt; 3 # 3个消费线程，默认是1个</span><br><span class="line">        topics =&gt; [&quot;log-collect&quot;]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">filter &#123;</span><br><span class="line">  mutate&#123;  # 切分日志信息并添加相应字段</span><br><span class="line">    split =&gt; [ &quot;message&quot;,&quot; | &quot; ]</span><br><span class="line"></span><br><span class="line">    add_field =&gt; &#123;</span><br><span class="line">      &quot;timestamp&quot; =&gt; &quot;%&#123;[message][0]&#125;&quot;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    add_field =&gt; &#123;</span><br><span class="line">      &quot;level&quot; =&gt; &quot;%&#123;[message][2]&#125;&quot;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    add_field =&gt; &#123;</span><br><span class="line">      &quot;server_name&quot; =&gt; &quot;%&#123;[message][1]&#125;&quot;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    add_field =&gt; &#123;</span><br><span class="line">      &quot;ip&quot; =&gt; &quot;%&#123;[message][3]&#125;&quot;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    add_field =&gt; &#123;</span><br><span class="line">      &quot;device&quot; =&gt; &quot;%&#123;[message][4]&#125;&quot;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    add_field =&gt; &#123;</span><br><span class="line">      &quot;thread_class_method&quot; =&gt; &quot;%&#123;[message][5]&#125;&quot;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    add_field =&gt; &#123;</span><br><span class="line">      &quot;content&quot; =&gt; &quot;%&#123;[message][6]&#125;&quot;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    remove_field =&gt; [ &quot;message&quot; ]</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  date &#123;  # 将上面得到的日期信息，也就是日志打印的时间作为时间戳</span><br><span class="line">    match =&gt; [ &quot;timestamp&quot;, &quot;yyyy-MM-dd HH:mm:ss.SSS&quot; ]</span><br><span class="line">    locale =&gt; &quot;en&quot;</span><br><span class="line">    target =&gt; [ &quot;@timestamp&quot; ]</span><br><span class="line">    timezone =&gt; &quot;Asia/Shanghai&quot; # 这里如果不设置时区，在Kibana中展示的时候会多了8个小时</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  geoip &#123; # 分析ip</span><br><span class="line">    source =&gt; &quot;ip&quot;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  useragent &#123; # 分析User-Agent</span><br><span class="line">    source =&gt; &quot;device&quot;</span><br><span class="line">    target =&gt; &quot;userDevice&quot;</span><br><span class="line">    remove_field =&gt; [ &quot;device&quot; ]</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">output &#123;</span><br><span class="line">    stdout&#123; codec =&gt; rubydebug &#125; # 输出到控制台</span><br><span class="line">    elasticsearch &#123; # 输出到 Elasticsearch</span><br><span class="line">        action =&gt; &quot;index&quot;</span><br><span class="line">        hosts  =&gt; [&quot;elk-elasticsearch:9200&quot;]</span><br><span class="line">        index  =&gt; &quot;logstash-%&#123;server_name&#125;-%&#123;+yyyy.MM.dd&#125;&quot;</span><br><span class="line">        document_type =&gt; &quot;%&#123;server_name&#125;&quot;</span><br><span class="line">        # user =&gt; &quot;elastic&quot; # 如果选择开启xpack security需要输入帐号密码</span><br><span class="line">        # password =&gt; &quot;changeme&quot;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>logstash.yml</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">http.host: &quot;0.0.0.0&quot;</span><br><span class="line">xpack.monitoring.elasticsearch.url: http://elk-elasticsearch:9200 # Docker版的Logstash此配置的默认地址是http://elasticsearch:9200</span><br><span class="line"></span><br><span class="line"># xpack.monitoring.elasticsearch.username: &quot;elastic&quot; # 如果选择开启xpack security需要输入帐号密码</span><br><span class="line"># xpack.monitoring.elasticsearch.password: &quot;changeme&quot;</span><br></pre></td></tr></table></figure>
+<h4 id="Kibana"><a href="#Kibana" class="headerlink" title="Kibana"></a>Kibana</h4><p><code>kibana.yml</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">server.name: kibana</span><br><span class="line">server.host: &quot;0&quot;</span><br><span class="line">elasticsearch.url: http://elk-elasticsearch:9200</span><br><span class="line">xpack.monitoring.ui.container.elasticsearch.enabled: true</span><br><span class="line">#elasticsearch.username: &quot;elastic&quot;</span><br><span class="line">#elasticsearch.password: &quot;changeme&quot;</span><br></pre></td></tr></table></figure>
+<h3 id="申请License"><a href="#申请License" class="headerlink" title="申请License"></a>申请License</h3><p>转到 <strong><em><a href="https://license.elastic.co/registration" target="_blank" rel="noopener">License申请地址</a></em></strong> ，下载之后然后修改license中的<code>type</code>、<code>max_nodes</code>、<code>expiry_date_in_millis</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;license&quot;: &#123;</span><br><span class="line">    &quot;uid&quot;: &quot;fe8c9a81-6651-4327-89a3-c9a33bfd8e3f&quot;,</span><br><span class="line">    &quot;type&quot;: &quot;platinum&quot;,  // 这个类型是白金会员</span><br><span class="line">    &quot;issue_date_in_millis&quot;: 1536883200000,</span><br><span class="line">    &quot;expiry_date_in_millis&quot;: 2855980923000, // 过期时间</span><br><span class="line">    &quot;max_nodes&quot;: 100,  // 集群节点数量</span><br><span class="line">    &quot;issued_to&quot;: &quot;xxxx&quot;,</span><br><span class="line">    &quot;issuer&quot;: &quot;Web Form&quot;,</span><br><span class="line">    &quot;signature&quot;: &quot;AAAAAwAAAA0imCa5T/HVBQyiUbSBAAABmC9ZN0hjZDBGYnVyRXpCOW5Bb3FjZDAxOWpSbTVoMVZwUzRxVk1PSmkxaktJRVl5MUYvUWh3bHZVUTllbXNPbzBUemtnbWpBbmlWRmRZb25KNFlBR2x0TXc2K2p1Y1VtMG1UQU9TRGZVSGRwaEJGUjE3bXd3LzRqZ05iLzRteWFNekdxRGpIYlFwYkJiNUs0U1hTVlJKNVlXekMrSlVUdFIvV0FNeWdOYnlESDc3MWhlY3hSQmdKSjJ2ZTcvYlBFOHhPQlV3ZHdDQ0tHcG5uOElCaDJ4K1hob29xSG85N0kvTWV3THhlQk9NL01VMFRjNDZpZEVXeUtUMXIyMlIveFpJUkk2WUdveEZaME9XWitGUi9WNTZVQW1FMG1DenhZU0ZmeXlZakVEMjZFT2NvOWxpZGlqVmlHNC8rWVVUYzMwRGVySHpIdURzKzFiRDl4TmM1TUp2VTBOUlJZUlAyV0ZVL2kvVk10L0NsbXNFYVZwT3NSU082dFNNa2prQ0ZsclZ4NTltbU1CVE5lR09Bck93V2J1Y3c9PQAAAQAWq5AoReLA+uTiRhQ8M0qYERXNidAAsVw0LeN5H7qRXFBAvB+rId4vZNj2DN5W5GuaxuiUhiytvV6maf4ArTsROCMUKGyO9RH24bYgnRbbf6MwB8EBHjSZ6+D8ysCVgfyqAAEKURGSMWszi2mR9R+DINtaeFJnb4B1GeAppbwl7qGGetAQm0vbF7ncyojIfjFthmMUomwo3vs0his5e3UPumItGc57LEk2s5gx95NNP8aFsJXSSFHgWDWwJs18XSl3NZItnEWNfy9lEJeAkR+LWISfizZIfViOTlcDBVGKR7w8u8D5QXFUVdsTi2XU5qfIWFb78BOtpCHIlU+AjB6m&quot;,</span><br><span class="line">    &quot;start_date_in_millis&quot;: 1536883200000</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="启动ELK"><a href="#启动ELK" class="headerlink" title="启动ELK"></a>启动ELK</h3><p><code>docker-compose.yml</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line">version: &apos;3&apos;</span><br><span class="line">services:</span><br><span class="line">  elk-elasticsearch:</span><br><span class="line">    image: docker.elastic.co/elasticsearch/elasticsearch:6.4.0</span><br><span class="line">#    ports:</span><br><span class="line">#      - &quot;9200:9200&quot;</span><br><span class="line">    restart: always</span><br><span class="line">    environment:</span><br><span class="line">      - discovery.type=single-node</span><br><span class="line">      - ES_JAVA_OPTS=-Xms512m -Xmx512m</span><br><span class="line">    volumes:</span><br><span class="line">    - ./crack/x-pack-core-6.4.0.jar:/usr/share/elasticsearch/modules/x-pack-core/x-pack-core-6.4.0.jar</span><br><span class="line">    - ./config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml</span><br><span class="line">    - ./config/license.json:/usr/share/elasticsearch/license.json</span><br><span class="line">    deploy:</span><br><span class="line">      placement:</span><br><span class="line">        constraints:</span><br><span class="line">        - node.role == manager</span><br><span class="line">    networks:</span><br><span class="line">      backend:</span><br><span class="line">        aliases:</span><br><span class="line">          - elk-elasticsearch</span><br><span class="line"></span><br><span class="line">  kibana:</span><br><span class="line">    image: docker.elastic.co/kibana/kibana:6.4.0</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;5601:5601&quot;</span><br><span class="line">    restart: always</span><br><span class="line">    deploy:</span><br><span class="line">      placement:</span><br><span class="line">        constraints:</span><br><span class="line">        - node.role == manager</span><br><span class="line">    networks:</span><br><span class="line">      backend:</span><br><span class="line">        aliases:</span><br><span class="line">          - kibana</span><br><span class="line">    volumes:</span><br><span class="line">    - ./config/kibana.yml:/usr/share/kibana/config/kibana.yml</span><br><span class="line">    depends_on:</span><br><span class="line">      - elk-elasticsearch</span><br><span class="line"></span><br><span class="line">  logstash:</span><br><span class="line">    image: docker.elastic.co/logstash/logstash:6.4.0</span><br><span class="line">#    ports:</span><br><span class="line">#      - &quot;4560:4560&quot;</span><br><span class="line">    restart: always</span><br><span class="line">    environment:</span><br><span class="line">      - LS_JAVA_OPTS=-Xmx512m -Xms512m</span><br><span class="line">    volumes:</span><br><span class="line">      - ./config/logstash.conf:/etc/logstash.conf</span><br><span class="line">      - ./config/logstash.yml:/usr/share/logstash/config/logstash.yml</span><br><span class="line">    deploy:</span><br><span class="line">      placement:</span><br><span class="line">        constraints:</span><br><span class="line">        - node.role == manager</span><br><span class="line">    networks:</span><br><span class="line">      backend:</span><br><span class="line">        aliases:</span><br><span class="line">          - logstash</span><br><span class="line">    depends_on:</span><br><span class="line">      - elk-elasticsearch</span><br><span class="line">    entrypoint:</span><br><span class="line">      - logstash</span><br><span class="line">      - -f</span><br><span class="line">      - /etc/logstash.conf</span><br><span class="line"></span><br><span class="line"># docker network create -d=overlay --attachable backend</span><br><span class="line"># docker network create --opt encrypted -d=overlay --attachable --subnet 10.10.0.0/16 backend</span><br><span class="line">networks:</span><br><span class="line">  backend:</span><br><span class="line">    external:</span><br><span class="line">      name: backend</span><br></pre></td></tr></table></figure>
+<p>启动后需要手动请求更新License：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d</span><br><span class="line">docker exec $&#123;CONTAINER_NAME&#125; curl -XPUT &apos;http://0.0.0.0:9200/_xpack/license&apos; -H &quot;Content-Type: application/json&quot; -d @license.json</span><br></pre></td></tr></table></figure>
+<p>大概是下面这个样子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"># ybd @ ybd-PC in ~/data/git-repo/bitbucket/ms-base/docker-compose/elk on git:master x [20:52:51] </span><br><span class="line">$ docker-compose up -d                                                   </span><br><span class="line"></span><br><span class="line">Creating elk_elk-elasticsearch_1 ... done</span><br><span class="line"></span><br><span class="line">Creating elk_elk-elasticsearch_1 ... </span><br><span class="line">Creating elk_logstash_1          ... done</span><br><span class="line">Creating elk_kibana_1            ... done</span><br><span class="line"></span><br><span class="line"># ybd @ ybd-PC in ~/data/git-repo/bitbucket/ms-base/docker-compose/elk on git:master x [20:53:58] </span><br><span class="line">$ docker exec elk_elk-elasticsearch_1 curl -XPUT &apos;http://0.0.0.0:9200/_xpack/license&apos; -H &quot;Content-Type: application/json&quot; -d @license.json</span><br><span class="line">  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current</span><br><span class="line">                                 Dload  Upload   Total   Spent    Left  Speed</span><br><span class="line">100  1278  100    46  100  1232    328   8786 --:--:-- --:--:-- --:--:--  8800</span><br><span class="line">&#123;&quot;acknowledged&quot;:true,&quot;license_status&quot;:&quot;valid&quot;&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://cdn.yangbingdong.com/kibana-license.png" alt=""></p>
+<p><img src="https://cdn.yangbingdong.com/img/docker-logs-collect/kibana02.png" alt=""></p>
+<h2 id="Kibana相关设置"><a href="#Kibana相关设置" class="headerlink" title="Kibana相关设置"></a>Kibana相关设置</h2><h3 id="显示所有插件"><a href="#显示所有插件" class="headerlink" title="显示所有插件"></a>显示所有插件</h3><p>在Kibana首页最下面找到：</p>
+<p><img src="https://cdn.yangbingdong.com/img/docker-logs-collect/kibana-full-plugin-button.png" alt=""></p>
+<h3 id="Discover每页显示行数"><a href="#Discover每页显示行数" class="headerlink" title="Discover每页显示行数"></a>Discover每页显示行数</h3><p>找到Advanced Setting<img src="https://cdn.yangbingdong.com/img/docker-logs-collect/kibana-admin-setting.png" alt=""></p>
+<p>点进去找到 <code>discover:sampleSize</code>再点击Edit修改:</p>
+<p><img src="https://cdn.yangbingdong.com/img/docker-logs-collect/kibana-page-size.png" alt=""></p>
+<h3 id="时区"><a href="#时区" class="headerlink" title="时区"></a>时区</h3><p>Kibana默认读取浏览器时区，可通过<code>dateFormat:tz</code>进行修改：</p>
+<p><img src="https://cdn.yangbingdong.com/img/docker-logs-collect/kibana-timezone.png" alt=""></p>
+<h2 id="ElasticSearch-UI"><a href="#ElasticSearch-UI" class="headerlink" title="ElasticSearch UI"></a>ElasticSearch UI</h2><ul>
+<li><strong><em><a href="https://github.com/360EntSecGroup-Skylar/ElasticHD" target="_blank" rel="noopener">ElasticHD</a></em></strong></li>
+<li><strong><em><a href="https://github.com/appbaseio/dejavu/" target="_blank" rel="noopener">Dejavu</a></em></strong></li>
+</ul>
+<h1 id="Spring-Boot-集成-Elastic-APM"><a href="#Spring-Boot-集成-Elastic-APM" class="headerlink" title="Spring Boot 集成 Elastic APM"></a>Spring Boot 集成 Elastic APM</h1><h2 id="运行APM-Server"><a href="#运行APM-Server" class="headerlink" title="运行APM Server"></a>运行APM Server</h2><p><code>docker-compose</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">version: &apos;3&apos;</span><br><span class="line">services:</span><br><span class="line">  apm-server:</span><br><span class="line">    image: docker.elastic.co/apm/apm-server:6.4.0</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;8200:8200&quot;</span><br><span class="line">    volumes:</span><br><span class="line">    - ./config/apm-server.yml:/usr/share/apm-server/apm-server.yml</span><br><span class="line">    deploy:</span><br><span class="line">      placement:</span><br><span class="line">        constraints:</span><br><span class="line">        - node.role == manager</span><br><span class="line">    networks:</span><br><span class="line">      backend-swarm:</span><br><span class="line">        aliases:</span><br><span class="line">          - apm-server</span><br><span class="line"></span><br><span class="line"># docker network create -d=overlay --attachable backend-swarm</span><br><span class="line"># docker network create --opt encrypted -d=overlay --attachable --subnet 10.10.0.0/16 backend-swarm</span><br><span class="line">networks:</span><br><span class="line">  backend-swarm:</span><br><span class="line">    external:</span><br><span class="line">      name: backend-swarm</span><br></pre></td></tr></table></figure>
+<p><code>apm-server.yml</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">apm-server:</span><br><span class="line">  host: &quot;0.0.0.0:8200&quot;</span><br><span class="line"></span><br><span class="line">setup.template.settings:</span><br><span class="line"></span><br><span class="line">  index:</span><br><span class="line">    number_of_shards: 1</span><br><span class="line">    codec: best_compression</span><br><span class="line">    </span><br><span class="line">output.elasticsearch:</span><br><span class="line">  hosts: [&quot;elk-elasticsearch:9200&quot;]</span><br><span class="line"></span><br><span class="line">  indices:</span><br><span class="line">  - index: &quot;apm-%&#123;[beat.version]&#125;-sourcemap&quot;</span><br><span class="line">    when.contains:</span><br><span class="line">      processor.event: &quot;sourcemap&quot;</span><br><span class="line"></span><br><span class="line">  - index: &quot;apm-%&#123;[beat.version]&#125;-error-%&#123;+yyyy.MM.dd&#125;&quot;</span><br><span class="line">    when.contains:</span><br><span class="line">      processor.event: &quot;error&quot;</span><br><span class="line"></span><br><span class="line">  - index: &quot;apm-%&#123;[beat.version]&#125;-transaction-%&#123;+yyyy.MM.dd&#125;&quot;</span><br><span class="line">    when.contains:</span><br><span class="line">      processor.event: &quot;transaction&quot;</span><br><span class="line"></span><br><span class="line">  - index: &quot;apm-%&#123;[beat.version]&#125;-span-%&#123;+yyyy.MM.dd&#125;&quot;</span><br><span class="line">    when.contains:</span><br><span class="line">      processor.event: &quot;span&quot;</span><br><span class="line"></span><br><span class="line">  - index: &quot;apm-%&#123;[beat.version]&#125;-metric-%&#123;+yyyy.MM.dd&#125;&quot;</span><br><span class="line">    when.contains:</span><br><span class="line">      processor.event: &quot;metric&quot;</span><br><span class="line"></span><br><span class="line">  - index: &quot;apm-%&#123;[beat.version]&#125;-onboarding-%&#123;+yyyy.MM.dd&#125;&quot;</span><br><span class="line">    when.contains:</span><br><span class="line">      processor.event: &quot;onboarding&quot;</span><br><span class="line"></span><br><span class="line">logging.level: warning</span><br><span class="line"></span><br><span class="line">logging.metrics.enabled: false</span><br></pre></td></tr></table></figure>
+<p>这个配置文件从容器中<code>/usr/share/apm-server/apm-server.yml</code>复制出来稍微改了一下Elasticsearch的Url。</p>
+<p>若开启了X-Pack，则需要在yml中配置帐号密码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">output.elasticsearch:</span><br><span class="line">    hosts: [&quot;&lt;es_url&gt;&quot;]</span><br><span class="line">    username: &lt;username&gt;</span><br><span class="line">    password: &lt;password&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="集成到Spring-Boot"><a href="#集成到Spring-Boot" class="headerlink" title="集成到Spring Boot"></a>集成到Spring Boot</h2><p>下载 <strong><em><a href="http://search.maven.org/#search%7Cga%7C1%7Ca%3Aelastic-apm-agent" target="_blank" rel="noopener">APM代理依赖</a></em></strong></p>
+<p>在启动参数中添加:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">java -javaagent:/path/to/elastic-apm-agent-&lt;version&gt;.jar \</span><br><span class="line">     -Delastic.apm.service_name=my-application \</span><br><span class="line">     -Delastic.apm.server_url=http://localhost:8200 \ </span><br><span class="line">     -Delastic.apm.application_packages=org.example \ </span><br><span class="line">     -jar my-application.jar</span><br></pre></td></tr></table></figure>
+<p>启动后在Kibana的APM模块中更新一下索引，效果图大概是这样的：</p>
+<p><img src="https://cdn.yangbingdong.com/img/docker-logs-collect/apm.png" alt=""></p>
+<h1 id="log-pilot"><a href="#log-pilot" class="headerlink" title="log-pilot"></a>log-pilot</h1><p>Github: <strong><em><a href="https://github.com/AliyunContainerService/log-pilot" target="_blank" rel="noopener">https://github.com/AliyunContainerService/log-pilot</a></em></strong></p>
+<p>更多说明: <strong><em><a href="https://yq.aliyun.com/articles/69382" target="_blank" rel="noopener">https://yq.aliyun.com/articles/69382</a></em></strong></p>
+<p>这个是Ali开源的日志收集组件，通过中间件的方式部署，自动监听其他容器的日志，非常方便：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock -v /etc/localtime:/etc/localtime -v /:/host -e PILOT_TYPE=fluentd -e FLUENTD_OUTPUT=elasticsearch -e ELASTICSEARCH_HOST=192.168.6.113 -e ELASTICSEARCH_PORT=9200 -e TZ=Asia/Chongqing --privileged registry.cn-hangzhou.aliyuncs.com/acs-sample/log-pilot:latest</span><br></pre></td></tr></table></figure>
+<p>需要手机日志的容器：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --rm --label aliyun.logs.demo=stdout -p 8080:8080 192.168.0.202:8080/dev-images/demo:latest</span><br></pre></td></tr></table></figure>
+<ul>
+<li>通过<code>--label aliyun.logs.demo=stdout</code>告诉<code>log-pilot</code>需要收集日志，索引为<code>demo</code></li>
+</ul>
+<p>然后打开Kibana就可以看到日志了。</p>
+<p>问题：</p>
+<ul>
+<li>日志稍微延迟</li>
+<li>日志顺序混乱</li>
+<li>异常堆栈不集中</li>
+</ul>
+<h1 id="Finally"><a href="#Finally" class="headerlink" title="Finally"></a>Finally</h1><blockquote>
+<p>参考:</p>
+<p><strong><em><a href="https://www.yinchengli.com/2016/09/16/logstash/" target="_blank" rel="noopener">https://www.yinchengli.com/2016/09/16/logstash/</a></em></strong></p>
+<p><strong><em><a href="https://www.jianshu.com/p/ba1aa0c52942" target="_blank" rel="noopener">https://www.jianshu.com/p/ba1aa0c52942</a></em></strong></p>
+<p><strong><em><a href="https://www.jianshu.com/p/eb10c414a93f" target="_blank" rel="noopener">https://www.jianshu.com/p/eb10c414a93f</a></em></strong></p>
+<p><strong><em><a href="https://my.oschina.net/kkrgwbj/blog/734530" target="_blank" rel="noopener">https://my.oschina.net/kkrgwbj/blog/734530</a></em></strong></p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/Spring-Boot/" rel="tag"># Spring Boot</a>
+          
+            <a href="/tags/Spring/" rel="tag"># Spring</a>
+          
+            <a href="/tags/Docker/" rel="tag"># Docker</a>
+          
+            <a href="/tags/Elasticsearch/" rel="tag"># Elasticsearch</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/05/write-your-own-blockchain/" rel="next" title="转载—自己动手写区块链">
+                <i class="fa fa-chevron-left"></i> 转载—自己动手写区块链
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/09/spring-cloud-stack-learning/" rel="prev" title="Spring Cloud Stack Learning">
+                Spring Cloud Stack Learning <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">杨凯</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Preface"><span class="nav-number">1.</span> <span class="nav-text">Preface</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Log4j2-Related"><span class="nav-number">2.</span> <span class="nav-text">Log4j2 Related</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用Log4j2"><span class="nav-number">2.1.</span> <span class="nav-text">使用Log4j2</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Maven配置"><span class="nav-number">2.1.1.</span> <span class="nav-text">Maven配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开启全局异步以及Disruptor参数设置"><span class="nav-number">2.1.2.</span> <span class="nav-text">开启全局异步以及Disruptor参数设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#application-yml简单配置"><span class="nav-number">2.1.3.</span> <span class="nav-text">application.yml简单配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#log4j2-xml完整配置"><span class="nav-number">2.1.4.</span> <span class="nav-text">log4j2.xml完整配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#也可以使用log4j2-yml"><span class="nav-number">2.1.5.</span> <span class="nav-text">也可以使用log4j2.yml</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#日志配置文件中获取Application配置"><span class="nav-number">2.2.</span> <span class="nav-text">日志配置文件中获取Application配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Logback"><span class="nav-number">2.2.1.</span> <span class="nav-text">Logback</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Log4j2"><span class="nav-number">2.2.2.</span> <span class="nav-text">Log4j2</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义字段"><span class="nav-number">2.3.</span> <span class="nav-text">自定义字段</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring-Boot-Docker-Integration"><span class="nav-number">3.</span> <span class="nav-text">Spring Boot Docker Integration</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备工作"><span class="nav-number">3.1.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安全认证配置"><span class="nav-number">3.2.</span> <span class="nav-text">安全认证配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#普通配置"><span class="nav-number">3.2.1.</span> <span class="nav-text">普通配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Maven-密码加密配置"><span class="nav-number">3.2.2.</span> <span class="nav-text">Maven 密码加密配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构建基础镜像"><span class="nav-number">3.3.</span> <span class="nav-text">构建基础镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开始集成"><span class="nav-number">3.4.</span> <span class="nav-text">开始集成</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#编写Dockerfile"><span class="nav-number">3.4.1.</span> <span class="nav-text">编写Dockerfile</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#注意PID"><span class="nav-number">3.4.1.1.</span> <span class="nav-text">注意PID</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pom文件添加构建Docker镜像的相关插件"><span class="nav-number">3.4.2.</span> <span class="nav-text">pom文件添加构建Docker镜像的相关插件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#spring-boot-maven-plugin"><span class="nav-number">3.4.2.1.</span> <span class="nav-text">spring-boot-maven-plugin</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#maven-resources-plugin"><span class="nav-number">3.4.2.2.</span> <span class="nav-text">maven-resources-plugin</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#build-helper-maven-plugin"><span class="nav-number">3.4.2.3.</span> <span class="nav-text">build-helper-maven-plugin</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#docker-maven-plugin"><span class="nav-number">3.4.2.4.</span> <span class="nav-text">docker-maven-plugin</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命令构建"><span class="nav-number">3.4.3.</span> <span class="nav-text">命令构建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行Docker"><span class="nav-number">3.4.4.</span> <span class="nav-text">运行Docker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加运行时JVM参数"><span class="nav-number">3.4.5.</span> <span class="nav-text">添加运行时JVM参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker-Swarm环境下获取ClientIp"><span class="nav-number">3.5.</span> <span class="nav-text">Docker Swarm环境下获取ClientIp</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Demo地址"><span class="nav-number">3.6.</span> <span class="nav-text">Demo地址</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Kafka、ELK-collect-logs"><span class="nav-number">4.</span> <span class="nav-text">Kafka、ELK collect logs</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#镜像准备"><span class="nav-number">4.1.</span> <span class="nav-text">镜像准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动Kafka与Zookeeper"><span class="nav-number">4.2.</span> <span class="nav-text">启动Kafka与Zookeeper</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ELK配置以及启动"><span class="nav-number">4.3.</span> <span class="nav-text">ELK配置以及启动</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#X-Pack-破解"><span class="nav-number">4.3.1.</span> <span class="nav-text">X-Pack 破解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#复制Jar包"><span class="nav-number">4.3.1.1.</span> <span class="nav-text">复制Jar包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#反编译并修改源码"><span class="nav-number">4.3.1.2.</span> <span class="nav-text">反编译并修改源码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置文件"><span class="nav-number">4.3.2.</span> <span class="nav-text">配置文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Elasticsearch"><span class="nav-number">4.3.2.1.</span> <span class="nav-text">Elasticsearch</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Logstash"><span class="nav-number">4.3.2.2.</span> <span class="nav-text">Logstash</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Kibana"><span class="nav-number">4.3.2.3.</span> <span class="nav-text">Kibana</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#申请License"><span class="nav-number">4.3.3.</span> <span class="nav-text">申请License</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动ELK"><span class="nav-number">4.3.4.</span> <span class="nav-text">启动ELK</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kibana相关设置"><span class="nav-number">4.4.</span> <span class="nav-text">Kibana相关设置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#显示所有插件"><span class="nav-number">4.4.1.</span> <span class="nav-text">显示所有插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Discover每页显示行数"><span class="nav-number">4.4.2.</span> <span class="nav-text">Discover每页显示行数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#时区"><span class="nav-number">4.4.3.</span> <span class="nav-text">时区</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ElasticSearch-UI"><span class="nav-number">4.5.</span> <span class="nav-text">ElasticSearch UI</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring-Boot-集成-Elastic-APM"><span class="nav-number">5.</span> <span class="nav-text">Spring Boot 集成 Elastic APM</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#运行APM-Server"><span class="nav-number">5.1.</span> <span class="nav-text">运行APM Server</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#集成到Spring-Boot"><span class="nav-number">5.2.</span> <span class="nav-text">集成到Spring Boot</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#log-pilot"><span class="nav-number">6.</span> <span class="nav-text">log-pilot</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Finally"><span class="nav-number">7.</span> <span class="nav-text">Finally</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">杨凯</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

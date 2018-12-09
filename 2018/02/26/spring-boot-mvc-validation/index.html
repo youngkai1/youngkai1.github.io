@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java,Spring Boot,Spring,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Preface 此篇大部分是对Spring MVC的一个回顾以及JSR303中bean validation规范的学习">
+<meta name="keywords" content="Java,Spring Boot,Spring">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring Boot学习之MVC与Validation">
+<meta property="og:url" content="http://yoursite.com/2018/02/26/spring-boot-mvc-validation/index.html">
+<meta property="og:site_name" content="如风过境">
+<meta property="og:description" content="Preface 此篇大部分是对Spring MVC的一个回顾以及JSR303中bean validation规范的学习">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/spring-boot-learning/spring-boot.png">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/spring-boot-learning/spring-mvc-process.jpg">
+<meta property="og:image" content="https://cdn.yangbingdong.com/img/spring-boot-learning/mvc-process.png">
+<meta property="og:updated_time" content="2018-12-09T10:09:00.061Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring Boot学习之MVC与Validation">
+<meta name="twitter:description" content="Preface 此篇大部分是对Spring MVC的一个回顾以及JSR303中bean validation规范的学习">
+<meta name="twitter:image" content="https://cdn.yangbingdong.com/img/spring-boot-learning/spring-boot.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/02/26/spring-boot-mvc-validation/">
+
+
+
+
+
+  <title>Spring Boot学习之MVC与Validation | 如风过境</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">如风过境</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/26/spring-boot-mvc-validation/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="杨凯">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="如风过境">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Spring Boot学习之MVC与Validation</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-26T16:30:58+08:00">
+                2018-02-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Programming/" itemprop="url" rel="index">
+                    <span itemprop="name">Programming</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Programming/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Programming/Java/Spring-Boot/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring Boot</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="https://cdn.yangbingdong.com/img/spring-boot-learning/spring-boot.png" alt=""></p>
+<h1 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h1><blockquote>
+<p>此篇大部分是对Spring MVC的一个回顾以及JSR303中bean validation规范的学习</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="Spring-MVC-相关"><a href="#Spring-MVC-相关" class="headerlink" title="Spring MVC 相关"></a>Spring MVC 相关</h1><h2 id="Spring-MVC-流程"><a href="#Spring-MVC-流程" class="headerlink" title="Spring MVC 流程"></a>Spring MVC 流程</h2><p><img src="https://cdn.yangbingdong.com/img/spring-boot-learning/spring-mvc-process.jpg" alt=""></p>
+<p>1、  用户发送请求至前端控制器<code>DispatcherServlet</code>。</p>
+<p>2、  <code>DispatcherServlet</code>收到请求调用<code>HandlerMapping</code>处理器映射器。</p>
+<p>3、  处理器映射器找到具体的处理器(可以根据xml配置、注解进行查找)，生成处理器对象及处理器拦截器(如果有则生成)一并返回给<code>DispatcherServlet</code>。</p>
+<p>4、  <code>DispatcherServlet</code>调用<code>HandlerAdapter</code>处理器适配器。</p>
+<p>5、  <code>HandlerAdapter</code>经过适配调用具体的处理器(<code>Controller</code>，也叫后端控制器)。</p>
+<p>6、  <code>Controller</code>执行完成返回<code>ModelAndView</code>。</p>
+<p>7、  <code>HandlerAdapter</code>将<code>controller</code>执行结果<code>ModelAndView</code>返回给<code>DispatcherServlet</code>。</p>
+<p>8、  <code>DispatcherServlet</code>将<code>ModelAndView</code>传给<code>ViewReslover</code>视图解析器。</p>
+<p>9、  <code>ViewReslover</code>解析后返回具体<code>View</code>。</p>
+<p>10、<code>DispatcherServlet</code>根据<code>View</code>进行渲染视图（即将模型数据填充至视图中）。</p>
+<p>11、 <code>DispatcherServlet</code>响应用户。</p>
+<h2 id="Spring-MVC集成fastjson"><a href="#Spring-MVC集成fastjson" class="headerlink" title="Spring MVC集成fastjson"></a>Spring MVC集成fastjson</h2><blockquote>
+<p><strong><em><a href="https://github.com/alibaba/fastjson/wiki/%E5%9C%A8-Spring-%E4%B8%AD%E9%9B%86%E6%88%90-Fastjson" target="_blank" rel="noopener">https://github.com/alibaba/fastjson/wiki/%E5%9C%A8-Spring-%E4%B8%AD%E9%9B%86%E6%88%90-Fastjson</a></em></strong></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.alibaba&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;fastjson&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.2.46&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<p>两种方式：</p>
+<h3 id="方式一、实现WebMvcConfigurer"><a href="#方式一、实现WebMvcConfigurer" class="headerlink" title="方式一、实现WebMvcConfigurer"></a>方式一、实现<code>WebMvcConfigurer</code></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">public class WebMvcMessageConvertConfig implements WebMvcConfigurer &#123;</span><br><span class="line">	@Override</span><br><span class="line">	public void configureMessageConverters(List&lt;HttpMessageConverter&lt;?&gt;&gt; converters) &#123;</span><br><span class="line">		FastJsonHttpMessageConverter fastConverter = new FastJsonHttpMessageConverter();</span><br><span class="line"></span><br><span class="line">		SerializeConfig serializeConfig = SerializeConfig.globalInstance;</span><br><span class="line">		serializeConfig.put(BigInteger.class, ToStringSerializer.instance);</span><br><span class="line">		serializeConfig.put(Long.class, ToStringSerializer.instance);</span><br><span class="line">		serializeConfig.put(Long.TYPE, ToStringSerializer.instance);</span><br><span class="line"></span><br><span class="line">		FastJsonConfig fastJsonConfig = new FastJsonConfig();</span><br><span class="line">		fastJsonConfig.setCharset(Charset.forName(&quot;UTF-8&quot;));</span><br><span class="line">		fastJsonConfig.setSerializeConfig(serializeConfig);</span><br><span class="line">		fastJsonConfig.setSerializerFeatures(SerializerFeature.PrettyFormat);</span><br><span class="line">		fastJsonConfig.setDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;);</span><br><span class="line"></span><br><span class="line">		fastConverter.setFastJsonConfig(fastJsonConfig);</span><br><span class="line"></span><br><span class="line">		converters.add(fastConverter);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="方式二、通过-Bean方式"><a href="#方式二、通过-Bean方式" class="headerlink" title="方式二、通过@Bean方式"></a>方式二、通过<code>@Bean</code>方式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">public class WebMvcMessageConvertConfig &#123;</span><br><span class="line">	@Bean</span><br><span class="line">	public HttpMessageConverters fastJsonHttpMessageConverter() &#123;</span><br><span class="line">		FastJsonHttpMessageConverter fastConverter = new FastJsonHttpMessageConverter();</span><br><span class="line"></span><br><span class="line">		SerializeConfig serializeConfig = SerializeConfig.globalInstance;</span><br><span class="line">		serializeConfig.put(BigInteger.class, ToStringSerializer.instance);</span><br><span class="line">		serializeConfig.put(Long.class, ToStringSerializer.instance);</span><br><span class="line">		serializeConfig.put(Long.TYPE, ToStringSerializer.instance);</span><br><span class="line"></span><br><span class="line">		FastJsonConfig fastJsonConfig = new FastJsonConfig();</span><br><span class="line">		fastJsonConfig.setCharset(Charset.forName(Constant.CHARSET));</span><br><span class="line">		fastJsonConfig.setSerializeConfig(serializeConfig);</span><br><span class="line">		fastJsonConfig.setSerializerFeatures(SerializerFeature.PrettyFormat);</span><br><span class="line">		fastJsonConfig.setDateFormat(Constant.DATE_FORMAT);</span><br><span class="line"></span><br><span class="line">		fastConverter.setFastJsonConfig(fastJsonConfig);</span><br><span class="line">		return new HttpMessageConverters((HttpMessageConverter&lt;?&gt;) fastConverter);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="WebFlux"><a href="#WebFlux" class="headerlink" title="WebFlux"></a>WebFlux</h3><p>上面针对的是Web MVC，<strong>对于Webflux目前不支持这种方式</strong>.</p>
+<h2 id="Spring-Boot-JSON-（Date类型入参、格式化，以及如何处理null）"><a href="#Spring-Boot-JSON-（Date类型入参、格式化，以及如何处理null）" class="headerlink" title="Spring Boot JSON （Date类型入参、格式化，以及如何处理null）"></a>Spring Boot JSON （Date类型入参、格式化，以及如何处理null）</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">  jackson:</span><br><span class="line">    default-property-inclusion: non_null # 忽略 json 中值为null的属性</span><br><span class="line">    date-format: &quot;yyyy-MM-dd HH:mm:ss&quot; # 设置 pattern</span><br><span class="line">    time-zone: GMT+8 # 修正时区</span><br></pre></td></tr></table></figure>
+<ul>
+<li>时间格式可以在实体上使用该注解：<code>@JsonFormat(timezone = &quot;GMT+8&quot;,pattern = &quot;yyyy-MM-dd&quot;)</code></li>
+<li>忽略null属性可以在实体上使用：<code>@JsonInclude(JsonInclude.Include.NON_NULL)</code></li>
+</ul>
+<h2 id="Spring-Boot-MVC特性"><a href="#Spring-Boot-MVC特性" class="headerlink" title="Spring Boot MVC特性"></a>Spring Boot MVC特性</h2><p>Spring boot 在spring默认基础上，自动配置添加了以下特性</p>
+<ul>
+<li>包含了<code>ContentNegotiatingViewResolver</code>和<code>BeanNameViewResolver</code> beans。</li>
+<li>对静态资源的支持，包括对WebJars的支持。</li>
+<li>自动注册<code>Converter</code>，<code>GenericConverter</code>，<code>Formatter</code> beans。</li>
+<li>对<code>HttpMessageConverters</code>的支持。</li>
+<li>自动注册<code>MessageCodeResolver</code>。</li>
+<li>对静态<code>index.html</code>的支持。</li>
+<li>对自定义<code>Favicon</code>的支持。</li>
+<li>主动使用<code>ConfigurableWebBindingInitializer</code> bean</li>
+</ul>
+<h2 id="RequestBody与-ModelAttribute"><a href="#RequestBody与-ModelAttribute" class="headerlink" title="@RequestBody与@ModelAttribute"></a>@RequestBody与@ModelAttribute</h2><p><code>@RequestBody</code>：用于接收http请求中body的字符串信息，可在直接接收转换到Pojo。</p>
+<p><code>@ModelAttribute</code>：用于直接接受<code>url?</code>后面的参数 如<code>url?id=123&amp;name=456</code>，可在直接接收转换到Pojo。</p>
+<h2 id="模板引擎的选择"><a href="#模板引擎的选择" class="headerlink" title="模板引擎的选择"></a>模板引擎的选择</h2><ul>
+<li><code>FreeMarker</code></li>
+<li><code>Thymeleaf</code></li>
+<li><code>Velocity</code> (1.4版本之后弃用，Spring Framework 4.3版本之后弃用)</li>
+<li><code>Groovy</code></li>
+<li><code>Mustache</code></li>
+</ul>
+<p>注：<strong>jsp应该尽量避免使用</strong>，原因如下：</p>
+<ul>
+<li>jsp只能打包为：war格式，<strong>不支持jar格式</strong>，只能在标准的容器里面跑（tomcat，jetty都可以）</li>
+<li>内嵌的Jetty目前不支持JSP</li>
+<li>Undertow不支持jsp</li>
+<li>jsp自定义错误页面不能覆盖spring boot 默认的错误页面</li>
+</ul>
+<h2 id="开启GZIP算法压缩响应流"><a href="#开启GZIP算法压缩响应流" class="headerlink" title="开启GZIP算法压缩响应流"></a>开启GZIP算法压缩响应流</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">server:</span><br><span class="line">  compression:</span><br><span class="line">    enabled: true # 启用压缩</span><br><span class="line">    min-response-size: 2048 # 对应Content-Length，超过这个值才会压缩</span><br></pre></td></tr></table></figure>
+<h2 id="全局异常处理"><a href="#全局异常处理" class="headerlink" title="全局异常处理"></a>全局异常处理</h2><h3 id="方式一：添加自定义的错误页面"><a href="#方式一：添加自定义的错误页面" class="headerlink" title="方式一：添加自定义的错误页面"></a>方式一：添加自定义的错误页面</h3><ul>
+<li><code>html</code>静态页面：在<code>resources/public/error/</code> 下定义. 如添加404页面： <code>resources/public/error/404.html</code>页面，中文注意页面编码</li>
+<li>模板引擎页面：在<code>templates/error/</code>下定义. 如添加5xx页面： <code>templates/error/5xx.ftl</code></li>
+</ul>
+<blockquote>
+<p>注：<code>templates/error/</code> 这个的优先级比较<code>resources/public/error/</code>高</p>
+</blockquote>
+<h3 id="方式二：通过-ControllerAdvice"><a href="#方式二：通过-ControllerAdvice" class="headerlink" title="方式二：通过@ControllerAdvice"></a>方式二：通过@ControllerAdvice</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">@Slf4j</span><br><span class="line">@ControllerAdvice</span><br><span class="line">//@RestControllerAdvice</span><br><span class="line">public class ErrorExceptionHandler &#123;</span><br><span class="line"></span><br><span class="line">	@ExceptionHandler(&#123; RuntimeException.class &#125;)</span><br><span class="line">	@ResponseStatus(HttpStatus.OK)</span><br><span class="line">	public ModelAndView processException(RuntimeException exception) &#123;</span><br><span class="line">		log.info(&quot;自定义异常处理-RuntimeException&quot;);</span><br><span class="line">		ModelAndView m = new ModelAndView();</span><br><span class="line">		m.addObject(&quot;roncooException&quot;, exception.getMessage());</span><br><span class="line">		m.setViewName(&quot;error/500&quot;);</span><br><span class="line">		return m;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@ExceptionHandler(&#123; Exception.class &#125;)</span><br><span class="line">	@ResponseStatus(HttpStatus.OK)</span><br><span class="line">	public ModelAndView processException(Exception exception) &#123;</span><br><span class="line">		log.info(&quot;自定义异常处理-Exception&quot;);</span><br><span class="line">		ModelAndView m = new ModelAndView();</span><br><span class="line">		m.addObject(&quot;roncooException&quot;, exception.getMessage());</span><br><span class="line">		m.setViewName(&quot;error/500&quot;);</span><br><span class="line">		return m;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>或者继承<code>ResponseEntityExceptionHandler</code>更灵活地控制状态码、<code>Header</code>等信息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">@ControllerAdvice</span><br><span class="line">public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler &#123;</span><br><span class="line"></span><br><span class="line">//	@ResponseStatus(HttpStatus.OK)</span><br><span class="line">	@ExceptionHandler(value = &#123; Exception.class &#125;)</span><br><span class="line">	@Nullable</span><br><span class="line">	protected ResponseEntity&lt;Object&gt; handleConflict(Exception ex, WebRequest request) &#123;</span><br><span class="line">		String bodyOfResponse = ex.getMessage();</span><br><span class="line">		HttpHeaders headers = new HttpHeaders();</span><br><span class="line">		headers.set(CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE);</span><br><span class="line">		return handleExceptionInternal(ex, bodyOfResponse, headers, HttpStatus.INTERNAL_SERVER_ERROR, request);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>更多方式请看：<strong><em><a href="http://www.baeldung.com/exception-handling-for-rest-with-spring" target="_blank" rel="noopener">http://www.baeldung.com/exception-handling-for-rest-with-spring</a></em></strong></p>
+<h2 id="静态资源"><a href="#静态资源" class="headerlink" title="静态资源"></a>静态资源</h2><p>设置静态资源放到指定路径下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spring.resources.static-locations=classpath:/META-INF/resources/,classpath:/static/</span><br></pre></td></tr></table></figure>
+<h2 id="自定义消息转化器"><a href="#自定义消息转化器" class="headerlink" title="自定义消息转化器"></a>自定义消息转化器</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@Bean</span><br><span class="line">   public StringHttpMessageConverter stringHttpMessageConverter() &#123;</span><br><span class="line">       StringHttpMessageConverter converter = new StringHttpMessageConverter(Charset.forName(&quot;UTF-8&quot;));</span><br><span class="line">       return converter;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="自定义SpringMVC的拦截器"><a href="#自定义SpringMVC的拦截器" class="headerlink" title="自定义SpringMVC的拦截器"></a>自定义SpringMVC的拦截器</h2><p>有些时候我们需要自己配置SpringMVC而不是采用默认，比如增加一个拦截器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">public class MyInterceptor implements HandlerInterceptor &#123;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void afterCompletion(HttpServletRequest arg0, HttpServletResponse arg1, Object arg2, Exception arg3)</span><br><span class="line">            throws Exception &#123;</span><br><span class="line">        System.out.println(&quot;拦截器MyInterceptor-------&gt;3、请求结束之后被调用，主要用于清理工作。&quot;);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void postHandle(HttpServletRequest arg0, HttpServletResponse arg1, Object arg2, ModelAndView arg3)</span><br><span class="line">            throws Exception &#123;</span><br><span class="line">        System.out.println(&quot;拦截器MyInterceptor-------&gt;2、请求之后调用，在视图渲染之前，也就是Controller方法调用之后&quot;);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public boolean preHandle(HttpServletRequest arg0, HttpServletResponse arg1, Object arg2) throws Exception &#123;</span><br><span class="line">        System.out.println(&quot;拦截器MyInterceptor-------&gt;1、请求之前调用，也就是Controller方法调用之前。&quot;);</span><br><span class="line">        return true;//返回true则继续向下执行，返回false则取消当前请求</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">public class InterceptorConfigurerAdapter extends WebMvcConfigurer &#123;</span><br><span class="line">    /**</span><br><span class="line">     * 该方法用于注册拦截器</span><br><span class="line">     * 可注册多个拦截器，多个拦截器组成一个拦截器链</span><br><span class="line">     */</span><br><span class="line">    @Override</span><br><span class="line">    public void addInterceptors(InterceptorRegistry registry) &#123;</span><br><span class="line">        // addPathPatterns 添加路径</span><br><span class="line">        // excludePathPatterns 排除路径</span><br><span class="line">        registry.addInterceptor(new MyInterceptor()).addPathPatterns(&quot;/*.*&quot;);</span><br><span class="line">        super.addInterceptors(registry);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>或者可以使用继承<code>HandlerInterceptorAdapter</code>的方式，这种方式可以<strong>按需覆盖父类方法</strong>。</p>
+<h2 id="创建-Servlet、-Filter、Listener"><a href="#创建-Servlet、-Filter、Listener" class="headerlink" title="创建 Servlet、 Filter、Listener"></a>创建 Servlet、 Filter、Listener</h2><h3 id="注解方式"><a href="#注解方式" class="headerlink" title="注解方式"></a>注解方式</h3><blockquote>
+<p>直接通过<code>@WebServlet</code>、<code>@WebFilter</code>、<code>@WebListener</code> 注解自动注册</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">@WebFilter(filterName = &quot;customFilter&quot;, urlPatterns = &quot;/*&quot;)</span><br><span class="line">public class CustomFilter implements Filter &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@WebListener</span><br><span class="line">public class CustomListener implements ServletContextListener &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@WebServlet(name = &quot;customServlet&quot;, urlPatterns = &quot;/roncoo&quot;)</span><br><span class="line">public class CustomServlet extends HttpServlet &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后需要在<code>**Application.java</code> 加上<code>@ServletComponentScan</code>注解，否则不会生效。</p>
+<p><strong>注意：如果同时添加了<code>@WebFilter</code>以及<code>@Component</code>，那么会初始化两次Filter，并且会过滤所有路径+自己指定的路径 ，便会出现对没有指定的URL也会进行过滤</strong></p>
+<h3 id="通过编码注册"><a href="#通过编码注册" class="headerlink" title="通过编码注册"></a>通过编码注册</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">public class WebConfig &#123;</span><br><span class="line"></span><br><span class="line">    @Bean</span><br><span class="line">    public FilterRegistrationBean myFilter()&#123;</span><br><span class="line">        FilterRegistrationBean registrationBean = new FilterRegistrationBean();</span><br><span class="line">        MyFilter filter = new MyFilter();</span><br><span class="line">        registrationBean.setFilter(filter);</span><br><span class="line"></span><br><span class="line">        List&lt;String&gt; urlPatterns = new ArrayList&lt;&gt;();</span><br><span class="line">        urlPatterns.add(&quot;/*&quot;);</span><br><span class="line">        registrationBean.setUrlPatterns(urlPatterns);</span><br><span class="line">        registrationBean.setOrder(1);</span><br><span class="line"></span><br><span class="line">        return registrationBean;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Bean</span><br><span class="line">    public ServletRegistrationBean myServlet() &#123;</span><br><span class="line">        MyServlet demoServlet = new MyServlet();</span><br><span class="line">        ServletRegistrationBean registrationBean = new ServletRegistrationBean();</span><br><span class="line">        registrationBean.setServlet(demoServlet);</span><br><span class="line">        List&lt;String&gt; urlMappings = new ArrayList&lt;String&gt;();</span><br><span class="line">        urlMappings.add(&quot;/myServlet&quot;);////访问，可以添加多个</span><br><span class="line">        registrationBean.setUrlMappings(urlMappings);</span><br><span class="line">        registrationBean.setLoadOnStartup(1);</span><br><span class="line">        return registrationBean;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Bean</span><br><span class="line">    public ServletListenerRegistrationBean myListener() &#123;</span><br><span class="line">        ServletListenerRegistrationBean registrationBean</span><br><span class="line">                = new ServletListenerRegistrationBean&lt;&gt;();</span><br><span class="line">        registrationBean.setListener(new MyListener());</span><br><span class="line">        registrationBean.setOrder(1);</span><br><span class="line">        return registrationBean;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Spring-Interceptor与Servlet-Filter的区别"><a href="#Spring-Interceptor与Servlet-Filter的区别" class="headerlink" title="Spring Interceptor与Servlet Filter的区别"></a>Spring Interceptor与Servlet Filter的区别</h2><ul>
+<li><code>Filter</code>是基于函数回调的，而<code>Interceptor</code>则是基于Java反射的。</li>
+<li><code>Filter</code>依赖于Servlet容器，而<code>Interceptor</code>不依赖于Servlet容器。</li>
+<li><code>Filter</code>对几乎所有的请求起作用，而<code>Interceptor</code>只能对<code>action</code>请求起作用。</li>
+<li><code>Interceptor</code>可以访问<code>Action</code>的上下文，值栈里的对象，而<code>Filter</code>不能。</li>
+<li>在<code>action</code>的生命周期里，<code>Interceptor</code>可以被多次调用，而Filter只能在容器初始化时调用一次。</li>
+</ul>
+<p><img src="https://cdn.yangbingdong.com/img/spring-boot-learning/mvc-process.png" alt=""></p>
+<h2 id="RequestBodyAdvice和ResponseBodyAdvice"><a href="#RequestBodyAdvice和ResponseBodyAdvice" class="headerlink" title="RequestBodyAdvice和ResponseBodyAdvice"></a>RequestBodyAdvice和ResponseBodyAdvice</h2><h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><ul>
+<li>对Request请求参数解密，对Response返回参数进行加密</li>
+<li>自定义返回信息（业务无关性的）</li>
+</ul>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>先看一下<code>ResponseBodyAdvice</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">public interface ResponseBodyAdvice&lt;T&gt; &#123;</span><br><span class="line"></span><br><span class="line">	/**</span><br><span class="line">	 * Whether this component supports the given controller method return type</span><br><span class="line">	 * and the selected &#123;@code HttpMessageConverter&#125; type.</span><br><span class="line">	 * @param returnType the return type</span><br><span class="line">	 * @param converterType the selected converter type</span><br><span class="line">	 * @return &#123;@code true&#125; if &#123;@link #beforeBodyWrite&#125; should be invoked;</span><br><span class="line">	 * &#123;@code false&#125; otherwise</span><br><span class="line">	 */</span><br><span class="line">	boolean supports(MethodParameter returnType, Class&lt;? extends HttpMessageConverter&lt;?&gt;&gt; converterType);</span><br><span class="line"></span><br><span class="line">	/**</span><br><span class="line">	 * Invoked after an &#123;@code HttpMessageConverter&#125; is selected and just before</span><br><span class="line">	 * its write method is invoked.</span><br><span class="line">	 * @param body the body to be written</span><br><span class="line">	 * @param returnType the return type of the controller method</span><br><span class="line">	 * @param selectedContentType the content type selected through content negotiation</span><br><span class="line">	 * @param selectedConverterType the converter type selected to write to the response</span><br><span class="line">	 * @param request the current request</span><br><span class="line">	 * @param response the current response</span><br><span class="line">	 * @return the body that was passed in or a modified (possibly new) instance</span><br><span class="line">	 */</span><br><span class="line">	T beforeBodyWrite(T body, MethodParameter returnType, MediaType selectedContentType,</span><br><span class="line">			Class&lt;? extends HttpMessageConverter&lt;?&gt;&gt; selectedConverterType,</span><br><span class="line">			ServerHttpRequest request, ServerHttpResponse response);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中<code>supports</code>方法指定是否需要执行<code>beforeBodyWrite</code>，其中参数<code>returnType</code>可以拿到Controller对应方法中的方法注解以及参数注解：<code>returnType.getMethodAnnotation(XXXAnnotation.class)</code>、<code>returnType.getParameterAnnotation(XXXAnnotation.class)</code>。</p>
+<p><code>beforeBodyWrite</code>可以对返回的body进行包装或加密：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">@RestControllerAdvice(annotations = Rest.class)</span><br><span class="line">public class GlobalControllerAdvisor implements ResponseBodyAdvice &#123;</span><br><span class="line">	private static final String VOID = &quot;void&quot;;</span><br><span class="line">	private static final String RESOURCE_NOT_FOUND = &quot;Resource not found!&quot;;</span><br><span class="line">	private static final String SUCCESS = &quot;SUCCESS&quot;;</span><br><span class="line">	</span><br><span class="line">	@Override</span><br><span class="line">	public boolean supports(MethodParameter returnType, Class converterType) &#123;</span><br><span class="line">		return Boolean.TRUE;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">	public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) &#123;</span><br><span class="line">		Object result;</span><br><span class="line">		if (isVoidMethod(returnType)) &#123;</span><br><span class="line">			result = genSuccessResult(null, SUCCESS);</span><br><span class="line">		&#125; else if (body instanceof Result) &#123;</span><br><span class="line">			result = body;</span><br><span class="line">		&#125; else if (nonNull(body)) &#123;</span><br><span class="line">			result = genSuccessResult(body);</span><br><span class="line">		&#125; else &#123;</span><br><span class="line">			result = genBadReqResult(NOT_FOUND, RESOURCE_NOT_FOUND);</span><br><span class="line">		&#125;</span><br><span class="line">		return result;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	private boolean isVoidMethod(MethodParameter returnType) &#123;</span><br><span class="line">		return VOID.equals(returnType.getMethod().getReturnType().getName());</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>需要在类上面添加<code>@ControllerAdvice</code>或<code>@RestControllerAdvice</code>才能生效</li>
+</ul>
+<blockquote>
+<p> <code>RequestBodyAdvice</code>的<code>beforeBodyRead</code>在拦截器之后执行，所以可以在拦截器做签名检验，然后在<code>RequestBodyAdvice</code>中解密请求参数</p>
+</blockquote>
+<h2 id="Spring-Boot和Feign中使用Java-8时间日期API（LocalDate等）的序列化问题"><a href="#Spring-Boot和Feign中使用Java-8时间日期API（LocalDate等）的序列化问题" class="headerlink" title="Spring Boot和Feign中使用Java 8时间日期API（LocalDate等）的序列化问题"></a>Spring Boot和Feign中使用Java 8时间日期API（LocalDate等）的序列化问题</h2><p><strong><em><a href="http://blog.didispace.com/Spring-Boot-And-Feign-Use-localdate/" target="_blank" rel="noopener">http://blog.didispace.com/Spring-Boot-And-Feign-Use-localdate/</a></em></strong></p>
+<h1 id="Validation"><a href="#Validation" class="headerlink" title="Validation"></a>Validation</h1><h2 id="常用注解（大部分JSR中已有）"><a href="#常用注解（大部分JSR中已有）" class="headerlink" title="常用注解（大部分JSR中已有）"></a>常用注解（大部分<strong>JSR</strong>中已有）</h2><table>
+<thead>
+<tr>
+<th>注解</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>@AssertFalse</code></td>
+<td>Boolean,boolean</td>
+<td>验证注解的元素值是false</td>
+</tr>
+<tr>
+<td><code>@AssertTrue</code></td>
+<td>Boolean,boolean</td>
+<td>验证注解的元素值是true</td>
+</tr>
+<tr>
+<td><code>@NotNull</code></td>
+<td>任意类型</td>
+<td>验证注解的元素值不是null</td>
+</tr>
+<tr>
+<td><code>@Null</code></td>
+<td>任意类型</td>
+<td>验证注解的元素值是null</td>
+</tr>
+<tr>
+<td><code>@Min(value=值)</code></td>
+<td>BigDecimal，BigInteger, byte,short, int, long，等任何Number或CharSequence（存储的是数字）子类型</td>
+<td>验证注解的元素值大于等于@Min指定的value值</td>
+</tr>
+<tr>
+<td><code>@Max（value=值）</code></td>
+<td>和@Min要求一样</td>
+<td>验证注解的元素值小于等于@Max指定的value值</td>
+</tr>
+<tr>
+<td><code>@DecimalMin(value=值)</code></td>
+<td>和@Min要求一样</td>
+<td>验证注解的元素值大于等于@ DecimalMin指定的value值</td>
+</tr>
+<tr>
+<td><code>@DecimalMax(value=值)</code></td>
+<td>和@Min要求一样</td>
+<td>验证注解的元素值小于等于@ DecimalMax指定的value值</td>
+</tr>
+<tr>
+<td><code>@Digits(integer=整数位数, fraction=小数位数)</code></td>
+<td>和@Min要求一样</td>
+<td>验证注解的元素值的整数位数和小数位数上限</td>
+</tr>
+<tr>
+<td><code>@Size(min=下限, max=上限)</code></td>
+<td>字符串、Collection、Map、数组等</td>
+<td>验证注解的元素值的在min和max（包含）指定区间之内，如字符长度、集合大小</td>
+</tr>
+<tr>
+<td><code>@Past</code></td>
+<td>java.util.Date,java.util.Calendar;Joda Time类库的日期类型</td>
+<td>验证注解的元素值（日期类型）比当前时间早</td>
+</tr>
+<tr>
+<td><code>@Future</code></td>
+<td>与@Past要求一样</td>
+<td>验证注解的元素值（日期类型）比当前时间晚</td>
+</tr>
+<tr>
+<td><code>@NotBlank</code></td>
+<td>CharSequence子类型</td>
+<td>验证注解的元素值不为空（不为null、去除首位空格后长度为0），不同于@NotEmpty，@NotBlank只应用于字符串且在比较时会去除字符串的首位空格</td>
+</tr>
+<tr>
+<td><code>@Length(min=下限, max=上限)</code></td>
+<td>CharSequence子类型</td>
+<td>验证注解的元素值长度在min和max区间内</td>
+</tr>
+<tr>
+<td><code>@NotEmpty</code></td>
+<td>CharSequence子类型、Collection、Map、数组</td>
+<td>验证注解的元素值不为null且不为空（字符串长度不为0、集合大小不为0）</td>
+</tr>
+<tr>
+<td><code>@Range(min=最小值, max=最大值)</code></td>
+<td>BigDecimal,BigInteger,CharSequence, byte, short, int, long等原子类型和包装类型</td>
+<td>验证注解的元素值在最小值和最大值之间</td>
+</tr>
+<tr>
+<td><code>@Email(regexp=正则表达式,flag=标志的模式)</code></td>
+<td>CharSequence子类型（如String）</td>
+<td>验证注解的元素值是Email，也可以通过regexp和flag指定自定义的email格式</td>
+</tr>
+<tr>
+<td><code>@Pattern(regexp=正则表达式,flag=标志的模式)</code></td>
+<td>String，任何CharSequence的子类型</td>
+<td>验证注解的元素值与指定的正则表达式匹配</td>
+</tr>
+<tr>
+<td><code>@Valid</code></td>
+<td>任何非原子类型</td>
+<td>指定递归验证关联的对象；如用户对象中有个地址对象属性，如果想在验证用户对象时一起验证地址对象的话，在地址对象上加@Valid注解即可级联验证</td>
+</tr>
+</tbody>
+</table>
+<h2 id="简单使用"><a href="#简单使用" class="headerlink" title="简单使用"></a>简单使用</h2><p>实体：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">@Data</span><br><span class="line">public class Foo &#123;</span><br><span class="line">	@NotBlank</span><br><span class="line">	private String name;</span><br><span class="line"></span><br><span class="line">	@Min(18)</span><br><span class="line">	private Integer age;</span><br><span class="line"></span><br><span class="line">	@Pattern(regexp = &quot;^1([34578])\\d&#123;9&#125;$&quot;,message = &quot;手机号码格式错误&quot;)</span><br><span class="line">	@NotBlank(message = &quot;手机号码不能为空&quot;)</span><br><span class="line">	private String phone;</span><br><span class="line"></span><br><span class="line">	@Email(message = &quot;邮箱格式错误&quot;)</span><br><span class="line">	private String email;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>Controller</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">@RestController</span><br><span class="line">@Slf4j</span><br><span class="line">public class FooController &#123;</span><br><span class="line"></span><br><span class="line">   @PostMapping(&quot;/foo&quot;)</span><br><span class="line">   public String foo(@Validated Foo foo, BindingResult bindingResult) &#123;</span><br><span class="line">      log.info(&quot;foo: &#123;&#125;&quot;, foo);</span><br><span class="line">      if (bindingResult.hasErrors()) &#123;</span><br><span class="line">         for (FieldError fieldError : bindingResult.getFieldErrors()) &#123;</span><br><span class="line">            log.error(&quot;valid fail: field = &#123;&#125;, message = &#123;&#125;&quot;, fieldError.getField(), fieldError.getDefaultMessage());</span><br><span class="line">         &#125;</span><br><span class="line">         return &quot;fail&quot;;</span><br><span class="line">      &#125;</span><br><span class="line">      return &quot;success&quot;;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="快速失效"><a href="#快速失效" class="headerlink" title="快速失效"></a>快速失效</h2><p>一般情况下，Validator并不会应为第一个校验失败为停止，而是一直校验完所有参数。我们可以通过设置快速失效：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">public class ValidatorConfiguration &#123;</span><br><span class="line">	@Bean</span><br><span class="line">	public Validator validator()&#123;</span><br><span class="line">		ValidatorFactory validatorFactory = Validation.byProvider( HibernateValidator.class )</span><br><span class="line">													  .configure()</span><br><span class="line">													  .failFast( true )</span><br><span class="line">//													  .addProperty( &quot;hibernate.validator.fail_fast&quot;, &quot;true&quot; )</span><br><span class="line">													  .buildValidatorFactory();</span><br><span class="line">		return validatorFactory.getValidator();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样在遇到第一个校验失败的时候就会停止对之后的参数校验。</p>
+<h2 id="分组校验"><a href="#分组校验" class="headerlink" title="分组校验"></a>分组校验</h2><blockquote>
+<p>如果同一个类，在不同的使用场景下有不同的校验规则，那么可以使用分组校验。未成年人是不能喝酒的，而在其他场景下我们不做特殊的限制，这个需求如何体现同一个实体，不同的校验规则呢？</p>
+</blockquote>
+<p>添加分组：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Class Foo&#123;</span><br><span class="line">	@Min(value = 18,groups = &#123;Adult.class&#125;)</span><br><span class="line">	private Integer age;</span><br><span class="line">	</span><br><span class="line">	public interface Adult&#123;&#125;</span><br><span class="line">	</span><br><span class="line">	public interface Minor&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>Controller</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping(&quot;/drink&quot;)</span><br><span class="line">public String drink(@Validated(&#123;Foo.Adult.class&#125;) Foo foo, BindingResult bindingResult) &#123;</span><br><span class="line">    if(bindingResult.hasErrors())&#123;</span><br><span class="line">        for (FieldError fieldError : bindingResult.getFieldErrors()) &#123;</span><br><span class="line">            //...</span><br><span class="line">        &#125;</span><br><span class="line">        return &quot;fail&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    return &quot;success&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="自定义校验"><a href="#自定义校验" class="headerlink" title="自定义校验"></a>自定义校验</h2><p>业务需求总是比框架提供的这些简单校验要复杂的多，我们可以自定义校验来满足我们的需求。自定义spring validation非常简单，主要分为两步。</p>
+<p>1 自定义校验注解<br>我们尝试添加一个“字符串不能包含空格”的限制。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">@Target(&#123;METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER&#125;)</span><br><span class="line">@Retention(RUNTIME)</span><br><span class="line">@Documented</span><br><span class="line">@Constraint(validatedBy = &#123;CannotHaveBlankValidator.class&#125;)&lt;1&gt;</span><br><span class="line">public @interface CannotHaveBlank &#123;</span><br><span class="line"></span><br><span class="line">    //默认错误消息</span><br><span class="line">    String message() default &quot;不能包含空格&quot;;</span><br><span class="line"></span><br><span class="line">    //分组</span><br><span class="line">    Class&lt;?&gt;[] groups() default &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    //负载</span><br><span class="line">    Class&lt;? extends Payload&gt;[] payload() default &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    //指定多个时使用</span><br><span class="line">    @Target(&#123;FIELD, METHOD, PARAMETER, ANNOTATION_TYPE&#125;)</span><br><span class="line">    @Retention(RUNTIME)</span><br><span class="line">    @Documented</span><br><span class="line">    @interface List &#123;</span><br><span class="line">        CannotHaveBlank[] value();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们不需要关注太多东西，使用spring validation的原则便是便捷我们的开发，例如payload，List ，groups，都可以忽略。</p>
+<p><code>&lt;1&gt;</code> 自定义注解中指定了这个注解真正的验证者类。</p>
+<p>2 编写真正的校验者类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">public class CannotHaveBlankValidator implements &lt;1&gt; ConstraintValidator&lt;CannotHaveBlank, String&gt; &#123;</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">    public void initialize(CannotHaveBlank constraintAnnotation) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    @Override</span><br><span class="line">    public boolean isValid(String value, ConstraintValidatorContext context &lt;2&gt;) &#123;</span><br><span class="line">        //null时不进行校验</span><br><span class="line">        if (value != null &amp;&amp; value.contains(&quot; &quot;)) &#123;</span><br><span class="line">	        &lt;3&gt;</span><br><span class="line">            //获取默认提示信息</span><br><span class="line">            String defaultConstraintMessageTemplate = context.getDefaultConstraintMessageTemplate();</span><br><span class="line">            System.out.println(&quot;default message :&quot; + defaultConstraintMessageTemplate);</span><br><span class="line">            //禁用默认提示信息</span><br><span class="line">            context.disableDefaultConstraintViolation();</span><br><span class="line">            //设置提示语</span><br><span class="line">            context.buildConstraintViolationWithTemplate(&quot;can not contains blank&quot;).addConstraintViolation();</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>&lt;1&gt;</code> 所有的验证者都需要实现<code>ConstraintValidator</code>接口，它的接口也很形象，包含一个初始化事件方法，和一个判断是否合法的方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public interface ConstraintValidator&lt;A extends Annotation, T&gt; &#123;</span><br><span class="line">	void initialize(A constraintAnnotation);</span><br><span class="line">		boolean isValid(T value, ConstraintValidatorContext context);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>&lt;2&gt;</code> <code>ConstraintValidatorContext</code> 这个上下文包含了认证中所有的信息，我们可以利用这个上下文实现获取默认错误提示信息，禁用错误提示信息，改写错误提示信息等操作。</p>
+<p><code>&lt;3&gt;</code> 一些典型校验操作，或许可以对你产生启示作用。</p>
+<p>值得注意的一点是，自定义注解可以用在<code>METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER</code>之上，<code>ConstraintValidator</code>的第二个泛型参数T，是需要被校验的类型。</p>
+<h2 id="手动校验"><a href="#手动校验" class="headerlink" title="手动校验"></a>手动校验</h2><p>可能在某些场景下需要我们手动校验，即使用校验器对需要被校验的实体发起validate，同步获得校验结果。理论上我们既可以使用Hibernate Validation提供Validator，也可以使用Spring对其的封装。在spring构建的项目中，提倡使用经过spring封装过后的方法，这里两种方法都介绍下：</p>
+<p><strong>Hibernate Validation</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Foo foo = new Foo();</span><br><span class="line">foo.setAge(22);</span><br><span class="line">foo.setEmail(&quot;000&quot;);</span><br><span class="line">ValidatorFactory vf = Validation.buildDefaultValidatorFactory();</span><br><span class="line">Validator validator = vf.getValidator();</span><br><span class="line">Set&lt;ConstraintViolation&lt;Foo&gt;&gt; set = validator.validate(foo);</span><br><span class="line">for (ConstraintViolation&lt;Foo&gt; constraintViolation : set) &#123;</span><br><span class="line">    System.out.println(constraintViolation.getMessage());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>由于依赖了Hibernate Validation框架，我们需要调用Hibernate相关的工厂方法来获取validator实例，从而校验。</p>
+<p>在spring framework文档的Validation相关章节，可以看到如下的描述：</p>
+<blockquote>
+<p>Spring provides full support for the Bean Validation API. This includes convenient support for bootstrapping a JSR-303/JSR-349 Bean Validation provider as a Spring bean. This allows for a javax.validation.ValidatorFactory or javax.validation.Validator to be injected wherever validation is needed in your application. Use the LocalValidatorFactoryBean to configure a default Validator as a Spring bean:</p>
+</blockquote>
+<blockquote>
+<p>bean id=”validator” class=”org.springframework.validation.beanvalidation.LocalValidatorFactoryBean”</p>
+</blockquote>
+<blockquote>
+<p>The basic configuration above will trigger Bean Validation to initialize using its default bootstrap mechanism. A JSR-303/JSR-349 provider, such as Hibernate Validator, is expected to be present in the classpath and will be detected automatically.</p>
+</blockquote>
+<p>上面这段话主要描述了spring对validation全面支持JSR-303、JSR-349的标准，并且封装了<code>LocalValidatorFactoryBean</code>作为validator的实现。值得一提的是，这个类的责任其实是非常重大的，他兼容了spring的validation体系和hibernate的validation体系，也可以被开发者直接调用，代替上述的从工厂方法中获取的hibernate validator。由于我们使用了springboot，会触发web模块的自动配置，<code>LocalValidatorFactoryBean</code>已经成为了Validator的默认实现，使用时只需要自动注入即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">@Autowired</span><br><span class="line">Validator globalValidator; &lt;1&gt;</span><br><span class="line"></span><br><span class="line">@RequestMapping(&quot;/validate&quot;)</span><br><span class="line">public String validate() &#123;</span><br><span class="line">    Foo foo = new Foo();</span><br><span class="line">    foo.setAge(22);</span><br><span class="line">    foo.setEmail(&quot;000&quot;);</span><br><span class="line"></span><br><span class="line">    Set&lt;ConstraintViolation&lt;Foo&gt;&gt; set = globalValidator.validate(foo);&lt;2&gt;</span><br><span class="line">    for (ConstraintViolation&lt;Foo&gt; constraintViolation : set) &#123;</span><br><span class="line">        System.out.println(constraintViolation.getMessage());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return &quot;success&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>&lt;1&gt;</code> 真正使用过<code>Validator</code>接口的读者会发现有两个接口，一个是位于<code>javax.validation</code>包下，另一个位于<code>org.springframework.validation</code>包下，<strong>注意我们这里使用的是前者</strong><code>javax.validation</code>，后者是spring自己内置的校验接口，<code>LocalValidatorFactoryBean</code>同时实现了这两个接口。</p>
+<p><code>&lt;2&gt;</code> 此处校验接口最终的实现类便是<code>LocalValidatorFactoryBean</code>。</p>
+<h2 id="基于方法校验"><a href="#基于方法校验" class="headerlink" title="基于方法校验"></a>基于方法校验</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">@RestController</span><br><span class="line">@Validated &lt;1&gt;</span><br><span class="line">public class BarController &#123;</span><br><span class="line"></span><br><span class="line">    @RequestMapping(&quot;/bar&quot;)</span><br><span class="line">    public @NotBlank &lt;2&gt; String bar(@Min(18) Integer age &lt;3&gt;) &#123;</span><br><span class="line">        System.out.println(&quot;age : &quot; + age);</span><br><span class="line">        return &quot;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @ExceptionHandler(ConstraintViolationException.class)</span><br><span class="line">    public Map handleConstraintViolationException(ConstraintViolationException cve)&#123;</span><br><span class="line">        Set&lt;ConstraintViolation&lt;?&gt;&gt; cves = cve.getConstraintViolations();&lt;4&gt;</span><br><span class="line">        for (ConstraintViolation&lt;?&gt; constraintViolation : cves) &#123;</span><br><span class="line">            System.out.println(constraintViolation.getMessage());</span><br><span class="line">        &#125;</span><br><span class="line">        Map map = new HashMap();</span><br><span class="line">        map.put(&quot;errorCode&quot;,500);</span><br><span class="line">        return map;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>&lt;1&gt;</code> 为类添加@Validated注解</p>
+<p><code>&lt;2&gt; &lt;3&gt;</code> 校验方法的返回值和入参</p>
+<p><code>&lt;4&gt;</code> 添加一个异常处理器，可以获得没有通过校验的属性相关信息</p>
+<p>基于方法的校验，个人不推荐使用，感觉和项目结合的不是很好。</p>
+<h2 id="统一处理验证异常"><a href="#统一处理验证异常" class="headerlink" title="统一处理验证异常"></a>统一处理验证异常</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">@ControllerAdvice</span><br><span class="line">@Component</span><br><span class="line">public class GlobalExceptionHandler &#123;</span><br><span class="line"></span><br><span class="line">    @ExceptionHandler</span><br><span class="line">    @ResponseBody</span><br><span class="line">    @ResponseStatus(HttpStatus.BAD_REQUEST)</span><br><span class="line">    public String handle(ValidationException exception) &#123;</span><br><span class="line">        if(exception instanceof ConstraintViolationException)&#123;</span><br><span class="line">            ConstraintViolationException exs = (ConstraintViolationException) exception;</span><br><span class="line"></span><br><span class="line">            Set&lt;ConstraintViolation&lt;?&gt;&gt; violations = exs.getConstraintViolations();</span><br><span class="line">            for (ConstraintViolation&lt;?&gt; item : violations) &#123;</span><br><span class="line">　　　　　　　　　　/**打印验证不通过的信息*/</span><br><span class="line">                System.out.println(item.getMessage());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return &quot;bad request, &quot; ;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>参考：<br><em><a href="https://www.cnkirito.moe/2017/08/16/%E4%BD%BF%E7%94%A8spring%20validation%E5%AE%8C%E6%88%90%E6%95%B0%E6%8D%AE%E5%90%8E%E7%AB%AF%E6%A0%A1%E9%AA%8C/" target="_blank" rel="noopener">https://www.cnkirito.moe/2017/08/16/%E4%BD%BF%E7%94%A8spring%20validation%E5%AE%8C%E6%88%90%E6%95%B0%E6%8D%AE%E5%90%8E%E7%AB%AF%E6%A0%A1%E9%AA%8C/</a></em></p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/Spring-Boot/" rel="tag"># Spring Boot</a>
+          
+            <a href="/tags/Spring/" rel="tag"># Spring</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/02/25/spring-boot-learning-hodgepodge/" rel="next" title="Spring Boot学习之杂记篇">
+                <i class="fa fa-chevron-left"></i> Spring Boot学习之杂记篇
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/05/write-your-own-blockchain/" rel="prev" title="转载—自己动手写区块链">
+                转载—自己动手写区块链 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">杨凯</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Preface"><span class="nav-number">1.</span> <span class="nav-text">Preface</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring-MVC-相关"><span class="nav-number">2.</span> <span class="nav-text">Spring MVC 相关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring-MVC-流程"><span class="nav-number">2.1.</span> <span class="nav-text">Spring MVC 流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring-MVC集成fastjson"><span class="nav-number">2.2.</span> <span class="nav-text">Spring MVC集成fastjson</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#方式一、实现WebMvcConfigurer"><span class="nav-number">2.2.1.</span> <span class="nav-text">方式一、实现WebMvcConfigurer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方式二、通过-Bean方式"><span class="nav-number">2.2.2.</span> <span class="nav-text">方式二、通过@Bean方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WebFlux"><span class="nav-number">2.2.3.</span> <span class="nav-text">WebFlux</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring-Boot-JSON-（Date类型入参、格式化，以及如何处理null）"><span class="nav-number">2.3.</span> <span class="nav-text">Spring Boot JSON （Date类型入参、格式化，以及如何处理null）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring-Boot-MVC特性"><span class="nav-number">2.4.</span> <span class="nav-text">Spring Boot MVC特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RequestBody与-ModelAttribute"><span class="nav-number">2.5.</span> <span class="nav-text">@RequestBody与@ModelAttribute</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模板引擎的选择"><span class="nav-number">2.6.</span> <span class="nav-text">模板引擎的选择</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开启GZIP算法压缩响应流"><span class="nav-number">2.7.</span> <span class="nav-text">开启GZIP算法压缩响应流</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#全局异常处理"><span class="nav-number">2.8.</span> <span class="nav-text">全局异常处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#方式一：添加自定义的错误页面"><span class="nav-number">2.8.1.</span> <span class="nav-text">方式一：添加自定义的错误页面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方式二：通过-ControllerAdvice"><span class="nav-number">2.8.2.</span> <span class="nav-text">方式二：通过@ControllerAdvice</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#静态资源"><span class="nav-number">2.9.</span> <span class="nav-text">静态资源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义消息转化器"><span class="nav-number">2.10.</span> <span class="nav-text">自定义消息转化器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义SpringMVC的拦截器"><span class="nav-number">2.11.</span> <span class="nav-text">自定义SpringMVC的拦截器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建-Servlet、-Filter、Listener"><span class="nav-number">2.12.</span> <span class="nav-text">创建 Servlet、 Filter、Listener</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#注解方式"><span class="nav-number">2.12.1.</span> <span class="nav-text">注解方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过编码注册"><span class="nav-number">2.12.2.</span> <span class="nav-text">通过编码注册</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring-Interceptor与Servlet-Filter的区别"><span class="nav-number">2.13.</span> <span class="nav-text">Spring Interceptor与Servlet Filter的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RequestBodyAdvice和ResponseBodyAdvice"><span class="nav-number">2.14.</span> <span class="nav-text">RequestBodyAdvice和ResponseBodyAdvice</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#应用场景"><span class="nav-number">2.14.1.</span> <span class="nav-text">应用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用"><span class="nav-number">2.14.2.</span> <span class="nav-text">使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring-Boot和Feign中使用Java-8时间日期API（LocalDate等）的序列化问题"><span class="nav-number">2.15.</span> <span class="nav-text">Spring Boot和Feign中使用Java 8时间日期API（LocalDate等）的序列化问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Validation"><span class="nav-number">3.</span> <span class="nav-text">Validation</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#常用注解（大部分JSR中已有）"><span class="nav-number">3.1.</span> <span class="nav-text">常用注解（大部分JSR中已有）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简单使用"><span class="nav-number">3.2.</span> <span class="nav-text">简单使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#快速失效"><span class="nav-number">3.3.</span> <span class="nav-text">快速失效</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分组校验"><span class="nav-number">3.4.</span> <span class="nav-text">分组校验</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义校验"><span class="nav-number">3.5.</span> <span class="nav-text">自定义校验</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#手动校验"><span class="nav-number">3.6.</span> <span class="nav-text">手动校验</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于方法校验"><span class="nav-number">3.7.</span> <span class="nav-text">基于方法校验</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#统一处理验证异常"><span class="nav-number">3.8.</span> <span class="nav-text">统一处理验证异常</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">杨凯</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
