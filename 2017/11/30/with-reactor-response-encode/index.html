@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Java,Reactor,">
+  <meta name="keywords" content="mysql,日期转换,sql,">
 
 
 
@@ -79,20 +79,18 @@
 
 
 
-<meta name="description" content="Preface 反应式编程（Reactive Programming）这种新的编程范式越来越受到开发人员的欢迎。在 Java 社区中比较流行的是 RxJava 和 RxJava 2。本篇要介绍的是另外一个新的反应式编程库 Reactor。Reactor 框架是 Pivotal 公司（开发 Spring 等技术的公司）开发的，实现了 Reactive Programming 思想，符合 React">
-<meta name="keywords" content="Java,Reactor">
+<meta name="description" content="时间、字符串、时间戳之间的互相转换很常用，但是几乎每次使用时候都喜欢去搜索一下用法；本文整理一下三者之间的 转换（即：date转字符串、date转时间戳、字符串转date、字符串转时间戳、时间戳转date，时间戳转字符串）用法，方便日后学习和查阅；## 涉及的函数date_format(date, format) 函数，MySQL日期格式化函数date_format()unix_timestamp">
+<meta name="keywords" content="mysql,日期转换,sql">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用 Reactor 进行反应式编程">
 <meta property="og:url" content="http://yoursite.com/2017/11/30/with-reactor-response-encode/index.html">
 <meta property="og:site_name" content="如风过境">
-<meta property="og:description" content="Preface 反应式编程（Reactive Programming）这种新的编程范式越来越受到开发人员的欢迎。在 Java 社区中比较流行的是 RxJava 和 RxJava 2。本篇要介绍的是另外一个新的反应式编程库 Reactor。Reactor 框架是 Pivotal 公司（开发 Spring 等技术的公司）开发的，实现了 Reactive Programming 思想，符合 React">
+<meta property="og:description" content="时间、字符串、时间戳之间的互相转换很常用，但是几乎每次使用时候都喜欢去搜索一下用法；本文整理一下三者之间的 转换（即：date转字符串、date转时间戳、字符串转date、字符串转时间戳、时间戳转date，时间戳转字符串）用法，方便日后学习和查阅；## 涉及的函数date_format(date, format) 函数，MySQL日期格式化函数date_format()unix_timestamp">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://cdn.yangbingdong.com/img/with-reactor-response-encode/reactor.png">
-<meta property="og:updated_time" content="2018-12-09T10:48:40.665Z">
+<meta property="og:updated_time" content="2019-01-22T09:55:57.507Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用 Reactor 进行反应式编程">
-<meta name="twitter:description" content="Preface 反应式编程（Reactive Programming）这种新的编程范式越来越受到开发人员的欢迎。在 Java 社区中比较流行的是 RxJava 和 RxJava 2。本篇要介绍的是另外一个新的反应式编程库 Reactor。Reactor 框架是 Pivotal 公司（开发 Spring 等技术的公司）开发的，实现了 Reactive Programming 思想，符合 React">
-<meta name="twitter:image" content="https://cdn.yangbingdong.com/img/with-reactor-response-encode/reactor.png">
+<meta name="twitter:description" content="时间、字符串、时间戳之间的互相转换很常用，但是几乎每次使用时候都喜欢去搜索一下用法；本文整理一下三者之间的 转换（即：date转字符串、date转时间戳、字符串转date、字符串转时间戳、时间戳转date，时间戳转字符串）用法，方便日后学习和查阅；## 涉及的函数date_format(date, format) 函数，MySQL日期格式化函数date_format()unix_timestamp">
 
 
 
@@ -317,8 +315,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Programming/" itemprop="url" rel="index">
-                    <span itemprop="name">Programming</span>
+                  <a href="/categories/mysql/" itemprop="url" rel="index">
+                    <span itemprop="name">mysql</span>
                   </a>
                 </span>
 
@@ -328,8 +326,8 @@
                 
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Programming/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/mysql/sql/" itemprop="url" rel="index">
+                    <span itemprop="name">sql</span>
                   </a>
                 </span>
 
@@ -365,155 +363,105 @@
       
 
       
-        <p><img src="https://cdn.yangbingdong.com/img/with-reactor-response-encode/reactor.png" alt=""></p>
-<h1 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h1><blockquote>
-<p>反应式编程（<code>Reactive Programming</code>）这种新的编程范式越来越受到开发人员的欢迎。在 Java 社区中比较流行的是 <code>RxJava</code> 和 <code>RxJava 2</code>。本篇要介绍的是另外一个新的反应式编程库 <em><a href="https://github.com/reactor/reactor" target="_blank" rel="noopener">Rea</a><a href="http://projectreactor.io/" target="_blank" rel="noopener">ctor</a></em>。<br>Reactor 框架是 <strong>Pivotal</strong> 公司（开发 Spring 等技术的公司）开发的，实现了 <code>Reactive Programming</code> 思想，符合 <code>Reactive Streams</code> 规范（<code>Reactive Streams</code> 是由 <strong>Netflix</strong>、<strong>TypeSafe</strong>、<strong>Pivotal</strong> 等公司发起的）的一项技术。其名字有反应堆之意，反映了其背后的<em>强大的性能</em>。</p>
-</blockquote>
-<a id="more"></a>
-<h1 id="反应式编程介绍"><a href="#反应式编程介绍" class="headerlink" title="反应式编程介绍"></a>反应式编程介绍</h1><p>反应式编程来源于数据流和变化的传播，意味着由底层的执行模型负责通过数据流来自动传播变化。比如求值一个简单的表达式 c=a+b，当 a 或者 b 的值<strong>发生变化</strong>时，<strong>传统的编程范式</strong>需要对 a+b 进行<strong>重新计算</strong>来得到 c 的值。如果使用<strong>反应式编程</strong>，当 a 或者 b 的值<strong>发生变化</strong>时，c 的值会<strong>自动更新</strong>。反应式编程最早由 .NET 平台上的 <code>Reactive Extensions</code> (<code>Rx</code>) 库来实现。后来迁移到 Java 平台之后就产生了著名的 <code>RxJava</code> 库，并产生了很多其他编程语言上的对应实现。在这些实现的基础上产生了后来的反应式流（<code>Reactive Streams</code>）规范。该规范定义了反应式流的相关接口，并将集成到 <strong>Java 9</strong> 中。</p>
-<p>在传统的编程范式中，我们一般通过迭代器（<code>Iterator</code>）模式来遍历一个序列。这种遍历方式是由<strong>调用者来控制节奏</strong>的，采用的是<strong>拉</strong>的方式。每次由调用者通过 next()方法来获取序列中的下一个值。使用<strong>反应式流</strong>时采用的则是<strong>推</strong>的方式，即常见的<strong>发布者-订阅者模式</strong>。当发布者有新的数据产生时，这些数据会被<strong>推送</strong>到<strong>订阅者</strong>来进行处理。在反应式流上可以添加各种不同的操作来对数据进行处理，形成数据处理链。这个以声明式的方式添加的处理链只在订阅者进行订阅操作时才会真正执行。</p>
-<p>反应式流中第一个重要概念是<strong>负压</strong>（<code>backpressure</code>）。在基本的消息推送模式中，当消息发布者产生数据的<strong>速度过快</strong>时，会使得消息订阅者的处理速度<strong>无法跟上产生的速度</strong>，从而给订阅者造成很大的<strong>压力</strong>。当压力过大时，有可能造成订阅者本身的<strong>奔溃</strong>，所产生的级联效应甚至可能造成整个系统的<strong>瘫痪</strong>。<strong>负压</strong>的作用在于<strong>提供一种从订阅者到生产者的反馈渠道</strong>。订阅者可以通过 <code>request()</code>方法来<strong>声明其一次所能处理的消息数量</strong>，<strong>而生产者就只会产生相应数量的消息</strong>，直到下一次 <code>request()</code>方法调用。这实际上变成了<strong>推拉结合的模式</strong>。</p>
-<h1 id="Reactor-简介"><a href="#Reactor-简介" class="headerlink" title="Reactor 简介"></a>Reactor 简介</h1><p>前面提到的 <code>RxJava</code> 库是 JVM 上反应式编程的先驱，也是反应式流规范的基础。<code>RxJava 2</code> 在 <code>RxJava</code> 的基础上做了很多的更新。不过 <code>RxJava</code> 库也有其不足的地方。<code>RxJava</code> 产生于反应式流规范之前，虽然可以和反应式流的接口进行转换，但是由于底层实现的原因，使用起来并不是很直观。<code>RxJava 2</code> 在设计和实现时考虑到了与规范的整合，不过为了保持与 <code>RxJava</code> 的兼容性，很多地方在使用时也并不直观。<code>Reactor</code> 则是<strong>完全基于反应式流规范设计和实现的库</strong>，没有 <code>RxJava</code> 那样的历史包袱，在使用上更加的直观易懂。<code>Reactor</code> 也是 Spring 5 中反应式编程的基础。学习和掌握 <code>Reactor</code> 可以更好地理解 Spring 5 中的相关概念。</p>
-<p>在 Java 程序中使用 <code>Reactor</code> 库非常的简单，只需要通过 Maven 或 Gradle 来添加对 <code>io.projectreactor:reactor-core</code> 的依赖即可，目前的版本是 <code>3.1.2.RELEASE</code>：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependencies&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;io.projectreactor&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;reactor-core&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;3.1.2.RELEASE&lt;/version&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">    &lt;/dependencies&gt;</span><br></pre></td></tr></table></figure>
-<h1 id="Flux-和-Mono"><a href="#Flux-和-Mono" class="headerlink" title="Flux 和 Mono"></a>Flux 和 Mono</h1><p><code>Flux</code> 和 <code>Mono</code> 是 <code>Reactor</code> 中的两个基本概念。<code>Flux</code> 表示的是<strong>包含 0 到 N 个元素</strong>的<strong>异步</strong>序列。在该序列中可以包含<strong>三种不同类型</strong>的消息通知：正常的包含元素的消息、序列结束的消息和序列出错的消息。当消息通知产生时，<strong>订阅者</strong>中对应的方法 <code>onNext()</code>, <code>onComplete()</code>和 <code>onError()</code>会被调用。<code>Mono</code> 表示的是<strong>包含 0 或者 1 个元素</strong>的<strong>异步</strong>序列。该序列中同样可以包含与 Flux 相同的三种类型的消息通知。<code>Flux</code> 和 <code>Mono</code> 之间可以进行<strong>转换</strong>。对一个 <code>Flux</code> 序列进行计数操作，得到的结果是一个 <code>Mono&lt;Long&gt;</code>对象。把两个 <code>Mono</code> 序列合并在一起，得到的是一个 <code>Flux</code> 对象。</p>
-<h2 id="创建-Flux"><a href="#创建-Flux" class="headerlink" title="创建 Flux"></a>创建 Flux</h2><p>有多种不同的方式可以创建 Flux 序列。</p>
-<h3 id="Flux-类的静态方法"><a href="#Flux-类的静态方法" class="headerlink" title="Flux 类的静态方法"></a>Flux 类的静态方法</h3><p>第一种方式是通过 Flux 类中的静态方法。</p>
-<ul>
-<li><code>just()</code>：可以指定序列中包含的全部元素。创建出来的 Flux 序列在发布这些元素之后会自动结束。</li>
-<li><code>fromArray()</code>，<code>fromIterable()</code>和 <code>fromStream()</code>：可以从一个<strong>数组</strong>、<code>Iterable</code> 对象或 <code>Stream</code> 对象中创建 <code>Flux</code> 对象。</li>
-<li><code>empty()</code>：创建一个不包含任何元素，只发布结束消息的序列。</li>
-<li><code>error(Throwable error)</code>：创建一个只包含错误消息的序列。</li>
-<li><code>never()</code>：创建一个不包含任何消息通知的序列。</li>
-<li><code>range(int start, int count)</code>：创建包含从 start 起始的 count 个数量的 Integer 对象的序列。</li>
-<li><code>interval(Duration period)</code>和 <code>interval(Duration delay, Duration period)</code>：创建一个包含了从 0 开始递增的 Long 对象的序列。其中包含的元素按照指定的间隔来发布。除了间隔时间之外，还可以指定起始元素发布之前的延迟时间。</li>
-</ul>
-<p>代码清单 1 中给出了上述这些方法的使用示例。</p>
-<p><strong>清单 1. 通过 Flux 类的静态方法创建 Flux 序列</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) throws InterruptedException &#123;</span><br><span class="line">	generateSimpleFlux();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">private static void generateSimpleFlux() throws InterruptedException &#123;</span><br><span class="line">	Flux.just(&quot;Hello&quot;, &quot;World&quot;).subscribe(System.out::println);</span><br><span class="line">	Integer[] array = &#123;1, 2, 3&#125;;</span><br><span class="line">	Flux.fromArray(array).subscribe(System.out::println);</span><br><span class="line">	Flux.fromStream(Stream.of(array)).subscribe(System.out::println);</span><br><span class="line">	Flux.fromIterable(Arrays.asList(array)).subscribe(System.out::println);</span><br><span class="line">	Flux.empty().subscribe(System.out::println);</span><br><span class="line">	Flux.range(1, 10).subscribe(System.out::println);</span><br><span class="line">	Flux.interval(Duration.ofSeconds(1)).subscribe(System.out::println);</span><br><span class="line">	// Flux.interval(Duration.of(1, ChronoUnit.SECONDS)).subscribe(System.out::println);</span><br><span class="line">	TimeUnit.SECONDS.sleep(5);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上面的这些静态方法适合于<strong>简单</strong>的序列生成，当序列的生成<strong>需要复杂的逻辑</strong>时，则应该使用 <code>generate()</code> 或 <code>create()</code> 方法。</p>
-<h3 id="generate-方法"><a href="#generate-方法" class="headerlink" title="generate()方法"></a>generate()方法</h3><p><code>generate()</code>方法通过<strong>同步</strong>和<strong>逐一</strong>的方式来产生 <code>Flux</code> 序列。序列的产生是通过调用所提供的 <code>SynchronousSink</code> 对象的 <code>next()</code>，<code>complete()</code>和 <code>error(Throwable)</code>方法来完成的。逐一生成的含义是在具体的生成逻辑中，<strong><code>next()</code>方法只能最多被调用一次</strong>。在有些情况下，序列的生成可能是有状态的，需要用到某些状态对象。此时可以使用 <code>generate()</code>方法的另外一种形式 <code>generate(Callable&lt;S&gt; stateSupplier, BiFunction&lt;S,SynchronousSink&lt;T&gt;,S&gt; generator)</code>，其中 <code>stateSupplier</code> 用来提供初始的状态对象。在进行序列生成时，状态对象会作为 <code>generator</code> 使用的第一个参数传入，可以在对应的逻辑中对该状态对象进行修改以供下一次生成时使用。</p>
-<p>在代码清单 2中，第一个序列的生成逻辑中通过 <code>next()</code>方法产生一个简单的值，然后通过 <code>complete()</code>方法来结束该序列。如果不调用 <code>complete()</code>方法，所产生的是一个<strong>无限序列</strong>。第二个序列的生成逻辑中的状态对象是一个 <code>ArrayList</code> 对象。实际产生的值是一个<strong>随机数</strong>。产生的随机数被添加到 <code>ArrayList</code> 中。当产生了 10 个数时，通过 <code>complete()</code>方法来结束序列。</p>
-<p><strong>清单 2. 使用 generate()方法生成 Flux 序列</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">private static void fluxGenerate() &#123;</span><br><span class="line">		Flux.generate(sink -&gt; &#123;</span><br><span class="line">			sink.next(&quot;Hello&quot;);</span><br><span class="line">			sink.complete();</span><br><span class="line">		&#125;).subscribe(System.out::println);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">		Random random = new Random();</span><br><span class="line">		Flux.generate(ArrayList::new, (list, sink) -&gt; &#123;</span><br><span class="line">			int value = random.nextInt(100);</span><br><span class="line">			list.add(value);</span><br><span class="line">			sink.next(value);</span><br><span class="line">			if (list.size() == 10) &#123;</span><br><span class="line">				sink.complete();</span><br><span class="line">			&#125;</span><br><span class="line">			return list;</span><br><span class="line">		&#125;).subscribe(System.out::println);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="create-方法"><a href="#create-方法" class="headerlink" title="create()方法"></a>create()方法</h3><p><code>create()</code>方法与 <code>generate()</code>方法的不同之处在于所使用的是 <code>FluxSink</code> 对象。<code>FluxSink</code> 支持同步和异步的消息产生，<strong>并且可以在一次调用中产生多个元素</strong>。在代码清单 3 中，在一次调用中就产生了全部的 10 个元素。</p>
-<p><strong>清单 3. 使用 create()方法生成 Flux 序列</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Flux.create(sink -&gt; &#123;</span><br><span class="line">    for (int i = 0; i &lt; 10; i++) &#123;</span><br><span class="line">        sink.next(i);</span><br><span class="line">    &#125;</span><br><span class="line">    sink.complete();</span><br><span class="line">&#125;).subscribe(System.out::println);</span><br></pre></td></tr></table></figure>
-<h2 id="创建-Mono"><a href="#创建-Mono" class="headerlink" title="创建 Mono"></a>创建 Mono</h2><p>Mono 的创建方式与之前介绍的 Flux 比较相似。Mono 类中也包含了一些与 Flux 类中<strong>相同的静态方法</strong>。这些方法包括 <code>just()</code>，<code>empty()</code>，<code>error()</code>和 <code>never()</code>等。除了这些方法之外，Mono 还有一些独有的静态方法。</p>
-<ul>
-<li><code>fromCallable()</code>、<code>fromCompletionStage()</code>、<code>fromFuture()</code>、<code>fromRunnable()</code>和 <code>fromSupplier()</code>：分别从 <code>Callable</code>、<code>CompletionStage</code>、<code>CompletableFuture</code>、<code>Runnable</code> 和 <code>Supplier</code> 中创建 Mono。</li>
-<li><code>delay(Duration duration)</code>：创建一个 Mono 序列，在指定的<strong>延迟</strong>时间之后，产生数字 0 作为唯一值。</li>
-<li><code>ignoreElements(Publisher&lt;T&gt; source)</code>：创建一个 Mono 序列，<strong>忽略</strong>作为源的 <code>Publisher</code> 中的所有元素，<strong>只产生结束消息</strong>。</li>
-<li><code>justOrEmpty(Optional&lt;? extends T&gt; data)</code>和 <code>justOrEmpty(T data)</code>：从一个 <strong>Optional</strong> 对象或可能为 null 的对象中创建 Mono。只有 <strong>Optional</strong> 对象中包含值或对象不为 null 时，Mono 序列才产生对应的元素。</li>
-</ul>
-<p>还可以通过 <code>create()</code>方法来使用 <code>MonoSink</code> 来创建 Mono。代码清单 4 中给出了创建 Mono 序列的示例。</p>
-<p><strong>清单 4. 创建 Mono 序列</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">private static final String HELLO = &quot;Hello&quot;;</span><br><span class="line">private static void buildMono() throws InterruptedException &#123;</span><br><span class="line">		Mono.just(HELLO).subscribe(System.out::println);</span><br><span class="line">		Mono.empty().subscribe(System.out::println);</span><br><span class="line">		Mono.fromSupplier(() -&gt; HELLO).subscribe(System.out::println);</span><br><span class="line">		Mono.justOrEmpty(Optional.of(HELLO)).subscribe(System.out::println);</span><br><span class="line">		Mono.create(sink -&gt; sink.success(HELLO)).subscribe(System.out::println);</span><br><span class="line">		Mono.delay(Duration.ofSeconds(1)).subscribe(System.out::println);</span><br><span class="line">		TimeUnit.SECONDS.sleep(2);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="操作符"><a href="#操作符" class="headerlink" title="操作符"></a>操作符</h2><p>和 <code>RxJava</code> 一样，<code>Reactor</code> 的强大之处在于可以在反应式流上通过<strong>声明式</strong>的方式添加多种不同的<strong>操作符</strong>。下面对其中重要的操作符进行分类介绍。</p>
-<h3 id="buffer-和-bufferTimeout"><a href="#buffer-和-bufferTimeout" class="headerlink" title="buffer 和 bufferTimeout"></a>buffer 和 bufferTimeout</h3><p>这两个操作符的作用是把当前流中的元素<strong>收集到集合中</strong>，并把集合对象作为流中的新元素。在进行收集时可以指定不同的条件：所包含的元素的<strong>最大数量</strong>或<strong>收集的时间间隔</strong>。方法 <code>buffer()</code>仅使用一个条件，而 <code>bufferTimeout()</code>可以同时指定两个条件。指定时间间隔时可以使用 <code>Duration</code> 对象或毫秒数。</p>
-<p>除了元素数量和时间间隔之外，还可以通过 <code>bufferUntil</code> 和 <code>bufferWhile</code> 操作符来进行收集。这两个操作符的参数是表示每个集合中的元素所要<strong>满足的条件</strong>的 <code>Predicate</code> 对象。<code>bufferUntil</code> 会<strong>一直收集</strong>直到 <code>Predicate</code> 返回为 <code>true</code>。使得 <code>Predicate</code> 返回 <code>true</code> 的那个元素可以选择添加到当前集合或下一个集合中；<code>bufferWhile</code> 则<strong>只有当 <code>Predicate</code> 返回 <code>true</code> 时才会收集</strong>。一旦值为 <code>false</code>，会立即开始下一次收集。</p>
-<p>代码清单 5 给出了 <code>buffer</code> 相关操作符的使用示例。第一行语句输出的是 5 个包含 20 个元素的数组；第二行语句输出的是 2 个包含了 10 个元素的数组；第三行语句输出的是 5 个包含 2 个元素的数组。每当遇到一个偶数就会结束当前的收集；第四行语句输出的是 5 个包含 1 个元素的数组，数组里面包含的只有偶数。</p>
-<p>需要注意的是，在代码清单 5 中，首先通过 <code>toStream()</code>方法把 Flux 序列转换成 Java 8 中的 <code>Stream</code> 对象，再通过 <code>forEach()</code>方法来进行输出。这是因为序列的生成是异步的，而转换成 <code>Stream</code> 对象可以保证主线程在序列生成完成之前不会退出，从而可以正确地输出序列中的所有元素。</p>
-<p><strong>清单 5. buffer 相关操作符的使用示例</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Flux.range(1, 100).buffer(20).subscribe(System.out::println);</span><br><span class="line">Flux.interval(Duration.ofMillis(100)).buffer(10).take(2).toStream().forEach(System.out::println);</span><br><span class="line">Flux.range(1, 10).bufferUntil(i -&gt; i % 2 == 0).subscribe(System.out::println);</span><br><span class="line">Flux.range(1, 10).bufferWhile(i -&gt; i % 2 == 0).subscribe(System.out::println);</span><br></pre></td></tr></table></figure>
-<h3 id="filter"><a href="#filter" class="headerlink" title="filter"></a>filter</h3><p>对流中包含的元素进行过滤，只留下<strong>满足</strong> <code>Predicate</code> 指定条件的元素。代码清单 6 中的语句输出的是 1 到 10 中的所有偶数。</p>
-<p><strong>清单 6. filter 操作符使用示例</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Flux.range(1, 10).filter(i -&gt; i % 2 == 0).subscribe(System.out::println);</span><br></pre></td></tr></table></figure>
-<h3 id="window"><a href="#window" class="headerlink" title="window"></a>window</h3><p><code>window</code> 操作符的作用类似于 <code>buffer</code>，所不同的是 <code>window</code> 操作符是把<strong>当前流中的元素收集到另外的 Flux 序列中</strong>，因此返回值类型是 <code>Flux&lt;Flux&lt;T&gt;&gt;</code>。在代码清单 7 中，两行语句的输出结果分别是 5 个和 2 个 <code>UnicastProcessor</code> 字符。这是因为 <code>window</code> 操作符所产生的流中包含的是 <code>UnicastProcessor</code> 类的对象，而 <code>UnicastProcessor</code> 类的 <code>toString</code> 方法输出的就是 <code>UnicastProcessor</code> 字符。</p>
-<p><strong>清单 7. window 操作符使用示例</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Flux.range(1, 100).window(20).subscribe(System.out::println);</span><br><span class="line">Flux.intervalMillis(100).windowMillis(1001).take(2).toStream().forEach(System.out::println);</span><br></pre></td></tr></table></figure>
-<h3 id="zipWith"><a href="#zipWith" class="headerlink" title="zipWith"></a>zipWith</h3><p><code>zipWith</code> 操作符把<strong>当前流中的元素与另外一个流中的元素按照一对一的方式进行合并</strong>。在合并时可以不做任何处理，由此得到的是一个元素类型为 <code>Tuple2</code> 的流；也可以通过一个 <code>BiFunction</code> 函数对合并的元素进行处理，所得到的流的元素类型为该函数的返回值。</p>
-<p>在代码清单 8 中，两个流中包含的元素分别是 a，b 和 c，d。第一个 <code>zipWith</code> 操作符没有使用合并函数，因此结果流中的元素类型为 <code>Tuple2</code>；第二个 <code>zipWith</code> 操作通过合并函数把元素类型变为 String。</p>
-<p><strong>清单 8. zipWith 操作符使用示例</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Flux.just(&quot;a&quot;, &quot;b&quot;)</span><br><span class="line">        .zipWith(Flux.just(&quot;c&quot;, &quot;d&quot;))</span><br><span class="line">        .subscribe(System.out::println);</span><br><span class="line">Flux.just(&quot;a&quot;, &quot;b&quot;)</span><br><span class="line">        .zipWith(Flux.just(&quot;c&quot;, &quot;d&quot;), (s1, s2) -&gt; String.format(&quot;%s-%s&quot;, s1, s2))</span><br><span class="line">        .subscribe(System.out::println);</span><br></pre></td></tr></table></figure>
-<h3 id="take"><a href="#take" class="headerlink" title="take"></a>take</h3><p><code>take</code> 系列操作符用来从当前流中提取元素。提取的方式可以有很多种。</p>
-<ul>
-<li><code>take(long n)</code>，<code>take(Duration timespan)</code>和 <code>takeMillis(long timespan)</code>：按照指定的数量或时间间隔来提取。</li>
-<li><code>takeLast(long n)</code>：提取流中的最后 N 个元素。</li>
-<li><code>takeUntil(Predicate&lt;? super T&gt; predicate)</code>：提取元素直到 <code>Predicate</code> 返回 <code>true</code>。</li>
-<li><code>takeWhile(Predicate&lt;? super T&gt; continuePredicate)</code>： 当 <code>Predicate</code> 返回 <code>true</code> 时才进行提取。</li>
-<li><code>takeUntilOther(Publisher&lt;?&gt; other)</code>：提取元素直到另外一个流开始产生元素。</li>
-</ul>
-<p>在代码清单 9 中，第一行语句输出的是数字 1 到 10；第二行语句输出的是数字 991 到 1000；第三行语句输出的是数字 1 到 9；第四行语句输出的是数字 1 到 10，使得 <code>Predicate</code> 返回 <code>true</code> 的元素也是包含在内的。</p>
-<p><strong>清单 9. take 系列操作符使用示例</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Flux.range(1, 1000).take(10).subscribe(System.out::println);</span><br><span class="line">Flux.range(1, 1000).takeLast(10).subscribe(System.out::println);</span><br><span class="line">Flux.range(1, 1000).takeWhile(i -&gt; i &lt; 10).subscribe(System.out::println);</span><br><span class="line">Flux.range(1, 1000).takeUntil(i -&gt; i == 10).subscribe(System.out::println);</span><br></pre></td></tr></table></figure>
-<h3 id="reduce-和-reduceWith"><a href="#reduce-和-reduceWith" class="headerlink" title="reduce 和 reduceWith"></a>reduce 和 reduceWith</h3><p><code>reduce</code> 和 <code>reduceWith</code> 操作符对流中包含的所有元素进行累积操作，得到一个包含计算结果的 Mono 序列。累积操作是通过一个 <code>BiFunction</code> 来表示的。在操作时可以指定一个初始值。如果没有初始值，则序列的第一个元素作为初始值。</p>
-<p>在代码清单 10 中，第一行语句对流中的元素进行相加操作，结果为 5050；第二行语句同样也是进行相加操作，不过通过一个 <code>Supplier</code> 给出了初始值为 100，所以结果为 5150。</p>
-<p><strong>清单 10. reduce 和 reduceWith 操作符使用示例</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Flux.range(1, 100).reduce((x, y) -&gt; x + y).subscribe(System.out::println);</span><br><span class="line">Flux.range(1, 100).reduceWith(() -&gt; 100, (x, y) -&gt; x + y).subscribe(System.out::println);</span><br></pre></td></tr></table></figure>
-<h3 id="merge-和-mergeSequential"><a href="#merge-和-mergeSequential" class="headerlink" title="merge 和 mergeSequential"></a>merge 和 mergeSequential</h3><p><code>merge</code> 和 <code>mergeSequential</code> 操作符用来把多个流合并成一个 <code>Flux</code> 序列。不同之处在于 <code>merge</code> <strong>按照所有流中元素的实际产生顺序来合并</strong>，而 <code>mergeSequential</code> 则<strong>按照所有流被订阅的顺序</strong>，以流为单位进行合并。</p>
-<p>代码清单 11 中分别使用了 <code>merge</code> 和 <code>mergeSequential</code> 操作符。进行合并的流都是每隔 100 毫秒产生一个元素，不过第二个流中的每个元素的产生都比第一个流要延迟 50 毫秒。在使用 <code>merge</code> 的结果流中，来自<strong>两个流的元素是按照时间顺序交织在一起</strong>；而使用 <code>mergeSequential</code> 的结果流则是首<strong>先产生第一个流中的全部元素，再产生第二个流中的全部元素</strong>。</p>
-<p><strong>清单 11. merge 和 mergeSequential 操作符使用示例</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Flux.merge(Flux.interval(Duration.ofMillis(100)).take(5), Flux.interval(Duration.ofMillis(50), Duration.ofMillis(100)).take(5)).subscribe(System.out::println);</span><br><span class="line">TimeUnit.SECONDS.sleep(2);</span><br><span class="line">System.out.println();</span><br><span class="line">Flux.mergeSequential(Flux.interval(Duration.ofMillis(100)).take(5), Flux.interval(Duration.ofMillis(50), Duration.ofMillis(100)).take(5))</span><br><span class="line">			.toStream()</span><br><span class="line">			.forEach(System.out::println);</span><br></pre></td></tr></table></figure>
-<h3 id="flatMap-和-flatMapSequential"><a href="#flatMap-和-flatMapSequential" class="headerlink" title="flatMap 和 flatMapSequential"></a>flatMap 和 flatMapSequential</h3><p><code>flatMap</code> 和 <code>flatMapSequential</code> 操作符把流中的<strong>每个元素转换成一个流</strong>，<strong>再把所有流中的元素进行合并</strong>。<code>flatMapSequential</code> 和 <code>flatMap</code> 之间的<strong>区别</strong>与 <code>mergeSequential</code> 和 <code>merge</code> 之间的区别是一样的。</p>
-<p>在代码清单 12 中，流中的元素被转换成每隔 100 毫秒产生的数量不同的流，再进行合并。由于第一个流中包含的元素数量较少，所以在结果流中一开始是两个流的元素交织在一起，然后就只有第二个流中的元素。</p>
-<p><strong>清单 12. flatMap 操作符使用示例</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Flux.just(5, 10)</span><br><span class="line">        .flatMap(x -&gt; Flux.intervalMillis(x * 10, 100).take(x))</span><br><span class="line">        .toStream()</span><br><span class="line">        .forEach(System.out::println);</span><br></pre></td></tr></table></figure>
-<h3 id="concatMap"><a href="#concatMap" class="headerlink" title="concatMap"></a>concatMap</h3><p><code>concatMap</code> 操作符的作用<strong>也是把流中的每个元素转换成一个流</strong>，再把所有流进行合并。与 <code>flatMap</code> 不同的是，<code>concatMap</code> 会根据原始流中的元素顺序<strong>依次</strong>把转换之后的流进行合并；与 <code>flatMapSequential</code> 不同的是，<code>concatMap</code> 对转换之后的流的订阅是动态进行的，而 <code>flatMapSequential</code> 在合并之前就已经订阅了所有的流。</p>
-<p>代码清单 13 与代码清单 12 类似，只不过把 <code>flatMap</code> 换成了 <code>concatMap</code>，结果流中依次包含了第一个流和第二个流中的全部元素。</p>
-<p><strong>清单 13. concatMap 操作符使用示例</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Flux.just(5, 10)</span><br><span class="line">        .concatMap(x -&gt; Flux.intervalMillis(x * 10, 100).take(x))</span><br><span class="line">        .toStream()</span><br><span class="line">        .forEach(System.out::println);</span><br></pre></td></tr></table></figure>
-<h3 id="combineLatest"><a href="#combineLatest" class="headerlink" title="combineLatest"></a>combineLatest</h3><p><code>combineLatest</code> 操作符把所有流中的最新产生的元素合并成一个新的元素，作为返回结果流中的元素。<strong><em>只要其中任何一个流中产生了新的元素</em></strong>，<strong><em>合并操作就会被执行一次</em></strong>，结果流中就会产生新的元素。在 代码清单 14 中，流中最新产生的元素会被收集到一个数组中，通过 <code>Arrays.toString</code> 方法来把数组转换成 <code>String</code>。</p>
-<p><strong>清单 14. combineLatest 操作符使用示例</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Flux.combineLatest(</span><br><span class="line">        Arrays::toString,</span><br><span class="line">        Flux.intervalMillis(100).take(5),</span><br><span class="line">        Flux.intervalMillis(50, 100).take(5)</span><br><span class="line">).toStream().forEach(System.out::println);</span><br></pre></td></tr></table></figure>
-<h1 id="消息处理"><a href="#消息处理" class="headerlink" title="消息处理"></a>消息处理</h1><p>当需要处理 Flux 或 Mono 中的消息时，如之前的代码清单所示，可以通过 <code>subscribe</code> 方法来添加相应的<strong>订阅逻辑</strong>。在调用 <code>subscribe</code> 方法时可以<strong>指定需要处理的消息类型</strong>。可以只处理其中包含的正常消息，也可以同时处理错误消息和完成消息。代码清单 15 中通过 <code>subscribe()</code>方法同时处理了正常消息和错误消息。</p>
-<p><strong>清单 15. 通过 subscribe()方法处理正常和错误消息</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Flux.just(1, 2)</span><br><span class="line">        .concatWith(Mono.error(new IllegalStateException()))</span><br><span class="line">        .subscribe(System.out::println, System.err::println);</span><br></pre></td></tr></table></figure>
-<p>正常的消息处理相对简单。当出现错误时，有多种不同的处理策略。第一种策略是通过 <code>onErrorReturn()</code>方法返回一个默认值。在代码清单 16 中，当出现错误时，流会产生默认值 0.</p>
-<p><strong>清单 16. 出现错误时返回默认值</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Flux.just(1, 2)</span><br><span class="line">			.concatWith(Mono.error(new IllegalStateException()))</span><br><span class="line">			.onErrorReturn(0)</span><br><span class="line">			.subscribe(System.out::println);</span><br></pre></td></tr></table></figure>
-<p>第二种策略是通过 <code>onErrorResume()</code>方法来根据不同的异常类型来选择要使用的产生元素的流。在代码清单 18 中，根据异常类型来返回不同的流作为出现错误时的数据来源。因为异常的类型为 <code>IllegalArgumentException</code>，所产生的元素为-1。</p>
-<p><strong>清单 18. 出现错误时根据异常类型来选择流</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Flux.just(1, 2)</span><br><span class="line">			.concatWith(Mono.error(new IllegalArgumentException()))</span><br><span class="line">			.onErrorResume(e -&gt; &#123;</span><br><span class="line">				if (e instanceof IllegalStateException) &#123;</span><br><span class="line">					return Mono.just(0);</span><br><span class="line">				&#125; else if (e instanceof IllegalArgumentException) &#123;</span><br><span class="line">					return Mono.just(-1);</span><br><span class="line">				&#125;</span><br><span class="line">				return Mono.empty();</span><br><span class="line">			&#125;)</span><br><span class="line">			.subscribe(System.out::println);</span><br></pre></td></tr></table></figure>
-<p>当出现错误时，还可以通过 <code>retry</code> 操作符来进行重试。重试的动作是通过重新订阅序列来实现的。在使用 retry 操作符时可以指定重试的次数。代码清单 19 中指定了重试次数为 1，所输出的结果是 1，2，1，2 和错误信息。</p>
-<p><strong>清单 19. 使用 retry 操作符进行重试</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Flux.just(1, 2)</span><br><span class="line">        .concatWith(Mono.error(new IllegalStateException()))</span><br><span class="line">        .retry(1)</span><br><span class="line">        .subscribe(System.out::println);</span><br></pre></td></tr></table></figure>
-<h1 id="调度器"><a href="#调度器" class="headerlink" title="调度器"></a>调度器</h1><p>前面介绍了反应式流和在其上可以进行的各种操作，通过调度器（<code>Scheduler</code>）可以<strong>指定这些操作执行的方式和所在的线程</strong>。有下面几种不同的调度器实现。</p>
-<ul>
-<li>当前线程，通过 <code>Schedulers.immediate()</code>方法来创建。</li>
-<li><strong>单一</strong>的可复用的线程，通过 <code>Schedulers.single()</code>方法来创建。</li>
-<li>使用<strong>弹性的线程池</strong>，通过 <code>Schedulers.elastic()</code>方法来创建。线程池中的线程是可以<strong>复用</strong>的。当所需要时，新的线程会被创建。如果一个线程闲置太长时间，则会被销毁。该调度器<strong>适用于 I/O 操作</strong>相关的流的处理。</li>
-<li>使用对<strong>并行操作优化</strong>的线程池，通过 <code>Schedulers.parallel()</code>方法来创建。其中的线程数量<strong>取决于 CPU 的核的数量</strong>。该调度器<strong>适用于计算密集型的流的处理</strong>。</li>
-<li>使用<strong>支持任务调度的调度器</strong>，通过 <code>Schedulers.timer()</code>方法来创建。</li>
-<li>从已有的 <code>ExecutorService</code> 对象中创建调度器，通过 <code>Schedulers.fromExecutorService()</code>方法来创建。</li>
-</ul>
-<p>某些操作符默认就已经使用了特定类型的调度器。比如 <code>interval()</code>方法创建的流就使用了由 <code>Schedulers.parallel()</code>创建的调度器。通过 <code>publishOn()</code>和 <code>subscribeOn()</code>方法可以切换执行操作的调度器。其中 <code>publishOn()</code>方法切换的是<strong>操作符的执行方式</strong>，而 <code>subscribeOn()</code>方法切换的是<strong>产生流中元素时的执行方式</strong>。</p>
-<p>在代码清单 20 中，使用 <code>create()</code>方法创建一个新的 <code>Flux</code> 对象，其中包含唯一的元素是当前线程的名称。接着是两对 <code>publishOn()</code>和 <code>map()</code>方法，其作用是先切换执行时的调度器，再把当前的线程名称作为前缀添加。最后通过 <code>subscribeOn()</code>方法来改变流产生时的执行方式。运行之后的结果是[elastic-2][single-1] parallel-1。最内层的线程名字 parallel-1 来自产生流中元素时使用的 <code>Schedulers.parallel()</code>调度器，中间的线程名称 single-1 来自第一个 map 操作之前的 <code>Schedulers.single()</code>调度器，最外层的线程名字 elastic-2 来自第二个 map 操作之前的 <code>Schedulers.elastic()</code>调度器。</p>
-<p><strong>清单 20. 使用调度器切换操作符执行方式</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Flux.create(sink -&gt; &#123;</span><br><span class="line">    sink.next(Thread.currentThread().getName());</span><br><span class="line">    sink.complete();</span><br><span class="line">&#125;)</span><br><span class="line">.publishOn(Schedulers.single())</span><br><span class="line">.map(x -&gt; String.format(&quot;[%s] %s&quot;, Thread.currentThread().getName(), x))</span><br><span class="line">.publishOn(Schedulers.elastic())</span><br><span class="line">.map(x -&gt; String.format(&quot;[%s] %s&quot;, Thread.currentThread().getName(), x))</span><br><span class="line">.subscribeOn(Schedulers.parallel())</span><br><span class="line">.toStream()</span><br><span class="line">.forEach(System.out::println);</span><br></pre></td></tr></table></figure>
-<h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1><p>在对使用 Reactor 的代码进行测试时，需要用到 <code>io.projectreactor.addons:reactor-test</code> 库。</p>
-<h2 id="使用-StepVerifier"><a href="#使用-StepVerifier" class="headerlink" title="使用 StepVerifier"></a>使用 StepVerifier</h2><p>进行测试时的一个典型的场景是对于一个序列，验证其中所包含的元素是否符合预期。<code>StepVerifier</code> 的作用是可以对序列中包含的元素进行逐一验证。在代码清单 21 中，需要验证的流中包含 a 和 b 两个元素。通过 <code>StepVerifier.create()</code>方法对一个流进行包装之后再进行验证。<code>expectNext()</code>方法用来声明测试时所期待的流中的下一个元素的值，而 <code>verifyComplete()</code>方法则验证流是否正常结束。类似的方法还有 <code>verifyError()</code>来验证流由于错误而终止。</p>
-<p><strong>清单 21. 使用 StepVerifier 验证流中的元素</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">StepVerifier.create(Flux.just(&quot;a&quot;, &quot;b&quot;))</span><br><span class="line">        .expectNext(&quot;a&quot;)</span><br><span class="line">        .expectNext(&quot;b&quot;)</span><br><span class="line">        .verifyComplete();</span><br></pre></td></tr></table></figure>
-<h2 id="操作测试时间"><a href="#操作测试时间" class="headerlink" title="操作测试时间"></a>操作测试时间</h2><p>有些序列的生成是有时间要求的，比如每隔 1 分钟才产生一个新的元素。在进行测试中，不可能花费实际的时间来等待每个元素的生成。此时需要用到 <code>StepVerifier</code> 提供的<strong>虚拟时间功能</strong>。通过 <code>StepVerifier.withVirtualTime()</code>方法可以创建出使用虚拟时钟的 <code>StepVerifier</code>。通过 <code>thenAwait(Duration)</code>方法可以让虚拟时钟<strong>前进</strong>。</p>
-<p>在代码清单 22 中，需要验证的流中包含两个产生间隔为一天的元素，并且第一个元素的产生延迟是 4 个小时。在通过 <code>StepVerifier.withVirtualTime()</code>方法包装流之后，<code>expectNoEvent()</code>方法用来验证在 4 个小时之内没有任何消息产生，然后验证第一个元素 0 产生；接着 <code>thenAwait()</code>方法来让虚拟时钟前进一天，然后验证第二个元素 1 产生；最后验证流正常结束。</p>
-<p><strong>清单 22. 操作测试时间</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">StepVerifier.withVirtualTime(() -&gt; Flux.interval(Duration.ofHours(4), Duration.ofDays(1)).take(2))</span><br><span class="line">        .expectSubscription()</span><br><span class="line">        .expectNoEvent(Duration.ofHours(4))</span><br><span class="line">        .expectNext(0L)</span><br><span class="line">        .thenAwait(Duration.ofDays(1))</span><br><span class="line">        .expectNext(1L)</span><br><span class="line">        .verifyComplete();</span><br></pre></td></tr></table></figure>
-<h2 id="使用-TestPublisher"><a href="#使用-TestPublisher" class="headerlink" title="使用 TestPublisher"></a>使用 TestPublisher</h2><p><code>TestPublisher</code> 的作用在于可以控制流中元素的产生，甚至是<strong>违反</strong>反应流规范的情况。在代码清单 23 中，通过 <code>create()</code>方法创建一个新的 <code>TestPublisher</code> 对象，然后使用 <code>next()</code>方法来产生元素，使用 <code>complete()</code>方法来结束流。<code>TestPublisher</code> <strong>主要用来测试开发人员自己创建的操作符</strong>。</p>
-<p><strong>清单 23. 使用 TestPublisher 创建测试所用的流</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">final TestPublisher&lt;String&gt; testPublisher = TestPublisher.create();</span><br><span class="line">testPublisher.next(&quot;a&quot;);</span><br><span class="line">testPublisher.next(&quot;b&quot;);</span><br><span class="line">testPublisher.complete();</span><br><span class="line"> </span><br><span class="line">StepVerifier.create(testPublisher)</span><br><span class="line">        .expectNext(&quot;a&quot;)</span><br><span class="line">        .expectNext(&quot;b&quot;)</span><br><span class="line">        .expectComplete();</span><br></pre></td></tr></table></figure>
-<h2 id="启用调试模式"><a href="#启用调试模式" class="headerlink" title="启用调试模式"></a>启用调试模式</h2><p>当需要获取更多与流相关的执行信息时，可以在程序开始的地方添加代码清单 24 中的代码来启用调试模式。在调试模式启用之后，所有的操作符在执行时都会保存额外的与执行链相关的信息。当出现错误时，这些信息会被作为异常堆栈信息的一部分输出。通过这些信息可以分析出具体是在哪个操作符的执行中出现了问题。</p>
-<p><strong>清单 24. 启用调试模式</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hooks.onOperatorDebug();</span><br></pre></td></tr></table></figure>
-<p>不过当调试模式启用之后，记录这些额外的信息是有代价的。一般只有在出现了错误之后，再考虑启用调试模式。但是当为了找到问题而启用了调试模式之后，之前的错误不一定能很容易重现出来。为了减少可能的开销，可以限制只对特定类型的操作符启用调试模式。</p>
-<h2 id="使用检查点"><a href="#使用检查点" class="headerlink" title="使用检查点"></a>使用检查点</h2><p>另外一种做法是通过 <code>checkpoint</code> 操作符来对特定的流处理链来启用调试模式。代码清单 25 中，在 <code>map</code> 操作符之后添加了一个名为 <code>test</code> 的检查点。当出现错误时，检查点名称会出现在异常堆栈信息中。对于程序中重要或者复杂的流处理链，可以在关键的位置上启用检查点来帮助定位可能存在的问题。</p>
-<p><strong>清单 25. 使用 checkpoint 操作符</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Flux.just(1, 0).map(x -&gt; 1 / x).checkpoint(&quot;test&quot;).subscribe(System.out::println);</span><br></pre></td></tr></table></figure>
-<h2 id="日志记录"><a href="#日志记录" class="headerlink" title="日志记录"></a>日志记录</h2><p>在开发和调试中的另外一项实用功能是把流相关的事件记录在日志中。这可以通过添加 <code>log</code> 操作符来实现。在代码清单 26 中，添加了 <code>log</code> 操作符并指定了日志分类的名称。</p>
-<p><strong>清单 26. 使用 log 操作符记录事件</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Flux.range(1, 2).log(&quot;YBD&quot;).subscribe(System.out::println);</span><br></pre></td></tr></table></figure>
-<p>在实际的运行时，所产生的输出如代码清单 27 所示。</p>
-<p><strong>清单 27. log 操作符所产生的日志</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">16:18:06.381 [main] DEBUG reactor.util.Loggers$LoggerFactory - Using Slf4j logging framework</span><br><span class="line">16:18:06.391 [main] INFO YBD - | onSubscribe([Synchronous Fuseable] FluxRange.RangeSubscription)</span><br><span class="line">16:18:06.393 [main] INFO YBD - | request(unbounded)</span><br><span class="line">16:18:06.393 [main] INFO YBD - | onNext(1)</span><br><span class="line">1</span><br><span class="line">16:18:06.394 [main] INFO YBD - | onNext(2)</span><br><span class="line">2</span><br><span class="line">16:18:06.394 [main] INFO YBD - | onComplete()</span><br></pre></td></tr></table></figure>
-<h1 id="“冷”与“热”序列"><a href="#“冷”与“热”序列" class="headerlink" title="“冷”与“热”序列"></a>“冷”与“热”序列</h1><p>之前的代码清单中所创建的都是<strong>冷序列</strong>。冷序列的含义是<strong>不论订阅者在何时订阅该序列</strong>，<strong>总是能收到序列中产生的全部消息</strong>。而与之对应的<strong>热序列</strong>，<strong>则是在持续不断地产生消息</strong>，<strong>订阅者只能获取到在其订阅之后产生的消息</strong>。</p>
-<p>在代码清单 28 中，原始的序列中包含 10 个间隔为 1 秒的元素。通过 <code>publish()</code>方法把一个 Flux 对象转换成 <code>ConnectableFlux</code> 对象。方法 <code>autoConnect()</code>的作用是当 <code>ConnectableFlux</code> 对象有一个订阅者时就开始产生消息。代码 <code>source.subscribe()</code>的作用是订阅该 <code>ConnectableFlux</code> 对象，让其开始产生数据。接着当前线程睡眠 5 秒钟，第二个订阅者此时只能获得到该序列中的后 5 个元素，因此所输出的是数字 5 到 9。</p>
-<p><strong>清单 28. 热序列</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">final Flux&lt;Long&gt; source = Flux.interval(Duration.ofSeconds(1))</span><br><span class="line">							.take(10)</span><br><span class="line">							.publish()</span><br><span class="line">							.autoConnect();</span><br><span class="line">source.subscribe();</span><br><span class="line">Thread.sleep(5000);</span><br><span class="line">source.toStream()</span><br><span class="line">	  .forEach(System.out::println);</span><br></pre></td></tr></table></figure>
-<h1 id="End"><a href="#End" class="headerlink" title="End"></a>End</h1><p>反应式编程范式对于习惯了传统编程范式的开发人员来说，既是一个需要进行思维方式转变的挑战，也是一个充满了更多可能的机会。Reactor 作为一个基于反应式流规范的新的 Java 库，可以作为反应式应用的基础。本文对 Reactor 库做了详细的介绍，包括 Flux 和 Mono 序列的创建、常用操作符的使用、调度器、错误处理以及测试和调试技巧等。</p>
-<blockquote>
-<p>参考：<strong><em><a href="https://www.ibm.com/developerworks/cn/java/j-cn-with-reactor-response-encode/index.html" target="_blank" rel="noopener">https://www.ibm.com/developerworks/cn/java/j-cn-with-reactor-response-encode/index.html</a></em></strong></p>
-<p>Demo：<strong><em><a href="https://github.com/masteranthoneyd/reactor-simple-demo" target="_blank" rel="noopener">https://github.com/masteranthoneyd/reactor-simple-demo</a></em></strong></p>
-</blockquote>
+        <div id="cnblogs_post_body" class="blogpost-body"><br><br>时间、字符串、时间戳之间的互相转换很常用，但是几乎每次使用时候都喜欢去搜索一下用法；本文整理一下三者之间的 转换（即：date转字符串、date转时间戳、字符串转date、字符串转时间戳、时间戳转date，时间戳转字符串）用法，方便日后学习和查阅；<br><br>## 涉及的函数<br><br><a href="https://wuzhuti.cn/tag/date_format/" title="date_format" target="_blank" rel="noopener">date_format</a>(date, format) 函数，<a href="https://wuzhuti.cn/2367.html" title="MySQL日期格式化函数date_format()" target="_blank" rel="noopener">MySQL日期格式化函数date_format()</a><br><br><a href="https://wuzhuti.cn/tag/unix_timestamp/" title="unix_timestamp" target="_blank" rel="noopener">unix_timestamp</a>() 函数<br><br><a href="https://wuzhuti.cn/tag/str_to_date/" title="str_to_date" target="_blank" rel="noopener">str_to_date</a>(str, format) 函数<br><br><a href="https://wuzhuti.cn/tag/from_unixtime/" title="from_unixtime" target="_blank" rel="noopener">from_unixtime</a>(unix_timestamp, format) 函数，<a href="https://wuzhuti.cn/2538.html" title="MySQL时间戳格式化函数from_unixtime" target="_blank" rel="noopener">MySQL时间戳格式化函数from_unixtime</a><br><br>## 时间转字符串<br><br><div class="dp-highlighter bg_sql"><br><br>1.  <span class="keyword">select&nbsp;date_format(now(),&nbsp;<span class="string">‘%Y-%m-%d’);&nbsp;&nbsp;</span></span><br>2.  &nbsp;&nbsp;<br>3.  #结果：2017-01-05&nbsp;&nbsp;</div>
+
+<h2 id="时间转时间戳"><a href="#时间转时间戳" class="headerlink" title="时间转时间戳"></a>时间转时间戳</h2><div class="dp-highlighter bg_sql"><br><br>1.  <span class="keyword">select&nbsp;unix_timestamp(now());&nbsp;&nbsp;</span><br>2.  &nbsp;&nbsp;<br>3.  #结果：1452001082&nbsp;&nbsp;</div>
+
+<h2 id="字符串转时间"><a href="#字符串转时间" class="headerlink" title="字符串转时间"></a>字符串转时间</h2><div class="dp-highlighter bg_sql"><br><br>1.  <span class="keyword">select&nbsp;str_to_date(<span class="string">‘2016-01-02’,&nbsp;<span class="string">‘%Y-%m-%d&nbsp;%H’);&nbsp;&nbsp;</span></span></span><br>2.  &nbsp;&nbsp;<br>3.  #结果：2017-01-02&nbsp;00:00:00&nbsp;&nbsp;</div>
+
+<h2 id="字符串转时间戳"><a href="#字符串转时间戳" class="headerlink" title="字符串转时间戳"></a>字符串转时间戳</h2><div class="dp-highlighter bg_sql"><br><br>1.  <span class="keyword">select&nbsp;unix_timestamp(<span class="string">‘2016-01-02’);&nbsp;&nbsp;</span></span><br>2.  &nbsp;&nbsp;<br>3.  #结果：1451664000&nbsp;&nbsp;</div>
+
+<h2 id="时间戳转时间"><a href="#时间戳转时间" class="headerlink" title="时间戳转时间"></a>时间戳转时间</h2><div class="dp-highlighter bg_sql"><br><br>1.  <span class="keyword">select&nbsp;from_unixtime(1451997924);&nbsp;&nbsp;</span><br>2.  &nbsp;&nbsp;<br>3.  #结果：2017-01-05&nbsp;20:45:24&nbsp;&nbsp;</div>
+
+<h2 id="时间戳转字符串"><a href="#时间戳转字符串" class="headerlink" title="时间戳转字符串"></a>时间戳转字符串</h2><div class="dp-highlighter bg_sql"><br><br>1.  <span class="keyword">select&nbsp;from_unixtime(1451997924,<span class="string">‘%Y-%d’);&nbsp;&nbsp;</span></span><br>2.  &nbsp;&nbsp;<br>3.  //结果：2017-01-05&nbsp;20:45:24&nbsp;&nbsp;</div>
+
+<h2 id="附表"><a href="#附表" class="headerlink" title="附表"></a>附表</h2><p>MySQL日期格式化（format）取值范围。</p>
+<p><table></table></p>
+<p><tbody></tbody></p>
+<p><tr><th>&nbsp;</th><th>值</th><th>含义</th></tr></p>
+<p><tr></tr></p>
+<p><td>秒</td></p>
+<p><td>%S、%s</td></p>
+<p><td>两位数字形式的秒（ 00,01, …, 59）</td><br></p>
+<p><tr></tr></p>
+<p><td>分</td></p>
+<p><td>%I、%i</td></p>
+<p><td>两位数字形式的分（ 00,01, …, 59）</td><br></p>
+<p><tr></tr></p>
+<p><td rowspan="7">小时&nbsp;</td></p>
+<p><td>%H</td></p>
+<p><td>24小时制，两位数形式小时（00,01, …,23）</td><br></p>
+<p><tr></tr></p>
+<p><td>%h</td></p>
+<p><td>12小时制，两位数形式小时（00,01, …,12）</td><br></p>
+<p><tr></tr></p>
+<p><td>%k</td></p>
+<p><td>24小时制，数形式小时（0,1, …,23）</td><br></p>
+<p><tr></tr></p>
+<p><td>%l</td></p>
+<p><td>12小时制，数形式小时（0,1, …,12）</td><br></p>
+<p><tr></tr></p>
+<p><td>%T</td></p>
+<p><td>24小时制，时间形式（HH:mm:ss）</td><br></p>
+<p><tr></tr></p>
+<p><td>%r</td></p>
+<p><td>&nbsp;12小时制，时间形式（hh:mm:ss AM 或 PM）</td><br></p>
+<p><tr></tr></p>
+<p><td>%p&nbsp;</td></p>
+<p><td>AM上午或PM下午&nbsp;</td><br></p>
+<p><tr></tr></p>
+<p><td rowspan="5">&nbsp;&nbsp;周&nbsp;</td></p>
+<p><td>&nbsp;%W</td></p>
+<p><td>一周中每一天的名称（Sunday,Monday, …,Saturday）</td><br></p>
+<p><tr></tr></p>
+<p><td>&nbsp;%a</td></p>
+<p><td>一周中每一天名称的缩写（Sun,Mon, …,Sat）&nbsp;</td><br></p>
+<p><tr></tr></p>
+<p><td>%w&nbsp;</td></p>
+<p><td>以数字形式标识周（0=Sunday,1=Monday, …,6=Saturday）&nbsp;</td><br></p>
+<p><tr></tr></p>
+<p><td>%U</td></p>
+<p><td>数字表示周数，星期天为周中第一天</td><br></p>
+<p><tr></tr></p>
+<p><td>%u</td></p>
+<p><td>数字表示周数，星期一为周中第一天</td><br></p>
+<p><tr></tr></p>
+<p><td rowspan="4">天</td></p>
+<p><td>%d&nbsp;</td></p>
+<p><td>两位数字表示月中天数（01,02, …,31）</td><br></p>
+<p><tr></tr></p>
+<p><td>%e&nbsp;</td></p>
+<p><td>&nbsp;数字表示月中天数（1,2, …,31）</td><br></p>
+<p><tr></tr></p>
+<p><td>&nbsp;%D</td></p>
+<p><td>英文后缀表示月中天数（1st,2nd,3rd …）&nbsp;</td><br></p>
+<p><tr></tr></p>
+<p><td>&nbsp;%j</td></p>
+<p><td>以三位数字表示年中天数（001,002, …,366）&nbsp;</td><br></p>
+<p><tr></tr></p>
+<p><td rowspan="4">月</td></p>
+<p><td>%M&nbsp;</td></p>
+<p><td>英文月名（January,February, …,December）&nbsp;</td><br></p>
+<p><tr></tr></p>
+<p><td>%b&nbsp;</td></p>
+<p><td>英文缩写月名（Jan,Feb, …,Dec）&nbsp;</td><br></p>
+<p><tr></tr></p>
+<p><td>%m&nbsp;</td></p>
+<p><td>两位数字表示月份（01,02, …,12）</td><br></p>
+<p><tr></tr></p>
+<p><td>%c&nbsp;</td></p>
+<p><td>数字表示月份（1,2, …,12）&nbsp;</td><br></p>
+<p><tr></tr></p>
+<p><td rowspan="2">年</td></p>
+<p><td>%Y&nbsp;</td></p>
+<p><td>四位数字表示的年份（2015,2016…）</td><br></p>
+<p><tr></tr></p>
+<p><td>%y&nbsp;</td></p>
+<p><td>&nbsp;两位数字表示的年份（15,16…）</td><br></p>
+<p><tr></tr></p>
+<p><td>文字输出&nbsp;</td></p>
+<p><td>%文字&nbsp;</td></p>
+<p><td>直接输出文字内容</td><br><br><br></p></div><p></p>
 
       
     </div>
@@ -531,9 +479,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Java/" rel="tag"># Java</a>
+            <a href="/tags/mysql/" rel="tag"># mysql</a>
           
-            <a href="/tags/Reactor/" rel="tag"># Reactor</a>
+            <a href="/tags/日期转换/" rel="tag"># 日期转换</a>
+          
+            <a href="/tags/sql/" rel="tag"># sql</a>
           
         </div>
       
@@ -646,7 +596,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -657,7 +607,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">36</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -690,7 +640,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Preface"><span class="nav-number">1.</span> <span class="nav-text">Preface</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#反应式编程介绍"><span class="nav-number">2.</span> <span class="nav-text">反应式编程介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Reactor-简介"><span class="nav-number">3.</span> <span class="nav-text">Reactor 简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Flux-和-Mono"><span class="nav-number">4.</span> <span class="nav-text">Flux 和 Mono</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建-Flux"><span class="nav-number">4.1.</span> <span class="nav-text">创建 Flux</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Flux-类的静态方法"><span class="nav-number">4.1.1.</span> <span class="nav-text">Flux 类的静态方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#generate-方法"><span class="nav-number">4.1.2.</span> <span class="nav-text">generate()方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#create-方法"><span class="nav-number">4.1.3.</span> <span class="nav-text">create()方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建-Mono"><span class="nav-number">4.2.</span> <span class="nav-text">创建 Mono</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#操作符"><span class="nav-number">4.3.</span> <span class="nav-text">操作符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#buffer-和-bufferTimeout"><span class="nav-number">4.3.1.</span> <span class="nav-text">buffer 和 bufferTimeout</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#filter"><span class="nav-number">4.3.2.</span> <span class="nav-text">filter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#window"><span class="nav-number">4.3.3.</span> <span class="nav-text">window</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#zipWith"><span class="nav-number">4.3.4.</span> <span class="nav-text">zipWith</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#take"><span class="nav-number">4.3.5.</span> <span class="nav-text">take</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reduce-和-reduceWith"><span class="nav-number">4.3.6.</span> <span class="nav-text">reduce 和 reduceWith</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#merge-和-mergeSequential"><span class="nav-number">4.3.7.</span> <span class="nav-text">merge 和 mergeSequential</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#flatMap-和-flatMapSequential"><span class="nav-number">4.3.8.</span> <span class="nav-text">flatMap 和 flatMapSequential</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#concatMap"><span class="nav-number">4.3.9.</span> <span class="nav-text">concatMap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#combineLatest"><span class="nav-number">4.3.10.</span> <span class="nav-text">combineLatest</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#消息处理"><span class="nav-number">5.</span> <span class="nav-text">消息处理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#调度器"><span class="nav-number">6.</span> <span class="nav-text">调度器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#测试"><span class="nav-number">7.</span> <span class="nav-text">测试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-StepVerifier"><span class="nav-number">7.1.</span> <span class="nav-text">使用 StepVerifier</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#操作测试时间"><span class="nav-number">7.2.</span> <span class="nav-text">操作测试时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-TestPublisher"><span class="nav-number">7.3.</span> <span class="nav-text">使用 TestPublisher</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启用调试模式"><span class="nav-number">7.4.</span> <span class="nav-text">启用调试模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用检查点"><span class="nav-number">7.5.</span> <span class="nav-text">使用检查点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#日志记录"><span class="nav-number">7.6.</span> <span class="nav-text">日志记录</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#“冷”与“热”序列"><span class="nav-number">8.</span> <span class="nav-text">“冷”与“热”序列</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#End"><span class="nav-number">9.</span> <span class="nav-text">End</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#时间转时间戳"><span class="nav-number">1.</span> <span class="nav-text">时间转时间戳</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串转时间"><span class="nav-number">2.</span> <span class="nav-text">字符串转时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串转时间戳"><span class="nav-number">3.</span> <span class="nav-text">字符串转时间戳</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#时间戳转时间"><span class="nav-number">4.</span> <span class="nav-text">时间戳转时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#时间戳转字符串"><span class="nav-number">5.</span> <span class="nav-text">时间戳转字符串</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附表"><span class="nav-number">6.</span> <span class="nav-text">附表</span></a></li></ol></div>
             
 
           </div>
@@ -710,7 +660,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

@@ -788,8 +788,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Programming/" itemprop="url" rel="index">
-                    <span itemprop="name">Programming</span>
+                  <a href="/categories/mysql/" itemprop="url" rel="index">
+                    <span itemprop="name">mysql</span>
                   </a>
                 </span>
 
@@ -799,8 +799,8 @@
                 
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Programming/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/mysql/sql/" itemprop="url" rel="index">
+                    <span itemprop="name">sql</span>
                   </a>
                 </span>
 
@@ -837,17 +837,108 @@
 
       
         
-          <p><img src="https://cdn.yangbingdong.com/img/with-reactor-response-encode/reactor.png" alt=""></p>
-<h1 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h1><blockquote>
-<p>反应式编程（<code>Reactive Programming</code>）这种新的编程范式越来越受到开发人员的欢迎。在 Java 社区中比较流行的是 <code>RxJava</code> 和 <code>RxJava 2</code>。本篇要介绍的是另外一个新的反应式编程库 <em><a href="https://github.com/reactor/reactor" target="_blank" rel="noopener">Rea</a><a href="http://projectreactor.io/" target="_blank" rel="noopener">ctor</a></em>。<br>Reactor 框架是 <strong>Pivotal</strong> 公司（开发 Spring 等技术的公司）开发的，实现了 <code>Reactive Programming</code> 思想，符合 <code>Reactive Streams</code> 规范（<code>Reactive Streams</code> 是由 <strong>Netflix</strong>、<strong>TypeSafe</strong>、<strong>Pivotal</strong> 等公司发起的）的一项技术。其名字有反应堆之意，反映了其背后的<em>强大的性能</em>。</p>
-</blockquote>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/11/30/with-reactor-response-encode/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+          
+            <div id="cnblogs_post_body" class="blogpost-body"><br><br>时间、字符串、时间戳之间的互相转换很常用，但是几乎每次使用时候都喜欢去搜索一下用法；本文整理一下三者之间的 转换（即：date转字符串、date转时间戳、字符串转date、字符串转时间戳、时间戳转date，时间戳转字符串）用法，方便日后学习和查阅；<br><br>## 涉及的函数<br><br><a href="https://wuzhuti.cn/tag/date_format/" title="date_format" target="_blank" rel="noopener">date_format</a>(date, format) 函数，<a href="https://wuzhuti.cn/2367.html" title="MySQL日期格式化函数date_format()" target="_blank" rel="noopener">MySQL日期格式化函数date_format()</a><br><br><a href="https://wuzhuti.cn/tag/unix_timestamp/" title="unix_timestamp" target="_blank" rel="noopener">unix_timestamp</a>() 函数<br><br><a href="https://wuzhuti.cn/tag/str_to_date/" title="str_to_date" target="_blank" rel="noopener">str_to_date</a>(str, format) 函数<br><br><a href="https://wuzhuti.cn/tag/from_unixtime/" title="from_unixtime" target="_blank" rel="noopener">from_unixtime</a>(unix_timestamp, format) 函数，<a href="https://wuzhuti.cn/2538.html" title="MySQL时间戳格式化函数from_unixtime" target="_blank" rel="noopener">MySQL时间戳格式化函数from_unixtime</a><br><br>## 时间转字符串<br><br><div class="dp-highlighter bg_sql"><br><br>1.  <span class="keyword">select&nbsp;date_format(now(),&nbsp;<span class="string">‘%Y-%m-%d’);&nbsp;&nbsp;</span></span><br>2.  &nbsp;&nbsp;<br>3.  #结果：2017-01-05&nbsp;&nbsp;</div>
+
+<h2 id="时间转时间戳"><a href="#时间转时间戳" class="headerlink" title="时间转时间戳"></a>时间转时间戳</h2><div class="dp-highlighter bg_sql"><br><br>1.  <span class="keyword">select&nbsp;unix_timestamp(now());&nbsp;&nbsp;</span><br>2.  &nbsp;&nbsp;<br>3.  #结果：1452001082&nbsp;&nbsp;</div>
+
+<h2 id="字符串转时间"><a href="#字符串转时间" class="headerlink" title="字符串转时间"></a>字符串转时间</h2><div class="dp-highlighter bg_sql"><br><br>1.  <span class="keyword">select&nbsp;str_to_date(<span class="string">‘2016-01-02’,&nbsp;<span class="string">‘%Y-%m-%d&nbsp;%H’);&nbsp;&nbsp;</span></span></span><br>2.  &nbsp;&nbsp;<br>3.  #结果：2017-01-02&nbsp;00:00:00&nbsp;&nbsp;</div>
+
+<h2 id="字符串转时间戳"><a href="#字符串转时间戳" class="headerlink" title="字符串转时间戳"></a>字符串转时间戳</h2><div class="dp-highlighter bg_sql"><br><br>1.  <span class="keyword">select&nbsp;unix_timestamp(<span class="string">‘2016-01-02’);&nbsp;&nbsp;</span></span><br>2.  &nbsp;&nbsp;<br>3.  #结果：1451664000&nbsp;&nbsp;</div>
+
+<h2 id="时间戳转时间"><a href="#时间戳转时间" class="headerlink" title="时间戳转时间"></a>时间戳转时间</h2><div class="dp-highlighter bg_sql"><br><br>1.  <span class="keyword">select&nbsp;from_unixtime(1451997924);&nbsp;&nbsp;</span><br>2.  &nbsp;&nbsp;<br>3.  #结果：2017-01-05&nbsp;20:45:24&nbsp;&nbsp;</div>
+
+<h2 id="时间戳转字符串"><a href="#时间戳转字符串" class="headerlink" title="时间戳转字符串"></a>时间戳转字符串</h2><div class="dp-highlighter bg_sql"><br><br>1.  <span class="keyword">select&nbsp;from_unixtime(1451997924,<span class="string">‘%Y-%d’);&nbsp;&nbsp;</span></span><br>2.  &nbsp;&nbsp;<br>3.  //结果：2017-01-05&nbsp;20:45:24&nbsp;&nbsp;</div>
+
+<h2 id="附表"><a href="#附表" class="headerlink" title="附表"></a>附表</h2><p>MySQL日期格式化（format）取值范围。</p>
+<p><table></table></p>
+<p><tbody></tbody></p>
+<p><tr><th>&nbsp;</th><th>值</th><th>含义</th></tr></p>
+<p><tr></tr></p>
+<p><td>秒</td></p>
+<p><td>%S、%s</td></p>
+<p><td>两位数字形式的秒（ 00,01, …, 59）</td><br></p>
+<p><tr></tr></p>
+<p><td>分</td></p>
+<p><td>%I、%i</td></p>
+<p><td>两位数字形式的分（ 00,01, …, 59）</td><br></p>
+<p><tr></tr></p>
+<p><td rowspan="7">小时&nbsp;</td></p>
+<p><td>%H</td></p>
+<p><td>24小时制，两位数形式小时（00,01, …,23）</td><br></p>
+<p><tr></tr></p>
+<p><td>%h</td></p>
+<p><td>12小时制，两位数形式小时（00,01, …,12）</td><br></p>
+<p><tr></tr></p>
+<p><td>%k</td></p>
+<p><td>24小时制，数形式小时（0,1, …,23）</td><br></p>
+<p><tr></tr></p>
+<p><td>%l</td></p>
+<p><td>12小时制，数形式小时（0,1, …,12）</td><br></p>
+<p><tr></tr></p>
+<p><td>%T</td></p>
+<p><td>24小时制，时间形式（HH:mm:ss）</td><br></p>
+<p><tr></tr></p>
+<p><td>%r</td></p>
+<p><td>&nbsp;12小时制，时间形式（hh:mm:ss AM 或 PM）</td><br></p>
+<p><tr></tr></p>
+<p><td>%p&nbsp;</td></p>
+<p><td>AM上午或PM下午&nbsp;</td><br></p>
+<p><tr></tr></p>
+<p><td rowspan="5">&nbsp;&nbsp;周&nbsp;</td></p>
+<p><td>&nbsp;%W</td></p>
+<p><td>一周中每一天的名称（Sunday,Monday, …,Saturday）</td><br></p>
+<p><tr></tr></p>
+<p><td>&nbsp;%a</td></p>
+<p><td>一周中每一天名称的缩写（Sun,Mon, …,Sat）&nbsp;</td><br></p>
+<p><tr></tr></p>
+<p><td>%w&nbsp;</td></p>
+<p><td>以数字形式标识周（0=Sunday,1=Monday, …,6=Saturday）&nbsp;</td><br></p>
+<p><tr></tr></p>
+<p><td>%U</td></p>
+<p><td>数字表示周数，星期天为周中第一天</td><br></p>
+<p><tr></tr></p>
+<p><td>%u</td></p>
+<p><td>数字表示周数，星期一为周中第一天</td><br></p>
+<p><tr></tr></p>
+<p><td rowspan="4">天</td></p>
+<p><td>%d&nbsp;</td></p>
+<p><td>两位数字表示月中天数（01,02, …,31）</td><br></p>
+<p><tr></tr></p>
+<p><td>%e&nbsp;</td></p>
+<p><td>&nbsp;数字表示月中天数（1,2, …,31）</td><br></p>
+<p><tr></tr></p>
+<p><td>&nbsp;%D</td></p>
+<p><td>英文后缀表示月中天数（1st,2nd,3rd …）&nbsp;</td><br></p>
+<p><tr></tr></p>
+<p><td>&nbsp;%j</td></p>
+<p><td>以三位数字表示年中天数（001,002, …,366）&nbsp;</td><br></p>
+<p><tr></tr></p>
+<p><td rowspan="4">月</td></p>
+<p><td>%M&nbsp;</td></p>
+<p><td>英文月名（January,February, …,December）&nbsp;</td><br></p>
+<p><tr></tr></p>
+<p><td>%b&nbsp;</td></p>
+<p><td>英文缩写月名（Jan,Feb, …,Dec）&nbsp;</td><br></p>
+<p><tr></tr></p>
+<p><td>%m&nbsp;</td></p>
+<p><td>两位数字表示月份（01,02, …,12）</td><br></p>
+<p><tr></tr></p>
+<p><td>%c&nbsp;</td></p>
+<p><td>数字表示月份（1,2, …,12）&nbsp;</td><br></p>
+<p><tr></tr></p>
+<p><td rowspan="2">年</td></p>
+<p><td>%Y&nbsp;</td></p>
+<p><td>四位数字表示的年份（2015,2016…）</td><br></p>
+<p><tr></tr></p>
+<p><td>%y&nbsp;</td></p>
+<p><td>&nbsp;两位数字表示的年份（15,16…）</td><br></p>
+<p><tr></tr></p>
+<p><td>文字输出&nbsp;</td></p>
+<p><td>%文字&nbsp;</td></p>
+<p><td>直接输出文字内容</td><br><br><br></p></div><p></p>
+
+          
         
       
     </div>
@@ -1894,7 +1985,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1905,7 +1996,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">36</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1942,7 +2033,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
