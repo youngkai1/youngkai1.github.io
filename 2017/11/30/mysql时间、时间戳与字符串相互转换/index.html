@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="时间、字符串、时间戳之间的互相转换很常用，但是几乎每次使用时候都喜欢去搜索一下用法；本文整理一下三者之间的 转换（即：date转字符串、date转时间戳、字符串转date、字符串转时间戳、时间戳转date，时间戳转字符串）用法，方便日后学习和查阅；## 涉及的函数date_format(date, format) 函数，MySQL日期格式化函数date_format()unix_timestamp">
+<meta name="description" content="时间、字符串、时间戳之间的互相转换很常用，但是几乎每次使用时候都喜欢去搜索一下用法；本文整理一下三者之间的 转换（即：date转字符串、date转时间戳、字符串转date、字符串转时间戳、时间戳转date，时间戳转字符串）用法，方便日后学习和查阅； 涉及的函数date_format(date, format) 函数，MySQL日期格式化函数date_format() unix_timestamp(">
 <meta name="keywords" content="mysql,日期转换,sql">
 <meta property="og:type" content="article">
 <meta property="og:title" content="mysql时间、时间戳与字符串相互转换">
 <meta property="og:url" content="http://yoursite.com/2017/11/30/mysql时间、时间戳与字符串相互转换/index.html">
 <meta property="og:site_name" content="如风过境">
-<meta property="og:description" content="时间、字符串、时间戳之间的互相转换很常用，但是几乎每次使用时候都喜欢去搜索一下用法；本文整理一下三者之间的 转换（即：date转字符串、date转时间戳、字符串转date、字符串转时间戳、时间戳转date，时间戳转字符串）用法，方便日后学习和查阅；## 涉及的函数date_format(date, format) 函数，MySQL日期格式化函数date_format()unix_timestamp">
+<meta property="og:description" content="时间、字符串、时间戳之间的互相转换很常用，但是几乎每次使用时候都喜欢去搜索一下用法；本文整理一下三者之间的 转换（即：date转字符串、date转时间戳、字符串转date、字符串转时间戳、时间戳转date，时间戳转字符串）用法，方便日后学习和查阅； 涉及的函数date_format(date, format) 函数，MySQL日期格式化函数date_format() unix_timestamp(">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-22T10:03:02.400Z">
+<meta property="og:updated_time" content="2019-01-22T11:05:06.359Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql时间、时间戳与字符串相互转换">
-<meta name="twitter:description" content="时间、字符串、时间戳之间的互相转换很常用，但是几乎每次使用时候都喜欢去搜索一下用法；本文整理一下三者之间的 转换（即：date转字符串、date转时间戳、字符串转date、字符串转时间戳、时间戳转date，时间戳转字符串）用法，方便日后学习和查阅；## 涉及的函数date_format(date, format) 函数，MySQL日期格式化函数date_format()unix_timestamp">
+<meta name="twitter:description" content="时间、字符串、时间戳之间的互相转换很常用，但是几乎每次使用时候都喜欢去搜索一下用法；本文整理一下三者之间的 转换（即：date转字符串、date转时间戳、字符串转date、字符串转时间戳、时间戳转date，时间戳转字符串）用法，方便日后学习和查阅； 涉及的函数date_format(date, format) 函数，MySQL日期格式化函数date_format() unix_timestamp(">
 
 
 
@@ -363,7 +363,12 @@
       
 
       
-        <div id="cnblogs_post_body" class="blogpost-body"><br><br>时间、字符串、时间戳之间的互相转换很常用，但是几乎每次使用时候都喜欢去搜索一下用法；本文整理一下三者之间的 转换（即：date转字符串、date转时间戳、字符串转date、字符串转时间戳、时间戳转date，时间戳转字符串）用法，方便日后学习和查阅；<br><br>## 涉及的函数<br><br><a href="https://wuzhuti.cn/tag/date_format/" title="date_format" target="_blank" rel="noopener">date_format</a>(date, format) 函数，<a href="https://wuzhuti.cn/2367.html" title="MySQL日期格式化函数date_format()" target="_blank" rel="noopener">MySQL日期格式化函数date_format()</a><br><br><a href="https://wuzhuti.cn/tag/unix_timestamp/" title="unix_timestamp" target="_blank" rel="noopener">unix_timestamp</a>() 函数<br><br><a href="https://wuzhuti.cn/tag/str_to_date/" title="str_to_date" target="_blank" rel="noopener">str_to_date</a>(str, format) 函数<br><br><a href="https://wuzhuti.cn/tag/from_unixtime/" title="from_unixtime" target="_blank" rel="noopener">from_unixtime</a>(unix_timestamp, format) 函数，<a href="https://wuzhuti.cn/2538.html" title="MySQL时间戳格式化函数from_unixtime" target="_blank" rel="noopener">MySQL时间戳格式化函数from_unixtime</a><br><br>## 时间转字符串<br><br><div class="dp-highlighter bg_sql"><br><br>1.  <span class="keyword">select&nbsp;date_format(now(),&nbsp;<span class="string">‘%Y-%m-%d’);&nbsp;&nbsp;</span></span><br>2.  &nbsp;&nbsp;<br>3.  #结果：2017-01-05&nbsp;&nbsp;</div>
+        <p>时间、字符串、时间戳之间的互相转换很常用，但是几乎每次使用时候都喜欢去搜索一下用法；本文整理一下三者之间的 转换（即：date转字符串、date转时间戳、字符串转date、字符串转时间戳、时间戳转date，时间戳转字符串）用法，方便日后学习和查阅；</p>
+<h2 id="涉及的函数"><a href="#涉及的函数" class="headerlink" title="涉及的函数"></a>涉及的函数</h2><p><a href="https://wuzhuti.cn/tag/date_format/" title="date_format" target="_blank" rel="noopener">date_format</a>(date, format) 函数，<a href="https://wuzhuti.cn/2367.html" title="MySQL日期格式化函数date_format()" target="_blank" rel="noopener">MySQL日期格式化函数date_format()</a></p>
+<p><a href="https://wuzhuti.cn/tag/unix_timestamp/" title="unix_timestamp" target="_blank" rel="noopener">unix_timestamp</a>() 函数</p>
+<p><a href="https://wuzhuti.cn/tag/str_to_date/" title="str_to_date" target="_blank" rel="noopener">str_to_date</a>(str, format) 函数</p>
+<p><a href="https://wuzhuti.cn/tag/from_unixtime/" title="from_unixtime" target="_blank" rel="noopener">from_unixtime</a>(unix_timestamp, format) 函数，<a href="https://wuzhuti.cn/2538.html" title="MySQL时间戳格式化函数from_unixtime" target="_blank" rel="noopener">MySQL时间戳格式化函数from_unixtime</a></p>
+<h2 id="时间转字符串"><a href="#时间转字符串" class="headerlink" title="时间转字符串"></a>时间转字符串</h2><div class="dp-highlighter bg_sql"><br><br>1.  <span class="keyword">select&nbsp;date_format(now(),&nbsp;<span class="string">‘%Y-%m-%d’);&nbsp;&nbsp;</span></span><br>2.  &nbsp;&nbsp;<br>3.  #结果：2017-01-05&nbsp;&nbsp;</div>
 
 <h2 id="时间转时间戳"><a href="#时间转时间戳" class="headerlink" title="时间转时间戳"></a>时间转时间戳</h2><div class="dp-highlighter bg_sql"><br><br>1.  <span class="keyword">select&nbsp;unix_timestamp(now());&nbsp;&nbsp;</span><br>2.  &nbsp;&nbsp;<br>3.  #结果：1452001082&nbsp;&nbsp;</div>
 
@@ -376,93 +381,7 @@
 <h2 id="时间戳转字符串"><a href="#时间戳转字符串" class="headerlink" title="时间戳转字符串"></a>时间戳转字符串</h2><div class="dp-highlighter bg_sql"><br><br>1.  <span class="keyword">select&nbsp;from_unixtime(1451997924,<span class="string">‘%Y-%d’);&nbsp;&nbsp;</span></span><br>2.  &nbsp;&nbsp;<br>3.  //结果：2017-01-05&nbsp;20:45:24&nbsp;&nbsp;</div>
 
 <h2 id="附表"><a href="#附表" class="headerlink" title="附表"></a>附表</h2><p>MySQL日期格式化（format）取值范围。</p>
-<p><table></table></p>
-<p><tbody></tbody></p>
-<p><tr><th>&nbsp;</th><th>值</th><th>含义</th></tr></p>
-<p><tr></tr></p>
-<p><td>秒</td></p>
-<p><td>%S、%s</td></p>
-<p><td>两位数字形式的秒（ 00,01, …, 59）</td><br></p>
-<p><tr></tr></p>
-<p><td>分</td></p>
-<p><td>%I、%i</td></p>
-<p><td>两位数字形式的分（ 00,01, …, 59）</td><br></p>
-<p><tr></tr></p>
-<p><td rowspan="7">小时&nbsp;</td></p>
-<p><td>%H</td></p>
-<p><td>24小时制，两位数形式小时（00,01, …,23）</td><br></p>
-<p><tr></tr></p>
-<p><td>%h</td></p>
-<p><td>12小时制，两位数形式小时（00,01, …,12）</td><br></p>
-<p><tr></tr></p>
-<p><td>%k</td></p>
-<p><td>24小时制，数形式小时（0,1, …,23）</td><br></p>
-<p><tr></tr></p>
-<p><td>%l</td></p>
-<p><td>12小时制，数形式小时（0,1, …,12）</td><br></p>
-<p><tr></tr></p>
-<p><td>%T</td></p>
-<p><td>24小时制，时间形式（HH:mm:ss）</td><br></p>
-<p><tr></tr></p>
-<p><td>%r</td></p>
-<p><td>&nbsp;12小时制，时间形式（hh:mm:ss AM 或 PM）</td><br></p>
-<p><tr></tr></p>
-<p><td>%p&nbsp;</td></p>
-<p><td>AM上午或PM下午&nbsp;</td><br></p>
-<p><tr></tr></p>
-<p><td rowspan="5">&nbsp;&nbsp;周&nbsp;</td></p>
-<p><td>&nbsp;%W</td></p>
-<p><td>一周中每一天的名称（Sunday,Monday, …,Saturday）</td><br></p>
-<p><tr></tr></p>
-<p><td>&nbsp;%a</td></p>
-<p><td>一周中每一天名称的缩写（Sun,Mon, …,Sat）&nbsp;</td><br></p>
-<p><tr></tr></p>
-<p><td>%w&nbsp;</td></p>
-<p><td>以数字形式标识周（0=Sunday,1=Monday, …,6=Saturday）&nbsp;</td><br></p>
-<p><tr></tr></p>
-<p><td>%U</td></p>
-<p><td>数字表示周数，星期天为周中第一天</td><br></p>
-<p><tr></tr></p>
-<p><td>%u</td></p>
-<p><td>数字表示周数，星期一为周中第一天</td><br></p>
-<p><tr></tr></p>
-<p><td rowspan="4">天</td></p>
-<p><td>%d&nbsp;</td></p>
-<p><td>两位数字表示月中天数（01,02, …,31）</td><br></p>
-<p><tr></tr></p>
-<p><td>%e&nbsp;</td></p>
-<p><td>&nbsp;数字表示月中天数（1,2, …,31）</td><br></p>
-<p><tr></tr></p>
-<p><td>&nbsp;%D</td></p>
-<p><td>英文后缀表示月中天数（1st,2nd,3rd …）&nbsp;</td><br></p>
-<p><tr></tr></p>
-<p><td>&nbsp;%j</td></p>
-<p><td>以三位数字表示年中天数（001,002, …,366）&nbsp;</td><br></p>
-<p><tr></tr></p>
-<p><td rowspan="4">月</td></p>
-<p><td>%M&nbsp;</td></p>
-<p><td>英文月名（January,February, …,December）&nbsp;</td><br></p>
-<p><tr></tr></p>
-<p><td>%b&nbsp;</td></p>
-<p><td>英文缩写月名（Jan,Feb, …,Dec）&nbsp;</td><br></p>
-<p><tr></tr></p>
-<p><td>%m&nbsp;</td></p>
-<p><td>两位数字表示月份（01,02, …,12）</td><br></p>
-<p><tr></tr></p>
-<p><td>%c&nbsp;</td></p>
-<p><td>数字表示月份（1,2, …,12）&nbsp;</td><br></p>
-<p><tr></tr></p>
-<p><td rowspan="2">年</td></p>
-<p><td>%Y&nbsp;</td></p>
-<p><td>四位数字表示的年份（2015,2016…）</td><br></p>
-<p><tr></tr></p>
-<p><td>%y&nbsp;</td></p>
-<p><td>&nbsp;两位数字表示的年份（15,16…）</td><br></p>
-<p><tr></tr></p>
-<p><td>文字输出&nbsp;</td></p>
-<p><td>%文字&nbsp;</td></p>
-<p><td>直接输出文字内容</td><br><br><br></p></div><p></p>
-
+<table><br><tbody><br><tr><th>&nbsp;</th><th>值</th><th>含义</th></tr><br><tr><br><td>秒</td><br><td>%S、%s</td><br><td>两位数字形式的秒（ 00,01, …, 59）</td><br></tr><br><tr><br><td>分</td><br><td>%I、%i</td><br><td>两位数字形式的分（ 00,01, …, 59）</td><br></tr><br><tr><br><td rowspan="7">小时&nbsp;</td><br><td>%H</td><br><td>24小时制，两位数形式小时（00,01, …,23）</td><br></tr><br><tr><br><td>%h</td><br><td>12小时制，两位数形式小时（00,01, …,12）</td><br></tr><br><tr><br><td>%k</td><br><td>24小时制，数形式小时（0,1, …,23）</td><br></tr><br><tr><br><td>%l</td><br><td>12小时制，数形式小时（0,1, …,12）</td><br></tr><br><tr><br><td>%T</td><br><td>24小时制，时间形式（HH:mm:ss）</td><br></tr><br><tr><br><td>%r</td><br><td>&nbsp;12小时制，时间形式（hh:mm:ss AM 或 PM）</td><br></tr><br><tr><br><td>%p&nbsp;</td><br><td>AM上午或PM下午&nbsp;</td><br></tr><br><tr><br><td rowspan="5">&nbsp;&nbsp;周&nbsp;</td><br><td>&nbsp;%W</td><br><td>一周中每一天的名称（Sunday,Monday, …,Saturday）</td><br></tr><br><tr><br><td>&nbsp;%a</td><br><td>一周中每一天名称的缩写（Sun,Mon, …,Sat）&nbsp;</td><br></tr><br><tr><br><td>%w&nbsp;</td><br><td>以数字形式标识周（0=Sunday,1=Monday, …,6=Saturday）&nbsp;</td><br></tr><br><tr><br><td>%U</td><br><td>数字表示周数，星期天为周中第一天</td><br></tr><br><tr><br><td>%u</td><br><td>数字表示周数，星期一为周中第一天</td><br></tr><br><tr><br><td rowspan="4">天</td><br><td>%d&nbsp;</td><br><td>两位数字表示月中天数（01,02, …,31）</td><br></tr><br><tr><br><td>%e&nbsp;</td><br><td>&nbsp;数字表示月中天数（1,2, …,31）</td><br></tr><br><tr><br><td>&nbsp;%D</td><br><td>英文后缀表示月中天数（1st,2nd,3rd …）&nbsp;</td><br></tr><br><tr><br><td>&nbsp;%j</td><br><td>以三位数字表示年中天数（001,002, …,366）&nbsp;</td><br></tr><br><tr><br><td rowspan="4">月</td><br><td>%M&nbsp;</td><br><td>英文月名（January,February, …,December）&nbsp;</td><br></tr><br><tr><br><td>%b&nbsp;</td><br><td>英文缩写月名（Jan,Feb, …,Dec）&nbsp;</td><br></tr><br><tr><br><td>%m&nbsp;</td><br><td>两位数字表示月份（01,02, …,12）</td><br></tr><br><tr><br><td>%c&nbsp;</td><br><td>数字表示月份（1,2, …,12）&nbsp;</td><br></tr><br><tr><br><td rowspan="2">年</td><br><td>%Y&nbsp;</td><br><td>四位数字表示的年份（2015,2016…）</td><br></tr><br><tr><br><td>%y&nbsp;</td><br><td>&nbsp;两位数字表示的年份（15,16…）</td><br></tr><br><tr><br><td>文字输出&nbsp;</td><br><td>%文字&nbsp;</td><br><td>直接输出文字内容</td><br></tr><br></tbody><br></table>
       
     </div>
     
@@ -640,7 +559,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#时间转时间戳"><span class="nav-number">1.</span> <span class="nav-text">时间转时间戳</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串转时间"><span class="nav-number">2.</span> <span class="nav-text">字符串转时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串转时间戳"><span class="nav-number">3.</span> <span class="nav-text">字符串转时间戳</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#时间戳转时间"><span class="nav-number">4.</span> <span class="nav-text">时间戳转时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#时间戳转字符串"><span class="nav-number">5.</span> <span class="nav-text">时间戳转字符串</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附表"><span class="nav-number">6.</span> <span class="nav-text">附表</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#涉及的函数"><span class="nav-number">1.</span> <span class="nav-text">涉及的函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#时间转字符串"><span class="nav-number">2.</span> <span class="nav-text">时间转字符串</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#时间转时间戳"><span class="nav-number">3.</span> <span class="nav-text">时间转时间戳</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串转时间"><span class="nav-number">4.</span> <span class="nav-text">字符串转时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串转时间戳"><span class="nav-number">5.</span> <span class="nav-text">字符串转时间戳</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#时间戳转时间"><span class="nav-number">6.</span> <span class="nav-text">时间戳转时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#时间戳转字符串"><span class="nav-number">7.</span> <span class="nav-text">时间戳转字符串</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附表"><span class="nav-number">8.</span> <span class="nav-text">附表</span></a></li></ol></div>
             
 
           </div>
